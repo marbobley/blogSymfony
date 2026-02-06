@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Controller;
 
 use App\Application\DTO\PostDTO;
@@ -25,8 +27,8 @@ class PostController extends AbstractController
     {
         if ($request->isMethod('POST')) {
             $dto = new PostDTO(
-                $request->request->get('title'),
-                $request->request->get('content')
+                (string) $request->request->get('title'),
+                (string) $request->request->get('content')
             );
 
             $createPost->execute($dto);
