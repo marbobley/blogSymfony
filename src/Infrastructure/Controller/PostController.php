@@ -4,6 +4,7 @@ namespace App\Infrastructure\Controller;
 
 use App\Application\DTO\PostDTO;
 use App\Application\UseCase\CreatePost;
+use App\Application\UseCaseInteface\CreatePostInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PostController extends AbstractController
 {
     #[Route('/post/new', name: 'app_post_new', methods: ['GET', 'POST'])]
-    public function create(Request $request, CreatePost $createPost): Response
+    public function create(Request $request, CreatePostInterface $createPost): Response
     {
         if ($request->isMethod('POST')) {
             $dto = new PostDTO(
