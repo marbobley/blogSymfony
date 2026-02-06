@@ -3,8 +3,23 @@
 }
 
 body {
-    background-color: #f8f9fa; /* Un gris très clair pour plus de douceur */
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+[data-bs-theme="light"] body {
+    background-color: #f8f9fa;
+}
+
+/* Amélioration de la carte en mode sombre */
+[data-bs-theme="dark"] .card {
+    background-color: #1e1e1e;
+    border: 1px solid #333 !important;
+}
+
+[data-bs-theme="dark"] .bg-white {
+    background-color: #1e1e1e !important;
 }
 
 /* Animation simple d'entrée */
@@ -40,6 +55,9 @@ body {
 
 .nav-link {
     font-weight: 500;
+}
+
+[data-bs-theme="light"] .nav-link {
     color: #495057 !important;
 }
 

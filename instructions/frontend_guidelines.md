@@ -22,10 +22,16 @@ Ce document définit les standards pour le développement frontend de l'applicat
 *   **Hiérarchie** : Utiliser la typographie pour guider l'œil (poids, taille, couleur).
 *   **Icônes** : Utiliser les `bootstrap-icons` de manière parcimonieuse pour illustrer les actions.
 
-### 4. Animations Simples
+### 4. Animations Simples & États
 *   **Discrétion** : Les animations ne doivent pas distraire l'utilisateur mais accompagner ses actions.
 *   **Transitions** : Utiliser des transitions CSS fluides sur les hovers et les changements d'état (0.3s max).
 *   **Performance** : Préférer `transform` et `opacity` pour les animations.
+*   **Feedback** : Utiliser des messages flash pour confirmer les actions de l'utilisateur (succès, erreur).
+
+### 5. Thémage & SEO
+*   **Dark Mode** : Support natif du mode sombre via `data-bs-theme="auto"` et les variables CSS de Bootstrap 5.3.
+*   **SEO de base** : Chaque page doit avoir un titre explicite et une meta description.
+*   **Viewport** : Toujours inclure la balise viewport pour le responsive.
 
 ---
 
@@ -93,4 +99,7 @@ Chaque page doit suivre cette structure sémantique dans `base.html.twig` :
 - [ ] Le contenu est-il structuré avec des balises sémantiques (`<header>`, `<main>`, `<footer>`) ?
 - [ ] Les icônes ont-elles toutes un texte alternatif ou un `aria-label` ?
 - [ ] Les boutons et liens sont-ils faciles à cliquer sur mobile (taille min 44x44px) ?
+- [ ] Le mode sombre est-il testé et lisible ?
+- [ ] Les messages de succès/erreur sont-ils implémentés pour les actions critiques ?
+- [ ] Les balises meta SEO sont-elles présentes ?
 - [ ] Les animations sont-elles fluides et non envahissantes ?

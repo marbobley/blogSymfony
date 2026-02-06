@@ -33,6 +33,8 @@ class PostController extends AbstractController
 
             $createPost->execute($dto);
 
+            $this->addFlash('success', 'Votre article a été publié avec succès !');
+
             return $this->redirectToRoute('app_post_index');
         }
 
