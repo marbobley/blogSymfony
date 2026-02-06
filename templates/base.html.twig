@@ -37,10 +37,11 @@
             </nav>
         </header>
 
-        <main class="container">
+        <main class="container py-4">
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
-                    <div class="alert alert-{{ label }} alert-dismissible fade show animate-fade-in" role="alert">
+                    <div class="alert alert-{{ label == 'error' ? 'danger' : label }} alert-dismissible fade show animate-fade-in" role="alert">
+                        <i class="bi {{ label == 'success' ? 'bi-check-circle' : 'bi-exclamation-triangle' }} me-2"></i>
                         {{ message }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>

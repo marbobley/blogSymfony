@@ -22,7 +22,7 @@ class PostType extends AbstractType
                 'label' => 'Titre de l\'article',
                 'attr' => [
                     'placeholder' => 'Entrez un titre accrocheur',
-                    'class' => 'form-control-lg border-2 transition-base'
+                    'class' => 'transition-base'
                 ],
                 'constraints' => [
                     new NotBlank(['message' => 'Le titre est obligatoire.']),
@@ -37,7 +37,7 @@ class PostType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Écrivez votre texte ici...',
                     'rows' => 8,
-                    'class' => 'border-2 transition-base'
+                    'class' => 'transition-base'
                 ],
                 'constraints' => [
                     new NotBlank(['message' => 'Le contenu est obligatoire.']),

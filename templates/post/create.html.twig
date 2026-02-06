@@ -15,16 +15,18 @@
 
                     {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
                         <div class="mb-4">
-                            {{ form_label(form.title, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
-                            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
-                            {{ form_errors(form.title) }}
+                            {{ form_row(form.title, {
+                                'label_attr': {'class': 'form-label fw-semibold'},
+                                'attr': {'class': 'form-control-lg transition-base'}
+                            }) }}
                             <div class="form-text small">Le titre doit être explicite et donner envie de lire.</div>
                         </div>
 
                         <div class="mb-4">
-                            {{ form_label(form.content, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
-                            {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
-                            {{ form_errors(form.content) }}
+                            {{ form_row(form.content, {
+                                'label_attr': {'class': 'form-label fw-semibold'},
+                                'attr': {'class': 'transition-base'}
+                            }) }}
                         </div>
 
                         <div class="d-grid gap-3 d-md-flex justify-content-md-end mt-5">

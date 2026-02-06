@@ -29,15 +29,19 @@ class PostController extends AbstractController
         $form = $this->createForm(PostType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var PostDTO $dto */
-            $dto = $form->getData();
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                /** @var PostDTO $dto */
+                $dto = $form->getData();
 
-            $createPost->execute($dto);
+                $createPost->execute($dto);
 
-            $this->addFlash('success', 'Votre article a été publié avec succès !');
+                $this->addFlash('success', 'Votre article a été publié avec succès !');
 
-            return $this->redirectToRoute('app_post_index');
+                return $this->redirectToRoute('app_post_index');
+            }
+
+            $this->addFlash('error', 'Il y a des erreurs dans votre formulaire. Veuillez les corriger.');
         }
 
         return $this->render('post/create.html.twig', [
