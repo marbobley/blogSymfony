@@ -2,7 +2,15 @@
 
 Ce document regroupe les standards de développement et les choix d'architecture pour le projet de blog.
 
-## 1. Clean Code
+## 1. PHP Strict Types et Qualité du Code
+
+L'utilisation du mode strict est obligatoire dans tout le projet pour garantir la robustesse du typage.
+
+*   **Strict Types** : Chaque fichier PHP doit commencer par `declare(strict_types=1);` immédiatement après la balise d'ouverture `<?php`.
+*   **Typage Explicite** : Utilisez le typage fort pour les paramètres de fonction, les types de retour et les propriétés de classe.
+*   **Conversion de Type** : Lors de la récupération de données depuis des sources non typées (comme `Request` de Symfony), effectuez une conversion explicite (casting) avant de les passer à des objets typés (ex: `(string) $request->request->get('title')`).
+
+## 2. Clean Code
 
 Le **Clean Code** consiste à écrire du code facile à lire, à comprendre et à maintenir.
 
