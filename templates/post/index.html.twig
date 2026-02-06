@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des posts{% endblock %}
+
+{% block body %}
+    <h1>Liste des posts</h1>
+
+    <a href="{{ path('app_post_new') }}">Créer un nouveau post</a>
+
+    <div class="posts">
+        {% for post in posts %}
+            <article>
+                <h2>{{ post.title }}</h2>
+                <p><small>Publié le {{ post.createdAt|date('d/m/Y H:i') }}</small></p>
+                <div>
+                    {{ post.content|nl2br }}
+                </div>
+            </article>
+            <hr>
+        {% else %}
+            <p>Aucun post trouvé.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

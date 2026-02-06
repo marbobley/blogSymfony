@@ -18,4 +18,9 @@ class DoctrinePostRepository implements PostRepositoryInterface
         $this->entityManager->persist($post);
         $this->entityManager->flush();
     }
+
+    public function findAll(): array
+    {
+        return $this->entityManager->getRepository(Post::class)->findAll();
+    }
 }

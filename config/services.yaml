@@ -24,8 +24,11 @@ services:
     App\Domain\Repository\PostRepositoryInterface:
         alias: App\Infrastructure\Persistence\DoctrinePostRepository
 
-    App\Application\UseCaseInteface\CreatePostInterface:
+    App\Application\UseCaseInterface\CreatePostInterface:
         alias: App\Application\UseCase\CreatePost
+
+    App\Application\UseCaseInterface\ListPostsInterface:
+        alias: App\Application\UseCase\ListPosts
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
