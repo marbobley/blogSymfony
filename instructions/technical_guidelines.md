@@ -55,20 +55,36 @@ Les détails techniques et les implémentations.
 
 ---
 
-## 3. Schéma du flux : Créer un Post
+## 4. Stratégie de Validation Multicouche
 
-Voici comment circule l'information pour le premier Use Case :
+Pour garantir l'intégrité des données et prévenir les erreurs fatales (ex: SQL `1406 Data too long`), une validation à trois niveaux est obligatoire :
 
-1.  **Utilisateur** -> Soumet un formulaire sur `/post/new`.
+1.  **Niveau Infrastructure (Formulaires Symfony)** :
+    *   Utilisez systématiquement les formulaires Symfony (`AbstractType`) pour traiter les entrées utilisateur.
+    *   Appliquez des contraintes de validation (`Constraints\Length`, `NotBlank`, etc.) directement sur les champs du formulaire ou sur le DTO associé.
+    *   Cela permet de fournir un feedback utilisateur immédiat et propre avant que les données n'atteignent le cœur de l'application.
+
+2.  **Niveau Domaine (Modèle)** :
+    *   Les entités du domaine doivent être les garants finaux de leur propre validité.
+    *   Ajoutez des "garde-fous" (assertions ou exceptions) dans le constructeur ou les méthodes métier pour empêcher la création d'états invalides.
+    *   Exemple : `if (mb_strlen($title) > 255) throw new \InvalidArgumentException(...)`.
+
+3.  **Niveau Test (Vérification)** :
+    *   Écrivez des tests unitaires pour le Domaine qui vérifient que les contraintes sont respectées et que les exceptions attendues sont bien levées en cas de données invalides.
+
+---
+
+## 5. Schéma du flux : Création de donnée
+
+Voici comment circule l'information et où intervient la validation :
+
+1.  **Utilisateur** -> Soumet des données via une requête HTTP.
 2.  **Controller (Infrastructure)** :
-    *   Reçoit la requête.
-    *   Valide les données via un formulaire.
-    *   Transforme les données en un **DTO**.
-    *   Appelle le **UseCaseInterface** (contrat injecté).
+    *   Initialise le **FormType** (Validation Niveau 1).
+    *   Si le formulaire est valide, il récupère le **DTO**.
+    *   Appelle le **UseCaseInterface**.
 3.  **UseCase (Application)** :
     *   Reçoit le DTO.
-    *   Instancie l'objet métier **Post (Domaine)**.
-    *   Appelle le **RepositoryInterface (Domaine)** pour sauvegarder.
-4.  **Persistence (Infrastructure)** :
-    *   L'implémentation concrète (Doctrine) transforme l'objet métier en entité de base de données et persiste.
-5.  **Controller** -> Redirige ou affiche un succès.
+    *   Instancie l'entité du **Domaine** (Validation Niveau 2 - Garde-fou).
+    *   Appelle le **RepositoryInterface** pour persister.
+4.  **Persistence (Infrastructure)** -> Enregistre en base de données de manière sécurisée.

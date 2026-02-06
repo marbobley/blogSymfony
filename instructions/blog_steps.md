@@ -16,9 +16,13 @@ Contrairement à l'approche standard, on ne commence pas par la base de données
 ## Étape 3 : Implémentation technique (Infrastructure)
 C'est seulement ici que l'on connecte les outils (Symfony & Doctrine).
 
-1.  **Persistence Doctrine** : Créer le repository concret dans `src/Infrastructure/Persistence`. C'est lui qui implémente `PostRepositoryInterface`.
-2.  **Contrôleur Symfony** : Créer un contrôleur dans `src/Infrastructure/Controller` qui reçoit les requêtes HTTP et appelle l'interface du Use Case via l'injection de dépendances.
-3.  **Vues Twig** : Créer les templates dans `templates/`.
+1.  **Formulaire & Validation** : Créer un `PostType` dans `src/Infrastructure/Form`. Appliquer les contraintes de validation (`Length`, `NotBlank`) pour une validation au niveau de l'infrastructure.
+2.  **Contrôleur Symfony** : Créer un contrôleur dans `src/Infrastructure/Controller` qui :
+    *   Traite le formulaire.
+    *   Vérifie sa validité.
+    *   Appelle l'interface du Use Case en lui passant un DTO.
+3.  **Persistence Doctrine** : Créer le repository concret dans `src/Infrastructure/Persistence`. C'est lui qui implémente `PostRepositoryInterface`.
+4.  **Vues Twig** : Créer les templates dans `templates/` en utilisant les fonctions `form_*` pour un rendu propre.
 
 ## Étape 4 : Configuration & DB
 1.  **Fichier .env** : Configurer la `DATABASE_URL`.
