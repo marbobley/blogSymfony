@@ -1,3 +1,27 @@
+:root {
+    --transition-speed: 0.3s;
+}
+
 body {
-    background-color: skyblue;
+    background-color: #f8f9fa; /* Un gris très clair pour plus de douceur */
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Animation simple d'entrée */
+.animate-fade-in {
+    animation: fadeIn var(--transition-speed) ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Transition de base pour les éléments interactifs */
+.transition-base {
+    transition: all var(--transition-speed) ease-in-out;
+}
+
+.transition-base:hover {
+    transform: translateY(-2px);
 }
