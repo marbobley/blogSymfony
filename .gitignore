@@ -60,3 +60,9 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+.idea/commandlinetools/schemas/
+
+.idea/commandlinetools/
+
+.idea/
