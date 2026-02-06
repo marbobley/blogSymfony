@@ -52,6 +52,14 @@ class PostController extends AbstractController
         ]);
     }
 
+    #[Route('/post/{id}', name: 'app_post_show', methods: ['GET'])]
+    public function show(int $id, GetPostInterface $getPost): Response
+    {
+        return $this->render('post/show.html.twig', [
+            'post' => $getPost->execute($id),
+        ]);
+    }
+
     #[Route('/post/edit/{id}', name: 'app_post_edit', methods: ['GET', 'POST'])]
     public function edit(int $id, Request $request, GetPostInterface $getPost, UpdatePostInterface $updatePost): Response
     {
