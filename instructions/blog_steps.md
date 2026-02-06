@@ -1,94 +1,34 @@
-# Marche à suivre pour créer un projet de Blog Symfony
+# Guide de développement du Blog (Approche Hexagonale)
 
-Voici les étapes recommandées pour construire votre blog avec Symfony :
+Ce document décrit les étapes fonctionnelles pour construire le blog, adaptées à une architecture propre.
 
-### 1. Configuration de la base de données
-Avant de créer quoi que ce soit, assurez-vous que votre fichier `.env` est correctement configuré avec vos accès à la base de données.
-```text
-DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=8.0.x&charset=utf8mb4"
-```
-Ensuite, créez la base de données :
-```bash
-php bin/console doctrine:database:create
-```
+## Étape 1 : Modélisation du Domaine (Le cœur métier)
+Contrairement à l'approche standard, on ne commence pas par la base de données ou le `MakerBundle`.
 
-### 2. Création de l'entité Article (Post)
-C'est le cœur du blog. Utilisez le `MakerBundle` pour générer l'entité et ses champs (titre, contenu, date de création, etc.).
-```bash
-php bin/console make:entity Post
-```
+1.  **Identifier l'objet métier** : Créer la classe `Post` dans `src/Domain/Model`. Elle doit contenir la logique métier (ex: validation interne, gestion des états).
+2.  **Définir l'interface de stockage** : Créer `PostRepositoryInterface` dans `src/Domain/Repository`. On définit *ce dont on a besoin* (ex: `save(Post $post)`), pas comment c'est fait.
 
-### 3. Migration de la base de données
-Une fois l'entité créée, il faut mettre à jour la structure de la base de données :
-```bash
-php bin/console make:migration
-php bin/console doctrine:migrations:migrate
-```
+## Étape 2 : Création du Cas d'Utilisation (Application)
+1.  **Créer le Use Case `CreatePost`** : Cette classe va orchestrer la création d'un article. Elle reçoit des données simples (DTO), crée l'objet `Post` et utilise le repository.
+2.  **Tester la logique** : C'est ici que l'on peut faire des tests unitaires très rapides sans base de données (en utilisant un repository en mémoire).
 
-### 4. Génération du CRUD (Interface d'administration)
-Symfony peut générer automatiquement les formulaires, les contrôleurs et les vues pour gérer les articles.
-```bash
-php bin/console make:crud Post
-```
+## Étape 3 : Implémentation technique (Infrastructure)
+C'est seulement ici que l'on connecte les outils (Symfony & Doctrine).
 
-### 5. Personnalisation du Design
-Modifiez les fichiers Twig dans `templates/` pour personnaliser l'apparence. Le fichier principal est `templates/base.html.twig`.
-Utilisez `assets/` pour votre CSS et JS via AssetMapper.
+1.  **Persistence Doctrine** : Créer le repository concret dans `src/Infrastructure/Persistence`. C'est lui qui implémente `PostRepositoryInterface`.
+2.  **Contrôleur Symfony** : Créer un contrôleur dans `src/Infrastructure/Controller` qui reçoit les requêtes HTTP et appelle le Use Case de l'étape 2.
+3.  **Vues Twig** : Créer les templates dans `templates/`.
 
-### 6. Fonctionnalités avancées
-*   **Sécurité** : `php bin/console make:user` et `php bin/console make:auth`.
-*   **Commentaires** : Créer une entité `Comment` liée à `Post`.
-*   **Catégories** : Pour organiser vos articles.
-*   **Fixtures** : Pour générer des données de test (`composer require --dev orm-fixtures`).
+## Étape 4 : Configuration & DB
+1.  **Fichier .env** : Configurer la `DATABASE_URL`.
+2.  **Migrations** : Générer les tables à partir des entités (qui peuvent être mappées directement depuis le Domaine ou via des entités d'infrastructure).
 
 ---
 
-## Le Clean Code : Principes de base
+## Challenge des étapes (Hexa vs Standard)
 
-Le **Clean Code** consiste à écrire du code facile à lire, à comprendre et à maintenir. Voici les principes clés résumés :
-
-### 1. Naming (Nommage)
-*   Utilisez des noms explicites (variables, fonctions, classes).
-*   Évitez les abréviations obscures.
-*   *Exemple :* `fetchPostById()` au lieu de `get_p(id)`.
-
-### 2. Fonctions et Méthodes
-*   Elles doivent être courtes et ne faire qu'**une seule chose** (Single Responsibility).
-*   Limitez le nombre d'arguments.
-
-### 3. Commentaires
-*   Le code doit être auto-explicatif. 
-*   Utilisez des commentaires pour expliquer le "Pourquoi" (l'intention) plutôt que le "Quoi" (la syntaxe).
-
-### 4. DRY (Don't Repeat Yourself)
-*   Évitez la duplication de code. Factorisez dans des services ou des traits si nécessaire.
-
-### 5. SOLID
-*   **S**ingle Responsibility : Une classe = une seule responsabilité.
-*   **O**pen/Closed : Ouvert à l'extension, fermé à la modification.
-*   **L**iskov Substitution : Les sous-classes doivent pouvoir remplacer leurs classes mères.
-*   **I**nterface Segregation : Préférez plusieurs petites interfaces spécifiques à une grosse généraliste.
-*   **D**ependency Inversion : Dépendre des abstractions, pas des implémentations (Injection de dépendances).
-
-### Pourquoi en Symfony ?
-En suivant ces principes, vous facilitez l'évolution de votre blog et permettez à d'autres développeurs (ou à vous-même dans 6 mois) de comprendre instantanément votre logique.
-
----
-
-## Architecture Hexagonale (Ports & Adapteurs)
-
-L'architecture hexagonale est une stratégie de conception qui vise à isoler le **cœur métier** (le Domaine) des détails techniques (Base de données, Framework, APIs tierces).
-
-### Est-ce judicieux pour un blog ?
-*   **OUI (Projet à long terme)** : Si vous prévoyez d'ajouter des fonctionnalités complexes, de changer d'infrastructure (ex: passer de MySQL à MongoDB) ou si vous voulez des tests unitaires ultra-rapides sans dépendre de Symfony.
-*   **NON (Projet simple)** : Pour un blog classique "CRUD", cela rajoute une couche de complexité (plus de dossiers, d'interfaces et de classes de transfert) qui peut ralentir le développement initial.
-
-### Structure type dans Symfony :
-1.  **Domaine (Le centre)** : Contient vos entités "pures" et vos interfaces (ex: `PostRepositoryInterface`). Aucune dépendance à Symfony ou Doctrine ici.
-2.  **Application (Les cas d'utilisation)** : Services qui orchestrent la logique métier (ex: `CreatePostHandler`).
-3.  **Infrastructure (Les adapteurs)** :
-    *   *Input* : Contrôleurs, Commandes CLI (ce qui "pousse" l'application).
-    *   *Output* : Implémentations Doctrine, envoi d'emails, APIs externes (ce qui "sert" l'application).
-
-### Conclusion
-Si vous voulez apprendre et pratiquer les bonnes pratiques d'ingénierie logicielle, c'est un excellent choix. Si vous voulez un blog en ligne en 2 heures, restez sur l'architecture standard de Symfony.
+| Étape Standard | Challange Hexagonal | Pourquoi ? |
+| :--- | :--- | :--- |
+| `make:entity` | **Modélisation manuelle** | L'entité ne doit pas dépendre de Doctrine au début. |
+| `make:crud` | **Découpage manuel** | Le CRUD généré mélange contrôleur et logique Doctrine. En Hexa, on sépare le contrôleur du Use Case. |
+| DB d'abord | **Domaine d'abord** | La base de données n'est qu'un détail d'implémentation. Le métier est prioritaire. |
