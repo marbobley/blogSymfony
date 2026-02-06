@@ -25,3 +25,30 @@ body {
 .transition-base:hover {
     transform: translateY(-2px);
 }
+
+/* Custom form styles */
+.form-control:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+}
+
+/* Navbar styles */
+.navbar-brand {
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: #495057 !important;
+}
+
+.nav-link:hover {
+    color: var(--bs-primary) !important;
+}
+
+/* Accessibility: Focus rings */
+a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--bs-primary);
+    outline-offset: 2px;
+}

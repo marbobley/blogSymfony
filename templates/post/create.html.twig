@@ -3,19 +3,37 @@
 {% block title %}Créer un nouvel article{% endblock %}
 
 {% block body %}
-    <h1>Créer un nouvel article</h1>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0 animate-fade-in">
+                <div class="card-body p-4 p-md-5">
+                    <div class="mb-4 text-center">
+                        <i class="bi bi-pencil-square display-4 text-primary mb-2"></i>
+                        <h1 class="h3 fw-bold">Nouvel Article</h1>
+                        <p class="text-muted">Partagez vos idées avec le monde.</p>
+                    </div>
 
-    <form method="post">
-        <div>
-            <label for="title">Titre</label>
-            <input type="text" id="title" name="title" required>
+                    <form method="post" class="needs-validation">
+                        <div class="mb-4">
+                            <label for="title" class="form-label fw-semibold">Titre de l'article</label>
+                            <input type="text" id="title" name="title" class="form-control form-control-lg border-2 transition-base" placeholder="Entrez un titre accrocheur" required>
+                            <div class="form-text small">Le titre doit être explicite et donner envie de lire.</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="content" class="form-label fw-semibold">Contenu</label>
+                            <textarea id="content" name="content" class="form-control border-2 transition-base" rows="8" placeholder="Écrivez votre texte ici..." required></textarea>
+                        </div>
+
+                        <div class="d-grid gap-3 d-md-flex justify-content-md-end mt-5">
+                            <a href="{{ path('app_post_index') }}" class="btn btn-light px-4 transition-base">Annuler</a>
+                            <button type="submit" class="btn btn-primary px-5 transition-base">
+                                <i class="bi bi-check-circle me-1"></i> Publier l'article
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div>
-            <label for="content">Contenu</label>
-            <textarea id="content" name="content" required></textarea>
-        </div>
-
-        <button type="submit">Enregistrer</button>
-    </form>
+    </div>
 {% endblock %}
