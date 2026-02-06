@@ -25,4 +25,15 @@ class DoctrinePostRepository implements PostRepositoryInterface
     {
         return $this->entityManager->getRepository(Post::class)->findAll();
     }
+
+    public function findById(int $id): ?Post
+    {
+        return $this->entityManager->getRepository(Post::class)->find($id);
+    }
+
+    public function delete(Post $post): void
+    {
+        $this->entityManager->remove($post);
+        $this->entityManager->flush();
+    }
 }

@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'article{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0 animate-fade-in">
+                <div class="card-body p-4 p-md-5">
+                    <div class="mb-4 text-center">
+                        <i class="bi bi-pencil-square display-4 text-primary mb-2"></i>
+                        <h1 class="h3 fw-bold">Modifier l'Article</h1>
+                        <p class="text-muted">Mettez à jour votre contenu pour vos lecteurs.</p>
+                    </div>
+
+                    {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+                        <div class="mb-4">
+                            {{ form_row(form.title, {
+                                'label_attr': {'class': 'form-label fw-semibold'},
+                                'attr': {'class': 'form-control-lg transition-base'}
+                            }) }}
+                        </div>
+
+                        <div class="mb-4">
+                            {{ form_row(form.content, {
+                                'label_attr': {'class': 'form-label fw-semibold'},
+                                'attr': {'class': 'transition-base'}
+                            }) }}
+                        </div>
+
+                        <div class="d-grid gap-3 d-md-flex justify-content-md-end mt-5">
+                            <a href="{{ path('app_post_index') }}" class="btn btn-light px-4 transition-base">Annuler</a>
+                            <button type="submit" class="btn btn-primary px-5 transition-base">
+                                <i class="bi bi-check-circle me-1"></i> Mettre à jour
+                            </button>
+                        </div>
+                    {{ form_end(form) }}
+
+                    <hr class="my-5">
+
+                    <div class="text-center">
+                        <form method="post" action="{{ path('app_post_delete', {'id': post.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+                            <button class="btn btn-outline-danger btn-sm transition-base">
+                                <i class="bi bi-trash me-1"></i> Supprimer l'article
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
