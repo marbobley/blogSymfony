@@ -72,3 +72,23 @@ Le **Clean Code** consiste à écrire du code facile à lire, à comprendre et �
 
 ### Pourquoi en Symfony ?
 En suivant ces principes, vous facilitez l'évolution de votre blog et permettez à d'autres développeurs (ou à vous-même dans 6 mois) de comprendre instantanément votre logique.
+
+---
+
+## Architecture Hexagonale (Ports & Adapteurs)
+
+L'architecture hexagonale est une stratégie de conception qui vise à isoler le **cœur métier** (le Domaine) des détails techniques (Base de données, Framework, APIs tierces).
+
+### Est-ce judicieux pour un blog ?
+*   **OUI (Projet à long terme)** : Si vous prévoyez d'ajouter des fonctionnalités complexes, de changer d'infrastructure (ex: passer de MySQL à MongoDB) ou si vous voulez des tests unitaires ultra-rapides sans dépendre de Symfony.
+*   **NON (Projet simple)** : Pour un blog classique "CRUD", cela rajoute une couche de complexité (plus de dossiers, d'interfaces et de classes de transfert) qui peut ralentir le développement initial.
+
+### Structure type dans Symfony :
+1.  **Domaine (Le centre)** : Contient vos entités "pures" et vos interfaces (ex: `PostRepositoryInterface`). Aucune dépendance à Symfony ou Doctrine ici.
+2.  **Application (Les cas d'utilisation)** : Services qui orchestrent la logique métier (ex: `CreatePostHandler`).
+3.  **Infrastructure (Les adapteurs)** :
+    *   *Input* : Contrôleurs, Commandes CLI (ce qui "pousse" l'application).
+    *   *Output* : Implémentations Doctrine, envoi d'emails, APIs externes (ce qui "sert" l'application).
+
+### Conclusion
+Si vous voulez apprendre et pratiquer les bonnes pratiques d'ingénierie logicielle, c'est un excellent choix. Si vous voulez un blog en ligne en 2 heures, restez sur l'architecture standard de Symfony.
