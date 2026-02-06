@@ -26,6 +26,10 @@ class Post
 
     public function __construct(string $title, string $content)
     {
+        if (mb_strlen($title) > 255) {
+            throw new \InvalidArgumentException('Le titre ne peut pas dépasser 255 caractères.');
+        }
+
         $this->title = $title;
         $this->content = $content;
         $this->createdAt = new \DateTimeImmutable();

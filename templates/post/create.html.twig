@@ -13,16 +13,18 @@
                         <p class="text-muted">Partagez vos idées avec le monde.</p>
                     </div>
 
-                    <form method="post" class="needs-validation">
+                    {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
                         <div class="mb-4">
-                            <label for="title" class="form-label fw-semibold">Titre de l'article</label>
-                            <input type="text" id="title" name="title" class="form-control form-control-lg border-2 transition-base" placeholder="Entrez un titre accrocheur" required>
+                            {{ form_label(form.title, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.title) }}
                             <div class="form-text small">Le titre doit être explicite et donner envie de lire.</div>
                         </div>
 
                         <div class="mb-4">
-                            <label for="content" class="form-label fw-semibold">Contenu</label>
-                            <textarea id="content" name="content" class="form-control border-2 transition-base" rows="8" placeholder="Écrivez votre texte ici..." required></textarea>
+                            {{ form_label(form.content, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                            {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.content) }}
                         </div>
 
                         <div class="d-grid gap-3 d-md-flex justify-content-md-end mt-5">
@@ -31,7 +33,7 @@
                                 <i class="bi bi-check-circle me-1"></i> Publier l'article
                             </button>
                         </div>
-                    </form>
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>

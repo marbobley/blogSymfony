@@ -7,6 +7,7 @@ namespace App\Infrastructure\Controller;
 use App\Application\DTO\PostDTO;
 use App\Application\UseCaseInterface\CreatePostInterface;
 use App\Application\UseCaseInterface\ListPostsInterface;
+use App\Infrastructure\Form\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,11 +26,12 @@ class PostController extends AbstractController
     #[Route('/post/new', name: 'app_post_new', methods: ['GET', 'POST'])]
     public function create(Request $request, CreatePostInterface $createPost): Response
     {
-        if ($request->isMethod('POST')) {
-            $dto = new PostDTO(
-                (string) $request->request->get('title'),
-                (string) $request->request->get('content')
-            );
+        $form = $this->createForm(PostType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var PostDTO $dto */
+            $dto = $form->getData();
 
             $createPost->execute($dto);
 
@@ -38,6 +40,8 @@ class PostController extends AbstractController
             return $this->redirectToRoute('app_post_index');
         }
 
-        return $this->render('post/create.html.twig');
+        return $this->render('post/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
