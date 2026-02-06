@@ -9,14 +9,15 @@ Contrairement à l'approche standard, on ne commence pas par la base de données
 2.  **Définir l'interface de stockage** : Créer `PostRepositoryInterface` dans `src/Domain/Repository`. On définit *ce dont on a besoin* (ex: `save(Post $post)`), pas comment c'est fait.
 
 ## Étape 2 : Création du Cas d'Utilisation (Application)
-1.  **Créer le Use Case `CreatePost`** : Cette classe va orchestrer la création d'un article. Elle reçoit des données simples (DTO), crée l'objet `Post` et utilise le repository.
-2.  **Tester la logique** : C'est ici que l'on peut faire des tests unitaires très rapides sans base de données (en utilisant un repository en mémoire).
+1.  **Définir l'interface du Use Case** : Créer `CreatePostInterface` dans `src/Application/UseCaseInterface`. Cela permet de découpler le contrôleur de l'implémentation.
+2.  **Créer le Use Case `CreatePost`** : Cette classe implémente l'interface. Elle orchestre la création d'un article, reçoit un DTO immuable, crée l'objet `Post` et utilise le repository (en `readonly`).
+3.  **Tester la logique** : Effectuer des tests unitaires sur l'implémentation du Use Case.
 
 ## Étape 3 : Implémentation technique (Infrastructure)
 C'est seulement ici que l'on connecte les outils (Symfony & Doctrine).
 
 1.  **Persistence Doctrine** : Créer le repository concret dans `src/Infrastructure/Persistence`. C'est lui qui implémente `PostRepositoryInterface`.
-2.  **Contrôleur Symfony** : Créer un contrôleur dans `src/Infrastructure/Controller` qui reçoit les requêtes HTTP et appelle le Use Case de l'étape 2.
+2.  **Contrôleur Symfony** : Créer un contrôleur dans `src/Infrastructure/Controller` qui reçoit les requêtes HTTP et appelle l'interface du Use Case via l'injection de dépendances.
 3.  **Vues Twig** : Créer les templates dans `templates/`.
 
 ## Étape 4 : Configuration & DB
@@ -30,5 +31,5 @@ C'est seulement ici que l'on connecte les outils (Symfony & Doctrine).
 | Étape Standard | Challange Hexagonal | Pourquoi ? |
 | :--- | :--- | :--- |
 | `make:entity` | **Modélisation manuelle** | L'entité ne doit pas dépendre de Doctrine au début. |
-| `make:crud` | **Découpage manuel** | Le CRUD généré mélange contrôleur et logique Doctrine. En Hexa, on sépare le contrôleur du Use Case. |
+| `make:crud` | **Découpage manuel** | Le CRUD généré mélange contrôleur et logique Doctrine. En Hexa, on sépare le contrôleur du Use Case (via une Interface). |
 | DB d'abord | **Domaine d'abord** | La base de données n'est qu'un détail d'implémentation. Le métier est prioritaire. |

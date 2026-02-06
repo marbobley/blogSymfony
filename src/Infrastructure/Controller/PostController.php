@@ -4,7 +4,7 @@ namespace App\Infrastructure\Controller;
 
 use App\Application\DTO\PostDTO;
 use App\Application\UseCase\CreatePost;
-use App\Application\UseCaseInteface\CreatePostInterface;
+use App\Application\UseCaseInterface\CreatePostInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

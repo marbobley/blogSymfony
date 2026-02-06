@@ -34,8 +34,9 @@ Le cœur du métier. Ne dépend d'aucune bibliothèque externe (ni Symfony, ni D
 
 #### B. Application (`src/Application`)
 Orchestre les cas d'utilisation (Use Cases).
-*   **UseCase** : Classes qui réalisent une action précise (ex: `CreatePost`).
-*   **DTO** : Objets de transfert de données pour l'entrée/sortie du Use Case.
+*   **UseCaseInterface** : Définition des contrats pour les cas d'utilisation (ex: `CreatePostInterface`).
+*   **UseCase** : Implémentations concrètes qui réalisent une action précise (ex: `CreatePost`).
+*   **DTO** : Objets de transfert de données immuables (`readonly`) pour l'entrée/sortie du Use Case.
 
 #### C. Infrastructure (`src/Infrastructure`)
 Les détails techniques et les implémentations.
@@ -55,7 +56,7 @@ Voici comment circule l'information pour le premier Use Case :
     *   Reçoit la requête.
     *   Valide les données via un formulaire.
     *   Transforme les données en un **DTO**.
-    *   Appelle le **UseCase**.
+    *   Appelle le **UseCaseInterface** (contrat injecté).
 3.  **UseCase (Application)** :
     *   Reçoit le DTO.
     *   Instancie l'objet métier **Post (Domaine)**.
