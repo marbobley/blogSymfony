@@ -27,7 +27,6 @@ class ListPostsTest extends TestCase
         $result = $useCase->execute();
 
         // Assert
-        $this->assertIsArray($result);
         $this->assertCount(2, $result);
         $this->assertInstanceOf(PostResponseDTO::class, $result[0]);
         $this->assertEquals('Titre 1', $result[0]->title);

@@ -7,6 +7,7 @@ Ce document regroupe les standards de développement et les choix d'architecture
 L'utilisation du mode strict est obligatoire dans tout le projet pour garantir la robustesse du typage.
 
 *   **Strict Types** : Chaque fichier PHP doit commencer par `declare(strict_types=1);` immédiatement après la balise d'ouverture `<?php`.
+*   **Analyse Statique** : PHPStan est utilisé au niveau 8 pour garantir la qualité du code. Toute erreur signalée par `vendor/bin/phpstan` doit être corrigée avant validation. Voir `instructions/phpstan_guidelines.md` pour plus de détails.
 *   **Typage Explicite** : Utilisez le typage fort pour les paramètres de fonction, les types de retour et les propriétés de classe.
 *   **Conversion de Type** : Lors de la récupération de données depuis des sources non typées (comme `Request` de Symfony), effectuez une conversion explicite (casting) avant de les passer à des objets typés (ex: `(string) $request->request->get('title')`).
 

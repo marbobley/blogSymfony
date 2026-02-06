@@ -66,3 +66,7 @@
 .idea/commandlinetools/
 
 .idea/
+
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###
