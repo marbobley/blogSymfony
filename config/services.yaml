@@ -30,5 +30,20 @@ services:
     App\Application\UseCaseInterface\ListPostsInterface:
         alias: App\Application\UseCase\ListPosts
 
+    App\Application\UseCaseInterface\GetPostInterface:
+        alias: App\Application\UseCase\GetPost
+
+    App\Application\UseCaseInterface\UpdatePostInterface:
+        alias: App\Application\UseCase\UpdatePost
+
+    App\Application\UseCaseInterface\DeletePostInterface:
+        alias: App\Application\UseCase\DeletePost
+
+    App\Domain\Repository\UserRepositoryInterface:
+        alias: App\Infrastructure\Persistence\DoctrineUserRepository
+
+    App\Application\UseCaseInterface\RegisterUserInterface:
+        alias: App\Application\UseCase\RegisterUser
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
