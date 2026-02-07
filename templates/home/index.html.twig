@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Les Chroniques du Code{% endblock %}
+
+{% block body %}
+    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm border-0">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold text-primary">Bienvenue sur Les Chroniques du Code</h1>
+            <p class="col-md-8 fs-4 text-muted">Un blog dédié au développement web, à la passion du code et au partage de connaissances. Explorez nos derniers articles et rejoignez la communauté !</p>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <a href="{{ path('app_post_new') }}" class="btn btn-primary btn-lg transition-base">
+                    <i class="bi bi-plus-circle me-2"></i>Partager un article
+                </a>
+            {% else %}
+                <a href="{{ path('app_register') }}" class="btn btn-primary btn-lg transition-base">
+                    Commencer l'aventure
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row mb-4 align-items-center">
+        <div class="col">
+            <h2 class="h3 fw-bold text-dark mb-0">Dernières Publications</h2>
+        </div>
+        <div class="col-auto">
+            <a href="{{ path('app_post_index') }}" class="btn btn-link text-decoration-none transition-base">
+                Voir tout <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        {% for post in posts|slice(0, 3) %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <article class="card h-100 shadow-sm border-0 animate-fade-in transition-base">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h4 card-title fw-bold">
+                            <a href="{{ path('app_post_show', {'id': post.id}) }}" class="text-decoration-none text-dark">{{ post.title }}</a>
+                        </h3>
+                        <div class="mb-3">
+                            <span class="badge bg-light text-primary border border-primary-subtle px-2 py-1">
+                                <i class="bi bi-calendar3 me-1"></i> {{ post.createdAt|date('d/m/Y') }}
+                            </span>
+                        </div>
+                        <p class="card-text text-muted flex-grow-1">
+                            {{ post.content|slice(0, 150) }}{{ post.content|length > 150 ? '...' : '' }}
+                        </p>
+                        <div class="mt-3">
+                            <a href="{{ path('app_post_show', {'id': post.id}) }}" class="btn btn-outline-primary w-100 transition-base">
+                                Lire la suite
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        {% else %}
+            <div class="col-12 text-center py-5">
+                <div class="p-5 bg-white rounded shadow-sm">
+                    <i class="bi bi-journal-x display-1 text-muted mb-3"></i>
+                    <p class="h4 text-muted">Aucun article trouvé pour le moment.</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
