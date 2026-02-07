@@ -6,6 +6,7 @@ namespace App\Tests\Unit\Application\UseCase;
 
 use App\Application\DTO\PostResponseDTO;
 use App\Application\UseCase\GetPostBySlug;
+use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Post;
 use App\Domain\Repository\PostRepositoryInterface;
 use PHPUnit\Framework\TestCase;
@@ -44,8 +45,8 @@ class GetPostBySlugTest extends TestCase
         $useCase = new GetPostBySlug($repository);
 
         // Assert
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Post not found');
+        $this->expectException(EntityNotFoundException::class);
+        $this->expectExceptionMessage('Post avec l\'identifiant "slug-inexistant" non trouvé(e).');
 
         // Act
         $useCase->execute('slug-inexistant');

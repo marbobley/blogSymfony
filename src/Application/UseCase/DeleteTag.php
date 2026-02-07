@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Application\UseCase;
 
 use App\Application\UseCaseInterface\DeleteTagInterface;
+use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Repository\TagRepositoryInterface;
 
 class DeleteTag implements DeleteTagInterface
@@ -19,7 +20,7 @@ class DeleteTag implements DeleteTagInterface
         $tag = $this->tagRepository->findById($id);
 
         if (!$tag) {
-            throw new \RuntimeException('Tag not found');
+            throw EntityNotFoundException::forEntity('Tag', $id);
         }
 
         $this->tagRepository->delete($tag);

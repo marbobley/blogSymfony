@@ -6,6 +6,7 @@ namespace App\Tests\Unit\Application\UseCase;
 
 use App\Application\DTO\PostResponseDTO;
 use App\Application\UseCase\GetPost;
+use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Post;
 use App\Domain\Repository\PostRepositoryInterface;
 use PHPUnit\Framework\TestCase;
@@ -45,8 +46,8 @@ class GetPostTest extends TestCase
         $useCase = new GetPost($repository);
 
         // Assert
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Post not found');
+        $this->expectException(EntityNotFoundException::class);
+        $this->expectExceptionMessage('Post avec l\'identifiant "1" non trouvé(e).');
 
         // Act
         $useCase->execute(1);

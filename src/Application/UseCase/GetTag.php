@@ -7,6 +7,7 @@ namespace App\Application\UseCase;
 use App\Application\DTO\TagResponseDTO;
 use App\Application\Factory\TagResponseDTOFactory;
 use App\Application\UseCaseInterface\GetTagInterface;
+use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Repository\TagRepositoryInterface;
 
 class GetTag implements GetTagInterface
@@ -28,7 +29,7 @@ class GetTag implements GetTagInterface
         $tag = $this->tagRepository->findById($id);
 
         if (!$tag) {
-            throw new \RuntimeException('Tag not found');
+            throw EntityNotFoundException::forEntity('Tag', $id);
         }
 
         return $tag;

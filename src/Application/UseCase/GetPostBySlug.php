@@ -7,6 +7,7 @@ namespace App\Application\UseCase;
 use App\Application\DTO\PostResponseDTO;
 use App\Application\Factory\PostResponseDTOFactory;
 use App\Application\UseCaseInterface\GetPostBySlugInterface;
+use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Repository\PostRepositoryInterface;
 
 readonly class GetPostBySlug implements GetPostBySlugInterface
@@ -21,7 +22,7 @@ readonly class GetPostBySlug implements GetPostBySlugInterface
         $post = $this->postRepository->findBySlug($slug);
 
         if (!$post) {
-            throw new \RuntimeException('Post not found');
+            throw EntityNotFoundException::forEntity('Post', $slug);
         }
 
         return PostResponseDTOFactory::createFromEntity($post);

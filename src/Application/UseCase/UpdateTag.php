@@ -6,6 +6,7 @@ namespace App\Application\UseCase;
 
 use App\Application\DTO\TagDTO;
 use App\Application\UseCaseInterface\UpdateTagInterface;
+use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Tag;
 use App\Domain\Repository\TagRepositoryInterface;
 
@@ -21,7 +22,7 @@ class UpdateTag implements UpdateTagInterface
         $tag = $this->tagRepository->findById($id);
 
         if (!$tag) {
-            throw new \RuntimeException('Tag not found');
+            throw EntityNotFoundException::forEntity('Tag', $id);
         }
 
         $tag->setName($tagDTO->getName());

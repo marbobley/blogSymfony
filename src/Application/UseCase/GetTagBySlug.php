@@ -7,6 +7,7 @@ namespace App\Application\UseCase;
 use App\Application\DTO\TagResponseDTO;
 use App\Application\Factory\TagResponseDTOFactory;
 use App\Application\UseCaseInterface\GetTagBySlugInterface;
+use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Repository\TagRepositoryInterface;
 
 class GetTagBySlug implements GetTagBySlugInterface
@@ -21,7 +22,7 @@ class GetTagBySlug implements GetTagBySlugInterface
         $tag = $this->tagRepository->findBySlug($slug);
 
         if (!$tag) {
-            throw new \RuntimeException('Tag not found');
+            throw EntityNotFoundException::forEntity('Tag', $slug);
         }
 
         return TagResponseDTOFactory::createFromEntity($tag);

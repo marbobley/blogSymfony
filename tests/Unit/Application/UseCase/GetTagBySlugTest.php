@@ -6,6 +6,7 @@ namespace App\Tests\Unit\Application\UseCase;
 
 use App\Application\DTO\TagResponseDTO;
 use App\Application\UseCase\GetTagBySlug;
+use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Tag;
 use App\Domain\Repository\TagRepositoryInterface;
 use PHPUnit\Framework\TestCase;
@@ -39,8 +40,8 @@ class GetTagBySlugTest extends TestCase
 
         $repository->method('findBySlug')->willReturn(null);
 
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Tag not found');
+        $this->expectException(EntityNotFoundException::class);
+        $this->expectExceptionMessage('Tag avec l\'identifiant "symfony" non trouvé(e).');
 
         $useCase->execute('symfony');
     }

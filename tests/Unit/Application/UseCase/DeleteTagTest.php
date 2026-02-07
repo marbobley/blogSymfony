@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Application\UseCase;
 
 use App\Application\UseCase\DeleteTag;
+use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Tag;
 use App\Domain\Repository\TagRepositoryInterface;
 use PHPUnit\Framework\TestCase;
@@ -36,8 +37,8 @@ class DeleteTagTest extends TestCase
 
         $repository->method('findById')->willReturn(null);
 
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Tag not found');
+        $this->expectException(EntityNotFoundException::class);
+        $this->expectExceptionMessage('Tag avec l\'identifiant "1" non trouvé(e).');
 
         $useCase->execute(1);
     }

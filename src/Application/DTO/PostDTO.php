@@ -16,7 +16,7 @@ class PostDTO
     private string $content;
 
     /**
-     * @var Collection<int, \App\Domain\Model\Tag>
+     * @var Collection<int, TagDTO>
      */
     private Collection $tags;
 
@@ -46,22 +46,17 @@ class PostDTO
     }
 
     /**
-     * @return Collection<int, \App\Domain\Model\Tag>
+     * @return Collection<int, TagDTO>
      */
     public function getTags(): Collection
     {
         return $this->tags;
     }
 
-    public function addTag(\App\Domain\Model\Tag $tag): void
+    public function addTag(TagDTO $tag): void
     {
         if (!$this->tags->contains($tag)) {
             $this->tags->add($tag);
         }
-    }
-
-    public function removeTag(\App\Domain\Model\Tag $tag): void
-    {
-        $this->tags->removeElement($tag);
     }
 }

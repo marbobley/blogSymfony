@@ -7,6 +7,7 @@ namespace App\Tests\Unit\Application\UseCase;
 use App\Application\DTO\TagDTO;
 use App\Application\Factory\TagDTOFactory;
 use App\Application\UseCase\UpdateTag;
+use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Tag;
 use App\Domain\Repository\TagRepositoryInterface;
 use PHPUnit\Framework\TestCase;
@@ -42,8 +43,8 @@ class UpdateTagTest extends TestCase
 
         $repository->method('findById')->willReturn(null);
 
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Tag not found');
+        $this->expectException(EntityNotFoundException::class);
+        $this->expectExceptionMessage('Tag avec l\'identifiant "1" non trouvé(e).');
 
         $useCase->execute(1, $dto);
     }

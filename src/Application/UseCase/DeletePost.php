@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Application\UseCase;
 
 use App\Application\UseCaseInterface\DeletePostInterface;
+use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Repository\PostRepositoryInterface;
 
 class DeletePost implements DeletePostInterface
@@ -19,7 +20,7 @@ class DeletePost implements DeletePostInterface
         $post = $this->postRepository->findById($id);
 
         if (!$post) {
-            throw new \RuntimeException('Post not found');
+            throw EntityNotFoundException::forEntity('Post', $id);
         }
 
         $this->postRepository->delete($post);

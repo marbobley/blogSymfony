@@ -6,6 +6,7 @@ namespace App\Tests\Unit\Application\UseCase;
 
 use App\Application\DTO\PostResponseDTO;
 use App\Application\UseCase\ListPosts;
+use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Post;
 use App\Domain\Repository\PostRepositoryInterface;
 use PHPUnit\Framework\TestCase;
@@ -62,5 +63,22 @@ class ListPostsTest extends TestCase
         // Assert
         $this->assertCount(1, $result);
         $this->assertEquals('Titre Tag', $result[0]->title);
+    }
+
+    public function testExecuteWithNonExistentTagIdThrowsException(): void
+    {
+        // Arrange
+        $repository = $this->createMock(PostRepositoryInterface::class);
+        $tagRepository = $this->createMock(\App\Domain\Repository\TagRepositoryInterface::class);
+        $tagRepository->method('findById')->willReturn(null);
+
+        $useCase = new ListPosts($repository, $tagRepository);
+
+        // Assert
+        $this->expectException(EntityNotFoundException::class);
+        $this->expectExceptionMessage('Tag avec l\'identifiant "999" non trouvé(e).');
+
+        // Act
+        $useCase->execute(999);
     }
 }

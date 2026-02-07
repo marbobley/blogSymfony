@@ -7,6 +7,7 @@ namespace App\Application\UseCase;
 use App\Application\DTO\PostResponseDTO;
 use App\Application\Factory\PostResponseDTOFactory;
 use App\Application\UseCaseInterface\ListPostsInterface;
+use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Repository\PostRepositoryInterface;
 
 readonly class ListPosts implements ListPostsInterface
@@ -22,7 +23,7 @@ readonly class ListPosts implements ListPostsInterface
         if ($tagId !== null) {
             $tag = $this->tagRepository->findById($tagId);
             if (!$tag) {
-                throw new \RuntimeException('Tag not found');
+                throw EntityNotFoundException::forEntity('Tag', $tagId);
             }
             $posts = $this->postRepository->findByTag($tag);
         } else {

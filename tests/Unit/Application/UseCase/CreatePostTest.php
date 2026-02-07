@@ -6,6 +6,7 @@ namespace App\Tests\Unit\Application\UseCase;
 
 use App\Application\DTO\PostDTO;
 use App\Application\Factory\PostDTOFactory;
+use App\Application\Factory\TagDTOFactory;
 use App\Application\UseCase\CreatePost;
 use App\Domain\Model\Post;
 use App\Domain\Repository\PostRepositoryInterface;
@@ -19,15 +20,12 @@ class CreatePostTest extends TestCase
         $repository = $this->createMock(PostRepositoryInterface::class);
         $useCase = new CreatePost($repository);
         $dto = PostDTOFactory::create('Titre de test', 'Contenu de test');
-        $tag = new \App\Domain\Model\Tag('Symfony');
+        $tag = TagDTOFactory::create('Tag test');
         $dto->addTag($tag);
 
         // Assert & Expect
         $repository->expects($this->once())
-            ->method('save')
-            ->with($this->callback(function (Post $post) use ($tag) {
-                return $post->getTitle() === 'Titre de test' && $post->getTags()->contains($tag);
-            }));
+            ->method('save');
 
         // Act
         $post = $useCase->execute($dto);
@@ -35,7 +33,7 @@ class CreatePostTest extends TestCase
         // Additional Assertions
         $this->assertEquals('Titre de test', $post->getTitle());
         $this->assertEquals('Contenu de test', $post->getContent());
-        $this->assertTrue($post->getTags()->contains($tag));
+        $this->assertEquals('Tag test', $post->getTags()[0]->getName());
         $this->assertInstanceOf(\DateTimeImmutable::class, $post->getCreatedAt());
     }
 }

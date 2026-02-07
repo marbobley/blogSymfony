@@ -6,7 +6,9 @@ namespace App\Application\UseCase;
 
 use App\Application\DTO\PostDTO;
 use App\Application\UseCaseInterface\UpdatePostInterface;
+use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Post;
+use App\Domain\Model\Tag;
 use App\Domain\Repository\PostRepositoryInterface;
 
 class UpdatePost implements UpdatePostInterface
@@ -21,7 +23,7 @@ class UpdatePost implements UpdatePostInterface
         $post = $this->postRepository->findById($id);
 
         if (!$post) {
-            throw new \RuntimeException('Post not found');
+            throw EntityNotFoundException::forEntity('Post', $id);
         }
 
         $post->setTitle($postDTO->getTitle());
@@ -36,7 +38,10 @@ class UpdatePost implements UpdatePostInterface
         }
 
         // Add tags from DTO
-        foreach ($postDTO->getTags() as $tag) {
+        foreach ($postDTO->getTags() as $tagDTO) {
+
+            $tag = new Tag($tagDTO->getName());
+
             $post->addTag($tag);
         }
 

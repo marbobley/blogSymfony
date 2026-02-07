@@ -7,6 +7,7 @@ namespace App\Application\UseCase;
 use App\Application\DTO\PostResponseDTO;
 use App\Application\Factory\PostResponseDTOFactory;
 use App\Application\UseCaseInterface\GetPostInterface;
+use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Repository\PostRepositoryInterface;
 
 readonly class GetPost implements GetPostInterface
@@ -28,7 +29,7 @@ readonly class GetPost implements GetPostInterface
         $post = $this->postRepository->findById($id);
 
         if (!$post) {
-            throw new \RuntimeException('Post not found');
+            throw EntityNotFoundException::forEntity('Post', $id);
         }
 
         return $post;

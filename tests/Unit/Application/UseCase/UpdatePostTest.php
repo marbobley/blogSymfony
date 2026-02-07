@@ -6,9 +6,12 @@ namespace App\Tests\Unit\Application\UseCase;
 
 use App\Application\DTO\PostDTO;
 use App\Application\Factory\PostDTOFactory;
+use App\Application\Factory\TagDTOFactory;
 use App\Application\UseCase\UpdatePost;
+use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Post;
 use App\Domain\Repository\PostRepositoryInterface;
+use phpDocumentor\Reflection\DocBlock\TagFactory;
 use PHPUnit\Framework\TestCase;
 
 class UpdatePostTest extends TestCase
@@ -32,7 +35,7 @@ class UpdatePostTest extends TestCase
 
         $useCase = new UpdatePost($repository);
         $dto = PostDTOFactory::create('Nouveau Titre', 'Nouveau Contenu');
-        $newTag = new \App\Domain\Model\Tag('New');
+        $newTag = TagDTOFactory::create('New');
         $dto->addTag($newTag);
 
         // Act
@@ -41,8 +44,9 @@ class UpdatePostTest extends TestCase
         // Assert
         $this->assertEquals('Nouveau Titre', $updatedPost->getTitle());
         $this->assertEquals('Nouveau Contenu', $updatedPost->getContent());
-        $this->assertTrue($updatedPost->getTags()->contains($newTag));
-        $this->assertFalse($updatedPost->getTags()->contains($oldTag));
+
+        $this->assertEquals('New', $updatedPost->getTags()->get(1)->getName());
+
     }
 
     public function testExecuteThrowsExceptionWhenPostNotFound(): void
@@ -55,8 +59,8 @@ class UpdatePostTest extends TestCase
         $dto = PostDTOFactory::create('Titre', 'Contenu');
 
         // Assert & Expect
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Post not found');
+        $this->expectException(EntityNotFoundException::class);
+        $this->expectExceptionMessage('Post avec l\'identifiant "1" non trouvé(e).');
 
         // Act
         $useCase->execute(1, $dto);

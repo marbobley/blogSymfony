@@ -7,6 +7,7 @@ namespace App\Application\UseCase;
 use App\Application\DTO\PostDTO;
 use App\Application\UseCaseInterface\CreatePostInterface;
 use App\Domain\Model\Post;
+use App\Domain\Model\Tag;
 use App\Domain\Repository\PostRepositoryInterface;
 
 class CreatePost implements CreatePostInterface
@@ -20,7 +21,8 @@ class CreatePost implements CreatePostInterface
     {
         $post = new Post($postDTO->getTitle(), $postDTO->getContent());
 
-        foreach ($postDTO->getTags() as $tag) {
+        foreach ($postDTO->getTags() as $tagDTO) {
+            $tag = new Tag($tagDTO->getName());
             $post->addTag($tag);
         }
 
