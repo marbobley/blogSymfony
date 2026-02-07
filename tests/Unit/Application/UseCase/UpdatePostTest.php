@@ -28,7 +28,9 @@ class UpdatePostTest extends TestCase
             ->with($post);
 
         $useCase = new UpdatePost($repository);
-        $dto = new PostDTO('Nouveau Titre', 'Nouveau Contenu');
+        $dto = new PostDTO();
+        $dto->setTitle('Nouveau Titre');
+        $dto->setContent('Nouveau Contenu');
 
         // Act
         $updatedPost = $useCase->execute(1, $dto);

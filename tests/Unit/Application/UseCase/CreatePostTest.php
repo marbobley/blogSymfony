@@ -17,7 +17,9 @@ class CreatePostTest extends TestCase
         // Arrange
         $repository = $this->createMock(PostRepositoryInterface::class);
         $useCase = new CreatePost($repository);
-        $dto = new PostDTO('Titre de test', 'Contenu de test');
+        $dto = new PostDTO();
+        $dto->setTitle('Titre de test');
+        $dto->setContent('Contenu de test');
 
         // Assert & Expect
         $repository->expects($this->once())

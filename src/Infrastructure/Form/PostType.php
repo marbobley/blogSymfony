@@ -21,41 +21,14 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class, [
-                'label' => 'Titre de l\'article',
-                'attr' => [
-                    'placeholder' => 'Entrez un titre accrocheur',
-                    'class' => 'transition-base'
-                ],
-                'constraints' => [
-                    new NotBlank(['message' => 'Le titre est obligatoire.']),
-                    new Length([
-                        'max' => 255,
-                        'maxMessage' => 'Le titre ne peut pas dépasser {{ limit }} caractères.',
-                    ]),
-                ],
-            ])
-            ->add('content', TextareaType::class, [
-                'label' => 'Contenu',
-                'attr' => [
-                    'placeholder' => 'Écrivez votre texte ici...',
-                    'rows' => 8,
-                    'class' => 'transition-base'
-                ],
-                'constraints' => [
-                    new NotBlank(['message' => 'Le contenu est obligatoire.']),
-                ],
-            ]);
+        ->add('title')
+        ->add('content');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => PostDTO::class,
-            'empty_data' => fn($form) => new PostDTO(
-                (string)$form->get('title')->getData(),
-                (string)$form->get('content')->getData()
-            ),
+            'data_class' => PostDTO::class
         ]);
     }
 }

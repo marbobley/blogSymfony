@@ -24,7 +24,7 @@ class UpdatePost implements UpdatePostInterface
             throw new \RuntimeException('Post not found');
         }
 
-        $post->update($postDTO->title, $postDTO->content);
+        $post->update($postDTO->getTitle(), $postDTO->getContent());
 
         $this->postRepository->save($post);
 

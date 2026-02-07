@@ -12,30 +12,12 @@
                         <h1 class="h3 fw-bold">Nouvel Article</h1>
                         <p class="text-muted">Partagez vos idées avec le monde.</p>
                     </div>
-
-                    {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
-                        <div class="mb-4">
-                            {{ form_row(form.title, {
-                                'label_attr': {'class': 'form-label fw-semibold'},
-                                'attr': {'class': 'form-control-lg transition-base'}
-                            }) }}
-                            <div class="form-text small">Le titre doit être explicite et donner envie de lire.</div>
-                        </div>
-
-                        <div class="mb-4">
-                            {{ form_row(form.content, {
-                                'label_attr': {'class': 'form-label fw-semibold'},
-                                'attr': {'class': 'transition-base'}
-                            }) }}
-                        </div>
-
-                        <div class="d-grid gap-3 d-md-flex justify-content-md-end mt-5">
-                            <a href="{{ path('app_post_index') }}" class="btn btn-light px-4 transition-base">Annuler</a>
-                            <button type="submit" class="btn btn-primary px-5 transition-base">
-                                <i class="bi bi-check-circle me-1"></i> Publier l'article
-                            </button>
-                        </div>
+                    {{ form_start(form) }}
+                        {{ form_row(form.title) }}
+                        {{ form_row(form.content) }}
+                        <button type="submit" class="btn btn-primary">Save</button>
                     {{ form_end(form) }}
+
                 </div>
             </div>
         </div>

@@ -18,7 +18,7 @@ class CreatePost implements CreatePostInterface
 
     public function execute(PostDTO $postDTO): Post
     {
-        $post = new Post($postDTO->title, $postDTO->content);
+        $post = new Post($postDTO->getTitle(), $postDTO->getContent());
 
         $this->postRepository->save($post);
 
