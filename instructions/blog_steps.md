@@ -6,12 +6,14 @@ Ce document décrit les étapes fonctionnelles pour construire le blog, adaptée
 Contrairement à l'approche standard, on ne commence pas par la base de données ou le `MakerBundle`.
 
 1.  **Identifier l'objet métier** : Créer la classe `Post` dans `src/Domain/Model`. Elle doit contenir la logique métier (ex: validation interne, gestion des états).
-2.  **Définir l'interface de stockage** : Créer `PostRepositoryInterface` dans `src/Domain/Repository`. On définit *ce dont on a besoin* (ex: `save(Post $post)`), pas comment c'est fait.
+2.  **Gérer les Slugs** : Pour les URLs conviviales, utiliser l'extension `Gedmo\Slug`. Ajouter la propriété `slug` et l'annoter avec `#[Gedmo\Slug(fields: ['title'])]`. S'assurer que le getter `getSlug()` autorise un retour `null` car le slug est généré lors de la persistence.
+3.  **Définir l'interface de stockage** : Créer `PostRepositoryInterface` dans `src/Domain/Repository`. On définit *ce dont on a besoin* (ex: `save(Post $post)`, `findBySlug(string $slug)`), pas comment c'est fait.
 
 ## Étape 2 : Création du Cas d'Utilisation (Application)
-1.  **Définir l'interface du Use Case** : Créer `CreatePostInterface` dans `src/Application/UseCaseInterface`. Cela permet de découpler le contrôleur de l'implémentation.
-2.  **Créer le Use Case `CreatePost`** : Cette classe implémente l'interface. Elle orchestre la création d'un article, reçoit un DTO immuable, crée l'objet `Post` et utilise le repository (en `readonly`).
-3.  **Tester la logique** : Effectuer des tests unitaires sur l'implémentation du Use Case.
+1.  **Définir l'interface du Use Case** : Créer les interfaces (ex: `CreatePostInterface`, `GetPostBySlugInterface`) dans `src/Application/UseCaseInterface`. Cela permet de découpler le contrôleur de l'implémentation.
+2.  **Créer le Use Case** : Cette classe implémente l'interface. Elle orchestre l'action, reçoit un DTO immuable, manipule l'objet du Domaine et utilise le repository (en `readonly`).
+3.  **Tester la logique (Obligatoire)** : Créer des tests unitaires dans `tests/Unit/Application/UseCase`. Tester les cas nominaux et les cas d'erreur (ex: article non trouvé).
+    *   *Note sur les Slugs* : Lors des tests unitaires, le slug d'une nouvelle entité sera `null` car l'extension Doctrine n'est pas active en test unitaire pur. Le `PostResponseDTOFactory` doit gérer cela (ex: via un `?? ''`).
 
 ## Étape 3 : Implémentation technique (Infrastructure)
 C'est seulement ici que l'on connecte les outils (Symfony & Doctrine).
@@ -21,8 +23,9 @@ C'est seulement ici que l'on connecte les outils (Symfony & Doctrine).
     *   Traite le formulaire.
     *   Vérifie sa validité.
     *   Appelle l'interface du Use Case en lui passant un DTO.
+    *   Utilise le **slug** pour les routes d'affichage public (`/post/{slug}`) et l'**ID** pour les actions d'administration (`/post/edit/{id}`).
 3.  **Persistence Doctrine** : Créer le repository concret dans `src/Infrastructure/Persistence`. C'est lui qui implémente `PostRepositoryInterface`.
-4.  **Vues Twig** : Créer les templates dans `templates/` en utilisant les fonctions `form_*` pour un rendu propre.
+4.  **Vues Twig** : Créer les templates dans `templates/`. Utiliser `post.slug` pour générer les liens vers les articles.
 
 ## Étape 4 : Configuration & DB
 1.  **Fichier .env** : Configurer la `DATABASE_URL`.
