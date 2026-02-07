@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
-use App\Application\DTO\PostResponseDTO;
+use App\Application\Model\PostResponseModel;
 use App\Application\UseCase\ListPosts;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Post;
@@ -31,7 +31,7 @@ class ListPostsTest extends TestCase
 
         // Assert
         $this->assertCount(2, $result);
-        $this->assertInstanceOf(PostResponseDTO::class, $result[0]);
+        $this->assertInstanceOf(PostResponseModel::class, $result[0]);
         $this->assertEquals('Titre 1', $result[0]->title);
         $this->assertEquals('Titre 2', $result[1]->title);
     }

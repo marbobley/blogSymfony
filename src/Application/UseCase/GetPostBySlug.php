@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase;
 
-use App\Application\DTO\PostResponseDTO;
+use App\Application\Model\PostResponseModel;
 use App\Application\Factory\PostResponseDTOFactory;
 use App\Application\UseCaseInterface\GetPostBySlugInterface;
 use App\Domain\Exception\EntityNotFoundException;
@@ -17,7 +17,7 @@ readonly class GetPostBySlug implements GetPostBySlugInterface
     ) {
     }
 
-    public function execute(string $slug): PostResponseDTO
+    public function execute(string $slug): PostResponseModel
     {
         $post = $this->postRepository->findBySlug($slug);
 

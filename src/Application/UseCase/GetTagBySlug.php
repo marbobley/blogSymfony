@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase;
 
-use App\Application\DTO\TagResponseDTO;
+use App\Application\Model\TagResponseModel;
 use App\Application\Factory\TagResponseDTOFactory;
 use App\Application\UseCaseInterface\GetTagBySlugInterface;
 use App\Domain\Exception\EntityNotFoundException;
@@ -17,7 +17,7 @@ class GetTagBySlug implements GetTagBySlugInterface
     ) {
     }
 
-    public function execute(string $slug): TagResponseDTO
+    public function execute(string $slug): TagResponseModel
     {
         $tag = $this->tagRepository->findBySlug($slug);
 

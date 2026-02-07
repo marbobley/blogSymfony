@@ -4,17 +4,20 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Form;
 
-use App\Application\DTO\PostDTO;
+use App\Application\Model\PostModel;
+use App\Application\Model\TagModel;
 use App\Domain\Model\Tag;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\ChoiceList;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * @extends AbstractType<PostDTO>
+ * @extends AbstractType<PostModel>
  */
 class PostType extends AbstractType
 {
@@ -22,20 +25,13 @@ class PostType extends AbstractType
     {
         $builder
         ->add('title', TextType::class)
-        ->add('content', TextareaType::class)
-        ->add('tags', EntityType::class, [
-            'class' => Tag::class,
-            'choice_label' => 'name',
-            'multiple' => true,
-            'expanded' => false, // Utiliser true pour des checkboxes, false pour un select multiple
-            'required' => false,
-        ]);
+        ->add('content', TextareaType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => PostDTO::class
+            'data_class' => PostModel::class
         ]);
     }
 }

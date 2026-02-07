@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase;
 
-use App\Application\DTO\UserRegistrationDTO;
+use App\Application\Model\UserRegistrationModel;
 use App\Application\UseCaseInterface\RegisterUserInterface;
 use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
@@ -16,7 +16,7 @@ class RegisterUser implements RegisterUserInterface
     ) {
     }
 
-    public function execute(UserRegistrationDTO $dto): User
+    public function execute(UserRegistrationModel $dto): User
     {
         // On suppose ici que le mot de passe est DEJA haché par l'infrastructure avant d'arriver au Use Case
         // ou qu'on injectera un service de hachage abstrait plus tard.

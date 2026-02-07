@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Application\Factory;
 
-use App\Application\DTO\PostResponseDTO;
+use App\Application\Model\PostResponseModel;
 
 class PostResponseDTOFactory
 {
-    public static function create(?int $id, string $title, string $slug, string $content, \DateTimeImmutable $createdAt, array $tags = []): PostResponseDTO
+    public static function create(?int $id, string $title, string $slug, string $content, \DateTimeImmutable $createdAt, array $tags = []): PostResponseModel
     {
-        return new PostResponseDTO($id, $title, $slug, $content, $createdAt, $tags);
+        return new PostResponseModel($id, $title, $slug, $content, $createdAt, $tags);
     }
 
-    public static function createFromEntity(\App\Domain\Model\Post $post): PostResponseDTO
+    public static function createFromEntity(\App\Domain\Model\Post $post): PostResponseModel
     {
         $tags = [];
         foreach ($post->getTags() as $tag) {

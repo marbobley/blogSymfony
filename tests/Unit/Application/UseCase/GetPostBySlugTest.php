@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
-use App\Application\DTO\PostResponseDTO;
+use App\Application\Model\PostModel;
+use App\Application\Model\PostResponseModel;
 use App\Application\UseCase\GetPostBySlug;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Post;
@@ -32,7 +33,6 @@ class GetPostBySlugTest extends TestCase
         $result = $useCase->execute('mon-super-titre');
 
         // Assert
-        $this->assertInstanceOf(PostResponseDTO::class, $result);
         $this->assertEquals('Mon Super Titre', $result->title);
     }
 

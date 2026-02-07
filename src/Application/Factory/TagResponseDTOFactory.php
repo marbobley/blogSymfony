@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Application\Factory;
 
-use App\Application\DTO\TagResponseDTO;
+use App\Application\Model\TagResponseModel;
 use App\Domain\Model\Tag;
 
 class TagResponseDTOFactory
 {
-    public static function create(?int $id, string $name, string $slug): TagResponseDTO
+    public static function create(?int $id, string $name, string $slug): TagResponseModel
     {
-        return new TagResponseDTO($id, $name, $slug);
+        return new TagResponseModel($id, $name, $slug);
     }
 
-    public static function createFromEntity(Tag $tag): TagResponseDTO
+    public static function createFromEntity(Tag $tag): TagResponseModel
     {
         return self::create(
             $tag->getId(),

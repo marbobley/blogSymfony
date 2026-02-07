@@ -18,6 +18,11 @@ class Post
     #[ORM\Column]
     private ?int $id = null;
 
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
+    }
+
     #[ORM\Column(length: 255)]
     private string $title;
 

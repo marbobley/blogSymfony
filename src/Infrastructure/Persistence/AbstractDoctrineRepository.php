@@ -40,8 +40,7 @@ abstract class AbstractDoctrineRepository
     public function findById(int $id): ?object
     {
         /** @var T|null $result */
-        $result = $this->entityManager->getRepository($this->entityClass)->find($id);
-        return $result;
+        return $this->entityManager->getRepository($this->entityClass)->find($id);
     }
 
     /**
@@ -50,8 +49,7 @@ abstract class AbstractDoctrineRepository
     public function findBySlug(string $slug): ?object
     {
         /** @var T|null $result */
-        $result = $this->entityManager->getRepository($this->entityClass)->findOneBy(['slug' => $slug]);
-        return $result;
+        return $this->entityManager->getRepository($this->entityClass)->findOneBy(['slug' => $slug]);
     }
 
     /**
@@ -60,8 +58,7 @@ abstract class AbstractDoctrineRepository
     public function findByName(string $name): ?object
     {
         /** @var T|null $result */
-        $result = $this->entityManager->getRepository($this->entityClass)->findOneBy(['name' => $name]);
-        return $result;
+        return $this->entityManager->getRepository($this->entityClass)->findOneBy(['name' => $name]);
     }
 
     /**

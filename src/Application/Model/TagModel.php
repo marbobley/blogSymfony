@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Application\DTO;
+namespace App\Application\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class TagDTO
+class TagModel
 {
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 255)]

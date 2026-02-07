@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
-use App\Application\DTO\UserRegistrationDTO;
+use App\Application\Model\UserRegistrationModel;
 use App\Application\Factory\UserRegistrationDTOFactory;
 use App\Application\UseCaseInterface\RegisterUserInterface;
 use App\Infrastructure\Form\RegistrationType;
@@ -55,7 +55,7 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UserRegistrationDTO $dto */
+            /** @var UserRegistrationModel $dto */
             $dto = $form->getData();
 
             // Hachage du mot de passe dans l'infrastructure

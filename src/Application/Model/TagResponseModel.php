@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Application\DTO;
+namespace App\Application\Model;
 
-readonly class TagResponseDTO
+readonly class TagResponseModel
 {
     public function __construct(
         public ?int $id,

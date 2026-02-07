@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase;
 
-use App\Application\DTO\TagDTO;
+use App\Application\Model\TagModel;
 use App\Application\UseCaseInterface\CreateTagInterface;
 use App\Domain\Exception\TagAlreadyExistsException;
 use App\Domain\Model\Tag;
@@ -17,7 +17,7 @@ class CreateTag implements CreateTagInterface
     ) {
     }
 
-    public function execute(TagDTO $tagDTO): Tag
+    public function execute(TagModel $tagDTO): Tag
     {
         $existingTag = $this->tagRepository->findByName($tagDTO->getName());
         if ($existingTag instanceof Tag) {

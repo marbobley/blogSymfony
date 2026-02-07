@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase;
 
-use App\Application\DTO\PostDTO;
+use App\Application\Model\PostModel;
 use App\Application\UseCaseInterface\UpdatePostInterface;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Post;
@@ -19,7 +19,7 @@ class UpdatePost implements UpdatePostInterface
     ) {
     }
 
-    public function execute(int $id, PostDTO $postDTO): Post
+    public function execute(int $id, PostModel $postDTO): Post
     {
         $post = $this->postRepository->findById($id);
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Service;
 
-use App\Application\DTO\PostDTO;
+use App\Application\Model\PostModel;
 use App\Domain\Model\Post;
 use App\Domain\Model\Tag;
 use App\Domain\Repository\TagRepositoryInterface;
@@ -17,7 +17,7 @@ class PostTagSynchronizer
     ) {
     }
 
-    public function synchronize(Post $post, PostDTO $postDTO): void
+    public function synchronize(Post $post, PostModel $postDTO): void
     {
         $newTags = new ArrayCollection();
 

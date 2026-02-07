@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
-use App\Application\DTO\TagDTO;
+use App\Application\Model\TagModel;
 use App\Application\Factory\TagDTOFactory;
 use App\Application\UseCaseInterface\CreateTagInterface;
 use App\Application\UseCaseInterface\DeleteTagInterface;
@@ -34,7 +34,7 @@ class TagController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var TagDTO $tagDTO */
+            /** @var TagModel $tagDTO */
             $tagDTO = $form->getData();
             $createTag->execute($tagDTO);
             $this->addFlash('success', 'Tag créé avec succès !');
@@ -67,7 +67,7 @@ class TagController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var TagDTO $dto */
+            /** @var TagModel $dto */
             $dto = $form->getData();
             $updateTag->execute($id, $dto);
             $this->addFlash('success', 'Tag mis à jour avec succès !');

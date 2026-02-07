@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
-use App\Application\DTO\PostDTO;
-use App\Application\Factory\PostDTOFactory;
+use App\Application\Model\PostModel;
+use App\Application\Factory\PostResponseDTOFactory;
+use App\Application\UseCase\GetPost;
 use App\Application\UseCaseInterface\CreatePostInterface;
 use App\Application\UseCaseInterface\DeletePostInterface;
 use App\Application\UseCaseInterface\GetPostBySlugInterface;
-use App\Application\UseCaseInterface\GetPostInterface;
 use App\Application\UseCaseInterface\ListPostsInterface;
 use App\Application\UseCaseInterface\UpdatePostInterface;
 use App\Infrastructure\Form\PostType;
+use App\Infrastructure\MapperInterface\PostMapperInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,7 +35,7 @@ class PostController extends AbstractController
         $form = $this->createForm(PostType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var PostDTO $post */
+            /** @var PostModel $post */
             $post = $form->getData();
             $createPost->execute($post);
             $this->addFlash('success', 'Votre article a été publié avec succès !');
@@ -55,19 +56,16 @@ class PostController extends AbstractController
     }
 
     #[Route('/post/edit/{id}', name: 'app_post_edit', methods: ['GET', 'POST'])]
-    public function edit(int $id, Request $request, \App\Application\UseCase\GetPost $getPostUseCase, UpdatePostInterface $updatePost): Response
+    public function edit(int $id, Request $request, GetPost $getPostUseCase, UpdatePostInterface $updatePost): Response
     {
-        $postEntity = $getPostUseCase->getById($id);
-        $postResponseDTO = \App\Application\Factory\PostResponseDTOFactory::createFromEntity($postEntity);
+        $postModel = $getPostUseCase->execute($id);
 
-        $postDTO = PostDTOFactory::createFromEntity($postEntity);
-
-        $form = $this->createForm(PostType::class, $postDTO);
+        $form = $this->createForm(PostType::class, $postModel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
-                /** @var PostDTO $dto */
+                /** @var PostModel $dto */
                 $dto = $form->getData();
 
                 $updatePost->execute($id, $dto);
@@ -82,7 +80,7 @@ class PostController extends AbstractController
 
         return $this->render('post/edit.html.twig', [
             'form' => $form->createView(),
-            'post' => $postResponseDTO,
+            'post' => $postModel,
         ]);
     }
 

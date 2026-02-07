@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace App\Application\Factory;
 
-use App\Application\DTO\TagDTO;
+use App\Application\Model\TagModel;
 use App\Domain\Model\Tag;
 
 class TagDTOFactory
 {
-    public static function create(string $name = ''): TagDTO
+    public static function create(string $name = ''): TagModel
     {
-        $dto = new TagDTO();
+        $dto = new TagModel();
         $dto->setName($name);
 
         return $dto;
     }
 
-    public static function createFromEntity(Tag $tag): TagDTO
+    public static function createFromEntity(Tag $tag): TagModel
     {
         return self::create($tag->getName());
     }

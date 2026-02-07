@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase;
 
-use App\Application\DTO\TagResponseDTO;
+use App\Application\Model\TagResponseModel;
 use App\Application\Factory\TagResponseDTOFactory;
 use App\Application\UseCaseInterface\GetTagInterface;
 use App\Domain\Exception\EntityNotFoundException;
@@ -17,7 +17,7 @@ class GetTag implements GetTagInterface
     ) {
     }
 
-    public function execute(int $id): TagResponseDTO
+    public function execute(int $id): TagResponseModel
     {
         $tag = $this->getById($id);
 

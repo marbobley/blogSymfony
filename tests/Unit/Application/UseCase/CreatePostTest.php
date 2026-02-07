@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
-use App\Application\DTO\PostDTO;
+use App\Application\Model\PostModel;
 use App\Application\Factory\PostDTOFactory;
 use App\Application\Factory\TagDTOFactory;
 use App\Application\UseCase\CreatePost;

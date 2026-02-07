@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
-use App\Application\DTO\UserRegistrationDTO;
+use App\Application\Model\UserRegistrationModel;
 use App\Application\UseCase\RegisterUser;
 use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
@@ -15,7 +15,7 @@ class RegisterUserTest extends TestCase
     public function testExecuteSavesAndReturnsUser(): void
     {
         // Arrange
-        $dto = new UserRegistrationDTO('test@example.com', 'hashed_password');
+        $dto = new UserRegistrationModel('test@example.com', 'hashed_password');
 
         $repository = $this->createMock(UserRepositoryInterface::class);
         $repository->expects($this->once())
@@ -39,7 +39,7 @@ class RegisterUserTest extends TestCase
     public function testExecuteThrowsExceptionForInvalidEmail(): void
     {
         // Arrange
-        $dto = new UserRegistrationDTO('invalid-email', 'password');
+        $dto = new UserRegistrationModel('invalid-email', 'password');
         $repository = $this->createMock(UserRepositoryInterface::class);
 
         $useCase = new RegisterUser($repository);

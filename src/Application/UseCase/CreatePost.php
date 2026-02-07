@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase;
 
-use App\Application\DTO\PostDTO;
+use App\Application\Model\PostModel;
 use App\Application\UseCaseInterface\CreatePostInterface;
 use App\Domain\Model\Post;
 use App\Domain\Repository\PostRepositoryInterface;
@@ -18,7 +18,7 @@ class CreatePost implements CreatePostInterface
     ) {
     }
 
-    public function execute(PostDTO $postDTO): Post
+    public function execute(PostModel $postDTO): Post
     {
         $post = new Post($postDTO->getTitle(), $postDTO->getContent());
 

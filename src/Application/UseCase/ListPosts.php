@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase;
 
-use App\Application\DTO\PostResponseDTO;
+use App\Application\Model\PostResponseModel;
 use App\Application\Factory\PostResponseDTOFactory;
 use App\Application\UseCaseInterface\ListPostsInterface;
 use App\Domain\Exception\EntityNotFoundException;

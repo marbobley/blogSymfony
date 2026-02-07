@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase;
 
-use App\Application\DTO\TagDTO;
+use App\Application\Model\TagModel;
 use App\Application\UseCaseInterface\UpdateTagInterface;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Exception\TagAlreadyExistsException;
@@ -18,7 +18,7 @@ class UpdateTag implements UpdateTagInterface
     ) {
     }
 
-    public function execute(int $id, TagDTO $tagDTO): Tag
+    public function execute(int $id, TagModel $tagDTO): Tag
     {
         /** @var Tag|null $tag */
         $tag = $this->tagRepository->findById($id);

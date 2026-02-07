@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
-use App\Application\DTO\TagDTO;
+use App\Application\Model\TagModel;
 use App\Application\Factory\TagDTOFactory;
 use App\Application\UseCase\CreateTag;
 use App\Domain\Model\Tag;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
-use App\Application\DTO\TagResponseDTO;
+use App\Application\Model\TagResponseModel;
 use App\Application\UseCase\GetTagBySlug;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Tag;
@@ -28,7 +28,7 @@ class GetTagBySlugTest extends TestCase
 
         $responseDTO = $useCase->execute('symfony');
 
-        $this->assertInstanceOf(TagResponseDTO::class, $responseDTO);
+        $this->assertInstanceOf(TagResponseModel::class, $responseDTO);
         $this->assertEquals('Symfony', $responseDTO->name);
         $this->assertEquals('symfony', $responseDTO->slug);
     }

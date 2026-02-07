@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
-use App\Application\DTO\TagResponseDTO;
+use App\Application\Model\TagResponseModel;
 use App\Application\UseCase\ListTags;
 use App\Domain\Model\Tag;
 use App\Domain\Repository\TagRepositoryInterface;
@@ -30,7 +30,7 @@ class ListTagsTest extends TestCase
         $result = $useCase->execute();
 
         $this->assertCount(2, $result);
-        $this->assertInstanceOf(TagResponseDTO::class, $result[0]);
+        $this->assertInstanceOf(TagResponseModel::class, $result[0]);
         $this->assertEquals('Symfony', $result[0]->name);
         $this->assertEquals('PHP', $result[1]->name);
     }

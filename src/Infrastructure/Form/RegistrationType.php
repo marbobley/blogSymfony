@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Form;
 
-use App\Application\DTO\UserRegistrationDTO;
+use App\Application\Model\UserRegistrationModel;
 use App\Application\Factory\UserRegistrationDTOFactory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
- * @extends AbstractType<UserRegistrationDTO>
+ * @extends AbstractType<UserRegistrationModel>
  */
 class RegistrationType extends AbstractType
 {
@@ -66,7 +66,7 @@ class RegistrationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => UserRegistrationDTO::class,
+            'data_class' => UserRegistrationModel::class,
             'empty_data' => fn($form) => UserRegistrationDTOFactory::create(
                 (string)$form->get('email')->getData(),
                 (string)$form->get('plainPassword')->getData()
