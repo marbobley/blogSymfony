@@ -6,6 +6,7 @@ namespace App\Infrastructure\Controller;
 
 use App\Application\Model\TagModel;
 use App\Application\Factory\TagDTOFactory;
+use App\Application\UseCase\GetTag;
 use App\Application\UseCaseInterface\CreateTagInterface;
 use App\Application\UseCaseInterface\DeleteTagInterface;
 use App\Application\UseCaseInterface\GetTagBySlugInterface;
@@ -50,15 +51,14 @@ class TagController extends AbstractController
     public function show(string $slug, GetTagBySlugInterface $getTagBySlug, \App\Application\UseCaseInterface\ListPostsInterface $listPosts): Response
     {
         $tag = $getTagBySlug->execute($slug);
-
         return $this->render('tag/show.html.twig', [
             'tag' => $tag,
-            'posts' => $listPosts->execute($tag->id),
+            'posts' => $listPosts->execute($tag->getId()),
         ]);
     }
 
     #[Route('/tag/edit/{id}', name: 'app_tag_edit', methods: ['GET', 'POST'])]
-    public function edit(int $id, Request $request, \App\Application\UseCase\GetTag $getTagUseCase, UpdateTagInterface $updateTag): Response
+    public function edit(int $id, Request $request, GetTag $getTagUseCase, UpdateTagInterface $updateTag): Response
     {
         $tagEntity = $getTagUseCase->getById($id);
         $tagDTO = TagDTOFactory::createFromEntity($tagEntity);

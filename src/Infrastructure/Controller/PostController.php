@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Infrastructure\Controller;
 
 use App\Application\Model\PostModel;
-use App\Application\Factory\PostResponseDTOFactory;
 use App\Application\UseCase\GetPost;
 use App\Application\UseCaseInterface\CreatePostInterface;
 use App\Application\UseCaseInterface\DeletePostInterface;
@@ -13,19 +12,19 @@ use App\Application\UseCaseInterface\GetPostBySlugInterface;
 use App\Application\UseCaseInterface\ListPostsInterface;
 use App\Application\UseCaseInterface\UpdatePostInterface;
 use App\Infrastructure\Form\PostType;
-use App\Infrastructure\MapperInterface\PostMapperInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class PostController extends AbstractController
 {
     #[Route('/posts', name: 'app_post_index', methods: ['GET'])]
     public function index(ListPostsInterface $listPosts): Response
     {
+        $lists = $listPosts->execute();
         return $this->render('post/index.html.twig', [
-            'posts' => $listPosts->execute(),
+            'posts' => $lists,
         ]);
     }
 

@@ -21,6 +21,8 @@ class TagMapper implements TagMapperInterface
     {
         $tag = new TagModel();
         $tag->setName($entity->getName());
+        $tag->setSlug($entity->getSlug());
+        $tag->setId($entity->getId());
         return $tag;
     }
 

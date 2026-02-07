@@ -13,9 +13,24 @@ class TagModel
     private string $name;
     private string $slug;
 
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
+    }
+
     public function getSlug(): string
     {
         return $this->slug;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
     private int $id;
 

@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace App\Application\Model;
 
+use DateTimeImmutable;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -16,6 +17,28 @@ class PostModel
 
     #[Assert\NotBlank]
     private string $content;
+    private string $slug;
+    private DateTimeImmutable $createdAt;
+
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
+    }
+
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
 
     /**
      * @var Collection<int, TagModel>
