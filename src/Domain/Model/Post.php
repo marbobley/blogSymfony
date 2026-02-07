@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -29,6 +31,13 @@ class Post
     #[ORM\Column]
     private \DateTimeImmutable $createdAt;
 
+    /**
+     * @var Collection<int, Tag>
+     */
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: "posts", cascade: ["persist"])]
+    #[ORM\JoinTable(name: "post_tag")]
+    private Collection $tags;
+
     public function __construct(string $title, string $content)
     {
         if (mb_strlen($title) > 255) {
@@ -38,6 +47,7 @@ class Post
         $this->title = $title;
         $this->content = $content;
         $this->createdAt = new \DateTimeImmutable();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -63,6 +73,26 @@ class Post
     public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): void
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
+        }
+    }
+
+    public function removeTag(Tag $tag): void
+    {
+        $this->tags->removeElement($tag);
     }
 
     public function update(string $title, string $content): void

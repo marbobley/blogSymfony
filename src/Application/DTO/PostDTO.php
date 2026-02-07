@@ -3,17 +3,27 @@ declare(strict_types=1);
 namespace App\Application\DTO;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 class PostDTO
 {
-
-
     #[Assert\NotBlank]
     #[Assert\Length(min: 10, max: 255 , minMessage: "Le titre doit faire au moins 10 caractères")]
     private string $title;
 
     #[Assert\NotBlank]
     private string $content;
+
+    /**
+     * @var Collection<int, \App\Domain\Model\Tag>
+     */
+    private Collection $tags;
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
 
     public function getContent(): string
     {
@@ -33,5 +43,25 @@ class PostDTO
     public function setTitle(string $title): void
     {
         $this->title = $title;
+    }
+
+    /**
+     * @return Collection<int, \App\Domain\Model\Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(\App\Domain\Model\Tag $tag): void
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
+        }
+    }
+
+    public function removeTag(\App\Domain\Model\Tag $tag): void
+    {
+        $this->tags->removeElement($tag);
     }
 }

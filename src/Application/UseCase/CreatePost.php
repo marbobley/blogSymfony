@@ -20,6 +20,10 @@ class CreatePost implements CreatePostInterface
     {
         $post = new Post($postDTO->getTitle(), $postDTO->getContent());
 
+        foreach ($postDTO->getTags() as $tag) {
+            $post->addTag($tag);
+        }
+
         $this->postRepository->save($post);
 
         return $post;

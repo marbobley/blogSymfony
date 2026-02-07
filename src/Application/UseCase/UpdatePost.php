@@ -26,6 +26,19 @@ class UpdatePost implements UpdatePostInterface
 
         $post->update($postDTO->getTitle(), $postDTO->getContent());
 
+        // Update tags
+        // Remove tags not in DTO
+        foreach ($post->getTags() as $tag) {
+            if (!$postDTO->getTags()->contains($tag)) {
+                $post->removeTag($tag);
+            }
+        }
+
+        // Add tags from DTO
+        foreach ($postDTO->getTags() as $tag) {
+            $post->addTag($tag);
+        }
+
         $this->postRepository->save($post);
 
         return $post;

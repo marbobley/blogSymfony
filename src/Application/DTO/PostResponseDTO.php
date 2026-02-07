@@ -11,7 +11,9 @@ readonly class PostResponseDTO
         public string $title,
         public string $slug,
         public string $content,
-        public \DateTimeImmutable $createdAt
+        public \DateTimeImmutable $createdAt,
+        /** @var string[] */
+        public array $tags = []
     ) {
     }
 }

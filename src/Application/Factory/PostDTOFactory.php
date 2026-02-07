@@ -16,4 +16,14 @@ class PostDTOFactory
 
         return $dto;
     }
+
+    public static function createFromEntity(\App\Domain\Model\Post $post): PostDTO
+    {
+        $dto = self::create($post->getTitle(), $post->getContent());
+        foreach ($post->getTags() as $tag) {
+            $dto->addTag($tag);
+        }
+
+        return $dto;
+    }
 }
