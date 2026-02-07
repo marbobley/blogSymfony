@@ -31,11 +31,13 @@
                             <a class="nav-link transition-base" href="{{ path('app_post_index') }}">Articles</a>
                         </li>
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <li class="nav-item">
-                                <a class="nav-link transition-base" href="{{ path('app_post_new') }}">
-                                    <i class="bi bi-plus-circle me-1"></i>Nouveau Post
-                                </a>
-                            </li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item">
+                                    <a class="nav-link transition-base" href="{{ path('app_post_new') }}">
+                                        <i class="bi bi-plus-circle me-1"></i>Nouveau Post
+                                    </a>
+                                </li>
+                                {% endif %}
                             <li class="nav-item ms-lg-3">
                                 <div class="dropdown">
                                     <button class="btn btn-outline-primary dropdown-toggle transition-base" type="button" data-bs-toggle="dropdown" aria-expanded="false">
