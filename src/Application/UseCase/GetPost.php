@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Application\UseCase;
 
 use App\Application\DTO\PostResponseDTO;
+use App\Application\Factory\PostResponseDTOFactory;
 use App\Application\UseCaseInterface\GetPostInterface;
 use App\Domain\Repository\PostRepositoryInterface;
 
@@ -23,11 +24,6 @@ readonly class GetPost implements GetPostInterface
             throw new \RuntimeException('Post not found');
         }
 
-        return new PostResponseDTO(
-            $post->getId(),
-            $post->getTitle(),
-            $post->getContent(),
-            $post->getCreatedAt()
-        );
+        return PostResponseDTOFactory::createFromEntity($post);
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Controller;
 
 use App\Application\DTO\UserRegistrationDTO;
+use App\Application\Factory\UserRegistrationDTOFactory;
 use App\Application\UseCaseInterface\RegisterUserInterface;
 use App\Infrastructure\Form\RegistrationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -64,7 +65,7 @@ class SecurityController extends AbstractController
             );
 
             // Mise à jour du DTO avec le mot de passe haché (ou création d'un nouveau DTO)
-            $secureDto = new UserRegistrationDTO($dto->email, $hashedPassword);
+            $secureDto = UserRegistrationDTOFactory::create($dto->email, $hashedPassword);
 
             $registerUser->execute($secureDto);
 

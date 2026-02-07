@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Form;
 
 use App\Application\DTO\UserRegistrationDTO;
+use App\Application\Factory\UserRegistrationDTOFactory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -66,7 +67,7 @@ class RegistrationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => UserRegistrationDTO::class,
-            'empty_data' => fn($form) => new UserRegistrationDTO(
+            'empty_data' => fn($form) => UserRegistrationDTOFactory::create(
                 (string)$form->get('email')->getData(),
                 (string)$form->get('plainPassword')->getData()
             ),

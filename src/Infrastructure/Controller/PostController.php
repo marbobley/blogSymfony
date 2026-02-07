@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Controller;
 
 use App\Application\DTO\PostDTO;
+use App\Application\Factory\PostDTOFactory;
 use App\Application\UseCaseInterface\CreatePostInterface;
 use App\Application\UseCaseInterface\DeletePostInterface;
 use App\Application\UseCaseInterface\GetPostInterface;
@@ -32,7 +33,7 @@ class PostController extends AbstractController
         $form = $this->createForm(PostType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
+            /** @var PostDTO $post */
             $post = $form->getData();
             $createPost->execute($post);
             $this->addFlash('success', 'Votre article a été publié avec succès !');
@@ -57,11 +58,9 @@ class PostController extends AbstractController
     {
         $post = $getPost->execute($id);
 
-        $postDTO = new PostDTO();
-        $postDTO->setTitle($post->title);
-        $postDTO->setContent($post->content);
+        $postDTO = PostDTOFactory::create($post->title, $post->content);
 
-        $form = $this->createForm(PostType::class, new PostDTO($post->title, $post->content));
+        $form = $this->createForm(PostType::class, $postDTO);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {

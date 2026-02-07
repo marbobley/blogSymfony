@@ -21,8 +21,9 @@ On commence toujours par le cœur (Domaine) pour finir par les détails techniqu
 *Lieu : `src/Application`*
 
 1.  **DTO (`DTO/`)** : Créer des objets `readonly` pour les entrées (RequestDTO) et les sorties (ResponseDTO/ViewModel).
-2.  **Interface de Use Case (`UseCaseInterface/`)** : Définir le contrat du service (ex: `ListPostsInterface`).
-3.  **Implémentation du Use Case (`UseCase/`)** :
+2.  **Factory (`Factory/`)** : Créer une factory pour le DTO selon le [Blueprint de Création d'Objets](object_creation_blueprint.md).
+3.  **Interface de Use Case (`UseCaseInterface/`)** : Définir le contrat du service (ex: `ListPostsInterface`).
+4.  **Implémentation du Use Case (`UseCase/`)** :
     *   Injecter les interfaces de repository nécessaires en `readonly`.
     *   Implémenter la logique d'orchestration.
     *   Transformer les objets du domaine en DTO de sortie.

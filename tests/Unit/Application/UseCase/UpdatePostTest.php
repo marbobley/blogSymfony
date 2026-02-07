@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Application\UseCase;
 
 use App\Application\DTO\PostDTO;
+use App\Application\Factory\PostDTOFactory;
 use App\Application\UseCase\UpdatePost;
 use App\Domain\Model\Post;
 use App\Domain\Repository\PostRepositoryInterface;
@@ -28,9 +29,7 @@ class UpdatePostTest extends TestCase
             ->with($post);
 
         $useCase = new UpdatePost($repository);
-        $dto = new PostDTO();
-        $dto->setTitle('Nouveau Titre');
-        $dto->setContent('Nouveau Contenu');
+        $dto = PostDTOFactory::create('Nouveau Titre', 'Nouveau Contenu');
 
         // Act
         $updatedPost = $useCase->execute(1, $dto);
@@ -47,7 +46,7 @@ class UpdatePostTest extends TestCase
         $repository->method('findById')->willReturn(null);
 
         $useCase = new UpdatePost($repository);
-        $dto = new PostDTO('Titre', 'Contenu');
+        $dto = PostDTOFactory::create('Titre', 'Contenu');
 
         // Assert & Expect
         $this->expectException(\RuntimeException::class);

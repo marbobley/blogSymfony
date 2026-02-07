@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Application\UseCase;
 
 use App\Application\DTO\PostResponseDTO;
+use App\Application\Factory\PostResponseDTOFactory;
 use App\Application\UseCaseInterface\ListPostsInterface;
 use App\Domain\Repository\PostRepositoryInterface;
 
@@ -20,12 +21,7 @@ readonly class ListPosts implements ListPostsInterface
         $posts = $this->postRepository->findAll();
 
         return array_map(function ($post) {
-            return new PostResponseDTO(
-                $post->getId(),
-                $post->getTitle(),
-                $post->getContent(),
-                $post->getCreatedAt()
-            );
+            return PostResponseDTOFactory::createFromEntity($post);
         }, $posts);
     }
 }
