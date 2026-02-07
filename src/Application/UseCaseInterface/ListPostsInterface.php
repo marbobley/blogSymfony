@@ -9,5 +9,5 @@ interface ListPostsInterface
     /**
      * @return \App\Application\DTO\PostResponseDTO[]
      */
-    public function execute(): array;
+    public function execute(?int $tagId = null): array;
 }

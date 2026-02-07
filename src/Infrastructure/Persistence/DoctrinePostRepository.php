@@ -36,6 +36,18 @@ class DoctrinePostRepository implements PostRepositoryInterface
         return $this->entityManager->getRepository(Post::class)->findOneBy(['slug' => $slug]);
     }
 
+    public function findByTag(\App\Domain\Model\Tag $tag): array
+    {
+        return $this->entityManager->createQueryBuilder()
+            ->select('p')
+            ->from(Post::class, 'p')
+            ->join('p.tags', 't')
+            ->where('t.id = :tagId')
+            ->setParameter('tagId', $tag->getId())
+            ->getQuery()
+            ->getResult();
+    }
+
     public function delete(Post $post): void
     {
         $this->entityManager->remove($post);

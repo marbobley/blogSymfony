@@ -19,5 +19,10 @@ interface PostRepositoryInterface
 
     public function findBySlug(string $slug): ?Post;
 
+    /**
+     * @return Post[]
+     */
+    public function findByTag(\App\Domain\Model\Tag $tag): array;
+
     public function delete(Post $post): void;
 }

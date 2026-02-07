@@ -18,12 +18,19 @@ readonly class GetPost implements GetPostInterface
 
     public function execute(int $id): PostResponseDTO
     {
+        $post = $this->getById($id);
+
+        return PostResponseDTOFactory::createFromEntity($post);
+    }
+
+    public function getById(int $id): \App\Domain\Model\Post
+    {
         $post = $this->postRepository->findById($id);
 
         if (!$post) {
             throw new \RuntimeException('Post not found');
         }
 
-        return PostResponseDTOFactory::createFromEntity($post);
+        return $post;
     }
 }

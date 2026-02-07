@@ -12,13 +12,22 @@ use App\Domain\Repository\PostRepositoryInterface;
 readonly class ListPosts implements ListPostsInterface
 {
     public function __construct(
-        private PostRepositoryInterface $postRepository
+        private PostRepositoryInterface $postRepository,
+        private \App\Domain\Repository\TagRepositoryInterface $tagRepository
     ) {
     }
 
-    public function execute(): array
+    public function execute(?int $tagId = null): array
     {
-        $posts = $this->postRepository->findAll();
+        if ($tagId !== null) {
+            $tag = $this->tagRepository->findById($tagId);
+            if (!$tag) {
+                throw new \RuntimeException('Tag not found');
+            }
+            $posts = $this->postRepository->findByTag($tag);
+        } else {
+            $posts = $this->postRepository->findAll();
+        }
 
         return array_map(function ($post) {
             return PostResponseDTOFactory::createFromEntity($post);

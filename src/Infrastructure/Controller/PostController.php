@@ -55,11 +55,12 @@ class PostController extends AbstractController
     }
 
     #[Route('/post/edit/{id}', name: 'app_post_edit', methods: ['GET', 'POST'])]
-    public function edit(int $id, Request $request, GetPostInterface $getPost, UpdatePostInterface $updatePost): Response
+    public function edit(int $id, Request $request, \App\Application\UseCase\GetPost $getPostUseCase, UpdatePostInterface $updatePost): Response
     {
-        $post = $getPost->execute($id);
+        $postEntity = $getPostUseCase->getById($id);
+        $postResponseDTO = \App\Application\Factory\PostResponseDTOFactory::createFromEntity($postEntity);
 
-        $postDTO = PostDTOFactory::create($post->title, $post->content);
+        $postDTO = PostDTOFactory::createFromEntity($postEntity);
 
         $form = $this->createForm(PostType::class, $postDTO);
         $form->handleRequest($request);
@@ -81,7 +82,7 @@ class PostController extends AbstractController
 
         return $this->render('post/edit.html.twig', [
             'form' => $form->createView(),
-            'post' => $post,
+            'post' => $postResponseDTO,
         ]);
     }
 

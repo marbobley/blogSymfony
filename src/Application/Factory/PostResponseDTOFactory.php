@@ -17,7 +17,7 @@ class PostResponseDTOFactory
     {
         $tags = [];
         foreach ($post->getTags() as $tag) {
-            $tags[] = $tag->getName();
+            $tags[$tag->getSlug()] = $tag->getName();
         }
 
         return self::create(
