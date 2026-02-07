@@ -9,7 +9,7 @@ class PostDTO
 
 
     #[Assert\NotBlank]
-    #[Assert\Length(min: 10, max: 255)]
+    #[Assert\Length(min: 10, max: 255 , minMessage: "Le titre doit faire au moins 10 caractères")]
     private string $title;
 
     #[Assert\NotBlank]
