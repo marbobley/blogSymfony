@@ -22,6 +22,9 @@ interface TagRepositoryInterface
     /** @return Tag|null */
     public function findBySlug(string $slug): ?object;
 
+    /** @return Tag|null */
+    public function findByName(string $name): ?object;
+
     /** @param Tag $tag */
     public function delete(object $tag): void;
 }

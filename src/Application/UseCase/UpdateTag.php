@@ -7,6 +7,7 @@ namespace App\Application\UseCase;
 use App\Application\DTO\TagDTO;
 use App\Application\UseCaseInterface\UpdateTagInterface;
 use App\Domain\Exception\EntityNotFoundException;
+use App\Domain\Exception\TagAlreadyExistsException;
 use App\Domain\Model\Tag;
 use App\Domain\Repository\TagRepositoryInterface;
 
@@ -19,13 +20,23 @@ class UpdateTag implements UpdateTagInterface
 
     public function execute(int $id, TagDTO $tagDTO): Tag
     {
+        /** @var Tag|null $tag */
         $tag = $this->tagRepository->findById($id);
 
         if (!$tag) {
             throw EntityNotFoundException::forEntity('Tag', $id);
         }
 
-        $tag->setName($tagDTO->getName());
+        $newName = $tagDTO->getName();
+
+        if ($tag->getName() !== $newName) {
+            $existingTag = $this->tagRepository->findByName($newName);
+            if ($existingTag instanceof Tag) {
+                throw new TagAlreadyExistsException($newName);
+            }
+        }
+
+        $tag->setName($newName);
         $this->tagRepository->save($tag);
 
         return $tag;

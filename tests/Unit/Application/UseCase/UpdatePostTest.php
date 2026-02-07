@@ -10,8 +10,10 @@ use App\Application\Factory\TagDTOFactory;
 use App\Application\UseCase\UpdatePost;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Post;
+use App\Domain\Model\Tag;
 use App\Domain\Repository\PostRepositoryInterface;
-use phpDocumentor\Reflection\DocBlock\TagFactory;
+use App\Domain\Repository\TagRepositoryInterface;
+use App\Domain\Service\PostTagSynchronizer;
 use PHPUnit\Framework\TestCase;
 
 class UpdatePostTest extends TestCase
@@ -19,24 +21,27 @@ class UpdatePostTest extends TestCase
     public function testExecuteUpdatesAndSavesPost(): void
     {
         // Arrange
-        $repository = $this->createMock(PostRepositoryInterface::class);
+        $postRepository = $this->createMock(PostRepositoryInterface::class);
+        $tagRepository = $this->createMock(TagRepositoryInterface::class);
+        $tagSynchronizer = new PostTagSynchronizer($tagRepository);
+        $useCase = new UpdatePost($postRepository, $tagSynchronizer);
+
         $post = new Post('Ancien Titre', 'Ancien Contenu');
-        $oldTag = new \App\Domain\Model\Tag('Old');
+        $oldTag = new Tag('Old');
         $post->addTag($oldTag);
 
-        $repository->expects($this->once())
+        $postRepository->expects($this->once())
             ->method('findById')
             ->with(1)
             ->willReturn($post);
 
-        $repository->expects($this->once())
+        $postRepository->expects($this->once())
             ->method('save')
             ->with($post);
 
-        $useCase = new UpdatePost($repository);
         $dto = PostDTOFactory::create('Nouveau Titre', 'Nouveau Contenu');
-        $newTag = TagDTOFactory::create('New');
-        $dto->addTag($newTag);
+        $newTagDTO = TagDTOFactory::create('New');
+        $dto->addTag($newTagDTO);
 
         // Act
         $updatedPost = $useCase->execute(1, $dto);
@@ -44,18 +49,20 @@ class UpdatePostTest extends TestCase
         // Assert
         $this->assertEquals('Nouveau Titre', $updatedPost->getTitle());
         $this->assertEquals('Nouveau Contenu', $updatedPost->getContent());
-
-        $this->assertEquals('New', $updatedPost->getTags()->get(1)->getName());
-
+        $this->assertCount(1, $updatedPost->getTags());
+        $this->assertEquals('New', $updatedPost->getTags()->first()->getName());
     }
 
     public function testExecuteThrowsExceptionWhenPostNotFound(): void
     {
         // Arrange
-        $repository = $this->createMock(PostRepositoryInterface::class);
-        $repository->method('findById')->willReturn(null);
+        $postRepository = $this->createMock(PostRepositoryInterface::class);
+        $tagRepository = $this->createMock(TagRepositoryInterface::class);
+        $tagSynchronizer = new PostTagSynchronizer($tagRepository);
+        $useCase = new UpdatePost($postRepository, $tagSynchronizer);
 
-        $useCase = new UpdatePost($repository);
+        $postRepository->method('findById')->willReturn(null);
+
         $dto = PostDTOFactory::create('Titre', 'Contenu');
 
         // Assert & Expect

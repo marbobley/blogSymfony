@@ -7,13 +7,14 @@ namespace App\Application\UseCase;
 use App\Application\DTO\PostDTO;
 use App\Application\UseCaseInterface\CreatePostInterface;
 use App\Domain\Model\Post;
-use App\Domain\Model\Tag;
 use App\Domain\Repository\PostRepositoryInterface;
+use App\Domain\Service\PostTagSynchronizer;
 
 class CreatePost implements CreatePostInterface
 {
     public function __construct(
-        private readonly PostRepositoryInterface $postRepository
+        private readonly PostRepositoryInterface $postRepository,
+        private readonly PostTagSynchronizer $tagSynchronizer
     ) {
     }
 
@@ -21,10 +22,7 @@ class CreatePost implements CreatePostInterface
     {
         $post = new Post($postDTO->getTitle(), $postDTO->getContent());
 
-        foreach ($postDTO->getTags() as $tagDTO) {
-            $tag = new Tag($tagDTO->getName());
-            $post->addTag($tag);
-        }
+        $this->tagSynchronizer->synchronize($post, $postDTO);
 
         $this->postRepository->save($post);
 

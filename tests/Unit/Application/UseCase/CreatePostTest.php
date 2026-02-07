@@ -9,7 +9,10 @@ use App\Application\Factory\PostDTOFactory;
 use App\Application\Factory\TagDTOFactory;
 use App\Application\UseCase\CreatePost;
 use App\Domain\Model\Post;
+use App\Domain\Model\Tag;
 use App\Domain\Repository\PostRepositoryInterface;
+use App\Domain\Repository\TagRepositoryInterface;
+use App\Domain\Service\PostTagSynchronizer;
 use PHPUnit\Framework\TestCase;
 
 class CreatePostTest extends TestCase
@@ -17,14 +20,18 @@ class CreatePostTest extends TestCase
     public function testExecuteCreatesAndSavesPost(): void
     {
         // Arrange
-        $repository = $this->createMock(PostRepositoryInterface::class);
-        $useCase = new CreatePost($repository);
+        $postRepository = $this->createMock(PostRepositoryInterface::class);
+        $tagRepository = $this->createMock(TagRepositoryInterface::class);
+        $tagSynchronizer = new PostTagSynchronizer($tagRepository);
+        $useCase = new CreatePost($postRepository, $tagSynchronizer);
+
         $dto = PostDTOFactory::create('Titre de test', 'Contenu de test');
-        $tag = TagDTOFactory::create('Tag test');
-        $dto->addTag($tag);
+        $tagDTO = TagDTOFactory::create('Tag test');
+        $dto->addTag($tagDTO);
 
         // Assert & Expect
-        $repository->expects($this->once())
+        $tagRepository->method('findByName')->willReturn(null);
+        $postRepository->expects($this->once())
             ->method('save');
 
         // Act
@@ -35,5 +42,28 @@ class CreatePostTest extends TestCase
         $this->assertEquals('Contenu de test', $post->getContent());
         $this->assertEquals('Tag test', $post->getTags()[0]->getName());
         $this->assertInstanceOf(\DateTimeImmutable::class, $post->getCreatedAt());
+    }
+
+    public function testExecuteReusesExistingTag(): void
+    {
+        // Arrange
+        $postRepository = $this->createMock(PostRepositoryInterface::class);
+        $tagRepository = $this->createMock(TagRepositoryInterface::class);
+        $tagSynchronizer = new PostTagSynchronizer($tagRepository);
+        $useCase = new CreatePost($postRepository, $tagSynchronizer);
+
+        $existingTag = new Tag('Existing Tag');
+        $tagRepository->method('findByName')->with('Existing Tag')->willReturn($existingTag);
+
+        $dto = PostDTOFactory::create('Titre de test', 'Contenu de test');
+        $tagDTO = TagDTOFactory::create('Existing Tag');
+        $dto->addTag($tagDTO);
+
+        // Act
+        $post = $useCase->execute($dto);
+
+        // Assert
+        $this->assertCount(1, $post->getTags());
+        $this->assertSame($existingTag, $post->getTags()[0]);
     }
 }

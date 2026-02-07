@@ -55,6 +55,16 @@ abstract class AbstractDoctrineRepository
     }
 
     /**
+     * @return T|null
+     */
+    public function findByName(string $name): ?object
+    {
+        /** @var T|null $result */
+        $result = $this->entityManager->getRepository($this->entityClass)->findOneBy(['name' => $name]);
+        return $result;
+    }
+
+    /**
      * @param T $entity
      */
     public function delete(object $entity): void
