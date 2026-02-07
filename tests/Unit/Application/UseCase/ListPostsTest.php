@@ -21,7 +21,9 @@ class ListPostsTest extends TestCase
         $repository = $this->createMock(PostRepositoryInterface::class);
         $repository->method('findAll')->willReturn([$post1, $post2]);
 
-        $useCase = new ListPosts($repository);
+        $tagRepository = $this->createMock(\App\Domain\Repository\TagRepositoryInterface::class);
+
+        $useCase = new ListPosts($repository, $tagRepository);
 
         // Act
         $result = $useCase->execute();
@@ -31,5 +33,34 @@ class ListPostsTest extends TestCase
         $this->assertInstanceOf(PostResponseDTO::class, $result[0]);
         $this->assertEquals('Titre 1', $result[0]->title);
         $this->assertEquals('Titre 2', $result[1]->title);
+    }
+
+    public function testExecuteWithTagIdReturnsFilteredPosts(): void
+    {
+        // Arrange
+        $tag = $this->createMock(\App\Domain\Model\Tag::class);
+        $tag->method('getId')->willReturn(1);
+        $post = new Post('Titre Tag', 'Contenu Tag');
+
+        $repository = $this->createMock(PostRepositoryInterface::class);
+        $repository->expects($this->once())
+            ->method('findByTag')
+            ->with($tag)
+            ->willReturn([$post]);
+
+        $tagRepository = $this->createMock(\App\Domain\Repository\TagRepositoryInterface::class);
+        $tagRepository->expects($this->once())
+            ->method('findById')
+            ->with(1)
+            ->willReturn($tag);
+
+        $useCase = new ListPosts($repository, $tagRepository);
+
+        // Act
+        $result = $useCase->execute(1);
+
+        // Assert
+        $this->assertCount(1, $result);
+        $this->assertEquals('Titre Tag', $result[0]->title);
     }
 }

@@ -18,6 +18,8 @@ class UpdatePostTest extends TestCase
         // Arrange
         $repository = $this->createMock(PostRepositoryInterface::class);
         $post = new Post('Ancien Titre', 'Ancien Contenu');
+        $oldTag = new \App\Domain\Model\Tag('Old');
+        $post->addTag($oldTag);
 
         $repository->expects($this->once())
             ->method('findById')
@@ -30,6 +32,8 @@ class UpdatePostTest extends TestCase
 
         $useCase = new UpdatePost($repository);
         $dto = PostDTOFactory::create('Nouveau Titre', 'Nouveau Contenu');
+        $newTag = new \App\Domain\Model\Tag('New');
+        $dto->addTag($newTag);
 
         // Act
         $updatedPost = $useCase->execute(1, $dto);
@@ -37,6 +41,8 @@ class UpdatePostTest extends TestCase
         // Assert
         $this->assertEquals('Nouveau Titre', $updatedPost->getTitle());
         $this->assertEquals('Nouveau Contenu', $updatedPost->getContent());
+        $this->assertTrue($updatedPost->getTags()->contains($newTag));
+        $this->assertFalse($updatedPost->getTags()->contains($oldTag));
     }
 
     public function testExecuteThrowsExceptionWhenPostNotFound(): void

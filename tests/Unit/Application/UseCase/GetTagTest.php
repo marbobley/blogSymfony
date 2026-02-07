@@ -1,0 +1,63 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Tests\Unit\Application\UseCase;
+
+use App\Application\DTO\TagResponseDTO;
+use App\Application\UseCase\GetTag;
+use App\Domain\Model\Tag;
+use App\Domain\Repository\TagRepositoryInterface;
+use PHPUnit\Framework\TestCase;
+
+class GetTagTest extends TestCase
+{
+    public function testExecuteReturnsTagResponseDTO(): void
+    {
+        $repository = $this->createMock(TagRepositoryInterface::class);
+        $useCase = new GetTag($repository);
+        $tag = $this->createMock(Tag::class);
+        $tag->method('getName')->willReturn('Symfony');
+        $tag->method('getSlug')->willReturn('symfony');
+
+        $repository->expects($this->once())
+            ->method('findById')
+            ->with(1)
+            ->willReturn($tag);
+
+        $responseDTO = $useCase->execute(1);
+
+        $this->assertInstanceOf(TagResponseDTO::class, $responseDTO);
+        $this->assertEquals('Symfony', $responseDTO->name);
+        $this->assertEquals('symfony', $responseDTO->slug);
+    }
+
+    public function testExecuteThrowsExceptionWhenTagNotFound(): void
+    {
+        $repository = $this->createMock(TagRepositoryInterface::class);
+        $useCase = new GetTag($repository);
+
+        $repository->method('findById')->willReturn(null);
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Tag not found');
+
+        $useCase->execute(1);
+    }
+
+    public function testGetByIdReturnsTag(): void
+    {
+        $repository = $this->createMock(TagRepositoryInterface::class);
+        $useCase = new GetTag($repository);
+        $tag = new Tag('Symfony');
+
+        $repository->expects($this->once())
+            ->method('findById')
+            ->with(1)
+            ->willReturn($tag);
+
+        $result = $useCase->getById(1);
+
+        $this->assertSame($tag, $result);
+    }
+}
