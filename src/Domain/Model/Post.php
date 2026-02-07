@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Model;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity]
 #[ORM\Table(name: "post")]
@@ -17,6 +18,10 @@ class Post
 
     #[ORM\Column(length: 255)]
     private string $title;
+
+    #[Gedmo\Slug(fields: ['title'])]
+    #[ORM\Column(length: 255, unique: true, nullable: true)]
+    private ?string $slug = null;
 
     #[ORM\Column(type: "text")]
     private string $content;
@@ -43,6 +48,11 @@ class Post
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
     }
 
     public function getContent(): string

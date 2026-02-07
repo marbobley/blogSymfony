@@ -8,6 +8,7 @@ use App\Application\DTO\PostDTO;
 use App\Application\Factory\PostDTOFactory;
 use App\Application\UseCaseInterface\CreatePostInterface;
 use App\Application\UseCaseInterface\DeletePostInterface;
+use App\Application\UseCaseInterface\GetPostBySlugInterface;
 use App\Application\UseCaseInterface\GetPostInterface;
 use App\Application\UseCaseInterface\ListPostsInterface;
 use App\Application\UseCaseInterface\UpdatePostInterface;
@@ -45,11 +46,11 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/post/{id}', name: 'app_post_show', methods: ['GET'])]
-    public function show(int $id, GetPostInterface $getPost): Response
+    #[Route('/post/{slug}', name: 'app_post_show', methods: ['GET'])]
+    public function show(string $slug, GetPostBySlugInterface $getPostBySlug): Response
     {
         return $this->render('post/show.html.twig', [
-            'post' => $getPost->execute($id),
+            'post' => $getPostBySlug->execute($slug),
         ]);
     }
 

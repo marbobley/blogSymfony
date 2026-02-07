@@ -17,5 +17,7 @@ interface PostRepositoryInterface
 
     public function findById(int $id): ?Post;
 
+    public function findBySlug(string $slug): ?Post;
+
     public function delete(Post $post): void;
 }

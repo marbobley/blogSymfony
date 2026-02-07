@@ -8,9 +8,9 @@ use App\Application\DTO\PostResponseDTO;
 
 class PostResponseDTOFactory
 {
-    public static function create(?int $id, string $title, string $content, \DateTimeImmutable $createdAt): PostResponseDTO
+    public static function create(?int $id, string $title, string $slug, string $content, \DateTimeImmutable $createdAt): PostResponseDTO
     {
-        return new PostResponseDTO($id, $title, $content, $createdAt);
+        return new PostResponseDTO($id, $title, $slug, $content, $createdAt);
     }
 
     public static function createFromEntity(\App\Domain\Model\Post $post): PostResponseDTO
@@ -18,6 +18,7 @@ class PostResponseDTOFactory
         return self::create(
             $post->getId(),
             $post->getTitle(),
+            $post->getSlug() ?? '',
             $post->getContent(),
             $post->getCreatedAt()
         );
