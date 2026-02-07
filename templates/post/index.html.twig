@@ -13,39 +13,7 @@
     <div class="row g-4">
         {% for post in posts %}
             <div class="col-12 col-md-6 col-lg-4">
-                <article class="card h-100 shadow-sm border-0 animate-fade-in transition-base">
-                    <div class="card-body d-flex flex-column">
-                        <h2 class="h4 card-title fw-bold">
-                            <a href="{{ path('app_post_show', {'slug': post.slug}) }}" class="text-decoration-none text-dark">{{ post.title }}</a>
-                        </h2>
-                        <div class="mb-3 d-flex flex-wrap gap-2">
-                            <span class="badge bg-light text-primary border border-primary-subtle px-2 py-1">
-                                <i class="bi bi-calendar3 me-1"></i> {{ post.createdAt|date('d/m/Y') }}
-                            </span>
-                            {% for slug, name in post.tags %}
-                                <a href="{{ path('app_tag_show', {'slug': slug}) }}" class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1 text-decoration-none">
-                                    <i class="bi bi-tag me-1"></i> {{ name }}
-                                </a>
-                            {% endfor %}
-                        </div>
-                        <p class="card-text text-muted flex-grow-1">
-                            {{ post.content|slice(0, 150) }}{{ post.content|length > 150 ? '...' : '' }}
-                        </p>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <div class="mt-3 d-flex gap-2">
-                                <a href="{{ path('app_post_edit', {'id': post.id}) }}" class="btn btn-outline-primary flex-grow-1 transition-base">
-                                    <i class="bi bi-pencil me-1"></i> Modifier
-                                </a>
-                                <form method="post" action="{{ path('app_post_delete', {'id': post.id}) }}" onsubmit="return confirm('Supprimer cet article ?');" class="d-inline">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
-                                    <button class="btn btn-outline-danger transition-base" aria-label="Supprimer">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        {% endif %}
-                    </div>
-                </article>
+                {{ include('post/components/_post_card.html.twig', {'post': post, 'show_actions': true}) }}
             </div>
         {% else %}
             <div class="col-12 text-center py-5">

@@ -8,21 +8,25 @@ use App\Domain\Model\Post;
 
 interface PostRepositoryInterface
 {
-    public function save(Post $post): void;
+    /** @param Post $post */
+    public function save(object $post): void;
 
     /**
      * @return Post[]
      */
     public function findAll(): array;
 
-    public function findById(int $id): ?Post;
+    /** @return Post|null */
+    public function findById(int $id): ?object;
 
-    public function findBySlug(string $slug): ?Post;
+    /** @return Post|null */
+    public function findBySlug(string $slug): ?object;
 
     /**
      * @return Post[]
      */
     public function findByTag(\App\Domain\Model\Tag $tag): array;
 
-    public function delete(Post $post): void;
+    /** @param Post $post */
+    public function delete(object $post): void;
 }

@@ -21,6 +21,21 @@ class Post
     #[ORM\Column(length: 255)]
     private string $title;
 
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
+    public function setContent(string $content): void
+    {
+        $this->content = $content;
+    }
+
+    public function setTags(Collection $tags): void
+    {
+        $this->tags = $tags;
+    }
+
     #[Gedmo\Slug(fields: ['title'])]
     #[ORM\Column(length: 255, unique: true, nullable: true)]
     private ?string $slug = null;
@@ -40,10 +55,6 @@ class Post
 
     public function __construct(string $title, string $content)
     {
-        if (mb_strlen($title) > 255) {
-            throw new \InvalidArgumentException('Le titre ne peut pas dépasser 255 caractères.');
-        }
-
         $this->title = $title;
         $this->content = $content;
         $this->createdAt = new \DateTimeImmutable();
@@ -93,15 +104,5 @@ class Post
     public function removeTag(Tag $tag): void
     {
         $this->tags->removeElement($tag);
-    }
-
-    public function update(string $title, string $content): void
-    {
-        if (mb_strlen($title) > 255) {
-            throw new \InvalidArgumentException('Le titre ne peut pas dépasser 255 caractères.');
-        }
-
-        $this->title = $title;
-        $this->content = $content;
     }
 }

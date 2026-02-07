@@ -24,7 +24,8 @@ class UpdatePost implements UpdatePostInterface
             throw new \RuntimeException('Post not found');
         }
 
-        $post->update($postDTO->getTitle(), $postDTO->getContent());
+        $post->setTitle($postDTO->getTitle());
+        $post->setContent($postDTO->getContent());
 
         // Update tags
         // Remove tags not in DTO

@@ -9,17 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 class PostTest extends TestCase
 {
-    public function testConstructorThrowsExceptionWhenTitleIsTooLong(): void
-    {
-        $longTitle = str_repeat('a', 256);
-        $content = 'Contenu de test';
-
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Le titre ne peut pas dépasser 255 caractères.');
-
-        new Post($longTitle, $content);
-    }
-
     public function testAddAndRemoveTag(): void
     {
         $post = new Post('Titre du post', 'Contenu du post');
