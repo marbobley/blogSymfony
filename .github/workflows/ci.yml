@@ -24,7 +24,7 @@ jobs:
           coverage: none
 
       - name: Install Dependencies
-        run: composer install --no-interaction --no-progress
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --ignore-platform-req=ext-redis
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyse
