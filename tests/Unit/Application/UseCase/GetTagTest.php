@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
-use App\Application\Model\TagResponseModel;
+use App\Application\Model\TagModel;
 use App\Application\UseCase\GetTag;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Tag;
@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class GetTagTest extends TestCase
 {
-    public function testExecuteReturnsTagResponseDTO(): void
+    public function testExecuteReturnsTagModel(): void
     {
         $repository = $this->createMock(TagRepositoryInterface::class);
         $useCase = new GetTag($repository);
@@ -28,9 +28,8 @@ class GetTagTest extends TestCase
 
         $responseDTO = $useCase->execute(1);
 
-        $this->assertInstanceOf(TagResponseModel::class, $responseDTO);
-        $this->assertEquals('Symfony', $responseDTO->name);
-        $this->assertEquals('symfony', $responseDTO->slug);
+        $this->assertEquals('Symfony', $responseDTO->getName());
+        $this->assertEquals('symfony', $responseDTO->getSlug());
     }
 
     public function testExecuteThrowsExceptionWhenTagNotFound(): void

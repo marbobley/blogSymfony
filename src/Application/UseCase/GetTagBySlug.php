@@ -4,20 +4,21 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase;
 
-use App\Application\Model\TagResponseModel;
-use App\Application\Factory\TagResponseDTOFactory;
+use App\Application\Model\TagModel;
 use App\Application\UseCaseInterface\GetTagBySlugInterface;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Repository\TagRepositoryInterface;
+use App\Infrastructure\MapperInterface\TagMapperInterface;
 
 class GetTagBySlug implements GetTagBySlugInterface
 {
     public function __construct(
-        private readonly TagRepositoryInterface $tagRepository
+        private readonly TagRepositoryInterface $tagRepository,
+        private readonly TagMapperInterface $tagMapper
     ) {
     }
 
-    public function execute(string $slug): TagResponseModel
+    public function execute(string $slug): TagModel
     {
         $tag = $this->tagRepository->findBySlug($slug);
 
@@ -25,6 +26,6 @@ class GetTagBySlug implements GetTagBySlugInterface
             throw EntityNotFoundException::forEntity('Tag', $slug);
         }
 
-        return TagResponseDTOFactory::createFromEntity($tag);
+        return $this->tagMapper->toModel($tag);
     }
 }

@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Application\UseCaseInterface;
 
-use App\Application\Model\TagResponseModel;
+
+use App\Application\Model\TagModel;
 
 interface ListTagsInterface
 {
     /**
-     * @return TagResponseModel[]
+     * @return TagModel[]
      */
     public function execute(): array;
 }

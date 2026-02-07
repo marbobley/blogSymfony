@@ -16,9 +16,4 @@ class TagDTOFactory
 
         return $dto;
     }
-
-    public static function createFromEntity(Tag $tag): TagModel
-    {
-        return self::create($tag->getName());
-    }
 }

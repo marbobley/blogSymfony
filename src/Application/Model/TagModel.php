@@ -11,6 +11,13 @@ class TagModel
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 255)]
     private string $name;
+    private string $slug;
+
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+    private int $id;
 
     public function getName(): string
     {

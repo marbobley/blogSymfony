@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
-use App\Application\Model\TagResponseModel;
+use App\Application\Model\TagModel;
 use App\Application\UseCase\ListTags;
 use App\Domain\Model\Tag;
 use App\Domain\Repository\TagRepositoryInterface;
@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class ListTagsTest extends TestCase
 {
-    public function testExecuteReturnsArrayOfTagResponseDTO(): void
+    public function testExecuteReturnsArrayOfTagModel(): void
     {
         $repository = $this->createMock(TagRepositoryInterface::class);
         $useCase = new ListTags($repository);
@@ -30,7 +30,7 @@ class ListTagsTest extends TestCase
         $result = $useCase->execute();
 
         $this->assertCount(2, $result);
-        $this->assertInstanceOf(TagResponseModel::class, $result[0]);
+        $this->assertInstanceOf(TagModel::class, $result[0]);
         $this->assertEquals('Symfony', $result[0]->name);
         $this->assertEquals('PHP', $result[1]->name);
     }

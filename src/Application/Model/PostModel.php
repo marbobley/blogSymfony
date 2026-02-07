@@ -62,6 +62,11 @@ class PostModel
         }
     }
 
+    public function removeTag(TagModel $tag): void
+    {
+        $this->tags->removeElement($tag);
+    }
+
     public function addTags(Collection $tags): void
     {
         foreach ($tags as $tag) {
