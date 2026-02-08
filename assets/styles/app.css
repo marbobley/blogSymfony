@@ -1,3 +1,72 @@
+:root {
+    --transition-speed: 0.3s;
+}
+
 body {
-    background-color: skyblue;
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+[data-bs-theme="light"] body {
+    background-color: #f8f9fa;
+}
+
+/* Amélioration de la carte en mode sombre */
+[data-bs-theme="dark"] .card {
+    background-color: #1e1e1e;
+    border: 1px solid #333 !important;
+}
+
+[data-bs-theme="dark"] .bg-white {
+    background-color: #1e1e1e !important;
+}
+
+/* Animation simple d'entrée */
+.animate-fade-in {
+    animation: fadeIn var(--transition-speed) ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Transition de base pour les éléments interactifs */
+.transition-base {
+    transition: all var(--transition-speed) ease-in-out;
+}
+
+.transition-base:hover {
+    transform: translateY(-2px);
+}
+
+/* Custom form styles */
+.form-control:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+}
+
+/* Navbar styles */
+.navbar-brand {
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+}
+
+.nav-link {
+    font-weight: 500;
+}
+
+[data-bs-theme="light"] .nav-link {
+    color: #495057 !important;
+}
+
+.nav-link:hover {
+    color: var(--bs-primary) !important;
+}
+
+/* Accessibility: Focus rings */
+a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--bs-primary);
+    outline-offset: 2px;
 }

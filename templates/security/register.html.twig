@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - Les Chroniques du Code{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0 animate-fade-in">
+            <div class="card-body p-4">
+                <h1 class="h3 mb-4 fw-bold text-primary text-center">
+                    <i class="bi bi-person-plus me-2"></i>Créer un compte
+                </h1>
+
+                {{ form_start(registrationForm) }}
+                    <div class="mb-3">
+                        {{ form_label(registrationForm.email, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control transition-base'}}) }}
+                        {{ form_errors(registrationForm.email) }}
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            {{ form_label(registrationForm.plainPassword.first, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': 'form-control transition-base'}}) }}
+                            {{ form_errors(registrationForm.plainPassword.first) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_label(registrationForm.plainPassword.second, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': 'form-control transition-base'}}) }}
+                            {{ form_errors(registrationForm.plainPassword.second) }}
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 transition-base py-2 fw-bold">
+                        S'inscrire
+                    </button>
+                {{ form_end(registrationForm) }}
+
+                <div class="mt-4 text-center">
+                    <p class="text-muted small mb-0">Déjà inscrit ?</p>
+                    <a href="{{ path('app_login') }}" class="text-primary fw-bold text-decoration-none transition-base">
+                        Se connecter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

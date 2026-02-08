@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Tag{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h1 class="h3 mb-4 fw-bold">Créer un nouveau tag</h1>
+
+                    {{ form_start(form) }}
+                        <div class="mb-3">
+                            {{ form_label(form.name, 'Nom du tag', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Ex: Symfony, PHP...'}}) }}
+                            {{ form_errors(form.name) }}
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg transition-base">
+                                <i class="bi bi-check-circle me-1"></i> Créer le tag
+                            </button>
+                            <a href="{{ path('app_tag_index') }}" class="btn btn-link text-muted transition-base">Annuler</a>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

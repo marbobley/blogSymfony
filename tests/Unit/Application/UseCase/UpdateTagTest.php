@@ -1,0 +1,26 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Tests\Unit\Application\UseCase;
+
+use App\Domain\Factory\TagModelFactory;
+use App\Domain\Provider\TagProviderInterface;
+use App\Domain\UseCase\UpdateTag;
+use PHPUnit\Framework\TestCase;
+
+class UpdateTagTest extends TestCase
+{
+    public function testExecuteUpdatesAndSavesTag(): void
+    {
+        $tagProvider = $this->createMock(TagProviderInterface::class);
+        $useCase = new UpdateTag($tagProvider);
+        $dto = TagModelFactory::create(1,'PHP' , 'Slu1');
+
+
+        $tagProvider->expects($this->once())
+            ->method('update');
+
+        $updatedTag = $useCase->execute(1, $dto);
+    }
+}

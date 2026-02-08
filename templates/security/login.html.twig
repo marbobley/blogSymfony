@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - Les Chroniques du Code{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-12 col-md-6 col-lg-4">
+        <form method="post" class="card shadow-sm border-0 animate-fade-in">
+            <div class="card-body p-4">
+                <h1 class="h3 mb-4 fw-bold text-primary text-center">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Connexion
+                </h1>
+
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                <div class="mb-3">
+                    <label for="inputEmail" class="form-label">Email</label>
+                    <input type="email" value="{{ last_username }}" name="_username" id="inputEmail" class="form-control transition-base" autocomplete="email" required autofocus placeholder="votre@email.com">
+                </div>
+
+                <div class="mb-4">
+                    <label for="inputPassword" class="form-label">Mot de passe</label>
+                    <input type="password" name="_password" id="inputPassword" class="form-control transition-base" autocomplete="current-password" required placeholder="Votre mot de passe">
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <button class="btn btn-primary w-100 transition-base py-2 fw-bold" type="submit">
+                    Se connecter
+                </button>
+
+                <div class="mt-4 text-center">
+                    <p class="text-muted small mb-0">Pas encore de compte ?</p>
+                    <a href="{{ path('app_register') }}" class="text-primary fw-bold text-decoration-none transition-base">
+                        Créer un compte
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
