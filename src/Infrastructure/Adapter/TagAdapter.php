@@ -3,100 +3,66 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Adapter;
 
-use App\Application\Model\PostModel;
-use App\Application\Provider\PostProviderInterface;
+use App\Application\Model\TagModel;
+use App\Application\Provider\TagProviderInterface;
 use App\Domain\Exception\EntityNotFoundException;
-use App\Domain\Repository\PostRepositoryInterface;
+use App\Domain\Exception\TagAlreadyExistsException;
+use App\Domain\Model\Tag;
 use App\Domain\Repository\TagRepositoryInterface;
-use App\Domain\Service\PostTagSynchronizer;
-use App\Infrastructure\MapperInterface\PostMapperInterface;
+use App\Infrastructure\MapperInterface\TagMapperInterface;
 
-readonly class TagAdapter implements PostProviderInterface
+readonly class TagAdapter implements TagProviderInterface
 {
     public function __construct(
-        private PostRepositoryInterface $postRepository,
         private TagRepositoryInterface $tagRepository,
-        private PostMapperInterface     $postMapper,
-        private PostTagSynchronizer     $postTagSynchronizer
+        private TagMapperInterface $tagMapper,
     ) {
     }
 
-    public function save(PostModel $postModel): PostModel
+    public function save(string $getName): TagModel
     {
-        $post = $this->postMapper->toEntity($postModel);
-        $this->postTagSynchronizer->synchronize($post, $postModel);
-
-        $this->postRepository->save($post);
-        $postCreated = $this->postRepository->findBySlug($post->getSlug());
-        return $this->postMapper->toModel($postCreated);
-    }
-
-    public function delete(int $id) : void
-    {
-
-        $post = $this->postRepository->findById($id);
-
-        if (!$post) {
-            throw EntityNotFoundException::forEntity('Post', $id);
+        $existingTag = $this->tagRepository->findByName($getName);
+        if ($existingTag instanceof Tag) {
+            throw new TagAlreadyExistsException($getName);
         }
 
-        $this->postRepository->delete($post);
+        $tag = new Tag($getName);
+        $this->tagRepository->save($tag);
+
+        return $this->tagMapper->toModel($tag);
     }
 
-    public function findById(int $id): PostModel
+    public function delete(int $id): void
     {
-        $post = $this->postRepository->findById($id);
+        $tag = $this->tagRepository->findById($id);
 
-        if (!$post) {
-            throw EntityNotFoundException::forEntity('Post', $id);
+        if (!$tag) {
+            throw EntityNotFoundException::forEntity('Tag', $id);
         }
 
-        return $this->postMapper->toModel($post);
+        $this->tagRepository->delete($tag);
     }
 
-    public function findBySlug(string $slug): PostModel
+    public function findById(int $id): TagModel
     {
-        $post = $this->postRepository->findBySlug($slug);
+        $tag = $this->tagRepository->findById($id);
 
-        if (!$post) {
-            throw EntityNotFoundException::forEntity('Post', $slug);
+        if (!$tag) {
+            throw EntityNotFoundException::forEntity('Tag', $id);
         }
 
-        return $this->postMapper->toModel($post);
+        return $this->tagMapper->toModel($tag);
     }
 
-    public function findByTag(?int $tagId): array
+    public function findBySlug(string $slug): TagModel
     {
-        if ($tagId !== null) {
-            $tag = $this->tagRepository->findById($tagId);
-            if (!$tag) {
-                throw EntityNotFoundException::forEntity('Tag', $tagId);
-            }
-            $posts = $this->postRepository->findByTag($tag);
-        } else {
-            $posts = $this->postRepository->findAll();
+
+        $tag = $this->tagRepository->findBySlug($slug);
+
+        if (!$tag) {
+            throw EntityNotFoundException::forEntity('Tag', $slug);
         }
 
-        return array_map(function ($post) {
-            return $this->postMapper->toModel($post);
-        }, $posts);
-    }
-
-    public function update(int $id, PostModel $postModel): PostModel
-    {
-        $post = $this->postRepository->findById($id);
-
-        if (!$post) {
-            throw EntityNotFoundException::forEntity('Post', $id);
-        }
-
-        $post->setTitle($postModel->getTitle());
-        $post->setContent($postModel->getContent());
-
-        $this->postTagSynchronizer->synchronize($post, $postModel);
-
-        $this->postRepository->save($post);
-
-        return $this->postMapper->toModel($post);
+        return $this->tagMapper->toModel($tag);
     }
 }

@@ -9,5 +9,5 @@ use App\Domain\Model\Tag;
 
 interface CreateTagInterface
 {
-    public function execute(TagModel $tagDTO): Tag;
+    public function execute(TagModel $tagDTO): TagModel;
 }

@@ -2,20 +2,15 @@
 declare(strict_types=1);
 namespace App\Application\Provider;
 
-use App\Application\Model\PostModel;
+use App\Application\Model\TagModel;
 
 interface TagProviderInterface
 {
-
-    public function save(PostModel $postModel) : PostModel;
+    public function save(string $getName) : TagModel;
 
     public function delete(int $id) : void;
 
-    public function findById(int $id) : PostModel;
+    public function findById(int $id): TagModel;
 
-    public function findBySlug(string $slug): PostModel;
-
-    public function findByTag(?int $tagId) : array;
-
-    public function update(int $id, PostModel $postModel): PostModel;
+    public function findBySlug(string $slug): TagModel;
 }
