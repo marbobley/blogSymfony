@@ -9,10 +9,13 @@ use App\Infrastructure\Entity\Post;
 use App\Infrastructure\Mapper\PostMapper;
 use App\Infrastructure\MapperInterface\TagMapperInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use App\Tests\Unit\Helper\TestDataGeneratorTrait;
 use PHPUnit\Framework\TestCase;
 
 class PostMapperTest extends TestCase
 {
+    use TestDataGeneratorTrait;
+
     private TagMapperInterface $tagMapper;
     private PostMapper $mapper;
 
@@ -24,13 +27,7 @@ class PostMapperTest extends TestCase
 
     public function testToEntity(): void
     {
-        $postModel = new PostModel();
-        $postModel->setTitle('Test Title');
-        $postModel->setContent('Test Content');
-        $tagModels = new ArrayCollection();
-        // Assuming PostModel has getTags and it returns a Collection
-        // From PostMapper: $tags = $this->tagMapper->toEntities($postDTO->getTags());
-
+        $postModel = $this->createPostModel(title: 'Test Title', content: 'Test Content');
         $tagEntities = new ArrayCollection();
         $this->tagMapper->expects($this->once())
             ->method('toEntities')
@@ -46,12 +43,12 @@ class PostMapperTest extends TestCase
 
     public function testToModel(): void
     {
+        $createdAt = new \DateTimeImmutable();
         $post = $this->createMock(Post::class);
         $post->method('getTitle')->willReturn('Test Title');
         $post->method('getContent')->willReturn('Test Content');
         $post->method('getId')->willReturn(1);
         $post->method('getSlug')->willReturn('test-title');
-        $createdAt = new \DateTimeImmutable();
         $post->method('getCreatedAt')->willReturn($createdAt);
         $tagEntities = new ArrayCollection();
         $post->method('getTags')->willReturn($tagEntities);
@@ -70,8 +67,5 @@ class PostMapperTest extends TestCase
         $this->assertSame(1, $model->getId());
         $this->assertSame('test-title', $model->getSlug());
         $this->assertSame($createdAt, $model->getCreatedAt());
-        // PostModel adds tags one by one from collection in toModel
-        // $tagModels = $this->tagMapper->toModels($post->getTags());
-        // $postModel->addTags($tagModels);
     }
 }

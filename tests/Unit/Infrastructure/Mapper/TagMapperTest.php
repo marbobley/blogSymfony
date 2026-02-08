@@ -8,10 +8,13 @@ use App\Domain\Model\TagModel;
 use App\Infrastructure\Entity\Tag;
 use App\Infrastructure\Mapper\TagMapper;
 use Doctrine\Common\Collections\ArrayCollection;
+use App\Tests\Unit\Helper\TestDataGeneratorTrait;
 use PHPUnit\Framework\TestCase;
 
 class TagMapperTest extends TestCase
 {
+    use TestDataGeneratorTrait;
+
     private TagMapper $mapper;
 
     protected function setUp(): void
@@ -21,8 +24,7 @@ class TagMapperTest extends TestCase
 
     public function testToEntity(): void
     {
-        $model = new TagModel();
-        $model->setName('Test Tag');
+        $model = $this->createTagModel(name: 'Test Tag');
 
         $entity = $this->mapper->toEntity($model);
 
@@ -47,8 +49,7 @@ class TagMapperTest extends TestCase
 
     public function testToEntities(): void
     {
-        $model = new TagModel();
-        $model->setName('Tag 1');
+        $model = $this->createTagModel(name: 'Tag 1');
         $models = new ArrayCollection([$model]);
 
         $entities = $this->mapper->toEntities($models);

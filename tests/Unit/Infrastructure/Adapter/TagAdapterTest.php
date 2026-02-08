@@ -11,10 +11,13 @@ use App\Infrastructure\Adapter\TagAdapter;
 use App\Infrastructure\Entity\Tag;
 use App\Infrastructure\MapperInterface\TagMapperInterface;
 use App\Infrastructure\Repository\TagRepositoryInterface;
+use App\Tests\Unit\Helper\TestDataGeneratorTrait;
 use PHPUnit\Framework\TestCase;
 
 class TagAdapterTest extends TestCase
 {
+    use TestDataGeneratorTrait;
+
     private TagRepositoryInterface $tagRepository;
     private TagMapperInterface $tagMapper;
     private TagAdapter $adapter;
@@ -29,8 +32,7 @@ class TagAdapterTest extends TestCase
     public function testSave(): void
     {
         $name = 'Test Tag';
-        $tag = new Tag($name);
-        $tagModel = new TagModel();
+        $tagModel = $this->createTagModel(name: $name);
 
         $this->tagRepository->expects($this->once())
             ->method('findByName')
@@ -53,7 +55,7 @@ class TagAdapterTest extends TestCase
     public function testSaveThrowsExceptionIfAlreadyExists(): void
     {
         $name = 'Existing Tag';
-        $tag = new Tag($name);
+        $tag = $this->createTagEntity(name: $name);
 
         $this->tagRepository->expects($this->once())
             ->method('findByName')
@@ -67,7 +69,7 @@ class TagAdapterTest extends TestCase
     public function testDelete(): void
     {
         $id = 1;
-        $tag = new Tag('Test');
+        $tag = $this->createTagEntity();
 
         $this->tagRepository->expects($this->once())
             ->method('findById')
@@ -84,8 +86,8 @@ class TagAdapterTest extends TestCase
     public function testFindById(): void
     {
         $id = 1;
-        $tag = new Tag('Test');
-        $tagModel = new TagModel();
+        $tag = $this->createTagEntity(id: $id);
+        $tagModel = $this->createTagModel(id: $id);
 
         $this->tagRepository->expects($this->once())
             ->method('findById')
@@ -105,8 +107,8 @@ class TagAdapterTest extends TestCase
     public function testFindBySlug(): void
     {
         $slug = 'test-slug';
-        $tag = new Tag('Test');
-        $tagModel = new TagModel();
+        $tag = $this->createTagEntity();
+        $tagModel = $this->createTagModel(slug: $slug);
 
         $this->tagRepository->expects($this->once())
             ->method('findBySlug')
@@ -125,8 +127,8 @@ class TagAdapterTest extends TestCase
 
     public function testFindAll(): void
     {
-        $tag = new Tag('Test');
-        $tagModel = new TagModel();
+        $tag = $this->createTagEntity();
+        $tagModel = $this->createTagModel();
 
         $this->tagRepository->expects($this->once())
             ->method('findAll')
@@ -149,10 +151,8 @@ class TagAdapterTest extends TestCase
         $tag = $this->createMock(Tag::class);
         $tag->method('getName')->willReturn('Old Name');
 
-        $tagModelInput = new TagModel();
-        $tagModelInput->setName('New Name');
-
-        $tagModelOutput = new TagModel();
+        $tagModelInput = $this->createTagModel(name: 'New Name');
+        $tagModelOutput = $this->createTagModel();
 
         $this->tagRepository->expects($this->once())
             ->method('findById')

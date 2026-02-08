@@ -13,10 +13,13 @@ use App\Infrastructure\MapperInterface\PostMapperInterface;
 use App\Infrastructure\Repository\PostRepositoryInterface;
 use App\Infrastructure\Repository\TagRepositoryInterface;
 use App\Infrastructure\Service\PostTagSynchronizer;
+use App\Tests\Unit\Helper\TestDataGeneratorTrait;
 use PHPUnit\Framework\TestCase;
 
 class PostAdapterTest extends TestCase
 {
+    use TestDataGeneratorTrait;
+
     private PostRepositoryInterface $postRepository;
     private TagRepositoryInterface $tagRepository;
     private PostMapperInterface $postMapper;
@@ -40,9 +43,8 @@ class PostAdapterTest extends TestCase
 
     public function testSave(): void
     {
-        $postModel = new PostModel();
-        $post = new Post('Title', 'Content');
-        $post->setSlug('test-slug');
+        $postModel = $this->createPostModel();
+        $post = $this->createPostEntity(slug: 'test-slug');
 
         $this->postMapper->expects($this->once())
             ->method('toEntity')
@@ -75,7 +77,7 @@ class PostAdapterTest extends TestCase
     public function testDelete(): void
     {
         $id = 1;
-        $post = new Post('Title', 'Content');
+        $post = $this->createPostEntity();
 
         $this->postRepository->expects($this->once())
             ->method('findById')
@@ -105,8 +107,8 @@ class PostAdapterTest extends TestCase
     public function testFindById(): void
     {
         $id = 1;
-        $post = new Post('Title', 'Content');
-        $postModel = new PostModel();
+        $post = $this->createPostEntity();
+        $postModel = $this->createPostModel();
 
         $this->postRepository->expects($this->once())
             ->method('findById')
@@ -126,8 +128,8 @@ class PostAdapterTest extends TestCase
     public function testFindBySlug(): void
     {
         $slug = 'test-slug';
-        $post = new Post('Title', 'Content');
-        $postModel = new PostModel();
+        $post = $this->createPostEntity(slug: $slug);
+        $postModel = $this->createPostModel();
 
         $this->postRepository->expects($this->once())
             ->method('findBySlug')
@@ -147,9 +149,9 @@ class PostAdapterTest extends TestCase
     public function testFindByTag(): void
     {
         $tagId = 1;
-        $tag = new Tag('Test');
-        $post = new Post('Title', 'Content');
-        $postModel = new PostModel();
+        $tag = $this->createTagEntity(name: 'Test', id: $tagId);
+        $post = $this->createPostEntity();
+        $postModel = $this->createPostModel();
 
         $this->tagRepository->expects($this->once())
             ->method('findById')
@@ -174,8 +176,8 @@ class PostAdapterTest extends TestCase
 
     public function testFindAllIfTagIdIsNull(): void
     {
-        $post = new Post('Title', 'Content');
-        $postModel = new PostModel();
+        $post = $this->createPostEntity();
+        $postModel = $this->createPostModel();
 
         $this->postRepository->expects($this->once())
             ->method('findAll')
@@ -195,9 +197,7 @@ class PostAdapterTest extends TestCase
     public function testUpdate(): void
     {
         $id = 1;
-        $postModel = new PostModel();
-        $postModel->setTitle('New Title');
-        $postModel->setContent('New Content');
+        $postModel = $this->createPostModel(title: 'New Title', content: 'New Content');
 
         $post = $this->createMock(Post::class);
 

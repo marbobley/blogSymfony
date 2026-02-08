@@ -31,8 +31,8 @@ class RegistrationType extends AbstractType
                     'class' => 'transition-base'
                 ],
                 'constraints' => [
-                    new NotBlank(['message' => 'L\'email est obligatoire.']),
-                    new Email(['message' => 'L\'adresse email n\'est pas valide.']),
+                    new NotBlank(message: 'L\'email est obligatoire.'),
+                    new Email(message: 'L\'adresse email n\'est pas valide.'),
                 ],
             ])
             ->add('plainPassword', RepeatedType::class, [
@@ -53,12 +53,12 @@ class RegistrationType extends AbstractType
                 ],
                 'invalid_message' => 'Les mots de passe doivent être identiques.',
                 'constraints' => [
-                    new NotBlank(['message' => 'Le mot de passe est obligatoire.']),
-                    new Length([
-                        'min' => 8,
-                        'minMessage' => 'Le mot de passe doit faire au moins {{ limit }} caractères.',
-                        'max' => 4096,
-                    ]),
+                    new NotBlank(message: 'Le mot de passe est obligatoire.'),
+                    new Length(
+                        min: 8,
+                        max: 4096,
+                        minMessage: 'Le mot de passe doit faire au moins {{ limit }} caractères.',
+                    ),
                 ],
             ]);
     }
