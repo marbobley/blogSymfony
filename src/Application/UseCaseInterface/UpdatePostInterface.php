@@ -9,5 +9,5 @@ use App\Domain\Model\Post;
 
 interface UpdatePostInterface
 {
-    public function execute(int $id, PostModel $postDTO): Post;
+    public function execute(int $id, PostModel $postModel): PostModel;
 }

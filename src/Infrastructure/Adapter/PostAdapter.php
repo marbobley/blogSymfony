@@ -81,4 +81,22 @@ readonly class PostAdapter implements PostProviderInterface
             return $this->postMapper->toModel($post);
         }, $posts);
     }
+
+    public function update(int $id, PostModel $postModel): PostModel
+    {
+        $post = $this->postRepository->findById($id);
+
+        if (!$post) {
+            throw EntityNotFoundException::forEntity('Post', $id);
+        }
+
+        $post->setTitle($postModel->getTitle());
+        $post->setContent($postModel->getContent());
+
+        $this->postTagSynchronizer->synchronize($post, $postModel);
+
+        $this->postRepository->save($post);
+
+        return $this->postMapper->toModel($post);
+    }
 }
