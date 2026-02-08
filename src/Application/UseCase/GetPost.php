@@ -7,9 +7,6 @@ namespace App\Application\UseCase;
 use App\Application\Model\PostModel;
 use App\Application\Provider\PostProviderInterface;
 use App\Application\UseCaseInterface\GetPostInterface;
-use App\Domain\Exception\EntityNotFoundException;
-use App\Domain\Repository\PostRepositoryInterface;
-use App\Infrastructure\MapperInterface\PostMapperInterface;
 
 readonly class GetPost implements GetPostInterface
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Persistence;
 
-use App\Domain\Repository\UserRepositoryInterface;
 use App\Infrastructure\Entity\User;
+use App\Infrastructure\Repository\UserRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class DoctrineUserRepository implements UserRepositoryInterface

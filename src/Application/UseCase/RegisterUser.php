@@ -6,8 +6,8 @@ namespace App\Application\UseCase;
 
 use App\Application\Model\UserRegistrationModel;
 use App\Application\UseCaseInterface\RegisterUserInterface;
-use App\Domain\Repository\UserRepositoryInterface;
 use App\Infrastructure\Entity\User;
+use App\Infrastructure\Repository\UserRepositoryInterface;
 
 readonly class RegisterUser implements RegisterUserInterface
 {

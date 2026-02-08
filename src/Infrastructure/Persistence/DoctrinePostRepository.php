@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Persistence;
 
-use App\Domain\Repository\PostRepositoryInterface;
 use App\Infrastructure\Entity\Post;
+use App\Infrastructure\Repository\PostRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class DoctrinePostRepository extends AbstractDoctrineRepository implements PostRepositoryInterface

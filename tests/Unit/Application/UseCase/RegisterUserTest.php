@@ -6,8 +6,8 @@ namespace App\Tests\Unit\Application\UseCase;
 
 use App\Application\Model\UserRegistrationModel;
 use App\Application\UseCase\RegisterUser;
-use App\Domain\Repository\UserRepositoryInterface;
 use App\Infrastructure\Entity\User;
+use App\Infrastructure\Repository\UserRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 
 class RegisterUserTest extends TestCase
