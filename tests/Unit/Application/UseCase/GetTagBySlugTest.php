@@ -8,10 +8,6 @@ use App\Application\Factory\TagModelFactory;
 use App\Application\Model\TagModel;
 use App\Application\Provider\TagProviderInterface;
 use App\Application\UseCase\GetTagBySlug;
-use App\Domain\Exception\EntityNotFoundException;
-use App\Domain\Model\Tag;
-use App\Domain\Repository\TagRepositoryInterface;
-use App\Infrastructure\Mapper\TagMapper;
 use PHPUnit\Framework\TestCase;
 
 class GetTagBySlugTest extends TestCase

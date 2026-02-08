@@ -6,13 +6,13 @@ namespace App\Application\UseCase;
 
 use App\Application\Model\UserRegistrationModel;
 use App\Application\UseCaseInterface\RegisterUserInterface;
-use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
+use App\Infrastructure\Entity\User;
 
-class RegisterUser implements RegisterUserInterface
+readonly class RegisterUser implements RegisterUserInterface
 {
     public function __construct(
-        private readonly UserRepositoryInterface $userRepository
+        private UserRepositoryInterface $userRepository
     ) {
     }
 

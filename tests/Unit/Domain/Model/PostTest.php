@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Domain\Model;
 
-use App\Domain\Model\Post;
+use App\Infrastructure\Entity\Post;
 use PHPUnit\Framework\TestCase;
 
 class PostTest extends TestCase
@@ -12,7 +12,7 @@ class PostTest extends TestCase
     public function testAddAndRemoveTag(): void
     {
         $post = new Post('Titre du post', 'Contenu du post');
-        $tag = new \App\Domain\Model\Tag('Symfony');
+        $tag = new \App\Infrastructure\Entity\Tag('Symfony');
 
         $post->addTag($tag);
 

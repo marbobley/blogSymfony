@@ -8,8 +8,6 @@ use App\Application\Factory\TagModelFactory;
 use App\Application\Model\TagModel;
 use App\Application\Provider\TagProviderInterface;
 use App\Application\UseCase\ListTags;
-use App\Domain\Model\Tag;
-use App\Domain\Repository\TagRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 
 class ListTagsTest extends TestCase

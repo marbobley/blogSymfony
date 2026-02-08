@@ -8,11 +8,6 @@ use App\Application\Factory\PostModelFactory;
 use App\Application\Model\PostModel;
 use App\Application\Provider\PostProviderInterface;
 use App\Application\UseCase\ListPosts;
-use App\Domain\Exception\EntityNotFoundException;
-use App\Domain\Model\Post;
-use App\Domain\Repository\PostRepositoryInterface;
-use App\Infrastructure\Mapper\PostMapper;
-use App\Infrastructure\Mapper\TagMapper;
 use PHPUnit\Framework\TestCase;
 
 class ListPostsTest extends TestCase

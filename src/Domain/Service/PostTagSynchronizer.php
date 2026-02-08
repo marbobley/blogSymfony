@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Domain\Service;
 
 use App\Application\Model\PostModel;
-use App\Domain\Model\Post;
-use App\Domain\Model\Tag;
 use App\Domain\Repository\TagRepositoryInterface;
+use App\Infrastructure\Entity\Post;
+use App\Infrastructure\Entity\Tag;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class PostTagSynchronizer

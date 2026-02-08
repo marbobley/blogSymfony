@@ -3,9 +3,9 @@
 namespace App\Infrastructure\Mapper;
 
 use App\Application\Model\PostModel;
-use App\Domain\Model\Post;
 use App\Infrastructure\MapperInterface\PostMapperInterface;
 use App\Infrastructure\MapperInterface\TagMapperInterface;
+use App\Infrastructure\Entity\Post;
 
 class PostMapper implements PostMapperInterface
 {

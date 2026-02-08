@@ -4,17 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
-use App\Application\Model\PostModel;
 use App\Application\Factory\PostModelFactory;
 use App\Application\Factory\TagModelFactory;
 use App\Application\Provider\PostProviderInterface;
 use App\Application\UseCase\UpdatePost;
-use App\Domain\Exception\EntityNotFoundException;
-use App\Domain\Model\Post;
-use App\Domain\Model\Tag;
-use App\Domain\Repository\PostRepositoryInterface;
-use App\Domain\Repository\TagRepositoryInterface;
-use App\Domain\Service\PostTagSynchronizer;
 use PHPUnit\Framework\TestCase;
 
 class UpdatePostTest extends TestCase

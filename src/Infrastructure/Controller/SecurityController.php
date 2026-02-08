@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
-use App\Application\Model\UserRegistrationModel;
 use App\Application\Factory\UserRegistrationDTOFactory;
+use App\Application\Model\UserRegistrationModel;
 use App\Application\UseCaseInterface\RegisterUserInterface;
 use App\Infrastructure\Form\RegistrationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -60,7 +60,7 @@ class SecurityController extends AbstractController
 
             // Hachage du mot de passe dans l'infrastructure
             $hashedPassword = $passwordHasher->hashPassword(
-                new \App\Infrastructure\Security\UserAdapter(new \App\Domain\Model\User($dto->email, '')),
+                new \App\Infrastructure\Security\UserAdapter(new \App\Infrastructure\Entity\User($dto->email, '')),
                 $dto->plainPassword
             );
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Domain\Model;
 
-use App\Domain\Model\Post;
-use App\Domain\Model\Tag;
+use App\Infrastructure\Entity\Post;
+use App\Infrastructure\Entity\Tag;
 use PHPUnit\Framework\TestCase;
 
 class TagTest extends TestCase

@@ -7,9 +7,9 @@ use App\Application\Model\TagModel;
 use App\Application\Provider\TagProviderInterface;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Exception\TagAlreadyExistsException;
-use App\Domain\Model\Tag;
 use App\Domain\Repository\TagRepositoryInterface;
 use App\Infrastructure\MapperInterface\TagMapperInterface;
+use App\Infrastructure\Entity\Tag;
 
 readonly class TagAdapter implements TagProviderInterface
 {

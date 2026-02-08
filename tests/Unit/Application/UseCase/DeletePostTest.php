@@ -6,9 +6,7 @@ namespace App\Tests\Unit\Application\UseCase;
 
 use App\Application\Provider\PostProviderInterface;
 use App\Application\UseCase\DeletePost;
-use App\Domain\Exception\EntityNotFoundException;
-use App\Domain\Model\Post;
-use App\Domain\Repository\PostRepositoryInterface;
+use App\Infrastructure\Entity\Post;
 use PHPUnit\Framework\TestCase;
 
 class DeletePostTest extends TestCase

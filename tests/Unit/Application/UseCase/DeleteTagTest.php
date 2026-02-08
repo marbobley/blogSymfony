@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Application\UseCase;
 
 use App\Application\Provider\TagProviderInterface;
 use App\Application\UseCase\DeleteTag;
-use App\Domain\Model\Tag;
+use App\Infrastructure\Entity\Tag;
 use PHPUnit\Framework\TestCase;
 
 class DeleteTagTest extends TestCase

@@ -7,9 +7,6 @@ namespace App\Application\UseCase;
 use App\Application\Model\PostModel;
 use App\Application\Provider\PostProviderInterface;
 use App\Application\UseCaseInterface\CreatePostInterface;
-use App\Domain\Model\Post;
-use App\Domain\Repository\PostRepositoryInterface;
-use App\Domain\Service\PostTagSynchronizer;
 
 readonly class CreatePost implements CreatePostInterface
 {

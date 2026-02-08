@@ -3,8 +3,8 @@
 namespace App\Infrastructure\Mapper;
 
 use App\Application\Model\TagModel;
-use App\Domain\Model\Tag;
 use App\Infrastructure\MapperInterface\TagMapperInterface;
+use App\Infrastructure\Entity\Tag;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 

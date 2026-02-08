@@ -7,7 +7,6 @@ namespace App\Tests\Unit\Application\UseCase;
 use App\Application\Factory\TagModelFactory;
 use App\Application\Provider\TagProviderInterface;
 use App\Application\UseCase\GetTag;
-use App\Domain\Model\Tag;
 use PHPUnit\Framework\TestCase;
 
 class GetTagTest extends TestCase

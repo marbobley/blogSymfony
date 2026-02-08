@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Application\Factory;
 
 use App\Application\Model\TagModel;
-use App\Domain\Model\Tag;
 
 class TagModelFactory
 {

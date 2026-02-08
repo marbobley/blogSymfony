@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Repository;
 
-use App\Domain\Model\Post;
+use App\Infrastructure\Entity\Post;
 
 interface PostRepositoryInterface
 {
@@ -25,7 +25,7 @@ interface PostRepositoryInterface
     /**
      * @return Post[]
      */
-    public function findByTag(\App\Domain\Model\Tag $tag): array;
+    public function findByTag(\App\Infrastructure\Entity\Tag $tag): array;
 
     /** @param Post $post */
     public function delete(object $post): void;
