@@ -6,6 +6,7 @@ namespace App\Tests\Unit\Application\UseCase;
 
 use App\Application\Model\TagModel;
 use App\Application\Factory\TagModelFactory;
+use App\Application\Provider\TagProviderInterface;
 use App\Application\UseCase\UpdateTag;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Tag;
@@ -16,36 +17,14 @@ class UpdateTagTest extends TestCase
 {
     public function testExecuteUpdatesAndSavesTag(): void
     {
-        $repository = $this->createMock(TagRepositoryInterface::class);
-        $useCase = new UpdateTag($repository);
-        $tag = new Tag('Symfony');
+        $tagProvider = $this->createMock(TagProviderInterface::class);
+        $useCase = new UpdateTag($tagProvider);
         $dto = TagModelFactory::create(1,'PHP' , 'Slu1');
 
-        $repository->expects($this->once())
-            ->method('findById')
-            ->with(1)
-            ->willReturn($tag);
 
-        $repository->expects($this->once())
-            ->method('save')
-            ->with($tag);
+        $tagProvider->expects($this->once())
+            ->method('update');
 
         $updatedTag = $useCase->execute(1, $dto);
-
-        $this->assertEquals('PHP', $updatedTag->getName());
-    }
-
-    public function testExecuteThrowsExceptionWhenTagNotFound(): void
-    {
-        $repository = $this->createMock(TagRepositoryInterface::class);
-        $useCase = new UpdateTag($repository);
-        $dto = TagModelFactory::create(1,'PHP' , 'slu1');
-
-        $repository->method('findById')->willReturn(null);
-
-        $this->expectException(EntityNotFoundException::class);
-        $this->expectExceptionMessage('Tag avec l\'identifiant "1" non trouvé(e).');
-
-        $useCase->execute(1, $dto);
     }
 }

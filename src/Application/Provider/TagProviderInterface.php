@@ -13,4 +13,8 @@ interface TagProviderInterface
     public function findById(int $id): TagModel;
 
     public function findBySlug(string $slug): TagModel;
+
+    public function findAll() : array;
+
+    public function update(int $id, TagModel $tagDTO): TagModel;
 }

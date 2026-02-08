@@ -65,4 +65,38 @@ readonly class TagAdapter implements TagProviderInterface
 
         return $this->tagMapper->toModel($tag);
     }
+
+    public function findAll(): array
+    {
+        $tags = $this->tagRepository->findAll();
+
+        return array_map(
+            fn($tag) => $this->tagMapper->toModel($tag),
+            $tags
+        );
+    }
+
+    public function update(int $id, TagModel $tagDTO): TagModel
+    {
+        /** @var Tag|null $tag */
+        $tag = $this->tagRepository->findById($id);
+
+        if (!$tag) {
+            throw EntityNotFoundException::forEntity('Tag', $id);
+        }
+
+        $newName = $tagDTO->getName();
+
+        if ($tag->getName() !== $newName) {
+            $existingTag = $this->tagRepository->findByName($newName);
+            if ($existingTag instanceof Tag) {
+                throw new TagAlreadyExistsException($newName);
+            }
+        }
+
+        $tag->setName($newName);
+        $this->tagRepository->save($tag);
+
+        return $this->tagMapper->toModel($tag);
+    }
 }
