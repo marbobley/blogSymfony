@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
-use App\Application\Model\PostModel;
-use App\Application\UseCase\GetPost;
-use App\Application\UseCaseInterface\CreatePostInterface;
-use App\Application\UseCaseInterface\DeletePostInterface;
-use App\Application\UseCaseInterface\GetPostBySlugInterface;
-use App\Application\UseCaseInterface\ListPostsInterface;
-use App\Application\UseCaseInterface\UpdatePostInterface;
+use App\Domain\Model\PostModel;
+use App\Domain\UseCase\GetPost;
+use App\Domain\UseCaseInterface\CreatePostInterface;
+use App\Domain\UseCaseInterface\DeletePostInterface;
+use App\Domain\UseCaseInterface\GetPostBySlugInterface;
+use App\Domain\UseCaseInterface\ListPostsInterface;
+use App\Domain\UseCaseInterface\UpdatePostInterface;
 use App\Infrastructure\Form\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

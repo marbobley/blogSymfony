@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\MapperInterface;
 
-use App\Application\Model\TagModel;
+use App\Domain\Model\TagModel;
 use App\Infrastructure\Entity\Tag;
 use Doctrine\Common\Collections\Collection;
 

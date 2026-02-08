@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\MapperInterface;
 
-use App\Application\Model\PostModel;
+use App\Domain\Model\PostModel;
 use App\Infrastructure\Entity\Post;
 
 interface PostMapperInterface

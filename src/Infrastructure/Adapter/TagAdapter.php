@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Adapter;
 
-use App\Application\Exception\EntityNotFoundException;
-use App\Application\Exception\TagAlreadyExistsException;
-use App\Application\Model\TagModel;
-use App\Application\Provider\TagProviderInterface;
+use App\Domain\Exception\EntityNotFoundException;
+use App\Domain\Exception\TagAlreadyExistsException;
+use App\Domain\Model\TagModel;
+use App\Domain\Provider\TagProviderInterface;
 use App\Infrastructure\Entity\Tag;
 use App\Infrastructure\MapperInterface\TagMapperInterface;
 use App\Infrastructure\Repository\TagRepositoryInterface;

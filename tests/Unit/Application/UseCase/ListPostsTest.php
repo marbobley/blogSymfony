@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
-use App\Application\Factory\PostModelFactory;
-use App\Application\Model\PostModel;
-use App\Application\Provider\PostProviderInterface;
-use App\Application\UseCase\ListPosts;
+use App\Domain\Factory\PostModelFactory;
+use App\Domain\Model\PostModel;
+use App\Domain\Provider\PostProviderInterface;
+use App\Domain\UseCase\ListPosts;
 use PHPUnit\Framework\TestCase;
 
 class ListPostsTest extends TestCase

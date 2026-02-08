@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Adapter;
 
-use App\Application\Exception\EntityNotFoundException;
-use App\Application\Model\PostModel;
-use App\Application\Provider\PostProviderInterface;
-use App\Domain\Service\PostTagSynchronizer;
+use App\Domain\Exception\EntityNotFoundException;
+use App\Domain\Model\PostModel;
+use App\Domain\Provider\PostProviderInterface;
 use App\Infrastructure\MapperInterface\PostMapperInterface;
 use App\Infrastructure\Repository\PostRepositoryInterface;
 use App\Infrastructure\Repository\TagRepositoryInterface;
+use App\Infrastructure\Service\PostTagSynchronizer;
 
 readonly class PostAdapter implements PostProviderInterface
 {

@@ -21,29 +21,29 @@ services:
         exclude:
             - '../src/Domain/Model/'
 
-    App\Domain\Repository\PostRepositoryInterface:
+    App\Infrastructure\Repository\PostRepositoryInterface:
         alias: App\Infrastructure\Persistence\DoctrinePostRepository
 
-    App\Application\UseCaseInterface\CreatePostInterface:
-        alias: App\Application\UseCase\CreatePost
+    App\Domain\UseCaseInterface\CreatePostInterface:
+        alias: App\Domain\UseCase\CreatePost
 
-    App\Application\UseCaseInterface\ListPostsInterface:
-        alias: App\Application\UseCase\ListPosts
+    App\Domain\UseCaseInterface\ListPostsInterface:
+        alias: App\Domain\UseCase\ListPosts
 
-    App\Application\UseCaseInterface\GetPostInterface:
-        alias: App\Application\UseCase\GetPost
+    App\Domain\UseCaseInterface\GetPostInterface:
+        alias: App\Domain\UseCase\GetPost
 
-    App\Application\UseCaseInterface\UpdatePostInterface:
-        alias: App\Application\UseCase\UpdatePost
+    App\Domain\UseCaseInterface\UpdatePostInterface:
+        alias: App\Domain\UseCase\UpdatePost
 
-    App\Application\UseCaseInterface\DeletePostInterface:
-        alias: App\Application\UseCase\DeletePost
+    App\Domain\UseCaseInterface\DeletePostInterface:
+        alias: App\Domain\UseCase\DeletePost
 
-    App\Domain\Repository\UserRepositoryInterface:
+    App\Infrastructure\Repository\UserRepositoryInterface:
         alias: App\Infrastructure\Persistence\DoctrineUserRepository
 
-    App\Application\UseCaseInterface\RegisterUserInterface:
-        alias: App\Application\UseCase\RegisterUser
+    App\Domain\UseCaseInterface\RegisterUserInterface:
+        alias: App\Domain\UseCase\RegisterUser
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

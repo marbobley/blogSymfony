@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
-use App\Application\Factory\TagModelFactory;
-use App\Application\Model\TagModel;
-use App\Application\Provider\TagProviderInterface;
-use App\Application\UseCase\ListTags;
+use App\Domain\Factory\TagModelFactory;
+use App\Domain\Model\TagModel;
+use App\Domain\Provider\TagProviderInterface;
+use App\Domain\UseCase\ListTags;
 use PHPUnit\Framework\TestCase;
 
 class ListTagsTest extends TestCase

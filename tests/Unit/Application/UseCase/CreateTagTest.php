@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
-use App\Application\Factory\TagModelFactory;
-use App\Application\Provider\TagProviderInterface;
-use App\Application\UseCase\CreateTag;
+use App\Domain\Factory\TagModelFactory;
+use App\Domain\Provider\TagProviderInterface;
+use App\Domain\UseCase\CreateTag;
 use PHPUnit\Framework\TestCase;
 
 class CreateTagTest extends TestCase

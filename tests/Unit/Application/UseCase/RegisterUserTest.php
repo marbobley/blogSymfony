@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
-use App\Application\Model\UserRegistrationModel;
-use App\Application\UseCase\RegisterUser;
+use App\Domain\Model\UserRegistrationModel;
+use App\Domain\UseCase\RegisterUser;
 use App\Infrastructure\Entity\User;
 use App\Infrastructure\Repository\UserRepositoryInterface;
 use PHPUnit\Framework\TestCase;

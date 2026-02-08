@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
-use App\Application\Factory\PostModelFactory;
-use App\Application\Factory\TagModelFactory;
-use App\Application\Provider\PostProviderInterface;
-use App\Application\UseCase\CreatePost;
+use App\Domain\Factory\PostModelFactory;
+use App\Domain\Factory\TagModelFactory;
+use App\Domain\Provider\PostProviderInterface;
+use App\Domain\UseCase\CreatePost;
 use PHPUnit\Framework\TestCase;
 
 class CreatePostTest extends TestCase

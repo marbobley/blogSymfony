@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Form;
 
-use App\Application\Model\PostModel;
-use App\Application\Model\TagModel;
-use App\Application\UseCaseInterface\ListTagsInterface;
+use App\Domain\Model\PostModel;
+use App\Domain\Model\TagModel;
+use App\Domain\UseCaseInterface\ListTagsInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

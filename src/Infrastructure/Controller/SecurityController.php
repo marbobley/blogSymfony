@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
-use App\Application\Factory\UserRegistrationDTOFactory;
-use App\Application\Model\UserRegistrationModel;
-use App\Application\UseCaseInterface\RegisterUserInterface;
+use App\Domain\Factory\UserRegistrationDTOFactory;
+use App\Domain\Model\UserRegistrationModel;
+use App\Domain\UseCaseInterface\RegisterUserInterface;
 use App\Infrastructure\Form\RegistrationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

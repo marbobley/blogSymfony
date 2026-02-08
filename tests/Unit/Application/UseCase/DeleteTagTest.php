@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
-use App\Application\Provider\TagProviderInterface;
-use App\Application\UseCase\DeleteTag;
+use App\Domain\Provider\TagProviderInterface;
+use App\Domain\UseCase\DeleteTag;
 use App\Infrastructure\Entity\Tag;
 use PHPUnit\Framework\TestCase;
 

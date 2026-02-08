@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Form;
 
-use App\Application\Model\UserRegistrationModel;
-use App\Application\Factory\UserRegistrationDTOFactory;
+use App\Domain\Model\UserRegistrationModel;
+use App\Domain\Factory\UserRegistrationDTOFactory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;

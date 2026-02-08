@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
-use App\Application\Provider\PostProviderInterface;
-use App\Application\UseCase\DeletePost;
+use App\Domain\Provider\PostProviderInterface;
+use App\Domain\UseCase\DeletePost;
 use App\Infrastructure\Entity\Post;
 use PHPUnit\Framework\TestCase;
 

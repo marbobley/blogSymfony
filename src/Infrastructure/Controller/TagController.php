@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
-use App\Application\Model\TagModel;
-use App\Application\Factory\TagModelFactory;
-use App\Application\UseCase\GetTag;
-use App\Application\UseCaseInterface\CreateTagInterface;
-use App\Application\UseCaseInterface\DeleteTagInterface;
-use App\Application\UseCaseInterface\GetTagBySlugInterface;
-use App\Application\UseCaseInterface\ListTagsInterface;
-use App\Application\UseCaseInterface\UpdateTagInterface;
+use App\Domain\Model\TagModel;
+use App\Domain\Factory\TagModelFactory;
+use App\Domain\UseCase\GetTag;
+use App\Domain\UseCaseInterface\CreateTagInterface;
+use App\Domain\UseCaseInterface\DeleteTagInterface;
+use App\Domain\UseCaseInterface\GetTagBySlugInterface;
+use App\Domain\UseCaseInterface\ListTagsInterface;
+use App\Domain\UseCaseInterface\UpdateTagInterface;
 use App\Infrastructure\Form\TagType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,7 +48,7 @@ class TagController extends AbstractController
     }
 
     #[Route('/tag/{slug}', name: 'app_tag_show', methods: ['GET'])]
-    public function show(string $slug, GetTagBySlugInterface $getTagBySlug, \App\Application\UseCaseInterface\ListPostsInterface $listPosts): Response
+    public function show(string $slug, GetTagBySlugInterface $getTagBySlug, \App\Domain\UseCaseInterface\ListPostsInterface $listPosts): Response
     {
         $tag = $getTagBySlug->execute($slug);
         return $this->render('tag/show.html.twig', [
