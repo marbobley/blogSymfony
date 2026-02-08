@@ -40,4 +40,26 @@ readonly class PostAdapter implements PostProviderInterface
 
         $this->postRepository->delete($post);
     }
+
+    public function findById(int $id): PostModel
+    {
+        $post = $this->postRepository->findById($id);
+
+        if (!$post) {
+            throw EntityNotFoundException::forEntity('Post', $id);
+        }
+
+        return $this->postMapper->toModel($post);
+    }
+
+    public function findBySlug(string $slug): PostModel
+    {
+        $post = $this->postRepository->findBySlug($slug);
+
+        if (!$post) {
+            throw EntityNotFoundException::forEntity('Post', $slug);
+        }
+
+        return $this->postMapper->toModel($post);
+    }
 }

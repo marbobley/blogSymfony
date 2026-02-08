@@ -5,27 +5,18 @@ declare(strict_types=1);
 namespace App\Application\UseCase;
 
 use App\Application\Model\PostModel;
+use App\Application\Provider\PostProviderInterface;
 use App\Application\UseCaseInterface\GetPostBySlugInterface;
-use App\Domain\Exception\EntityNotFoundException;
-use App\Domain\Repository\PostRepositoryInterface;
-use App\Infrastructure\MapperInterface\PostMapperInterface;
 
 readonly class GetPostBySlug implements GetPostBySlugInterface
 {
     public function __construct(
-        private PostRepositoryInterface $postRepository,
-        private PostMapperInterface $postMapper,
+        private PostProviderInterface $postProvider
     ) {
     }
 
     public function execute(string $slug): PostModel
     {
-        $post = $this->postRepository->findBySlug($slug);
-
-        if (!$post) {
-            throw EntityNotFoundException::forEntity('Post', $slug);
-        }
-
-        return $this->postMapper->toModel($post);
+        return $this->postProvider->findBySlug($slug);
     }
 }

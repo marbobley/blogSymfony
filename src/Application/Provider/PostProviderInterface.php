@@ -10,4 +10,8 @@ interface PostProviderInterface
     public function save(PostModel $postModel) : PostModel;
 
     public function delete(int $id) : void;
+
+    public function findById(int $id) : PostModel;
+
+    public function findBySlug(string $slug): PostModel;
 }

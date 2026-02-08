@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
+use App\Application\Factory\PostModelFactory;
 use App\Application\Model\PostModel;
 use App\Application\Model\PostResponseModel;
+use App\Application\Provider\PostProviderInterface;
 use App\Application\UseCase\GetPostBySlug;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Post;
@@ -19,43 +21,21 @@ class GetPostBySlugTest extends TestCase
     public function testExecuteReturnsPostResponseDTO(): void
     {
         // Arrange
-        $post = new Post('Mon Super Titre', 'Contenu de l\'article');
-        $post->setId(1);
-        $post->setSlug('slu');
+        $post = PostModelFactory::create('Mon Super Titre', 'Contenu de l\'article') ;
+           
 
-        $repository = $this->createMock(PostRepositoryInterface::class);
-        $repository->expects($this->once())
+        $postProvider = $this->createMock(PostProviderInterface::class);
+        $postProvider->expects($this->once())
             ->method('findBySlug')
             ->with('mon-super-titre')
             ->willReturn($post);
 
-        $tagMapper = new TagMapper();
-        $postMappeer = new PostMapper($tagMapper);
-
-        $useCase = new GetPostBySlug($repository, $postMappeer);
+        $useCase = new GetPostBySlug($postProvider);
 
         // Act
         $result = $useCase->execute('mon-super-titre');
 
         // Assert
         $this->assertEquals('Mon Super Titre', $result->getTitle());
-    }
-
-    public function testExecuteThrowsExceptionWhenPostNotFound(): void
-    {
-        // Arrange
-        $repository = $this->createMock(PostRepositoryInterface::class);
-        $repository->method('findBySlug')->willReturn(null);
-
-        $tagMapper = new TagMapper();
-        $postMappeer = new PostMapper($tagMapper);
-        $useCase = new GetPostBySlug($repository,$postMappeer);
-
-        // Assert
-        $this->expectException(EntityNotFoundException::class);
-        $this->expectExceptionMessage('Post avec l\'identifiant "slug-inexistant" non trouvé(e).');
-
-        // Act
-        $useCase->execute('slug-inexistant');
     }
 }
