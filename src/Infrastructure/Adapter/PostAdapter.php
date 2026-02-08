@@ -7,6 +7,7 @@ use App\Application\Model\PostModel;
 use App\Application\Provider\PostProviderInterface;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Repository\PostRepositoryInterface;
+use App\Domain\Repository\TagRepositoryInterface;
 use App\Domain\Service\PostTagSynchronizer;
 use App\Infrastructure\MapperInterface\PostMapperInterface;
 
@@ -14,6 +15,7 @@ readonly class PostAdapter implements PostProviderInterface
 {
     public function __construct(
         private PostRepositoryInterface $postRepository,
+        private TagRepositoryInterface $tagRepository,
         private PostMapperInterface     $postMapper,
         private PostTagSynchronizer     $postTagSynchronizer
     ) {
@@ -61,5 +63,22 @@ readonly class PostAdapter implements PostProviderInterface
         }
 
         return $this->postMapper->toModel($post);
+    }
+
+    public function findByTag(?int $tagId): array
+    {
+        if ($tagId !== null) {
+            $tag = $this->tagRepository->findById($tagId);
+            if (!$tag) {
+                throw EntityNotFoundException::forEntity('Tag', $tagId);
+            }
+            $posts = $this->postRepository->findByTag($tag);
+        } else {
+            $posts = $this->postRepository->findAll();
+        }
+
+        return array_map(function ($post) {
+            return $this->postMapper->toModel($post);
+        }, $posts);
     }
 }

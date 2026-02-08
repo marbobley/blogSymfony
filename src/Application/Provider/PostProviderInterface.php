@@ -14,4 +14,6 @@ interface PostProviderInterface
     public function findById(int $id) : PostModel;
 
     public function findBySlug(string $slug): PostModel;
+
+    public function findByTag(?int $tagId) : array;
 }
