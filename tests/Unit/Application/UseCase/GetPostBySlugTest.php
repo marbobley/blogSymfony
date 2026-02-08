@@ -10,6 +10,8 @@ use App\Application\UseCase\GetPostBySlug;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Post;
 use App\Domain\Repository\PostRepositoryInterface;
+use App\Infrastructure\Mapper\PostMapper;
+use App\Infrastructure\Mapper\TagMapper;
 use PHPUnit\Framework\TestCase;
 
 class GetPostBySlugTest extends TestCase
@@ -18,8 +20,8 @@ class GetPostBySlugTest extends TestCase
     {
         // Arrange
         $post = new Post('Mon Super Titre', 'Contenu de l\'article');
-        // On ne peut pas facilement mocker le slug car il est géré par Gedmo,
-        // mais GetPostBySlug utilise findBySlug donc on simule le retour.
+        $post->setId(1);
+        $post->setSlug('slu');
 
         $repository = $this->createMock(PostRepositoryInterface::class);
         $repository->expects($this->once())
@@ -27,13 +29,16 @@ class GetPostBySlugTest extends TestCase
             ->with('mon-super-titre')
             ->willReturn($post);
 
-        $useCase = new GetPostBySlug($repository);
+        $tagMapper = new TagMapper();
+        $postMappeer = new PostMapper($tagMapper);
+
+        $useCase = new GetPostBySlug($repository, $postMappeer);
 
         // Act
         $result = $useCase->execute('mon-super-titre');
 
         // Assert
-        $this->assertEquals('Mon Super Titre', $result->title);
+        $this->assertEquals('Mon Super Titre', $result->getTitle());
     }
 
     public function testExecuteThrowsExceptionWhenPostNotFound(): void
@@ -42,7 +47,9 @@ class GetPostBySlugTest extends TestCase
         $repository = $this->createMock(PostRepositoryInterface::class);
         $repository->method('findBySlug')->willReturn(null);
 
-        $useCase = new GetPostBySlug($repository);
+        $tagMapper = new TagMapper();
+        $postMappeer = new PostMapper($tagMapper);
+        $useCase = new GetPostBySlug($repository,$postMappeer);
 
         // Assert
         $this->expectException(EntityNotFoundException::class);

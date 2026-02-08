@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
+use App\Application\Factory\TagModelFactory;
 use App\Application\Model\TagModel;
 use App\Application\UseCase\GetTagBySlug;
 use App\Domain\Exception\EntityNotFoundException;
@@ -21,20 +22,20 @@ class GetTagBySlugTest extends TestCase
 
         $tagMapper = new TagMapper();
         $useCase = new GetTagBySlug($repository,$tagMapper);
-        $tag = $this->createMock(Tag::class);
-        $tag->method('getName')->willReturn('Symfony');
-        $tag->method('getSlug')->willReturn('symfony');
+        $tag = new Tag('Symfony');
+        $tag->setSlug('Symfony');
+        $tag->setId(1);
 
         $repository->expects($this->once())
             ->method('findBySlug')
-            ->with('symfony')
+            ->with('Symfony')
             ->willReturn($tag);
 
-        $responseDTO = $useCase->execute('symfony');
+        $responseDTO = $useCase->execute('Symfony');
 
         $this->assertInstanceOf(TagModel::class, $responseDTO);
         $this->assertEquals('Symfony', $responseDTO->getName());
-        $this->assertEquals('symfony', $responseDTO->getSlug());
+        $this->assertEquals('Symfony', $responseDTO->getSlug());
     }
 
     public function testExecuteThrowsExceptionWhenTagNotFound(): void

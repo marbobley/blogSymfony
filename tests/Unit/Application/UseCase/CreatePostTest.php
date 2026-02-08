@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Application\UseCase;
 
 use App\Application\Model\PostModel;
 use App\Application\Factory\PostDTOFactory;
-use App\Application\Factory\TagDTOFactory;
+use App\Application\Factory\TagModelFactory;
 use App\Application\UseCase\CreatePost;
 use App\Domain\Model\Post;
 use App\Domain\Model\Tag;
@@ -26,7 +26,7 @@ class CreatePostTest extends TestCase
         $useCase = new CreatePost($postRepository, $tagSynchronizer);
 
         $dto = PostDTOFactory::create('Titre de test', 'Contenu de test');
-        $tagDTO = TagDTOFactory::create('Tag test');
+        $tagDTO = TagModelFactory::create(1,'Tag test', 'slu');
         $dto->addTag($tagDTO);
 
         // Assert & Expect
@@ -56,7 +56,7 @@ class CreatePostTest extends TestCase
         $tagRepository->method('findByName')->with('Existing Tag')->willReturn($existingTag);
 
         $dto = PostDTOFactory::create('Titre de test', 'Contenu de test');
-        $tagDTO = TagDTOFactory::create('Existing Tag');
+        $tagDTO = TagModelFactory::create(1,'Existing Tag', 'slug1');
         $dto->addTag($tagDTO);
 
         // Act

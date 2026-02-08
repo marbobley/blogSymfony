@@ -18,12 +18,22 @@ class Tag
     #[ORM\Column]
     private ?int $id = null;
 
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
+    }
+
     #[ORM\Column(length: 255, unique: true)]
     private string $name;
 
     #[Gedmo\Slug(fields: ['name'])]
     #[ORM\Column(length: 255, unique: true)]
     private string $slug;
+
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
+    }
 
     /**
      * @var Collection<int, Post>

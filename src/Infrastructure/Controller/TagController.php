@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Controller;
 
 use App\Application\Model\TagModel;
-use App\Application\Factory\TagDTOFactory;
+use App\Application\Factory\TagModelFactory;
 use App\Application\UseCase\GetTag;
 use App\Application\UseCaseInterface\CreateTagInterface;
 use App\Application\UseCaseInterface\DeleteTagInterface;
@@ -61,7 +61,7 @@ class TagController extends AbstractController
     public function edit(int $id, Request $request, GetTag $getTagUseCase, UpdateTagInterface $updateTag): Response
     {
         $tagEntity = $getTagUseCase->getById($id);
-        $tagDTO = TagDTOFactory::createFromEntity($tagEntity);
+        $tagDTO = TagModelFactory::createFromEntity($tagEntity);
 
         $form = $this->createForm(TagType::class, $tagDTO);
         $form->handleRequest($request);

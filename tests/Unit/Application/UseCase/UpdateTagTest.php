@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Application\UseCase;
 
 use App\Application\Model\TagModel;
-use App\Application\Factory\TagDTOFactory;
+use App\Application\Factory\TagModelFactory;
 use App\Application\UseCase\UpdateTag;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Tag;
@@ -19,7 +19,7 @@ class UpdateTagTest extends TestCase
         $repository = $this->createMock(TagRepositoryInterface::class);
         $useCase = new UpdateTag($repository);
         $tag = new Tag('Symfony');
-        $dto = TagDTOFactory::create('PHP');
+        $dto = TagModelFactory::create(1,'PHP' , 'Slu1');
 
         $repository->expects($this->once())
             ->method('findById')
@@ -39,7 +39,7 @@ class UpdateTagTest extends TestCase
     {
         $repository = $this->createMock(TagRepositoryInterface::class);
         $useCase = new UpdateTag($repository);
-        $dto = TagDTOFactory::create('PHP');
+        $dto = TagModelFactory::create(1,'PHP' , 'slu1');
 
         $repository->method('findById')->willReturn(null);
 

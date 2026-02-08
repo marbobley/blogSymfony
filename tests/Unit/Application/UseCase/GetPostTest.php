@@ -21,6 +21,7 @@ class GetPostTest extends TestCase
         // Arrange
         $post = new Post('Titre', 'Contenu');
         $post->setId(33);
+        $post->setSlug('slu');
 
         $repository = $this->createMock(PostRepositoryInterface::class);
         $repository->expects($this->once())

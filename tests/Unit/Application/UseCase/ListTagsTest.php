@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
+use App\Application\Factory\TagModelFactory;
 use App\Application\Model\TagModel;
 use App\Application\UseCase\ListTags;
 use App\Domain\Model\Tag;
@@ -16,12 +17,8 @@ class ListTagsTest extends TestCase
     {
         $repository = $this->createMock(TagRepositoryInterface::class);
         $useCase = new ListTags($repository);
-        $tag1 = $this->createMock(Tag::class);
-        $tag1->method('getName')->willReturn('Symfony');
-        $tag1->method('getSlug')->willReturn('symfony');
-        $tag2 = $this->createMock(Tag::class);
-        $tag2->method('getName')->willReturn('PHP');
-        $tag2->method('getSlug')->willReturn('php');
+        $tag1 = TagModelFactory::create(1, 'Symfony' , 'slu1');
+        $tag2 = TagModelFactory::create(2, 'PHP' , 'slu2');
 
         $repository->expects($this->once())
             ->method('findAll')
@@ -31,7 +28,7 @@ class ListTagsTest extends TestCase
 
         $this->assertCount(2, $result);
         $this->assertInstanceOf(TagModel::class, $result[0]);
-        $this->assertEquals('Symfony', $result[0]->name);
-        $this->assertEquals('PHP', $result[1]->name);
+        $this->assertEquals('Symfony', $result[0]->getName());
+        $this->assertEquals('PHP', $result[1]->getName());
     }
 }

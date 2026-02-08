@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Application\UseCase;
 
 use App\Application\Model\PostModel;
 use App\Application\Factory\PostDTOFactory;
-use App\Application\Factory\TagDTOFactory;
+use App\Application\Factory\TagModelFactory;
 use App\Application\UseCase\UpdatePost;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Post;
@@ -40,7 +40,7 @@ class UpdatePostTest extends TestCase
             ->with($post);
 
         $dto = PostDTOFactory::create('Nouveau Titre', 'Nouveau Contenu');
-        $newTagDTO = TagDTOFactory::create('New');
+        $newTagDTO = TagModelFactory::create(1,'New', 'sllu');
         $dto->addTag($newTagDTO);
 
         // Act

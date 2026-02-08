@@ -45,6 +45,11 @@ class Post
     #[ORM\Column(length: 255, unique: true, nullable: true)]
     private ?string $slug = null;
 
+    public function setSlug(?string $slug): void
+    {
+        $this->slug = $slug;
+    }
+
     #[ORM\Column(type: "text")]
     private string $content;
 

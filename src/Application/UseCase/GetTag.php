@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase;
 
+use App\Application\Factory\TagModelFactory;
 use App\Application\Model\TagModel;
-use App\Application\Factory\TagResponseDTOFactory;
 use App\Application\UseCaseInterface\GetTagInterface;
 use App\Domain\Exception\EntityNotFoundException;
+use App\Domain\Model\Tag;
 use App\Domain\Repository\TagRepositoryInterface;
 
 class GetTag implements GetTagInterface
@@ -21,10 +22,10 @@ class GetTag implements GetTagInterface
     {
         $tag = $this->getById($id);
 
-        return TagResponseDTOFactory::createFromEntity($tag);
+        return TagModelFactory::create($tag->getId(), $tag->getName(), $tag->getSlug());
     }
 
-    public function getById(int $id): \App\Domain\Model\Tag
+    public function getById(int $id): Tag
     {
         $tag = $this->tagRepository->findById($id);
 
