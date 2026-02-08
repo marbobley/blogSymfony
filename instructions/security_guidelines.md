@@ -15,17 +15,12 @@ La sécurité est traitée comme un détail d'infrastructure. Le cœur de l'appl
 ## 2. Structure des Composants
 
 ### A. Domaine (`src/Domain`)
-*   **Model/User.php** : Entité pure. Elle contient l'email, le mot de passe haché et les rôles. 
-    *   *Validation* : Utiliser des garde-fous pour valider le format de l'email.
-*   **Repository/UserRepositoryInterface.php** : Contrat pour la gestion de la persistance des utilisateurs.
-
-### B. Application (`src/Application`)
+*   **Model/UserRegistrationModel.php** : Modèle pour les données d'inscription.
 *   **UseCase/RegisterUser.php** : Gère la logique d'inscription.
-*   **DTO/UserRegistrationDTO.php** : Objet immuable pour transporter les données d'inscription.
 
-### C. Infrastructure (`src/Infrastructure`)
-*   **Security/UserAdapter.php** : Classe adaptatrice qui implémente `Symfony\Component\Security\Core\User\UserInterface`. Elle encapsule l'entité `User` du Domaine.
-*   **Security/UserProvider.php** : Charge l'utilisateur depuis le Domaine pour Symfony.
+### B. Infrastructure (`src/Infrastructure`)
+*   **Entity/User.php** : Entité Doctrine. Elle implémente les règles de validation de base (email, etc.).
+*   **Persistence/UserRepositoryInterface.php** : Interface de repository.
 *   **Persistence/DoctrineUserRepository.php** : Implémentation Doctrine du repository.
 *   **Controller/SecurityController.php** : Gère les routes de login/logout.
 
@@ -49,7 +44,5 @@ Pour la gestion fine des droits (ex: "Seul l'auteur peut modifier son post"), ut
 
 ## 5. Checklist d'Implémentation
 
-- [ ] L'entité `User` ne contient aucune annotation Symfony Security.
 - [ ] Le mot de passe est haché avant d'entrer dans le Domaine (via un service d'infrastructure).
-- [ ] Les formulaires de login/inscription respectent les `frontend_guidelines.md`.
 - [ ] La CI passe au vert (PHPUnit & PHPStan niveau 8).

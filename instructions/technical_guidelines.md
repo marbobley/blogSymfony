@@ -39,20 +39,17 @@ L'objectif est d'isoler la logique métier des détails techniques (Framework, B
 
 #### A. Domaine (`src/Domain`)
 Le cœur du métier. Ne dépend d'aucune bibliothèque externe (ni Symfony, ni Doctrine).
-*   **Model** : Objets métier (ex: `Post`).
-*   **Repository** : *Interfaces* de stockage (ex: `PostRepositoryInterface`).
+*   **Model** : Objets métier avec le suffixe `Model` (ex: `PostModel`). Ils contiennent les contraintes de validation de base.
+*   **UseCaseInterface** : Définition des contrats pour les cas d'utilisation (ex: `CreatePostInterface`).
+*   **UseCase** : Implémentations concrètes des cas d'utilisation (ex: `CreatePost`). Ils orchestrent la logique métier.
+*   **Provider** : *Interfaces* de stockage et de récupération de données (ex: `PostProviderInterface`). Elles remplacent les interfaces de repository traditionnelles pour abstraire davantage la source de données.
 *   **Exception** : Exceptions métier spécifiques.
 
-#### B. Application (`src/Application`)
-Orchestre les cas d'utilisation (Use Cases).
-*   **UseCaseInterface** : Définition des contrats pour les cas d'utilisation (ex: `CreatePostInterface`).
-*   **UseCase** : Implémentations concrètes qui réalisent une action précise (ex: `CreatePost`).
-*   **DTO** : Objets de transfert de données immuables (`readonly`) pour l'entrée/sortie du Use Case.
-
-#### C. Infrastructure (`src/Infrastructure`)
+#### B. Infrastructure (`src/Infrastructure`)
 Les détails techniques et les implémentations.
-*   **Persistence** : Implémentations concrètes des repositories (ex: `DoctrinePostRepository`).
-*   **Extensions Doctrine** : Utilisation de `StofDoctrineExtensionsBundle` pour les comportements automatiques (ex: `sluggable`, `timestampable`).
+*   **Entity** : Entités Doctrine (mappage DB). Elles sont distinctes des modèles du domaine.
+*   **Persistence / Provider** : Implémentations concrètes des providers (ex: `DoctrinePostProvider`). Ils gèrent la conversion entre Modèles de Domaine et Entités Doctrine.
+*   **Service** : Services d'infrastructure transverses (ex: `PostTagSynchronizer`).
 *   **Controller** : Contrôleurs Symfony (Input HTTP).
 *   **Form** : Formulaires Symfony.
 *   **Migrations** : Fichiers de migration Doctrine.
@@ -85,10 +82,11 @@ Voici comment circule l'information et où intervient la validation :
 1.  **Utilisateur** -> Soumet des données via une requête HTTP.
 2.  **Controller (Infrastructure)** :
     *   Initialise le **FormType** (Validation Niveau 1).
-    *   Si le formulaire est valide, il récupère le **DTO**.
+    *   Si le formulaire est valide, il remplit le **Modèle** (ex: `PostModel`).
     *   Appelle le **UseCaseInterface**.
-3.  **UseCase (Application)** :
-    *   Reçoit le DTO.
-    *   Instancie l'entité du **Domaine** (Validation Niveau 2 - Garde-fou).
-    *   Appelle le **RepositoryInterface** pour persister.
-4.  **Persistence (Infrastructure)** -> Enregistre en base de données de manière sécurisée.
+3.  **UseCase (Domaine)** :
+    *   Reçoit le Modèle.
+    *   Appelle le **ProviderInterface** pour persister.
+4.  **Persistence / Provider (Infrastructure)** :
+    *   Convertit le Modèle en **Entité** Doctrine (Validation Niveau 2 - Garde-fou lors de la création de l'entité).
+    *   Enregistre en base de données.

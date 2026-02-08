@@ -19,49 +19,33 @@ Si un objet (hors simple Value Object immuable) est instancié à plus d'un endr
 
 Les factories doivent être placées dans le namespace correspondant à l'objet qu'elles produisent :
 
-- **DTO** : `src/Application/Factory/`
-- **Entités** : `src/Domain/Factory/`
-- **Value Objects complexes** : `src/Domain/Factory/`
+- **Modèles de Domaine** : `src/Domain/Factory/`
+- **Entités d'Infrastructure** : `src/Infrastructure/Factory/` (si nécessaire)
 
-Nommage : `{NomDeLObjet}Factory` (ex: `PostDTOFactory`).
+Nommage : `{NomDeLObjet}Factory` (ex: `PostModelFactory`).
 
 ---
 
 ## 🛠 Structure Standard d'une Factory
 
-Une factory doit être simple et, par convention dans ce projet, utiliser des méthodes statiques pour éviter l'injection de la factory elle-même sauf si elle a des dépendances externes (ex: horloge, générateur d'UUID).
+Une factory doit être simple. Elle peut utiliser des méthodes statiques ou être un service si elle a des dépendances (ex: `PostTagSynchronizer`).
 
 ```php
 <?php
 declare(strict_types=1);
 
-namespace App\Application\Factory;
+namespace App\Domain\Factory;
 
-use App\Application\Model\MyObjectDTO;
+use App\Domain\Model\PostModel;
 
-class MyObjectDTOFactory
+class PostModelFactory
 {
-    /**
-     * Point d'entrée principal pour la création.
-     * Garantit que l'objet est retourné dans un état valide.
-     */
-    public static function create(array $data): MyObjectDTO
+    public static function create(string $title, string $content): PostModel
     {
-        $dto = new MyObjectDTO();
-        // Logique d'assignation ou de transformation
-        return $dto;
-    }
-
-    /**
-     * Spécifiquement pour les tests unitaires et le prototypage.
-     * Évite de remplir manuellement tous les champs obligatoires dans les tests.
-     */
-    public static function createSample(): MyObjectDTO
-    {
-        return self::create([
-            'field' => 'default_value',
-            // ...
-        ]);
+        $model = new PostModel();
+        $model->setTitle($title);
+        $model->setContent($content);
+        return $model;
     }
 }
 ```
@@ -82,7 +66,7 @@ class MyObjectDTOFactory
 ## ✅ Checklist d'implémentation
 
 1. [ ] Le fichier commence par `declare(strict_types=1);`.
-2. [ ] La factory est située dans le bon dossier (`Application/Factory` ou `Domain/Factory`).
+2. [ ] La factory est située dans le bon dossier (`Domain/Factory` ou `Infrastructure/Factory`).
 3. [ ] Elle contient au moins une méthode `create()`.
 4. [ ] Elle contient une méthode `createSample()` si l'objet est utilisé dans les tests.
 5. [ ] Le code client (Controller, Use Case, Test) n'utilise plus `new {Object}` mais passe par la Factory.
