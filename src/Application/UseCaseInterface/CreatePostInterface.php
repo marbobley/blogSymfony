@@ -9,5 +9,5 @@ use App\Domain\Model\Post;
 
 interface CreatePostInterface
 {
-    public function execute(PostModel $postDTO): Post;
+    public function execute(PostModel $postModel): PostModel;
 }

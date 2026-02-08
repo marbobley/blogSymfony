@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Application\UseCase;
 
 use App\Application\Model\PostModel;
-use App\Application\Factory\PostDTOFactory;
+use App\Application\Factory\PostModelFactory;
 use App\Application\Factory\TagModelFactory;
+use App\Application\Provider\PostProviderInterface;
 use App\Application\UseCase\CreatePost;
 use App\Domain\Model\Post;
 use App\Domain\Model\Tag;
@@ -20,50 +21,25 @@ class CreatePostTest extends TestCase
     public function testExecuteCreatesAndSavesPost(): void
     {
         // Arrange
-        $postRepository = $this->createMock(PostRepositoryInterface::class);
-        $tagRepository = $this->createMock(TagRepositoryInterface::class);
-        $tagSynchronizer = new PostTagSynchronizer($tagRepository);
-        $useCase = new CreatePost($postRepository, $tagSynchronizer);
+        $postProvider = $this->createMock(PostProviderInterface::class);
+        $useCase = new CreatePost($postProvider);
 
-        $dto = PostDTOFactory::create('Titre de test', 'Contenu de test');
+        $model = PostModelFactory::create('Titre de test', 'Contenu de test');
         $tagDTO = TagModelFactory::create(1,'Tag test', 'slu');
-        $dto->addTag($tagDTO);
+        $model->addTag($tagDTO);
 
         // Assert & Expect
-        $tagRepository->method('findByName')->willReturn(null);
-        $postRepository->expects($this->once())
-            ->method('save');
+        $postProvider->expects($this->once())
+            ->method('save')
+            ->willReturn($model);
 
         // Act
-        $post = $useCase->execute($dto);
+        $post = $useCase->execute($model);
 
         // Additional Assertions
+        // TODO WFO : Je tests le mocker ici
         $this->assertEquals('Titre de test', $post->getTitle());
         $this->assertEquals('Contenu de test', $post->getContent());
         $this->assertEquals('Tag test', $post->getTags()[0]->getName());
-        $this->assertInstanceOf(\DateTimeImmutable::class, $post->getCreatedAt());
-    }
-
-    public function testExecuteReusesExistingTag(): void
-    {
-        // Arrange
-        $postRepository = $this->createMock(PostRepositoryInterface::class);
-        $tagRepository = $this->createMock(TagRepositoryInterface::class);
-        $tagSynchronizer = new PostTagSynchronizer($tagRepository);
-        $useCase = new CreatePost($postRepository, $tagSynchronizer);
-
-        $existingTag = new Tag('Existing Tag');
-        $tagRepository->method('findByName')->with('Existing Tag')->willReturn($existingTag);
-
-        $dto = PostDTOFactory::create('Titre de test', 'Contenu de test');
-        $tagDTO = TagModelFactory::create(1,'Existing Tag', 'slug1');
-        $dto->addTag($tagDTO);
-
-        // Act
-        $post = $useCase->execute($dto);
-
-        // Assert
-        $this->assertCount(1, $post->getTags());
-        $this->assertSame($existingTag, $post->getTags()[0]);
     }
 }

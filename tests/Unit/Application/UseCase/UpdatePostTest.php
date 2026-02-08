@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Application\UseCase;
 
 use App\Application\Model\PostModel;
-use App\Application\Factory\PostDTOFactory;
+use App\Application\Factory\PostModelFactory;
 use App\Application\Factory\TagModelFactory;
 use App\Application\UseCase\UpdatePost;
 use App\Domain\Exception\EntityNotFoundException;
@@ -39,7 +39,7 @@ class UpdatePostTest extends TestCase
             ->method('save')
             ->with($post);
 
-        $dto = PostDTOFactory::create('Nouveau Titre', 'Nouveau Contenu');
+        $dto = PostModelFactory::create('Nouveau Titre', 'Nouveau Contenu');
         $newTagDTO = TagModelFactory::create(1,'New', 'sllu');
         $dto->addTag($newTagDTO);
 
@@ -63,7 +63,7 @@ class UpdatePostTest extends TestCase
 
         $postRepository->method('findById')->willReturn(null);
 
-        $dto = PostDTOFactory::create('Titre', 'Contenu');
+        $dto = PostModelFactory::create('Titre', 'Contenu');
 
         // Assert & Expect
         $this->expectException(EntityNotFoundException::class);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
+use App\Application\Provider\PostProviderInterface;
 use App\Application\UseCase\DeletePost;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\Post;
@@ -15,35 +16,14 @@ class DeletePostTest extends TestCase
     public function testExecuteDeletesPost(): void
     {
         // Arrange
-        $repository = $this->createMock(PostRepositoryInterface::class);
+        $postProvider = $this->createMock(PostProviderInterface::class);
         $post = new Post('Titre', 'Contenu');
 
-        $repository->expects($this->once())
-            ->method('findById')
-            ->with(1)
-            ->willReturn($post);
-
-        $repository->expects($this->once())
+        $postProvider->expects($this->once())
             ->method('delete')
-            ->with($post);
+            ->with(1);
 
-        $useCase = new DeletePost($repository);
-
-        // Act
-        $useCase->execute(1);
-    }
-
-    public function testExecuteThrowsExceptionWhenPostNotFound(): void
-    {
-        // Arrange
-        $repository = $this->createMock(PostRepositoryInterface::class);
-        $repository->method('findById')->willReturn(null);
-
-        $useCase = new DeletePost($repository);
-
-        // Assert & Expect
-        $this->expectException(EntityNotFoundException::class);
-        $this->expectExceptionMessage('Post avec l\'identifiant "1" non trouvé(e).');
+        $useCase = new DeletePost($postProvider);
 
         // Act
         $useCase->execute(1);

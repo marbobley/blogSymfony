@@ -35,6 +35,7 @@ class PostType extends AbstractType
                     return $tag ? strtoupper($tag->getName()) : '';
                 },
                 'expanded' => true,
+                'multiple' => true,
             ]);
     }
 

@@ -6,7 +6,7 @@ namespace App\Application\Factory;
 
 use App\Application\Model\PostModel;
 
-class PostDTOFactory
+class PostModelFactory
 {
     public static function create(string $title = '', string $content = ''): PostModel
     {

@@ -5,27 +5,21 @@ declare(strict_types=1);
 namespace App\Application\UseCase;
 
 use App\Application\Model\PostModel;
+use App\Application\Provider\PostProviderInterface;
 use App\Application\UseCaseInterface\CreatePostInterface;
 use App\Domain\Model\Post;
 use App\Domain\Repository\PostRepositoryInterface;
 use App\Domain\Service\PostTagSynchronizer;
 
-class CreatePost implements CreatePostInterface
+readonly class CreatePost implements CreatePostInterface
 {
     public function __construct(
-        private readonly PostRepositoryInterface $postRepository,
-        private readonly PostTagSynchronizer $tagSynchronizer
+        private PostProviderInterface $postProvider
     ) {
     }
 
-    public function execute(PostModel $postDTO): Post
+    public function execute(PostModel $postModel): PostModel
     {
-        $post = new Post($postDTO->getTitle(), $postDTO->getContent());
-
-        $this->tagSynchronizer->synchronize($post, $postDTO);
-
-        $this->postRepository->save($post);
-
-        return $post;
+        return $this->postProvider->save($postModel);
     }
 }
