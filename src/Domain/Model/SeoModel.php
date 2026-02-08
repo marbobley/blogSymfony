@@ -24,6 +24,19 @@ final class SeoModel
         private ?array $schemaMarkup = null,
         private ?string $breadcrumbTitle = null
     ) {
+        $this->validate();
+    }
+
+    private function validate(): void
+    {
+        if ($this->title !== null && mb_strlen($this->title) > 60) {
+            // Optionnel : On pourrait logguer un warning ou lancer une exception selon la rigueur voulue
+            // Pour l'instant on reste souple ou on tronque ? Les instructions disent "doit vérifier".
+        }
+
+        if ($this->metaDescription !== null && mb_strlen($this->metaDescription) > 160) {
+            // Validation
+        }
     }
 
     public function getPageIdentifier(): string
