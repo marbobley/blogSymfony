@@ -7,7 +7,9 @@ namespace App\Infrastructure\Form;
 use App\Domain\Model\PostModel;
 use App\Domain\Model\TagModel;
 use App\Domain\UseCaseInterface\ListTagsInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -34,9 +36,24 @@ class PostType extends AbstractType
                 'choice_label' => function (?TagModel $tag): string {
                     return $tag ? strtoupper($tag->getName()) : '';
                 },
+                'choice_value' => function (?TagModel $tag): string {
+                    return $tag ? (string) $tag->getId() : '';
+                },
                 'expanded' => true,
                 'multiple' => true,
             ]);
+
+        $builder->get('tags')->addModelTransformer(new CallbackTransformer(
+            function ($tagsAsCollection) {
+                if (null === $tagsAsCollection) {
+                    return [];
+                }
+                return $tagsAsCollection->toArray();
+            },
+            function ($tagsAsArray) {
+                return new ArrayCollection($tagsAsArray);
+            }
+        ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
