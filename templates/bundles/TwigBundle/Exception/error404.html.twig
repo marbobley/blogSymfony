@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page non trouvée - Les Chroniques du Code{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6 text-center">
+            <div class="error-container animate-fade-in">
+                <i class="bi bi-search text-primary display-1 mb-4"></i>
+                <h1 class="display-4 fw-bold mb-3">404</h1>
+                <h2 class="h3 mb-4">Page Introuvable</h2>
+                <p class="text-muted mb-5">
+                    Il semble que le contenu que vous recherchez n'existe pas ou a été déplacé.
+                    Peut-être qu'un de nos derniers articles saura vous consoler ?
+                </p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a href="{{ path('app_home') }}" class="btn btn-primary btn-lg px-4 gap-3 transition-base">
+                        <i class="bi bi-house-door me-2"></i>Retour à l'accueil
+                    </a>
+                    <a href="{{ path('app_post_index') }}" class="btn btn-outline-primary btn-lg px-4 transition-base">
+                        Explorer les articles
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur - Les Chroniques du Code{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6 text-center">
+            <div class="error-container animate-fade-in">
+                <i class="bi bi-exclamation-triangle-fill text-warning display-1 mb-4"></i>
+                <h1 class="h2 mb-3">Oups ! Une erreur est survenue</h1>
+                <p class="text-muted mb-4">
+                    {% if status_code is defined and status_code == 403 %}
+                        Désolé, vous n'avez pas les droits nécessaires pour accéder à cette page.
+                    {% else %}
+                        Quelque chose s'est mal passé sur nos serveurs. Nous mettons tout en œuvre pour résoudre le problème.
+                    {% endif %}
+                </p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a href="{{ path('app_home') }}" class="btn btn-primary btn-lg px-4 gap-3 transition-base">
+                        <i class="bi bi-house-door me-2"></i>Retour à l'accueil
+                    </a>
+                    <a href="javascript:history.back()" class="btn btn-outline-secondary btn-lg px-4 transition-base">
+                        Page précédente
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
