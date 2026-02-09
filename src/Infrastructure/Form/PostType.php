@@ -31,13 +31,13 @@ class PostType extends AbstractType
         $builder
         ->add('title', TextType::class)
         ->add('content', TextareaType::class)
-            ->add('tags', ChoiceType::class, [
+        ->add('tags', ChoiceType::class, [
                 'choices' => $tags,
                 'choice_label' => function (?TagModel $tag): string {
                     return $tag ? strtoupper($tag->getName()) : '';
                 },
                 'choice_value' => function (?TagModel $tag): string {
-                    return $tag ? (string) $tag->getId() : '';
+                    return (string)$tag?->getId();
                 },
                 'expanded' => true,
                 'multiple' => true,
