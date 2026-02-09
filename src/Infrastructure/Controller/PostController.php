@@ -11,6 +11,7 @@ use App\Domain\UseCaseInterface\DeletePostInterface;
 use App\Domain\UseCaseInterface\GetPostBySlugInterface;
 use App\Domain\UseCaseInterface\ListPostsInterface;
 use App\Domain\UseCaseInterface\UpdatePostInterface;
+use App\Domain\Provider\SeoProviderInterface;
 use App\Infrastructure\Form\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,10 +48,12 @@ class PostController extends AbstractController
     }
 
     #[Route('/post/{slug}', name: 'app_post_show', methods: ['GET'])]
-    public function show(string $slug, GetPostBySlugInterface $getPostBySlug): Response
+    public function show(string $slug, GetPostBySlugInterface $getPostBySlug, SeoProviderInterface $seoProvider): Response
     {
+        $post = $getPostBySlug->execute($slug);
         return $this->render('post/show.html.twig', [
-            'post' => $getPostBySlug->execute($slug),
+            'post' => $post,
+            'seo' => $seoProvider->findByPageIdentifier('post_show_' . $post->getId()),
         ]);
     }
 

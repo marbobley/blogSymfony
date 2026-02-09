@@ -12,6 +12,7 @@ use App\Domain\UseCaseInterface\DeleteTagInterface;
 use App\Domain\UseCaseInterface\GetTagBySlugInterface;
 use App\Domain\UseCaseInterface\ListTagsInterface;
 use App\Domain\UseCaseInterface\UpdateTagInterface;
+use App\Domain\Provider\SeoProviderInterface;
 use App\Infrastructure\Form\TagType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,12 +49,13 @@ class TagController extends AbstractController
     }
 
     #[Route('/tag/{slug}', name: 'app_tag_show', methods: ['GET'])]
-    public function show(string $slug, GetTagBySlugInterface $getTagBySlug, \App\Domain\UseCaseInterface\ListPostsInterface $listPosts): Response
+    public function show(string $slug, GetTagBySlugInterface $getTagBySlug, \App\Domain\UseCaseInterface\ListPostsInterface $listPosts, SeoProviderInterface $seoProvider): Response
     {
         $tag = $getTagBySlug->execute($slug);
         return $this->render('tag/show.html.twig', [
             'tag' => $tag,
             'posts' => $listPosts->execute($tag->getId()),
+            'seo' => $seoProvider->findByPageIdentifier('tag_show_' . $tag->getSlug()),
         ]);
     }
 

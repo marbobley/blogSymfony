@@ -66,12 +66,32 @@ class SeoDataMapper implements SeoDataMapperInterface
         return $entities;
     }
 
-    public function toModels(Collection $entities) : Collection
+    public function toModels(Collection $entities): Collection
     {
         $models = new ArrayCollection();
         foreach ($entities as $entity) {
             $models->add($this->toModel($entity));
         }
         return $models;
+    }
+
+    public function updateEntity(SeoData $entity, SeoModel $model): void
+    {
+        $entity->setPageIdentifier($model->getPageIdentifier());
+        $entity->setTitle($model->getTitle());
+        $entity->setMetaDescription($model->getMetaDescription());
+        $entity->setCanonicalUrl($model->getCanonicalUrl());
+        $entity->setMetaRobots($model->getMetaRobots());
+        $entity->setOgTitle($model->getOgTitle());
+        $entity->setOgDescription($model->getOgDescription());
+        $entity->setOgImage($model->getOgImage());
+        $entity->setOgType($model->getOgType());
+        $entity->setTwitterCard($model->getTwitterCard());
+        $entity->setInSitemap($model->isInSitemap());
+        $entity->setChangefreq($model->getChangefreq());
+        $entity->setPriority((string) $model->getPriority());
+        $entity->setIsNoIndex($model->isNoIndex());
+        $entity->setSchemaMarkup($model->getSchemaMarkup());
+        $entity->setBreadcrumbTitle($model->getBreadcrumbTitle());
     }
 }

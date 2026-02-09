@@ -18,12 +18,11 @@ class DoctrineSeoDataRepository extends AbstractDoctrineRepository implements Se
 {
     public function __construct(EntityManagerInterface $entityManager)
     {
-        parent::__construct($entityManager, Tag::class);
+        parent::__construct($entityManager, SeoData::class);
     }
 
     public function findByPageIdentifier(string $identifier)
     {
-
         /** @var SeoData|null $entity */
        return $this->entityManager->getRepository(SeoData::class)->findOneBy(['pageIdentifier' => $identifier]);
     }

@@ -20,11 +20,37 @@ final readonly class SeoAdapter implements SeoProviderInterface
 
     public function findByPageIdentifier(string $identifier): ?SeoModel
     {
-
         $entity = $this->repository->findByPageIdentifier($identifier);
         if (!$entity) {
-            throw EntityNotFoundException::forEntity('SeoData', $identifier);
+            return null;
         }
         return $this->mapper->toModel($entity);
+    }
+
+    public function findAll(): array
+    {
+        $entities = $this->repository->findAll();
+        return array_map(fn($entity) => $this->mapper->toModel($entity), $entities);
+    }
+
+    public function save(SeoModel $seoModel): void
+    {
+        $entity = $this->repository->findByPageIdentifier($seoModel->getPageIdentifier());
+
+        if ($entity) {
+            $this->mapper->updateEntity($entity, $seoModel);
+        } else {
+            $entity = $this->mapper->toEntity($seoModel);
+        }
+
+        $this->repository->save($entity);
+    }
+
+    public function delete(string $identifier): void
+    {
+        $entity = $this->repository->findByPageIdentifier($identifier);
+        if ($entity) {
+            $this->repository->delete($entity);
+        }
     }
 }

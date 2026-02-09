@@ -10,9 +10,7 @@ use Doctrine\Common\Collections\Collection;
 
 interface SeoDataMapperInterface
 {
-
-    function toModels(Collection $entities): Collection;
-    function toEntities(Collection $models): Collection;
-    function toEntity(SeoModel $model): SeoData;
-    function toModel(SeoData $entity) : SeoModel;
+    public function toEntity(SeoModel $model): SeoData;
+    public function toModel(SeoData $entity): SeoModel;
+    public function updateEntity(SeoData $entity, SeoModel $model): void;
 }
