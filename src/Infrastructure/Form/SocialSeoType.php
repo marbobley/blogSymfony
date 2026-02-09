@@ -7,10 +7,12 @@ use App\Domain\Enum\TwitterCard;
 use App\Domain\Model\Component\SocialSeo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 
 /**
  * @extends AbstractType<SocialSeo>
@@ -34,6 +36,23 @@ class SocialSeoType extends AbstractType
                 'label' => 'Image Open Graph (URL)',
                 'required' => false,
                 'mapped' => false,
+                'help' => 'Laissez vide si vous uploadez une image ci-dessous',
+            ])
+            ->add('ogImageFile', FileType::class, [
+                'label' => 'Image Open Graph (Fichier)',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '2M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/webp',
+                        ],
+                        'mimeTypesMessage' => 'Veuillez uploader une image valide (JPG, PNG, WEBP)',
+                    ])
+                ],
             ])
             ->add('ogType', EnumType::class, [
                 'class' => OgType::class,

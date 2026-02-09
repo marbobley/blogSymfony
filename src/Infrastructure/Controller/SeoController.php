@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
+use App\Domain\Model\Component\SocialSeo;
 use App\Domain\Model\SeoModel;
 use App\Domain\UseCaseInterface\DeleteSeoInterface;
 use App\Domain\UseCaseInterface\GetSeoByIdentifierInterface;
 use App\Domain\UseCaseInterface\ListSeoInterface;
 use App\Domain\UseCaseInterface\SaveSeoInterface;
 use App\Infrastructure\Form\SeoType;
+use App\Infrastructure\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +29,7 @@ class SeoController extends AbstractController
     }
 
     #[Route('/new', name: 'app_seo_new', methods: ['GET', 'POST'])]
-    public function create(Request $request, SaveSeoInterface $saveSeo): Response
+    public function create(Request $request, SaveSeoInterface $saveSeo, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(SeoType::class);
         $form->handleRequest($request);
@@ -35,6 +37,26 @@ class SeoController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var SeoModel $seoModel */
             $seoModel = $form->getData();
+
+            $imageFile = $form->get('social')->get('ogImageFile')->getData();
+            if ($imageFile) {
+                $imageFileName = $fileUploader->upload($imageFile);
+                $newSocial = new SocialSeo(
+                    ogTitle: $seoModel->getSocial()->getOgTitle(),
+                    ogDescription: $seoModel->getSocial()->getOgDescription(),
+                    ogImage: 'uploads/seo/' . $imageFileName,
+                    ogType: $seoModel->getSocial()->getOgType(),
+                    twitterCard: $seoModel->getSocial()->getTwitterCard()
+                );
+                $seoModel = new SeoModel(
+                    pageIdentifier: $seoModel->getPageIdentifier(),
+                    core: $seoModel->getCore(),
+                    social: $newSocial,
+                    sitemap: $seoModel->getSitemap(),
+                    meta: $seoModel->getMeta()
+                );
+            }
+
             $saveSeo->execute($seoModel);
             $this->addFlash('success', 'Configuration SEO créée avec succès !');
             return $this->redirectToRoute('app_seo_index');
@@ -50,7 +72,8 @@ class SeoController extends AbstractController
         string $identifier,
         Request $request,
         GetSeoByIdentifierInterface $getSeo,
-        SaveSeoInterface $saveSeo
+        SaveSeoInterface $saveSeo,
+        FileUploader $fileUploader
     ): Response {
         $seo = $getSeo->execute($identifier);
         if (!$seo) {
@@ -61,7 +84,29 @@ class SeoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $saveSeo->execute($seo);
+            /** @var SeoModel $seoModel */
+            $seoModel = $form->getData();
+
+            $imageFile = $form->get('social')->get('ogImageFile')->getData();
+            if ($imageFile) {
+                $imageFileName = $fileUploader->upload($imageFile);
+                $newSocial = new SocialSeo(
+                    ogTitle: $seoModel->getSocial()->getOgTitle(),
+                    ogDescription: $seoModel->getSocial()->getOgDescription(),
+                    ogImage: 'uploads/seo/' . $imageFileName,
+                    ogType: $seoModel->getSocial()->getOgType(),
+                    twitterCard: $seoModel->getSocial()->getTwitterCard()
+                );
+                $seoModel = new SeoModel(
+                    pageIdentifier: $seoModel->getPageIdentifier(),
+                    core: $seoModel->getCore(),
+                    social: $newSocial,
+                    sitemap: $seoModel->getSitemap(),
+                    meta: $seoModel->getMeta()
+                );
+            }
+
+            $saveSeo->execute($seoModel);
             $this->addFlash('success', 'Configuration SEO mise à jour !');
             return $this->redirectToRoute('app_seo_index');
         }

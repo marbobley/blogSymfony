@@ -19,9 +19,18 @@ Le système est découpé en composants logiques pour améliorer la cohésion et
 #### 2. SocialSeo (Open Graph & Twitter)
 - `ogTitle` : Titre pour le partage social.
 - `ogDescription` : Description pour le partage social.
-- `ogImage` : URL de l'image de partage.
+- `ogImage` : URL de l'image de partage (peut être une URL externe ou un chemin interne vers `public/uploads/seo`).
 - `ogType` : Type de contenu (Enum `OgType`, ex: `website`, `article`).
 - `twitterCard` : Type de carte Twitter (Enum `TwitterCard`, ex: `summary_large_image`).
+
+---
+
+## 6. Gestion des Images
+L'application permet d'uploader des images directement pour le SEO.
+- Les images sont stockées dans `public/uploads/seo`.
+- Le service `FileUploader` gère l'upload et la génération de noms uniques.
+- Le formulaire `SocialSeoType` propose à la fois un champ texte pour une URL et un champ fichier pour l'upload.
+- Le contrôleur `SeoController` traite l'upload et met à jour le modèle avant la sauvegarde.
 
 #### 3. SitemapSeo (Indexation & Discovery)
 - `inSitemap` : Booléen pour indiquer si la page doit figurer dans le sitemap XML.
@@ -63,6 +72,12 @@ Entité Doctrine utilisant des **Embeddables** pour mapper les composants.
 #### 2. Mapper : `SeoDataMapper`
 Assure la conversion entre les modèles de domaine (immuables) et les entités d'infrastructure. Il gère également la conversion entre les Enums et les chaînes de caractères pour la persistance.
 
+#### 3. Gestion des Images
+L'application permet d'uploader des images directement pour le SEO.
+- **Dossier de stockage** : `public/uploads/seo`
+- **Service** : `FileUploader` (gère le renommage sécurisé et le déplacement des fichiers).
+- **Formulaire** : `SocialSeoType` inclut un `FileType` (non mappé) pour l'upload.
+
 ---
 
 ## 3. Formulaires Symfony
@@ -70,6 +85,7 @@ Assure la conversion entre les modèles de domaine (immuables) et les entités d
 Le formulaire principal `SeoType` est découpé en sous-formulaires (`CoreSeoType`, `SocialSeoType`, etc.).
 - Utilise `EnumType` pour les Enums.
 - Utilise `empty_data` avec des closures pour instancier les Value Objects immuables lors de la soumission.
+- Le traitement des uploads est effectué dans le **Controller** avant de passer le modèle au Use Case de sauvegarde.
 
 ---
 

@@ -10,10 +10,19 @@ use App\Domain\Enum\RobotsMode;
 use App\Domain\Enum\TwitterCard;
 use App\Domain\Model\SeoModel;
 use App\Infrastructure\Form\SeoType;
+use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
+use Symfony\Component\Validator\Validation;
 
 class SeoTypeTest extends TypeTestCase
 {
+    protected function getExtensions(): array
+    {
+        return [
+            new ValidatorExtension(Validation::createValidator()),
+        ];
+    }
+
     public function testSubmitValidData(): void
     {
         $formData = [
