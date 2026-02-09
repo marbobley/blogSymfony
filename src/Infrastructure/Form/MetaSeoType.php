@@ -21,10 +21,12 @@ class MetaSeoType extends AbstractType
             ->add('isNoIndex', CheckboxType::class, [
                 'label' => 'No Index',
                 'required' => false,
+                'mapped' => false,
             ])
             ->add('breadcrumbTitle', TextType::class, [
                 'label' => 'Titre Breadcrumb',
                 'required' => false,
+                'mapped' => false,
             ]);
     }
 
@@ -32,6 +34,11 @@ class MetaSeoType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => MetaSeo::class,
+            'empty_data' => fn($form) => new MetaSeo(
+                isNoIndex: $form->get('isNoIndex')->getData() ?? false,
+                breadcrumbTitle: $form->get('breadcrumbTitle')->getData()
+            ),
+            'mapped' => false,
         ]);
     }
 }

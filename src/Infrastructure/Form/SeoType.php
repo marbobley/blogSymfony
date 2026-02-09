@@ -29,13 +29,14 @@ class SeoType extends AbstractType
             ->add('pageIdentifier', TextType::class, [
                 'label' => 'Identifiant de la page (ex: app_home)',
                 'disabled' => $options['is_edit'],
+                'mapped' => false,
             ]);
 
         // Grouper les champs par composant pour le modèle de données
-        $builder->add('core', CoreSeoType::class, ['label' => false]);
-        $builder->add('social', SocialSeoType::class, ['label' => false]);
-        $builder->add('sitemap', SitemapSeoType::class, ['label' => false]);
-        $builder->add('meta', MetaSeoType::class, ['label' => false]);
+        $builder->add('core', CoreSeoType::class, ['label' => false, 'mapped' => false]);
+        $builder->add('social', SocialSeoType::class, ['label' => false, 'mapped' => false]);
+        $builder->add('sitemap', SitemapSeoType::class, ['label' => false, 'mapped' => false]);
+        $builder->add('meta', MetaSeoType::class, ['label' => false, 'mapped' => false]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -43,13 +44,15 @@ class SeoType extends AbstractType
         $resolver->setDefaults([
             'data_class' => SeoModel::class,
             'is_edit' => false,
-            'empty_data' => fn($form) => new SeoModel(
-                pageIdentifier: $form->get('pageIdentifier')->getData() ?? '',
-                core: new CoreSeo(),
-                social: new SocialSeo(),
-                sitemap: new SitemapSeo(),
-                meta: new MetaSeo()
-            ),
+            'empty_data' => function ($form) {
+                return new SeoModel(
+                    pageIdentifier: $form->get('pageIdentifier')->getData() ?? '',
+                    core: $form->get('core')->getData() ?? new CoreSeo(),
+                    social: $form->get('social')->getData() ?? new SocialSeo(),
+                    sitemap: $form->get('sitemap')->getData() ?? new SitemapSeo(),
+                    meta: $form->get('meta')->getData() ?? new MetaSeo()
+                );
+            },
         ]);
     }
 }

@@ -2,6 +2,10 @@
 
 namespace App\Infrastructure\Mapper;
 
+use App\Domain\Enum\ChangeFreq;
+use App\Domain\Enum\OgType;
+use App\Domain\Enum\RobotsMode;
+use App\Domain\Enum\TwitterCard;
 use App\Domain\Model\Component\CoreSeo;
 use App\Domain\Model\Component\MetaSeo;
 use App\Domain\Model\Component\SitemapSeo;
@@ -34,18 +38,18 @@ class SeoDataMapper implements SeoDataMapperInterface
                 title: $entity->getCore()->getTitle(),
                 metaDescription: $entity->getCore()->getMetaDescription(),
                 canonicalUrl: $entity->getCore()->getCanonicalUrl(),
-                metaRobots: $entity->getCore()->getMetaRobots()
+                metaRobots: RobotsMode::tryFrom($entity->getCore()->getMetaRobots()) ?? RobotsMode::INDEX_FOLLOW
             ),
             social: new SocialSeo(
                 ogTitle: $entity->getSocial()->getOgTitle(),
                 ogDescription: $entity->getSocial()->getOgDescription(),
                 ogImage: $entity->getSocial()->getOgImage(),
-                ogType: $entity->getSocial()->getOgType(),
-                twitterCard: $entity->getSocial()->getTwitterCard()
+                ogType: OgType::tryFrom($entity->getSocial()->getOgType()) ?? OgType::WEBSITE,
+                twitterCard: TwitterCard::tryFrom($entity->getSocial()->getTwitterCard()) ?? TwitterCard::SUMMARY_LARGE_IMAGE
             ),
             sitemap: new SitemapSeo(
                 inSitemap: $entity->getSitemap()->isInSitemap(),
-                changefreq: $entity->getSitemap()->getChangefreq(),
+                changefreq: ChangeFreq::tryFrom($entity->getSitemap()->getChangefreq()) ?? ChangeFreq::WEEKLY,
                 priority: (float) $entity->getSitemap()->getPriority()
             ),
             meta: new MetaSeo(
@@ -83,18 +87,18 @@ class SeoDataMapper implements SeoDataMapperInterface
             ->setTitle($model->getCore()->getTitle())
             ->setMetaDescription($model->getCore()->getMetaDescription())
             ->setCanonicalUrl($model->getCore()->getCanonicalUrl())
-            ->setMetaRobots($model->getCore()->getMetaRobots());
+            ->setMetaRobots($model->getCore()->getMetaRobots()->value);
 
         $entity->getSocial()
             ->setOgTitle($model->getSocial()->getOgTitle())
             ->setOgDescription($model->getSocial()->getOgDescription())
             ->setOgImage($model->getSocial()->getOgImage())
-            ->setOgType($model->getSocial()->getOgType())
-            ->setTwitterCard($model->getSocial()->getTwitterCard());
+            ->setOgType($model->getSocial()->getOgType()->value)
+            ->setTwitterCard($model->getSocial()->getTwitterCard()->value);
 
         $entity->getSitemap()
             ->setInSitemap($model->getSitemap()->isInSitemap())
-            ->setChangefreq($model->getSitemap()->getChangefreq())
+            ->setChangefreq($model->getSitemap()->getChangefreq()->value)
             ->setPriority((string) $model->getSitemap()->getPriority());
 
         $entity->getMeta()

@@ -4,28 +4,13 @@ declare(strict_types=1);
 
 namespace App\Domain\Model\Component;
 
-final class MetaSeo
+final readonly class MetaSeo
 {
     public function __construct(
         private bool $isNoIndex = false,
         private ?array $schemaMarkup = null,
         private ?string $breadcrumbTitle = null
     ) {
-    }
-
-    public function setIsNoIndex(bool $isNoIndex): void
-    {
-        $this->isNoIndex = $isNoIndex;
-    }
-
-    public function setSchemaMarkup(?array $schemaMarkup): void
-    {
-        $this->schemaMarkup = $schemaMarkup;
-    }
-
-    public function setBreadcrumbTitle(?string $breadcrumbTitle): void
-    {
-        $this->breadcrumbTitle = $breadcrumbTitle;
     }
 
     public function isNoIndex(): bool

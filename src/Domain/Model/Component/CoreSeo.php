@@ -4,34 +4,16 @@ declare(strict_types=1);
 
 namespace App\Domain\Model\Component;
 
-final class CoreSeo
+use App\Domain\Enum\RobotsMode;
+
+final readonly class CoreSeo
 {
     public function __construct(
         private ?string $title = null,
         private ?string $metaDescription = null,
         private ?string $canonicalUrl = null,
-        private string $metaRobots = 'index, follow'
+        private RobotsMode $metaRobots = RobotsMode::INDEX_FOLLOW
     ) {
-    }
-
-    public function setTitle(?string $title): void
-    {
-        $this->title = $title;
-    }
-
-    public function setMetaDescription(?string $metaDescription): void
-    {
-        $this->metaDescription = $metaDescription;
-    }
-
-    public function setCanonicalUrl(?string $canonicalUrl): void
-    {
-        $this->canonicalUrl = $canonicalUrl;
-    }
-
-    public function setMetaRobots(string $metaRobots): void
-    {
-        $this->metaRobots = $metaRobots;
     }
 
     public function getTitle(): ?string
@@ -49,7 +31,7 @@ final class CoreSeo
         return $this->canonicalUrl;
     }
 
-    public function getMetaRobots(): string
+    public function getMetaRobots(): RobotsMode
     {
         return $this->metaRobots;
     }

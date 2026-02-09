@@ -4,28 +4,19 @@ declare(strict_types=1);
 
 namespace App\Domain\Model\Component;
 
-final class SitemapSeo
+use App\Domain\Enum\ChangeFreq;
+use InvalidArgumentException;
+
+final readonly class SitemapSeo
 {
     public function __construct(
         private bool $inSitemap = true,
-        private string $changefreq = 'weekly',
+        private ChangeFreq $changefreq = ChangeFreq::WEEKLY,
         private float $priority = 0.5
     ) {
-    }
-
-    public function setInSitemap(bool $inSitemap): void
-    {
-        $this->inSitemap = $inSitemap;
-    }
-
-    public function setChangefreq(string $changefreq): void
-    {
-        $this->changefreq = $changefreq;
-    }
-
-    public function setPriority(float $priority): void
-    {
-        $this->priority = $priority;
+        if ($this->priority < 0.0 || $this->priority > 1.0) {
+            throw new InvalidArgumentException('Sitemap priority must be between 0.0 and 1.0');
+        }
     }
 
     public function isInSitemap(): bool
@@ -33,7 +24,7 @@ final class SitemapSeo
         return $this->inSitemap;
     }
 
-    public function getChangefreq(): string
+    public function getChangefreq(): ChangeFreq
     {
         return $this->changefreq;
     }
