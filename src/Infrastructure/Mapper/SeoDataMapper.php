@@ -2,6 +2,10 @@
 
 namespace App\Infrastructure\Mapper;
 
+use App\Domain\Model\Component\CoreSeo;
+use App\Domain\Model\Component\MetaSeo;
+use App\Domain\Model\Component\SitemapSeo;
+use App\Domain\Model\Component\SocialSeo;
 use App\Domain\Model\SeoModel;
 use App\Infrastructure\Entity\SeoData;
 use App\Infrastructure\MapperInterface\SeoDataMapperInterface;
@@ -15,21 +19,9 @@ class SeoDataMapper implements SeoDataMapperInterface
     {
         $seoData = new SeoData();
         $seoData->setPageIdentifier($model->getPageIdentifier());
-        $seoData->setTitle($model->getTitle());
-        $seoData->setMetaDescription($model->getMetaDescription());
-        $seoData->setCanonicalUrl($model->getCanonicalUrl());
-        $seoData->setMetaRobots($model->getMetaRobots());
-        $seoData->setOgTitle($model->getOgTitle());
-        $seoData->setOgDescription($model->getOgDescription());
-        $seoData->setOgImage($model->getOgImage());
-        $seoData->setOgType($model->getOgType());
-        $seoData->setTwitterCard($model->getTwitterCard());
-        $seoData->setInSitemap($model->isInSitemap());
-        $seoData->setChangefreq($model->getChangefreq());
-        $seoData->setPriority((string) $model->getPriority());
-        $seoData->setIsNoIndex($model->isNoIndex());
-        $seoData->setSchemaMarkup($model->getSchemaMarkup());
-        $seoData->setBreadcrumbTitle($model->getBreadcrumbTitle());
+
+        $this->updateEntity($seoData, $model);
+
         return $seoData;
     }
 
@@ -38,21 +30,29 @@ class SeoDataMapper implements SeoDataMapperInterface
     {
         return new SeoModel(
             pageIdentifier: $entity->getPageIdentifier(),
-            title: $entity->getTitle(),
-            metaDescription: $entity->getMetaDescription(),
-            canonicalUrl: $entity->getCanonicalUrl(),
-            metaRobots: $entity->getMetaRobots(),
-            ogTitle: $entity->getOgTitle(),
-            ogDescription: $entity->getOgDescription(),
-            ogImage: $entity->getOgImage(),
-            ogType: $entity->getOgType(),
-            twitterCard: $entity->getTwitterCard(),
-            inSitemap: $entity->isInSitemap(),
-            changefreq: $entity->getChangefreq(),
-            priority: (float) $entity->getPriority(),
-            isNoIndex: $entity->isNoIndex(),
-            schemaMarkup: $entity->getSchemaMarkup(),
-            breadcrumbTitle: $entity->getBreadcrumbTitle()
+            core: new CoreSeo(
+                title: $entity->getCore()->getTitle(),
+                metaDescription: $entity->getCore()->getMetaDescription(),
+                canonicalUrl: $entity->getCore()->getCanonicalUrl(),
+                metaRobots: $entity->getCore()->getMetaRobots()
+            ),
+            social: new SocialSeo(
+                ogTitle: $entity->getSocial()->getOgTitle(),
+                ogDescription: $entity->getSocial()->getOgDescription(),
+                ogImage: $entity->getSocial()->getOgImage(),
+                ogType: $entity->getSocial()->getOgType(),
+                twitterCard: $entity->getSocial()->getTwitterCard()
+            ),
+            sitemap: new SitemapSeo(
+                inSitemap: $entity->getSitemap()->isInSitemap(),
+                changefreq: $entity->getSitemap()->getChangefreq(),
+                priority: (float) $entity->getSitemap()->getPriority()
+            ),
+            meta: new MetaSeo(
+                isNoIndex: $entity->getMeta()->isNoIndex(),
+                schemaMarkup: $entity->getMeta()->getSchemaMarkup(),
+                breadcrumbTitle: $entity->getMeta()->getBreadcrumbTitle()
+            )
         );
     }
 
@@ -78,20 +78,28 @@ class SeoDataMapper implements SeoDataMapperInterface
     public function updateEntity(SeoData $entity, SeoModel $model): void
     {
         $entity->setPageIdentifier($model->getPageIdentifier());
-        $entity->setTitle($model->getTitle());
-        $entity->setMetaDescription($model->getMetaDescription());
-        $entity->setCanonicalUrl($model->getCanonicalUrl());
-        $entity->setMetaRobots($model->getMetaRobots());
-        $entity->setOgTitle($model->getOgTitle());
-        $entity->setOgDescription($model->getOgDescription());
-        $entity->setOgImage($model->getOgImage());
-        $entity->setOgType($model->getOgType());
-        $entity->setTwitterCard($model->getTwitterCard());
-        $entity->setInSitemap($model->isInSitemap());
-        $entity->setChangefreq($model->getChangefreq());
-        $entity->setPriority((string) $model->getPriority());
-        $entity->setIsNoIndex($model->isNoIndex());
-        $entity->setSchemaMarkup($model->getSchemaMarkup());
-        $entity->setBreadcrumbTitle($model->getBreadcrumbTitle());
+
+        $entity->getCore()
+            ->setTitle($model->getCore()->getTitle())
+            ->setMetaDescription($model->getCore()->getMetaDescription())
+            ->setCanonicalUrl($model->getCore()->getCanonicalUrl())
+            ->setMetaRobots($model->getCore()->getMetaRobots());
+
+        $entity->getSocial()
+            ->setOgTitle($model->getSocial()->getOgTitle())
+            ->setOgDescription($model->getSocial()->getOgDescription())
+            ->setOgImage($model->getSocial()->getOgImage())
+            ->setOgType($model->getSocial()->getOgType())
+            ->setTwitterCard($model->getSocial()->getTwitterCard());
+
+        $entity->getSitemap()
+            ->setInSitemap($model->getSitemap()->isInSitemap())
+            ->setChangefreq($model->getSitemap()->getChangefreq())
+            ->setPriority((string) $model->getSitemap()->getPriority());
+
+        $entity->getMeta()
+            ->setIsNoIndex($model->getMeta()->isNoIndex())
+            ->setSchemaMarkup($model->getMeta()->getSchemaMarkup())
+            ->setBreadcrumbTitle($model->getMeta()->getBreadcrumbTitle());
     }
 }

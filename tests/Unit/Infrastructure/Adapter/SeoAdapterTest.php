@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Infrastructure\Adapter;
 
 use App\Domain\Exception\EntityNotFoundException;
+use App\Domain\Model\Component\CoreSeo;
+use App\Domain\Model\Component\MetaSeo;
+use App\Domain\Model\Component\SitemapSeo;
+use App\Domain\Model\Component\SocialSeo;
 use App\Domain\Model\SeoModel;
 use App\Infrastructure\Adapter\SeoAdapter;
 use App\Infrastructure\Entity\SeoData;
@@ -29,7 +33,13 @@ class SeoAdapterTest extends TestCase
     {
         $identifier = 'home';
         $entity = new SeoData();
-        $model = new SeoModel($identifier);
+        $model = new SeoModel(
+            pageIdentifier: $identifier,
+            core: new CoreSeo(),
+            social: new SocialSeo(),
+            sitemap: new SitemapSeo(),
+            meta: new MetaSeo()
+        );
 
         $this->repository->expects($this->once())
             ->method('findByPageIdentifier')
@@ -46,7 +56,7 @@ class SeoAdapterTest extends TestCase
         $this->assertSame($model, $result);
     }
 
-    public function testFindByPageIdentifierThrowsExceptionIfNotFound(): void
+    public function testFindByPageIdentifierReturnsDefaultModelIfNotFound(): void
     {
         $identifier = 'unknown';
 
@@ -55,9 +65,9 @@ class SeoAdapterTest extends TestCase
             ->with($identifier)
             ->willReturn(null);
 
-        $this->expectException(EntityNotFoundException::class);
-        $this->expectExceptionMessage('SeoData avec l\'identifiant "unknown" non trouvé(e).');
-
-        $this->adapter->findByPageIdentifier($identifier);
+        $result = $this->adapter->findByPageIdentifier($identifier);
+        $this->assertInstanceOf(SeoModel::class, $result);
+        $this->assertEquals($identifier, $result->getPageIdentifier());
+        $this->assertNull($result->getCore()->getTitle());
     }
 }

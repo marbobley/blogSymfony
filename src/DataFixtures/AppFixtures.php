@@ -47,14 +47,20 @@ class AppFixtures extends Fixture
 
             // --- SEO DATA pour chaque Post ---
             $seoData = new SeoData();
-            $seoData->setPageIdentifier("post_" . $i)
+            $seoData->setPageIdentifier("post_" . $i);
+
+            $seoData->getCore()
                 ->setTitle("SEO Title for Post $i")
                 ->setMetaDescription("Meta description for post $i to improve SEO rankings.")
                 ->setCanonicalUrl("https://example.com/blog/article-$i")
-                ->setMetaRobots("index, follow")
+                ->setMetaRobots("index, follow");
+
+            $seoData->getSitemap()
                 ->setInSitemap(true)
                 ->setChangefreq("monthly")
-                ->setPriority("0.8")
+                ->setPriority("0.8");
+
+            $seoData->getMeta()
                 ->setIsNoIndex(false)
                 ->setBreadcrumbTitle("Article $i");
 
@@ -63,12 +69,18 @@ class AppFixtures extends Fixture
 
         // --- SEO DATA pour les pages fixes ---
         $homeSeo = new SeoData();
-        $homeSeo->setPageIdentifier('home')
+        $homeSeo->setPageIdentifier('home');
+
+        $homeSeo->getCore()
             ->setTitle('Bienvenue sur mon Blog Symfony')
             ->setMetaDescription('Découvrez des articles passionnants sur Symfony et PHP.')
-            ->setCanonicalUrl('https://example.com/')
+            ->setCanonicalUrl('https://example.com/');
+
+        $homeSeo->getSitemap()
             ->setInSitemap(true)
-            ->setPriority('1.0')
+            ->setPriority('1.0');
+
+        $homeSeo->getMeta()
             ->setSchemaMarkup([
                 '@context' => 'https://schema.org',
                 '@type' => 'WebSite',

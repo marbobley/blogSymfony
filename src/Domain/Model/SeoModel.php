@@ -4,119 +4,20 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
+use App\Domain\Model\Component\CoreSeo;
+use App\Domain\Model\Component\MetaSeo;
+use App\Domain\Model\Component\SitemapSeo;
+use App\Domain\Model\Component\SocialSeo;
+
 final class SeoModel
 {
     public function __construct(
         private string $pageIdentifier,
-        private ?string $title = null,
-        private ?string $metaDescription = null,
-        private ?string $canonicalUrl = null,
-        private string $metaRobots = 'index, follow',
-        private ?string $ogTitle = null,
-        private ?string $ogDescription = null,
-        private ?string $ogImage = null,
-        private string $ogType = 'website',
-        private string $twitterCard = 'summary_large_image',
-        private bool $inSitemap = true,
-        private string $changefreq = 'weekly',
-        private float $priority = 0.5,
-        private bool $isNoIndex = false,
-        private ?array $schemaMarkup = null,
-        private ?string $breadcrumbTitle = null
+        private CoreSeo $core,
+        private SocialSeo $social,
+        private SitemapSeo $sitemap,
+        private MetaSeo $meta
     ) {
-        $this->validate();
-    }
-
-    public function setPageIdentifier(string $pageIdentifier): void
-    {
-        $this->pageIdentifier = $pageIdentifier;
-    }
-
-    public function setTitle(?string $title): void
-    {
-        $this->title = $title;
-    }
-
-    public function setMetaDescription(?string $metaDescription): void
-    {
-        $this->metaDescription = $metaDescription;
-    }
-
-    public function setCanonicalUrl(?string $canonicalUrl): void
-    {
-        $this->canonicalUrl = $canonicalUrl;
-    }
-
-    public function setMetaRobots(string $metaRobots): void
-    {
-        $this->metaRobots = $metaRobots;
-    }
-
-    public function setOgTitle(?string $ogTitle): void
-    {
-        $this->ogTitle = $ogTitle;
-    }
-
-    public function setOgDescription(?string $ogDescription): void
-    {
-        $this->ogDescription = $ogDescription;
-    }
-
-    public function setOgImage(?string $ogImage): void
-    {
-        $this->ogImage = $ogImage;
-    }
-
-    public function setOgType(string $ogType): void
-    {
-        $this->ogType = $ogType;
-    }
-
-    public function setTwitterCard(string $twitterCard): void
-    {
-        $this->twitterCard = $twitterCard;
-    }
-
-    public function setInSitemap(bool $inSitemap): void
-    {
-        $this->inSitemap = $inSitemap;
-    }
-
-    public function setChangefreq(string $changefreq): void
-    {
-        $this->changefreq = $changefreq;
-    }
-
-    public function setPriority(float $priority): void
-    {
-        $this->priority = $priority;
-    }
-
-    public function setIsNoIndex(bool $isNoIndex): void
-    {
-        $this->isNoIndex = $isNoIndex;
-    }
-
-    public function setSchemaMarkup(?array $schemaMarkup): void
-    {
-        $this->schemaMarkup = $schemaMarkup;
-    }
-
-    public function setBreadcrumbTitle(?string $breadcrumbTitle): void
-    {
-        $this->breadcrumbTitle = $breadcrumbTitle;
-    }
-
-    private function validate(): void
-    {
-        if ($this->title !== null && mb_strlen($this->title) > 60) {
-            // Optionnel : On pourrait logguer un warning ou lancer une exception selon la rigueur voulue
-            // Pour l'instant on reste souple ou on tronque ? Les instructions disent "doit vérifier".
-        }
-
-        if ($this->metaDescription !== null && mb_strlen($this->metaDescription) > 160) {
-            // Validation
-        }
     }
 
     public function getPageIdentifier(): string
@@ -124,78 +25,48 @@ final class SeoModel
         return $this->pageIdentifier;
     }
 
-    public function getTitle(): ?string
+    public function setPageIdentifier(string $pageIdentifier): void
     {
-        return $this->title;
+        $this->pageIdentifier = $pageIdentifier;
     }
 
-    public function getMetaDescription(): ?string
+    public function getCore(): CoreSeo
     {
-        return $this->metaDescription;
+        return $this->core;
     }
 
-    public function getCanonicalUrl(): ?string
+    public function setCore(CoreSeo $core): void
     {
-        return $this->canonicalUrl;
+        $this->core = $core;
     }
 
-    public function getMetaRobots(): string
+    public function getSocial(): SocialSeo
     {
-        return $this->isNoIndex ? 'noindex, nofollow' : $this->metaRobots;
+        return $this->social;
     }
 
-    public function getOgTitle(): ?string
+    public function setSocial(SocialSeo $social): void
     {
-        return $this->ogTitle ?? $this->title;
+        $this->social = $social;
     }
 
-    public function getOgDescription(): ?string
+    public function getSitemap(): SitemapSeo
     {
-        return $this->ogDescription ?? $this->metaDescription;
+        return $this->sitemap;
     }
 
-    public function getOgImage(): ?string
+    public function setSitemap(SitemapSeo $sitemap): void
     {
-        return $this->ogImage;
+        $this->sitemap = $sitemap;
     }
 
-    public function getOgType(): string
+    public function getMeta(): MetaSeo
     {
-        return $this->ogType;
+        return $this->meta;
     }
 
-    public function getTwitterCard(): string
+    public function setMeta(MetaSeo $meta): void
     {
-        return $this->twitterCard;
-    }
-
-    public function isInSitemap(): bool
-    {
-        return $this->inSitemap;
-    }
-
-    public function getChangefreq(): string
-    {
-        return $this->changefreq;
-    }
-
-    public function getPriority(): float
-    {
-        return $this->priority;
-    }
-
-    public function isNoIndex(): bool
-    {
-        return $this->isNoIndex;
-    }
-
-    public function getSchemaMarkup(): ?array
-    {
-        return $this->schemaMarkup;
-    }
-
-    public function getBreadcrumbTitle(): ?string
-    {
-        return $this->breadcrumbTitle ?? $this->title;
+        $this->meta = $meta;
     }
 }

@@ -28,16 +28,16 @@
                             {% for seo in seos %}
                                 <tr>
                                     <td class="fw-bold">{{ seo.pageIdentifier }}</td>
-                                    <td>{{ seo.title|default('---') }}</td>
+                                    <td>{{ seo.core.title|default('---') }}</td>
                                     <td>
-                                        {% if seo.inSitemap %}
+                                        {% if seo.sitemap.inSitemap %}
                                             <span class="badge bg-success-subtle text-success border border-success-subtle">Oui</span>
                                         {% else %}
                                             <span class="badge bg-light text-muted border">Non</span>
                                         {% endif %}
                                     </td>
                                     <td>
-                                        {% if seo.isNoIndex %}
+                                        {% if seo.meta.isNoIndex %}
                                             <span class="badge bg-warning-subtle text-warning border border-warning-subtle">Oui</span>
                                         {% else %}
                                             <span class="badge bg-light text-muted border">Non</span>

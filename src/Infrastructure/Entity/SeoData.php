@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Entity;
 
+use App\Infrastructure\Entity\Component\CoreSeoData;
+use App\Infrastructure\Entity\Component\MetaSeoData;
+use App\Infrastructure\Entity\Component\SitemapSeoData;
+use App\Infrastructure\Entity\Component\SocialSeoData;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
@@ -18,50 +22,25 @@ class SeoData
     #[ORM\Column(length: 255, unique: true)]
     private string $pageIdentifier;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $title = null;
+    #[ORM\Embedded(class: CoreSeoData::class)]
+    private CoreSeoData $core;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $metaDescription = null;
+    #[ORM\Embedded(class: SocialSeoData::class)]
+    private SocialSeoData $social;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $canonicalUrl = null;
+    #[ORM\Embedded(class: SitemapSeoData::class)]
+    private SitemapSeoData $sitemap;
 
-    #[ORM\Column(length: 50)]
-    private string $metaRobots = 'index, follow';
+    #[ORM\Embedded(class: MetaSeoData::class)]
+    private MetaSeoData $meta;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $ogTitle = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $ogDescription = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $ogImage = null;
-
-    #[ORM\Column(length: 50)]
-    private string $ogType = 'website';
-
-    #[ORM\Column(length: 50)]
-    private string $twitterCard = 'summary_large_image';
-
-    #[ORM\Column]
-    private bool $inSitemap = true;
-
-    #[ORM\Column(length: 20)]
-    private string $changefreq = 'weekly';
-
-    #[ORM\Column(type: 'decimal', precision: 2, scale: 1)]
-    private string $priority = '0.5';
-
-    #[ORM\Column]
-    private bool $isNoIndex = false;
-
-    #[ORM\Column(type: 'json', nullable: true)]
-    private ?array $schemaMarkup = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $breadcrumbTitle = null;
+    public function __construct()
+    {
+        $this->core = new CoreSeoData();
+        $this->social = new SocialSeoData();
+        $this->sitemap = new SitemapSeoData();
+        $this->meta = new MetaSeoData();
+    }
 
     public function getId(): ?int
     {
@@ -79,168 +58,47 @@ class SeoData
         return $this;
     }
 
-    public function getTitle(): ?string
+    public function getCore(): CoreSeoData
     {
-        return $this->title;
+        return $this->core;
     }
 
-    public function setTitle(?string $title): self
+    public function setCore(CoreSeoData $core): self
     {
-        $this->title = $title;
+        $this->core = $core;
         return $this;
     }
 
-    public function getMetaDescription(): ?string
+    public function getSocial(): SocialSeoData
     {
-        return $this->metaDescription;
+        return $this->social;
     }
 
-    public function setMetaDescription(?string $metaDescription): self
+    public function setSocial(SocialSeoData $social): self
     {
-        $this->metaDescription = $metaDescription;
+        $this->social = $social;
         return $this;
     }
 
-    public function getCanonicalUrl(): ?string
+    public function getSitemap(): SitemapSeoData
     {
-        return $this->canonicalUrl;
+        return $this->sitemap;
     }
 
-    public function setCanonicalUrl(?string $canonicalUrl): self
+    public function setSitemap(SitemapSeoData $sitemap): self
     {
-        $this->canonicalUrl = $canonicalUrl;
+        $this->sitemap = $sitemap;
         return $this;
     }
 
-    public function getMetaRobots(): string
+    public function getMeta(): MetaSeoData
     {
-        return $this->metaRobots;
+        return $this->meta;
     }
 
-    public function setMetaRobots(string $metaRobots): self
+    public function setMeta(MetaSeoData $meta): self
     {
-        $this->metaRobots = $metaRobots;
-        return $this;
-    }
-
-    public function getOgTitle(): ?string
-    {
-        return $this->ogTitle;
-    }
-
-    public function setOgTitle(?string $ogTitle): self
-    {
-        $this->ogTitle = $ogTitle;
-        return $this;
-    }
-
-    public function getOgDescription(): ?string
-    {
-        return $this->ogDescription;
-    }
-
-    public function setOgDescription(?string $ogDescription): self
-    {
-        $this->ogDescription = $ogDescription;
-        return $this;
-    }
-
-    public function getOgImage(): ?string
-    {
-        return $this->ogImage;
-    }
-
-    public function setOgImage(?string $ogImage): self
-    {
-        $this->ogImage = $ogImage;
-        return $this;
-    }
-
-    public function getOgType(): string
-    {
-        return $this->ogType;
-    }
-
-    public function setOgType(string $ogType): self
-    {
-        $this->ogType = $ogType;
-        return $this;
-    }
-
-    public function getTwitterCard(): string
-    {
-        return $this->twitterCard;
-    }
-
-    public function setTwitterCard(string $twitterCard): self
-    {
-        $this->twitterCard = $twitterCard;
-        return $this;
-    }
-
-    public function isInSitemap(): bool
-    {
-        return $this->inSitemap;
-    }
-
-    public function setInSitemap(bool $inSitemap): self
-    {
-        $this->inSitemap = $inSitemap;
-        return $this;
-    }
-
-    public function getChangefreq(): string
-    {
-        return $this->changefreq;
-    }
-
-    public function setChangefreq(string $changefreq): self
-    {
-        $this->changefreq = $changefreq;
-        return $this;
-    }
-
-    public function getPriority(): string
-    {
-        return $this->priority;
-    }
-
-    public function setPriority(string $priority): self
-    {
-        $this->priority = $priority;
-        return $this;
-    }
-
-    public function isNoIndex(): bool
-    {
-        return $this->isNoIndex;
-    }
-
-    public function setIsNoIndex(bool $isNoIndex): self
-    {
-        $this->isNoIndex = $isNoIndex;
-        return $this;
-    }
-
-    public function getSchemaMarkup(): ?array
-    {
-        return $this->schemaMarkup;
-    }
-
-    public function setSchemaMarkup(?array $schemaMarkup): self
-    {
-        $this->schemaMarkup = $schemaMarkup;
-        return $this;
-    }
-
-    public function getBreadcrumbTitle(): ?string
-    {
-        return $this->breadcrumbTitle;
-    }
-
-    public function setBreadcrumbTitle(?string $breadcrumbTitle): self
-    {
-        $this->breadcrumbTitle = $breadcrumbTitle;
+        $this->meta = $meta;
         return $this;
     }
 }

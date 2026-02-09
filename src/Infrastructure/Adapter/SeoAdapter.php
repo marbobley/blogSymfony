@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace App\Infrastructure\Adapter;
 
 use App\Domain\Exception\EntityNotFoundException;
+use App\Domain\Model\Component\CoreSeo;
+use App\Domain\Model\Component\MetaSeo;
+use App\Domain\Model\Component\SitemapSeo;
+use App\Domain\Model\Component\SocialSeo;
 use App\Domain\Model\SeoModel;
 use App\Domain\Provider\SeoProviderInterface;
 use App\Infrastructure\MapperInterface\SeoDataMapperInterface;
@@ -18,11 +22,17 @@ final readonly class SeoAdapter implements SeoProviderInterface
     ) {
     }
 
-    public function findByPageIdentifier(string $identifier): ?SeoModel
+    public function findByPageIdentifier(string $identifier): SeoModel
     {
         $entity = $this->repository->findByPageIdentifier($identifier);
         if (!$entity) {
-            return null;
+            return new SeoModel(
+                pageIdentifier: $identifier,
+                core: new CoreSeo(),
+                social: new SocialSeo(),
+                sitemap: new SitemapSeo(),
+                meta: new MetaSeo()
+            );
         }
         return $this->mapper->toModel($entity);
     }
