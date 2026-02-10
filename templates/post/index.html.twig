@@ -13,7 +13,7 @@
     <div class="row g-4">
         {% for post in posts %}
             <div class="col-12 col-md-6 col-lg-4">
-                {{ include('post/components/_post_card.html.twig', {'post': post, 'show_actions': true}) }}
+                <twig:PostCard :post="post" :showActions="true" />
             </div>
         {% else %}
             <div class="col-12 text-center py-5">

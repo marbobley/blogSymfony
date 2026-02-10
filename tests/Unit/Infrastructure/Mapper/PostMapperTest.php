@@ -28,6 +28,7 @@ class PostMapperTest extends TestCase
     public function testToEntity(): void
     {
         $postModel = $this->createPostModel(title: 'Test Title', content: 'Test Content');
+        $postModel->setSubTitle('subtitle');
         $tagEntities = new ArrayCollection();
         $this->tagMapper->expects($this->once())
             ->method('toEntities')
@@ -38,6 +39,7 @@ class PostMapperTest extends TestCase
         $this->assertInstanceOf(Post::class, $entity);
         $this->assertSame('Test Title', $entity->getTitle());
         $this->assertSame('Test Content', $entity->getContent());
+        $this->assertSame('subtitle', $entity->getSubTitle());
         $this->assertSame($tagEntities, $entity->getTags());
     }
 

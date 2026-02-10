@@ -30,6 +30,7 @@ class PostType extends AbstractType
         $tags = $this->tags->execute();
         $builder
         ->add('title', TextType::class)
+        ->add('sub_title', TextareaType::class)
         ->add('content', TextareaType::class)
             ->add('tags', ChoiceType::class, [
                 'choices' => $tags,
@@ -37,7 +38,7 @@ class PostType extends AbstractType
                     return $tag ? strtoupper($tag->getName()) : '';
                 },
                 'choice_value' => function (?TagModel $tag): string {
-                    return $tag ? (string) $tag->getId() : '';
+                    return (string)$tag?->getId();
                 },
                 'expanded' => true,
                 'multiple' => true,

@@ -14,6 +14,17 @@ class PostModel
     #[Assert\NotBlank]
     #[Assert\Length(min: 10, max: 255 , minMessage: "Le titre doit faire au moins 10 caractères")]
     private string $title;
+    private string $subTitle;
+
+    public function getSubTitle(): string
+    {
+        return $this->subTitle;
+    }
+
+    public function setSubTitle(string $subTitle): void
+    {
+        $this->subTitle = $subTitle;
+    }
 
     #[Assert\NotBlank]
     private string $content;
