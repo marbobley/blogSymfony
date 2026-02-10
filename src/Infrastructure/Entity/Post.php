@@ -51,6 +51,19 @@ class Post
     }
 
     #[ORM\Column(type: "text")]
+    private string $subTitle;
+
+    public function getSubTitle(): string
+    {
+        return $this->subTitle;
+    }
+
+    public function setSubTitle(string $subTitle): void
+    {
+        $this->subTitle = $subTitle;
+    }
+
+    #[ORM\Column(type: "text")]
     private string $content;
 
     #[ORM\Column]

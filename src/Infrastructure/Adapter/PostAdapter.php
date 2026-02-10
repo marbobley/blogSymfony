@@ -92,6 +92,7 @@ readonly class PostAdapter implements PostProviderInterface
 
         $post->setTitle($postModel->getTitle());
         $post->setContent($postModel->getContent());
+        $post->setSubTitle($postModel->getSubTitle());
 
         $this->postTagSynchronizer->synchronize($post, $postModel);
 
