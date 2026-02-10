@@ -35,6 +35,7 @@ class AppFixtures extends Fixture
                 "Article numéro $i",
                 "Ceci est le contenu de l'article numéro $i. Il contient des informations très intéressantes sur le développement Symfony."
             );
+            $post->setSubTitle("Ceci est le soutitre $i");
 
             // Ajout de quelques tags aléatoires
             $randomTags = (array) array_rand($tags, 2);
