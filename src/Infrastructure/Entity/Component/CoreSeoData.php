@@ -18,6 +18,9 @@ class CoreSeoData
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $canonicalUrl = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $favicon = null;
+
     #[ORM\Column(length: 50)]
     private string $metaRobots = 'index, follow';
 
@@ -51,6 +54,17 @@ class CoreSeoData
     public function setCanonicalUrl(?string $canonicalUrl): self
     {
         $this->canonicalUrl = $canonicalUrl;
+        return $this;
+    }
+
+    public function getFavicon(): ?string
+    {
+        return $this->favicon;
+    }
+
+    public function setFavicon(?string $favicon): self
+    {
+        $this->favicon = $favicon;
         return $this;
     }
 

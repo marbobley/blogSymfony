@@ -11,9 +11,9 @@
                 </a>
                 <h1 class="h2 mt-2">Modifier la configuration SEO : <small class="text-muted">{{ seo.pageIdentifier }}</small></h1>
             </div>
-
             <div class="card shadow-sm border-0">
                 <div class="card-body p-4">
+
                     {{ form_start(form) }}
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -32,6 +32,19 @@
                             <div class="col-md-6 mb-3">
                                 {{ form_row(form.core.canonicalUrl) }}
                             </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form_row(form.core.favicon) }}
+                                {% if seo.core.favicon %}
+                                    <div class="mt-2">
+                                        <p class="small text-muted mb-1">Favicon actuelle :</p>
+                                        <img src="{{ seo.core.favicon starts with 'http' ? seo.core.favicon : asset(seo.core.favicon) }}" alt="Favicon" class="img-thumbnail" style="max-height: 50px;">
+                                    </div>
+                                {% endif %}
+                                {{ form_row(form.core.faviconFile) }}
+                            </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-md-6 mb-3">
                                 {{ form_row(form.core.metaRobots) }}
                             </div>

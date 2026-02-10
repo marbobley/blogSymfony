@@ -28,15 +28,14 @@ class SeoType extends AbstractType
         $builder
             ->add('pageIdentifier', TextType::class, [
                 'label' => 'Identifiant de la page (ex: app_home)',
-                'disabled' => $options['is_edit'],
-                'mapped' => false,
+                'disabled' => $options['is_edit']
             ]);
 
         // Grouper les champs par composant pour le modèle de données
-        $builder->add('core', CoreSeoType::class, ['label' => false, 'mapped' => false]);
-        $builder->add('social', SocialSeoType::class, ['label' => false, 'mapped' => false]);
-        $builder->add('sitemap', SitemapSeoType::class, ['label' => false, 'mapped' => false]);
-        $builder->add('meta', MetaSeoType::class, ['label' => false, 'mapped' => false]);
+        $builder->add('core', CoreSeoType::class);
+        $builder->add('social', SocialSeoType::class);
+        $builder->add('sitemap', SitemapSeoType::class);
+        $builder->add('meta', MetaSeoType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

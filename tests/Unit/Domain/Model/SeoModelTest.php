@@ -25,6 +25,7 @@ class SeoModelTest extends TestCase
                 title: 'Home Page',
                 metaDescription: 'Description of home page',
                 canonicalUrl: 'https://example.com',
+                favicon: 'https://example.com/favicon.ico',
                 metaRobots: RobotsMode::INDEX_FOLLOW
             ),
             social: new SocialSeo(

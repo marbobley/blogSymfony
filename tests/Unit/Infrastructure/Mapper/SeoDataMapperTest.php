@@ -35,6 +35,7 @@ class SeoDataMapperTest extends TestCase
             ->setTitle('Test Title')
             ->setMetaDescription('Test Description')
             ->setCanonicalUrl('https://test.com')
+            ->setFavicon('https://test.com/favicon.ico')
             ->setMetaRobots('noindex, nofollow');
 
         $entity->getSocial()
@@ -58,6 +59,7 @@ class SeoDataMapperTest extends TestCase
 
         $this->assertEquals('test-page', $model->getPageIdentifier());
         $this->assertEquals('Test Title', $model->getCore()->getTitle());
+        $this->assertEquals('https://test.com/favicon.ico', $model->getCore()->getFavicon());
         $this->assertEquals(RobotsMode::NOINDEX_NOFOLLOW, $model->getCore()->getMetaRobots());
 
         $this->assertEquals('Social Title', $model->getSocial()->getOgTitle());
@@ -96,6 +98,7 @@ class SeoDataMapperTest extends TestCase
             pageIdentifier: 'model-to-entity',
             core: new CoreSeo(
                 title: 'Model Title',
+                favicon: 'https://model.com/favicon.ico',
                 metaRobots: RobotsMode::INDEX_NOFOLLOW
             ),
             social: new SocialSeo(
@@ -117,6 +120,7 @@ class SeoDataMapperTest extends TestCase
 
         $this->assertEquals('model-to-entity', $entity->getPageIdentifier());
         $this->assertEquals('Model Title', $entity->getCore()->getTitle());
+        $this->assertEquals('https://model.com/favicon.ico', $entity->getCore()->getFavicon());
         $this->assertEquals('index, nofollow', $entity->getCore()->getMetaRobots());
         $this->assertEquals('book', $entity->getSocial()->getOgType());
         $this->assertEquals('summary', $entity->getSocial()->getTwitterCard());

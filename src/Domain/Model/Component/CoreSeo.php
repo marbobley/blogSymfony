@@ -12,6 +12,7 @@ final readonly class CoreSeo
         private ?string $title = null,
         private ?string $metaDescription = null,
         private ?string $canonicalUrl = null,
+        private ?string $favicon = null,
         private RobotsMode $metaRobots = RobotsMode::INDEX_FOLLOW
     ) {
     }
@@ -29,6 +30,11 @@ final readonly class CoreSeo
     public function getCanonicalUrl(): ?string
     {
         return $this->canonicalUrl;
+    }
+
+    public function getFavicon(): ?string
+    {
+        return $this->favicon;
     }
 
     public function getMetaRobots(): RobotsMode

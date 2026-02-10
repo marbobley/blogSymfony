@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
+use App\Domain\Model\Component\CoreSeo;
 use App\Domain\Model\Component\SocialSeo;
 use App\Domain\Model\SeoModel;
 use App\Domain\UseCaseInterface\DeleteSeoInterface;
@@ -37,6 +38,25 @@ class SeoController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var SeoModel $seoModel */
             $seoModel = $form->getData();
+
+            $faviconFile = $form->get('core')->get('faviconFile')->getData();
+            if ($faviconFile) {
+                $faviconFileName = $fileUploader->upload($faviconFile);
+                $newCore = new CoreSeo(
+                    title: $seoModel->getCore()->getTitle(),
+                    metaDescription: $seoModel->getCore()->getMetaDescription(),
+                    canonicalUrl: $seoModel->getCore()->getCanonicalUrl(),
+                    favicon: 'uploads/seo/' . $faviconFileName,
+                    metaRobots: $seoModel->getCore()->getMetaRobots()
+                );
+                $seoModel = new SeoModel(
+                    pageIdentifier: $seoModel->getPageIdentifier(),
+                    core: $newCore,
+                    social: $seoModel->getSocial(),
+                    sitemap: $seoModel->getSitemap(),
+                    meta: $seoModel->getMeta()
+                );
+            }
 
             $imageFile = $form->get('social')->get('ogImageFile')->getData();
             if ($imageFile) {
@@ -80,12 +100,32 @@ class SeoController extends AbstractController
             throw $this->createNotFoundException('Configuration SEO non trouvée.');
         }
 
+
         $form = $this->createForm(SeoType::class, $seo, ['is_edit' => true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var SeoModel $seoModel */
             $seoModel = $form->getData();
+
+            $faviconFile = $form->get('core')->get('faviconFile')->getData();
+            if ($faviconFile) {
+                $faviconFileName = $fileUploader->upload($faviconFile);
+                $newCore = new CoreSeo(
+                    title: $seoModel->getCore()->getTitle(),
+                    metaDescription: $seoModel->getCore()->getMetaDescription(),
+                    canonicalUrl: $seoModel->getCore()->getCanonicalUrl(),
+                    favicon: 'uploads/seo/' . $faviconFileName,
+                    metaRobots: $seoModel->getCore()->getMetaRobots()
+                );
+                $seoModel = new SeoModel(
+                    pageIdentifier: $seoModel->getPageIdentifier(),
+                    core: $newCore,
+                    social: $seoModel->getSocial(),
+                    sitemap: $seoModel->getSitemap(),
+                    meta: $seoModel->getMeta()
+                );
+            }
 
             $imageFile = $form->get('social')->get('ogImageFile')->getData();
             if ($imageFile) {

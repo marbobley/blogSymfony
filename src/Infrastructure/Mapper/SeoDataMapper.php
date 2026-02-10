@@ -38,6 +38,7 @@ class SeoDataMapper implements SeoDataMapperInterface
                 title: $entity->getCore()->getTitle(),
                 metaDescription: $entity->getCore()->getMetaDescription(),
                 canonicalUrl: $entity->getCore()->getCanonicalUrl(),
+                favicon: $entity->getCore()->getFavicon(),
                 metaRobots: RobotsMode::tryFrom($entity->getCore()->getMetaRobots()) ?? RobotsMode::INDEX_FOLLOW
             ),
             social: new SocialSeo(
@@ -87,6 +88,7 @@ class SeoDataMapper implements SeoDataMapperInterface
             ->setTitle($model->getCore()->getTitle())
             ->setMetaDescription($model->getCore()->getMetaDescription())
             ->setCanonicalUrl($model->getCore()->getCanonicalUrl())
+            ->setFavicon($model->getCore()->getFavicon())
             ->setMetaRobots($model->getCore()->getMetaRobots()->value);
 
         $entity->getSocial()

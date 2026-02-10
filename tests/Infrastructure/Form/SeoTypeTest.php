@@ -31,6 +31,7 @@ class SeoTypeTest extends TypeTestCase
                 'title' => 'Home Title',
                 'metaDescription' => 'Home Description',
                 'canonicalUrl' => 'https://example.com',
+                'favicon' => 'https://example.com/favicon.ico',
                 'metaRobots' => RobotsMode::INDEX_FOLLOW->value,
             ],
             'social' => [
@@ -62,6 +63,7 @@ class SeoTypeTest extends TypeTestCase
 
         $this->assertEquals('home', $model->getPageIdentifier());
         $this->assertEquals('Home Title', $model->getCore()->getTitle());
+        $this->assertEquals('https://example.com/favicon.ico', $model->getCore()->getFavicon());
         $this->assertEquals(RobotsMode::INDEX_FOLLOW, $model->getCore()->getMetaRobots());
         $this->assertEquals(ChangeFreq::DAILY, $model->getSitemap()->getChangefreq());
         $this->assertEquals(0.8, $model->getSitemap()->getPriority());

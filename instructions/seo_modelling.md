@@ -14,6 +14,7 @@ Le système est découpé en composants logiques pour améliorer la cohésion et
 - `title` : Le titre de la page (balise `<title>`).
 - `metaDescription` : La description pour les moteurs de recherche.
 - `canonicalUrl` : (Optionnel) URL canonique de la page.
+- `favicon` : URL ou chemin de la favicon.
 - `metaRobots` : Instructions pour les robots (Enum `RobotsMode`, ex: `INDEX_FOLLOW`).
 
 #### 2. SocialSeo (Open Graph & Twitter)
