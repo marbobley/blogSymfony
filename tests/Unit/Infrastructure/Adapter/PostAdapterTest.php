@@ -198,6 +198,7 @@ class PostAdapterTest extends TestCase
     {
         $id = 1;
         $postModel = $this->createPostModel(title: 'New Title', content: 'New Content');
+        $postModel->setSubTitle('subtitle');
 
         $post = $this->createMock(Post::class);
 

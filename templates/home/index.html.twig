@@ -33,7 +33,7 @@
     <div class="row g-4">
         {% for post in posts|slice(0, 3) %}
             <div class="col-12 col-md-6 col-lg-4">
-                {{ include('post/components/_post_card.html.twig', {'post': post}) }}
+                <twig:PostCard :post="post" />
             </div>
         {% else %}
             <div class="col-12 text-center py-5">
