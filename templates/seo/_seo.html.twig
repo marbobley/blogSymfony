@@ -1,0 +1,34 @@
+
+<title>{% block title %}{{ site_name }}{% endblock %}</title>
+<link rel="icon" href="{{ asset('fav.ico') }}">
+{% block seo %}
+    {% block meta_description_tag %}
+        <meta name="description" content="{% block meta_description %}Les Chroniques du Code - Un blog dédié au développement web, à la passion du code et au partage de connaissances.{% endblock %}">
+    {% endblock %}
+    <meta name="keywords" content="développement logiciel, web, symfony, php">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ app.request.uri }}">
+    <meta property="og:title" content="{{ block('title') }}">
+    <meta property="og:description" content="{{ block('meta_description') }}">
+    <meta property="og:image" content="{{ absolute_url(asset('images/pcImage.jpg')) }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ app.request.uri }}">
+    <meta property="twitter:title" content="{{ block('title') }}">
+    <meta property="twitter:description" content="{{ block('meta_description') }}">
+    <meta property="twitter:image" content="{{ absolute_url(asset('images/pcImage.jpg')) }}">
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "{{ site_name }}",
+                "image": "{{ absolute_url(asset('images/pcImage.jpg')) }}",
+                "@id": "{{ url('app_home') }}",
+                "url": "{{ url('app_home') }}",
+            }
+    </script>
+{% endblock %}
