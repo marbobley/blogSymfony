@@ -21,22 +21,28 @@ class SocialSeoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /** @var SocialSeo|null $data */
+        $data = $options['data'] ?? null;
+
         $builder
             ->add('ogTitle', TextType::class, [
                 'label' => 'Titre Open Graph',
                 'required' => false,
                 'mapped' => false,
+                'data' => $data?->getOgTitle(),
             ])
             ->add('ogDescription', TextareaType::class, [
                 'label' => 'Description Open Graph',
                 'required' => false,
                 'mapped' => false,
+                'data' => $data?->getOgDescription(),
             ])
             ->add('ogImage', TextType::class, [
                 'label' => 'Image Open Graph (URL)',
                 'required' => false,
                 'mapped' => false,
                 'help' => 'Laissez vide si vous uploadez une image ci-dessous',
+                'data' => $data?->getOgImage(),
             ])
             ->add('ogImageFile', FileType::class, [
                 'label' => 'Image Open Graph (Fichier)',
@@ -58,11 +64,13 @@ class SocialSeoType extends AbstractType
                 'class' => OgType::class,
                 'label' => 'Type Open Graph',
                 'mapped' => false,
+                'data' => $data?->getOgType(),
             ])
             ->add('twitterCard', EnumType::class, [
                 'class' => TwitterCard::class,
                 'label' => 'Twitter Card',
                 'mapped' => false,
+                'data' => $data?->getTwitterCard(),
             ]);
     }
 

@@ -17,16 +17,21 @@ class MetaSeoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /** @var MetaSeo|null $data */
+        $data = $options['data'] ?? null;
+
         $builder
             ->add('isNoIndex', CheckboxType::class, [
                 'label' => 'No Index',
                 'required' => false,
                 'mapped' => false,
+                'data' => $data?->isNoIndex(),
             ])
             ->add('breadcrumbTitle', TextType::class, [
                 'label' => 'Titre Breadcrumb',
                 'required' => false,
                 'mapped' => false,
+                'data' => $data?->getBreadcrumbTitle(),
             ]);
     }
 

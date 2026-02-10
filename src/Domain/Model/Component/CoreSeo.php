@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Model\Component;
 
 use App\Domain\Enum\RobotsMode;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final readonly class CoreSeo
 {
@@ -13,7 +14,8 @@ final readonly class CoreSeo
         private ?string $metaDescription = null,
         private ?string $canonicalUrl = null,
         private ?string $favicon = null,
-        private RobotsMode $metaRobots = RobotsMode::INDEX_FOLLOW
+        private RobotsMode $metaRobots = RobotsMode::INDEX_FOLLOW,
+        private ?UploadedFile $faviconFile = null
     ) {
     }
 
@@ -35,6 +37,11 @@ final readonly class CoreSeo
     public function getFavicon(): ?string
     {
         return $this->favicon;
+    }
+
+    public function getFaviconFile(): ?UploadedFile
+    {
+        return $this->faviconFile;
     }
 
     public function getMetaRobots(): RobotsMode

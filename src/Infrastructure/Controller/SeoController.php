@@ -47,7 +47,8 @@ class SeoController extends AbstractController
                     metaDescription: $seoModel->getCore()->getMetaDescription(),
                     canonicalUrl: $seoModel->getCore()->getCanonicalUrl(),
                     favicon: 'uploads/seo/' . $faviconFileName,
-                    metaRobots: $seoModel->getCore()->getMetaRobots()
+                    metaRobots: $seoModel->getCore()->getMetaRobots(),
+                    faviconFile: $faviconFile
                 );
                 $seoModel = new SeoModel(
                     pageIdentifier: $seoModel->getPageIdentifier(),
@@ -66,7 +67,8 @@ class SeoController extends AbstractController
                     ogDescription: $seoModel->getSocial()->getOgDescription(),
                     ogImage: 'uploads/seo/' . $imageFileName,
                     ogType: $seoModel->getSocial()->getOgType(),
-                    twitterCard: $seoModel->getSocial()->getTwitterCard()
+                    twitterCard: $seoModel->getSocial()->getTwitterCard(),
+                    ogImageFile: $imageFile
                 );
                 $seoModel = new SeoModel(
                     pageIdentifier: $seoModel->getPageIdentifier(),
@@ -116,7 +118,8 @@ class SeoController extends AbstractController
                     metaDescription: $seoModel->getCore()->getMetaDescription(),
                     canonicalUrl: $seoModel->getCore()->getCanonicalUrl(),
                     favicon: 'uploads/seo/' . $faviconFileName,
-                    metaRobots: $seoModel->getCore()->getMetaRobots()
+                    metaRobots: $seoModel->getCore()->getMetaRobots(),
+                    faviconFile: $faviconFile
                 );
                 $seoModel = new SeoModel(
                     pageIdentifier: $seoModel->getPageIdentifier(),
@@ -135,7 +138,8 @@ class SeoController extends AbstractController
                     ogDescription: $seoModel->getSocial()->getOgDescription(),
                     ogImage: 'uploads/seo/' . $imageFileName,
                     ogType: $seoModel->getSocial()->getOgType(),
-                    twitterCard: $seoModel->getSocial()->getTwitterCard()
+                    twitterCard: $seoModel->getSocial()->getTwitterCard(),
+                    ogImageFile: $imageFile
                 );
                 $seoModel = new SeoModel(
                     pageIdentifier: $seoModel->getPageIdentifier(),

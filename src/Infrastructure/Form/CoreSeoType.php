@@ -20,27 +20,39 @@ class CoreSeoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /** @var CoreSeo|null $data */
+        $data = $options['data'] ?? null;
+
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Titre SEO',
                 'required' => true,
+                'mapped' => false,
+                'data' => $data?->getTitle(),
             ])
             ->add('metaDescription', TextareaType::class, [
                 'label' => 'Meta Description',
                 'required' => false,
+                'mapped' => false,
+                'data' => $data?->getMetaDescription(),
             ])
             ->add('canonicalUrl', TextType::class, [
                 'label' => 'URL Canonique',
                 'required' => false,
+                'mapped' => false,
+                'data' => $data?->getCanonicalUrl(),
             ])
             ->add('favicon', TextType::class, [
                 'label' => 'Favicon (URL)',
                 'required' => false,
                 'help' => 'Laissez vide si vous uploadez un fichier ci-dessous',
+                'mapped' => false,
+                'data' => $data?->getFavicon(),
             ])
             ->add('faviconFile', FileType::class, [
                 'label' => 'Favicon (Fichier)',
                 'required' => false,
+                'mapped' => false,
                 'constraints' => [
                     new Image([
                         'maxSize' => '1M',
@@ -57,6 +69,8 @@ class CoreSeoType extends AbstractType
             ->add('metaRobots', EnumType::class, [
                 'class' => RobotsMode::class,
                 'label' => 'Meta Robots',
+                'mapped' => false,
+                'data' => $data?->getMetaRobots(),
             ]);
     }
 
@@ -69,7 +83,8 @@ class CoreSeoType extends AbstractType
                 metaDescription: $form->get('metaDescription')->getData(),
                 canonicalUrl: $form->get('canonicalUrl')->getData(),
                 favicon: $form->get('favicon')->getData(),
-                metaRobots: $form->get('metaRobots')->getData() ?? RobotsMode::INDEX_FOLLOW
+                metaRobots: $form->get('metaRobots')->getData() ?? RobotsMode::INDEX_FOLLOW,
+                faviconFile: $form->get('faviconFile')->getData()
             ),
             'mapped' => false,
         ]);

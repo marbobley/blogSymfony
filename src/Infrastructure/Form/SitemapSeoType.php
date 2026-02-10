@@ -18,16 +18,21 @@ class SitemapSeoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        /** @var SitemapSeo|null $data */
+        $data = $options['data'] ?? null;
+
         $builder
             ->add('inSitemap', CheckboxType::class, [
                 'label' => 'Présent dans le sitemap',
                 'required' => false,
                 'mapped' => false,
+                'data' => $data?->isInSitemap(),
             ])
             ->add('changefreq', EnumType::class, [
                 'class' => ChangeFreq::class,
                 'label' => 'Fréquence de changement',
                 'mapped' => false,
+                'data' => $data?->getChangefreq(),
             ])
             ->add('priority', NumberType::class, [
                 'label' => 'Priorité (0.0 à 1.0)',
@@ -35,6 +40,7 @@ class SitemapSeoType extends AbstractType
                 'scale' => 1,
                 'attr' => ['min' => 0, 'max' => 1, 'step' => 0.1],
                 'mapped' => false,
+                'data' => $data?->getPriority(),
             ]);
     }
 

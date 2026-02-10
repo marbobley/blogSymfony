@@ -6,6 +6,7 @@ namespace App\Domain\Model\Component;
 
 use App\Domain\Enum\OgType;
 use App\Domain\Enum\TwitterCard;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final readonly class SocialSeo
 {
@@ -14,7 +15,8 @@ final readonly class SocialSeo
         private ?string $ogDescription = null,
         private ?string $ogImage = null,
         private OgType $ogType = OgType::WEBSITE,
-        private TwitterCard $twitterCard = TwitterCard::SUMMARY_LARGE_IMAGE
+        private TwitterCard $twitterCard = TwitterCard::SUMMARY_LARGE_IMAGE,
+        private ?UploadedFile $ogImageFile = null
     ) {
     }
 
@@ -31,6 +33,11 @@ final readonly class SocialSeo
     public function getOgImage(): ?string
     {
         return $this->ogImage;
+    }
+
+    public function getOgImageFile(): ?UploadedFile
+    {
+        return $this->ogImageFile;
     }
 
     public function getOgType(): OgType
