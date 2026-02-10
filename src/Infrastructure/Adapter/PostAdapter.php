@@ -90,6 +90,8 @@ readonly class PostAdapter implements PostProviderInterface
             throw EntityNotFoundException::forEntity('Post', $id);
         }
 
+        $postEntity = $this->postMapper->toEntity($postModel);
+
         $post->setTitle($postModel->getTitle());
         $post->setContent($postModel->getContent());
         $post->setSubTitle($postModel->getSubTitle());
