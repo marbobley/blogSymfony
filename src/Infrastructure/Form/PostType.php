@@ -37,7 +37,7 @@ class PostType extends AbstractType
                     return $tag ? strtoupper($tag->getName()) : '';
                 },
                 'choice_value' => function (?TagModel $tag): string {
-                    return $tag ? (string) $tag->getId() : '';
+                    return (string)$tag?->getId();
                 },
                 'expanded' => true,
                 'multiple' => true,
