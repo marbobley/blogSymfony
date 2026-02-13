@@ -27,7 +27,14 @@ readonly class PostAdapter implements PostProviderInterface
         $this->postTagSynchronizer->synchronize($post, $postModel);
 
         $this->postRepository->save($post);
-        $postCreated = $this->postRepository->findBySlug($post->getSlug());
+        $slug = $post->getSlug();
+        if (null === $slug) {
+            throw new \RuntimeException('Slug was not generated for the post.');
+        }
+        $postCreated = $this->postRepository->findBySlug($slug);
+        if (null === $postCreated) {
+            throw new \RuntimeException('Post was not found after saving.');
+        }
         return $this->postMapper->toModel($postCreated);
     }
 
@@ -65,6 +72,9 @@ readonly class PostAdapter implements PostProviderInterface
         return $this->postMapper->toModel($post);
     }
 
+    /**
+     * @return PostModel[]
+     */
     public function findByTag(?int $tagId): array
     {
         if ($tagId !== null) {
@@ -76,6 +86,26 @@ readonly class PostAdapter implements PostProviderInterface
         } else {
             $posts = $this->postRepository->findAll();
         }
+
+        return array_map(function ($post) {
+            return $this->postMapper->toModel($post);
+        }, $posts);
+    }
+
+    /**
+     * @return PostModel[]
+     */
+    public function findPublished(?int $tagId = null): array
+    {
+        $tag = null;
+        if ($tagId !== null) {
+            $tag = $this->tagRepository->findById($tagId);
+            if (!$tag) {
+                throw EntityNotFoundException::forEntity('Tag', $tagId);
+            }
+        }
+
+        $posts = $this->postRepository->findPublished($tag);
 
         return array_map(function ($post) {
             return $this->postMapper->toModel($post);
@@ -95,6 +125,7 @@ readonly class PostAdapter implements PostProviderInterface
         $post->setTitle($postModel->getTitle());
         $post->setContent($postModel->getContent());
         $post->setSubTitle($postModel->getSubTitle());
+        $post->setPublished($postModel->isPublished());
 
         $this->postTagSynchronizer->synchronize($post, $postModel);
 

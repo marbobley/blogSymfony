@@ -32,8 +32,8 @@
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             {% if is_granted('ROLE_ADMIN') %}
                                 <li class="nav-item">
-                                    <a class="nav-link transition-base" href="{{ path('app_post_new') }}">
-                                        <i class="bi bi-plus-circle me-1"></i>Nouveau Post
+                                    <a class="nav-link transition-base" href="{{ path('app_post_admin_index') }}">
+                                        <i class="bi bi-speedometer2 me-1"></i>Admin
                                     </a>
                                 </li>
                                 <li class="nav-item dropdown">

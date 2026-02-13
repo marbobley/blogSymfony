@@ -29,6 +29,7 @@ class PostMapperTest extends TestCase
     {
         $postModel = $this->createPostModel(title: 'Test Title', content: 'Test Content');
         $postModel->setSubTitle('subtitle');
+        $postModel->setPublished(true);
         $tagEntities = new ArrayCollection();
         $this->tagMapper->expects($this->once())
             ->method('toEntities')
@@ -40,6 +41,7 @@ class PostMapperTest extends TestCase
         $this->assertSame('Test Title', $entity->getTitle());
         $this->assertSame('Test Content', $entity->getContent());
         $this->assertSame('subtitle', $entity->getSubTitle());
+        $this->assertTrue($entity->isPublished());
         $this->assertSame($tagEntities, $entity->getTags());
     }
 
@@ -52,6 +54,7 @@ class PostMapperTest extends TestCase
         $post->method('getId')->willReturn(1);
         $post->method('getSlug')->willReturn('test-title');
         $post->method('getCreatedAt')->willReturn($createdAt);
+        $post->method('isPublished')->willReturn(true);
         $tagEntities = new ArrayCollection();
         $post->method('getTags')->willReturn($tagEntities);
 

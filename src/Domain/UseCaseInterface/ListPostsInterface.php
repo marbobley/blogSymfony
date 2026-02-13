@@ -11,5 +11,5 @@ interface ListPostsInterface
     /**
      * @return PostModel[]
      */
-    public function execute(?int $tagId = null): array;
+    public function execute(?int $tagId = null, bool $onlyPublished = true): array;
 }

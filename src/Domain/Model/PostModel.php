@@ -30,6 +30,17 @@ class PostModel
     private string $content;
     private string $slug;
     private DateTimeImmutable $createdAt;
+    private bool $published = false;
+
+    public function isPublished(): bool
+    {
+        return $this->published;
+    }
+
+    public function setPublished(bool $published): void
+    {
+        $this->published = $published;
+    }
 
     public function getCreatedAt(): DateTimeImmutable
     {
@@ -78,6 +89,9 @@ class PostModel
 
     public function setTitle(string $title): void
     {
+        if (mb_strlen($title) < 10) {
+            throw new \InvalidArgumentException("Le titre doit faire au moins 10 caractères");
+        }
         $this->title = $title;
     }
 
@@ -101,6 +115,9 @@ class PostModel
         $this->tags->removeElement($tag);
     }
 
+    /**
+     * @param Collection<int, TagModel> $tags
+     */
     public function addTags(Collection $tags): void
     {
         foreach ($tags as $tag) {

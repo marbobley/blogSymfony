@@ -11,6 +11,9 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 abstract class AbstractDoctrineRepository
 {
+    /**
+     * @param class-string<T> $entityClass
+     */
     public function __construct(
         protected EntityManagerInterface $entityManager,
         protected string $entityClass
@@ -31,7 +34,9 @@ abstract class AbstractDoctrineRepository
      */
     public function findAll(): array
     {
-        return $this->entityManager->getRepository($this->entityClass)->findAll();
+        /** @var T[] $result */
+        $result = $this->entityManager->getRepository($this->entityClass)->findAll();
+        return $result;
     }
 
     /**
@@ -40,7 +45,8 @@ abstract class AbstractDoctrineRepository
     public function findById(int $id): ?object
     {
         /** @var T|null $result */
-        return $this->entityManager->getRepository($this->entityClass)->find($id);
+        $result = $this->entityManager->getRepository($this->entityClass)->find($id);
+        return $result;
     }
 
     /**
@@ -49,7 +55,8 @@ abstract class AbstractDoctrineRepository
     public function findBySlug(string $slug): ?object
     {
         /** @var T|null $result */
-        return $this->entityManager->getRepository($this->entityClass)->findOneBy(['slug' => $slug]);
+        $result = $this->entityManager->getRepository($this->entityClass)->findOneBy(['slug' => $slug]);
+        return $result;
     }
 
     /**
@@ -58,7 +65,8 @@ abstract class AbstractDoctrineRepository
     public function findByName(string $name): ?object
     {
         /** @var T|null $result */
-        return $this->entityManager->getRepository($this->entityClass)->findOneBy(['name' => $name]);
+        $result = $this->entityManager->getRepository($this->entityClass)->findOneBy(['name' => $name]);
+        return $result;
     }
 
     /**

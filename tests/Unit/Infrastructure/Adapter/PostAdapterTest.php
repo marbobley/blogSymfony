@@ -197,7 +197,7 @@ class PostAdapterTest extends TestCase
     public function testUpdate(): void
     {
         $id = 1;
-        $postModel = $this->createPostModel(title: 'New Title', content: 'New Content');
+        $postModel = $this->createPostModel(title: 'New Title Long Enough', content: 'New Content');
         $postModel->setSubTitle('subtitle');
 
         $post = $this->createMock(Post::class);
@@ -209,7 +209,7 @@ class PostAdapterTest extends TestCase
 
         $post->expects($this->once())
             ->method('setTitle')
-            ->with('New Title');
+            ->with('New Title Long Enough');
         $post->expects($this->once())
             ->method('setContent')
             ->with('New Content');

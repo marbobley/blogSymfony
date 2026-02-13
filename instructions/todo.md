@@ -4,7 +4,7 @@ Ce document liste les améliorations et les tâches restantes pour le projet de 
 
 ## Architecture & Domaine
 - [x] **Factories** : Implémenter les factories réelles pour `PostModel` et `TagModel` dans `src/Domain/Factory/`. ✓
-- [ ] **Validation Domaine** : Renforcer la validation interne des modèles (ex: empêcher un titre vide directement dans le modèle en plus des assertions Symfony).
+- [x] **Validation Domaine** : Renforcer la validation interne des modèles (ex: empêcher un titre vide directement dans le modèle en plus des assertions Symfony). ✓
 - [ ] **UUID** : Réfléchir à l'utilisation d'UUID générés par le domaine pour éviter la dépendance aux IDs auto-incrémentés de la base de données.
 
 ## Infrastructure

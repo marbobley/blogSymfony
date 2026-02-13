@@ -15,11 +15,11 @@ class ListPostsTest extends TestCase
     public function testExecuteReturnsListOfPostResponseDTO(): void
     {
         // Arrange
-        $post1 = PostModelFactory::create('Titre 1', 'Contenu 1');
-        $post2 = PostModelFactory::create('Titre 2', 'Contenu 2');
+        $post1 = PostModelFactory::create('Titre 1 assez long', 'Contenu 1');
+        $post2 = PostModelFactory::create('Titre 2 assez long', 'Contenu 2');
 
         $postProvider = $this->createMock(PostProviderInterface::class);
-        $postProvider->method('findByTag')->willReturn([$post1, $post2]);
+        $postProvider->method('findPublished')->willReturn([$post1, $post2]);
 
 
         $useCase = new ListPosts($postProvider);
@@ -30,7 +30,7 @@ class ListPostsTest extends TestCase
         // Assert
         $this->assertCount(2, $result);
         $this->assertInstanceOf(PostModel::class, $result[0]);
-        $this->assertEquals('Titre 1', $result[0]->getTitle());
-        $this->assertEquals('Titre 2', $result[1]->getTitle());
+        $this->assertEquals('Titre 1 assez long', $result[0]->getTitle());
+        $this->assertEquals('Titre 2 assez long', $result[1]->getTitle());
     }
 }

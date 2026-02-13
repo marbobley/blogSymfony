@@ -14,7 +14,7 @@ use App\Infrastructure\Entity\User;
 trait TestDataGeneratorTrait
 {
     private function createPostModel(
-        string $title = 'Default Title',
+        string $title = 'Default Title Long Enough',
         string $content = 'Default Content',
         array $tags = []
     ): PostModel {
@@ -40,7 +40,7 @@ trait TestDataGeneratorTrait
     }
 
     private function createPostEntity(
-        string $title = 'Default Title',
+        string $title = 'Default Title Long Enough',
         string $content = 'Default Content',
         string $slug = 'default-title'
     ): Post {

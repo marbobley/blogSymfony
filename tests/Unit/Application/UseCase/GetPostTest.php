@@ -15,7 +15,7 @@ class GetPostTest extends TestCase
     public function testExecuteReturnsPostResponseDTO(): void
     {
         // Arrange
-        $post = PostModelFactory::create('Titre', 'Contenu');
+        $post = PostModelFactory::create('Titre assez long pour passer', 'Contenu');
 
         $provider = $this->createMock(PostProviderInterface::class);
         $provider->expects($this->once())
@@ -32,7 +32,7 @@ class GetPostTest extends TestCase
         // Assert
         // TODO WFO : on test le mocker
         $this->assertInstanceOf(PostModel::class, $result);
-        $this->assertEquals('Titre', $result->getTitle());
+        $this->assertEquals('Titre assez long pour passer', $result->getTitle());
         $this->assertEquals('Contenu', $result->getContent());
     }
 }

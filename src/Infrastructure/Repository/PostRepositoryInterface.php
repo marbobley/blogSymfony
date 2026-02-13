@@ -27,6 +27,11 @@ interface PostRepositoryInterface
      */
     public function findByTag(\App\Infrastructure\Entity\Tag $tag): array;
 
+    /**
+     * @return Post[]
+     */
+    public function findPublished(?\App\Infrastructure\Entity\Tag $tag = null): array;
+
     /** @param Post $post */
     public function delete(object $post): void;
 }

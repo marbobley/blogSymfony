@@ -8,10 +8,12 @@ use App\Domain\Model\PostModel;
 
 class PostModelFactory
 {
-    public static function create(string $title = '', string $content = ''): PostModel
+    public static function create(string $title = 'Titre par défaut assez long', string $content = ''): PostModel
     {
         $dto = new PostModel();
-        $dto->setTitle($title);
+        if ($title !== '') {
+            $dto->setTitle($title);
+        }
         $dto->setContent($content);
 
         return $dto;

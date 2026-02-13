@@ -19,6 +19,7 @@ class PostTagSynchronizer
 
     public function synchronize(Post $post, PostModel $postDTO): void
     {
+        /** @var ArrayCollection<int, Tag> $newTags */
         $newTags = new ArrayCollection();
 
         foreach ($postDTO->getTags() as $tagDTO) {
