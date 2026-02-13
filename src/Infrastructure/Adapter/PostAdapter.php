@@ -27,7 +27,14 @@ readonly class PostAdapter implements PostProviderInterface
         $this->postTagSynchronizer->synchronize($post, $postModel);
 
         $this->postRepository->save($post);
-        $postCreated = $this->postRepository->findBySlug($post->getSlug());
+        $slug = $post->getSlug();
+        if (null === $slug) {
+            throw new \RuntimeException('Slug was not generated for the post.');
+        }
+        $postCreated = $this->postRepository->findBySlug($slug);
+        if (null === $postCreated) {
+            throw new \RuntimeException('Post was not found after saving.');
+        }
         return $this->postMapper->toModel($postCreated);
     }
 

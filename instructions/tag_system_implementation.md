@@ -21,5 +21,5 @@ Ce document détaille l'implémentation du système de tags pour les articles du
 - **`DoctrineTagProvider`** : Implémentation utilisant Doctrine.
 
 ## 4. Interface Utilisateur
-- **Formulaire** : `PostType` utilise un `TextType` ou un composant personnalisé pour saisir les tags sous forme de texte, convertis ensuite en `TagModel`.
+- **Formulaire** : `PostType` utilise un `ChoiceType` (expand=true, multiple=true) pour sélectionner les tags parmi ceux existants.
 - **Affichage** : Les tags sont affichés sous forme de badges dans les listes et les pages d'articles.

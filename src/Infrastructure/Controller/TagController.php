@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Infrastructure\Controller;
 
 use App\Domain\Model\TagModel;
-use App\Domain\Factory\TagModelFactory;
 use App\Domain\UseCase\GetTag;
 use App\Domain\UseCaseInterface\CreateTagInterface;
 use App\Domain\UseCaseInterface\DeleteTagInterface;
@@ -60,10 +59,9 @@ class TagController extends AbstractController
     #[Route('/tag/edit/{id}', name: 'app_tag_edit', methods: ['GET', 'POST'])]
     public function edit(int $id, Request $request, GetTag $getTagUseCase, UpdateTagInterface $updateTag): Response
     {
-        $tagEntity = $getTagUseCase->getById($id);
-        $tagDTO = TagModelFactory::createFromEntity($tagEntity);
+        $tagModel = $getTagUseCase->execute($id);
 
-        $form = $this->createForm(TagType::class, $tagDTO);
+        $form = $this->createForm(TagType::class, $tagModel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -76,7 +74,7 @@ class TagController extends AbstractController
 
         return $this->render('tag/edit.html.twig', [
             'form' => $form->createView(),
-            'tag' => $tagEntity,
+            'tag' => $tagModel,
         ]);
     }
 

@@ -30,8 +30,8 @@ class PostMapper implements PostMapperInterface
         $postModel = new PostModel();
         $postModel->setTitle($post->getTitle());
         $postModel->setContent($post->getContent());
-        $postModel->setId($post->getId());
-        $postModel->setSlug($post->getSlug());
+        $postModel->setId((int)$post->getId());
+        $postModel->setSlug((string)$post->getSlug());
         $postModel->setSubTitle($post->getSubTitle());
         $postModel->setCreatedAt($post->getCreatedAt());
         $postModel->setPublished($post->isPublished());

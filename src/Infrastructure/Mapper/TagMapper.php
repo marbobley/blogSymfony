@@ -22,10 +22,14 @@ class TagMapper implements TagMapperInterface
         $tag = new TagModel();
         $tag->setName($entity->getName());
         $tag->setSlug($entity->getSlug());
-        $tag->setId($entity->getId());
+        $tag->setId((int)$entity->getId());
         return $tag;
     }
 
+    /**
+     * @param Collection<int, TagModel> $models
+     * @return Collection<int, Tag>
+     */
     public function toEntities(Collection $models): Collection
     {
         $entities = new ArrayCollection();
@@ -36,6 +40,10 @@ class TagMapper implements TagMapperInterface
         return $entities;
     }
 
+    /**
+     * @param Collection<int, Tag> $entities
+     * @return Collection<int, TagModel>
+     */
     public function toModels(Collection $entities) : Collection
     {
         $models = new ArrayCollection();

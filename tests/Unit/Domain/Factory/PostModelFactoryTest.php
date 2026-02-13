@@ -12,7 +12,7 @@ class PostModelFactoryTest extends TestCase
 {
     public function testCreate(): void
     {
-        $title = 'Test Title';
+        $title = 'Test Title assez long';
         $content = 'Test Content';
 
         $postModel = PostModelFactory::create($title, $content);
@@ -27,7 +27,7 @@ class PostModelFactoryTest extends TestCase
         $postModel = PostModelFactory::create();
 
         $this->assertInstanceOf(PostModel::class, $postModel);
-        $this->assertSame('', $postModel->getTitle());
+        $this->assertSame('Titre par défaut assez long', $postModel->getTitle());
         $this->assertSame('', $postModel->getContent());
     }
 }

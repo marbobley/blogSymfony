@@ -10,7 +10,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * @extends ServiceEntityRepository<Tag>
+ * @extends AbstractDoctrineRepository<Tag>
  */
 class DoctrineTagRepository extends AbstractDoctrineRepository implements TagRepositoryInterface
 {

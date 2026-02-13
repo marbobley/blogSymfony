@@ -9,7 +9,16 @@ use Doctrine\Common\Collections\Collection;
 interface TagMapperInterface
 {
 
+    /**
+     * @param Collection<int, Tag> $entities
+     * @return Collection<int, TagModel>
+     */
     function toModels(Collection $entities): Collection;
+
+    /**
+     * @param Collection<int, TagModel> $models
+     * @return Collection<int, Tag>
+     */
     function toEntities(Collection $models): Collection;
     function toEntity(TagModel $model): Tag;
     function toModel(Tag $entity) : TagModel;

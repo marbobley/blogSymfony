@@ -8,6 +8,9 @@ use App\Infrastructure\Entity\Post;
 use App\Infrastructure\Repository\PostRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
+/**
+ * @extends AbstractDoctrineRepository<Post>
+ */
 class DoctrinePostRepository extends AbstractDoctrineRepository implements PostRepositoryInterface
 {
     public function __construct(EntityManagerInterface $entityManager)

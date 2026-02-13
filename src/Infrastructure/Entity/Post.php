@@ -36,6 +36,9 @@ class Post
         $this->content = $content;
     }
 
+    /**
+     * @param Collection<int, Tag> $tags
+     */
     public function setTags(Collection $tags): void
     {
         $this->tags = $tags;
