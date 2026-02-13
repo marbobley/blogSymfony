@@ -47,12 +47,13 @@ class TagController extends AbstractController
     }
 
     #[Route('/tag/{slug}', name: 'app_tag_show', methods: ['GET'])]
-    public function show(string $slug, GetTagBySlugInterface $getTagBySlug, \App\Domain\UseCaseInterface\ListPostsInterface $listPosts): Response
+    public function show(string $slug, Request $request, GetTagBySlugInterface $getTagBySlug, \App\Domain\UseCaseInterface\ListPostsInterface $listPosts): Response
     {
         $tag = $getTagBySlug->execute($slug);
+        $search = $request->query->get('q');
         return $this->render('tag/show.html.twig', [
             'tag' => $tag,
-            'posts' => $listPosts->execute($tag->getId()),
+            'posts' => $listPosts->execute($tag->getId(), search: $search),
         ]);
     }
 

@@ -75,16 +75,16 @@ readonly class PostAdapter implements PostProviderInterface
     /**
      * @return PostModel[]
      */
-    public function findByTag(?int $tagId): array
+    public function findByTag(?int $tagId, ?string $search = null): array
     {
         if ($tagId !== null) {
             $tag = $this->tagRepository->findById($tagId);
             if (!$tag) {
                 throw EntityNotFoundException::forEntity('Tag', $tagId);
             }
-            $posts = $this->postRepository->findByTag($tag);
+            $posts = $this->postRepository->findByTag($tag, $search);
         } else {
-            $posts = $this->postRepository->findAll();
+            $posts = $this->postRepository->findAll($search);
         }
 
         return array_map(function ($post) {
@@ -95,7 +95,7 @@ readonly class PostAdapter implements PostProviderInterface
     /**
      * @return PostModel[]
      */
-    public function findPublished(?int $tagId = null): array
+    public function findPublished(?int $tagId = null, ?string $search = null): array
     {
         $tag = null;
         if ($tagId !== null) {
@@ -105,7 +105,7 @@ readonly class PostAdapter implements PostProviderInterface
             }
         }
 
-        $posts = $this->postRepository->findPublished($tag);
+        $posts = $this->postRepository->findPublished($tag, $search);
 
         return array_map(function ($post) {
             return $this->postMapper->toModel($post);
