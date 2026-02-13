@@ -24,4 +24,17 @@ class PostTest extends TestCase
         $this->assertCount(0, $post->getTags());
         $this->assertFalse($post->getTags()->contains($tag));
     }
+
+    public function testPublishedStatus(): void
+    {
+        $post = new Post('Titre du post', 'Contenu du post');
+
+        $this->assertFalse($post->isPublished());
+
+        $post->setPublished(true);
+        $this->assertTrue($post->isPublished());
+
+        $post->setPublished(false);
+        $this->assertFalse($post->isPublished());
+    }
 }

@@ -22,8 +22,17 @@ class PostController extends AbstractController
     #[Route('/posts', name: 'app_post_index', methods: ['GET'])]
     public function index(ListPostsInterface $listPosts): Response
     {
-        $lists = $listPosts->execute();
+        $lists = $listPosts->execute(onlyPublished: true);
         return $this->render('post/index.html.twig', [
+            'posts' => $lists,
+        ]);
+    }
+
+    #[Route('/admin/posts', name: 'app_post_admin_index', methods: ['GET'])]
+    public function adminIndex(ListPostsInterface $listPosts): Response
+    {
+        $lists = $listPosts->execute(onlyPublished: false);
+        return $this->render('post/admin_index.html.twig', [
             'posts' => $lists,
         ]);
     }
@@ -37,8 +46,8 @@ class PostController extends AbstractController
             /** @var PostModel $post */
             $post = $form->getData();
             $createPost->execute($post);
-            $this->addFlash('success', 'Votre article a été publié avec succès !');
-            return $this->redirectToRoute('app_post_index');
+            $this->addFlash('success', 'Votre article a été enregistré avec succès !');
+            return $this->redirectToRoute('app_post_admin_index');
         }
 
         return $this->render('post/create.html.twig', [
@@ -71,7 +80,7 @@ class PostController extends AbstractController
 
                 $this->addFlash('success', 'Votre article a été mis à jour avec succès !');
 
-                return $this->redirectToRoute('app_post_index');
+                return $this->redirectToRoute('app_post_admin_index');
             }
 
             $this->addFlash('error', 'Il y a des erreurs dans votre formulaire. Veuillez les corriger.');
@@ -91,6 +100,6 @@ class PostController extends AbstractController
             $this->addFlash('success', 'L\'article a été supprimé.');
         }
 
-        return $this->redirectToRoute('app_post_index');
+        return $this->redirectToRoute('app_post_admin_index');
     }
 }

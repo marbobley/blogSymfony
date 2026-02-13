@@ -10,6 +10,7 @@ use App\Domain\UseCaseInterface\ListTagsInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,6 +33,10 @@ class PostType extends AbstractType
         ->add('title', TextType::class)
         ->add('sub_title', TextareaType::class)
         ->add('content', TextareaType::class)
+        ->add('published', CheckboxType::class, [
+            'label' => 'Publier l\'article',
+            'required' => false,
+        ])
             ->add('tags', ChoiceType::class, [
                 'choices' => $tags,
                 'choice_label' => function (?TagModel $tag): string {

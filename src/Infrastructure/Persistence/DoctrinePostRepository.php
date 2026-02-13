@@ -26,4 +26,21 @@ class DoctrinePostRepository extends AbstractDoctrineRepository implements PostR
             ->getQuery()
             ->getResult();
     }
+
+    public function findPublished(?\App\Infrastructure\Entity\Tag $tag = null): array
+    {
+        $qb = $this->entityManager->createQueryBuilder()
+            ->select('p')
+            ->from(Post::class, 'p')
+            ->where('p.published = :published')
+            ->setParameter('published', true);
+
+        if ($tag) {
+            $qb->join('p.tags', 't')
+                ->andWhere('t.id = :tagId')
+                ->setParameter('tagId', $tag->getId());
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }

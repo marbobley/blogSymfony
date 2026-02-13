@@ -66,6 +66,19 @@ class Post
     #[ORM\Column(type: "text")]
     private string $content;
 
+    #[ORM\Column(type: "boolean")]
+    private bool $published = false;
+
+    public function isPublished(): bool
+    {
+        return $this->published;
+    }
+
+    public function setPublished(bool $published): void
+    {
+        $this->published = $published;
+    }
+
     #[ORM\Column]
     private \DateTimeImmutable $createdAt;
 

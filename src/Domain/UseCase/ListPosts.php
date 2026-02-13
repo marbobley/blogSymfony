@@ -14,8 +14,11 @@ readonly class ListPosts implements ListPostsInterface
     ) {
     }
 
-    public function execute(?int $tagId = null): array
+    public function execute(?int $tagId = null, bool $onlyPublished = true): array
     {
+        if ($onlyPublished) {
+            return $this->postProvider->findPublished($tagId);
+        }
         return $this->postProvider->findByTag($tagId);
     }
 }
