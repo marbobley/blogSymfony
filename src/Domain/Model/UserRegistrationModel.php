@@ -6,9 +6,14 @@ namespace App\Domain\Model;
 
 class UserRegistrationModel
 {
+    public string $email = '';
+    public string $plainPassword = '';
+
     public function __construct(
-        public string $email,
-        public string $plainPassword,
+        string $email = '',
+        string $plainPassword = '',
     ) {
+        $this->email = $email;
+        $this->plainPassword = $plainPassword;
     }
 }

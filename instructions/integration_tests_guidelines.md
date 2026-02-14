@@ -85,3 +85,4 @@ Les tests d'intégration doivent être placés dans le répertoire `tests/Integr
 2.  **Rapidité** : Ne testez que ce qui nécessite une intégration réelle. Privilégiez les tests unitaires pour la logique métier pure.
 3.  **Fixtures ciblées** : Ne chargez que les données nécessaires au test en cours.
 4.  **Assertions spécifiques** : Utilisez les assertions Symfony (`assertResponseIsSuccessful`, `assertSelectorExists`, etc.).
+5.  **Initialisation des Modèles** : Pour éviter les "Notices" PHPUnit (notamment sur les propriétés typées non initialisées), assurez-vous que vos modèles de Domaine (`PostModel`, `TagModel`, etc.) initialisent toutes leurs propriétés typées avec des valeurs par défaut ou via le constructeur. Les propriétés `id` doivent être nullables (`?int`) et initialisées à `null`.

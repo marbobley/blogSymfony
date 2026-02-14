@@ -17,31 +17,35 @@ permissions:
 jobs:
     symfony-tests:
         runs-on: ubuntu-latest
+        services:
+            mysql:
+                image: mysql:8.0
+                env:
+                    MYSQL_ROOT_PASSWORD: password
+                    MYSQL_DATABASE: blogSymfony_test
+                ports:
+                    - 3306:3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
         steps:
-            #  To automatically get bug fixes and new Php versions for shivammathur/setup-php,
-            # change this to (see https://github.com/shivammathur/setup-php#bookmark-versioning):
-            # uses: shivammathur/setup-php@v2
-            - uses: shivammathur/setup-php@2cb9b829437ee246e9b3cac53555a39208ca6d28
+            - uses: shivammathur/setup-php@v2
               with:
-                  php-version: '8.3.6'
+                  php-version: '8.3'
+                  extensions: mbstring, xml, ctype, iconv, mysql
             - uses: actions/checkout@v4
-            - name: Copy .env.test.local
-              run: php -r "file_exists('.env.test.local') || copy('.env.test', '.env.test.local');"
-            - name: Cache Composer packages
-              id: composer-cache
-              uses: actions/cache@v3
-              with:
-                  path: vendor
-                  key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-php-
             - name: Install Dependencies
-              run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --ignore-platform-req=ext-redis
-            - name: Create Database
+              run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+            - name: Wait for MySQL
               run: |
-                  mkdir -p data
-                  touch data/database.sqlite
-            - name: Execute tests (Unit and Feature tests) via PHPUnit
+                  while ! mysqladmin ping -h"127.0.0.1" -P"3306" --silent; do
+                      sleep 1
+                  done
+            - name: Create Database and Schema
               env:
-                  DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
-              run: vendor/bin/phpunit
+                  DATABASE_URL: mysql://root:password@127.0.0.1:3306/blogSymfony_test?serverVersion=8.0&charset=utf8mb4
+              run: |
+                  php bin/console doctrine:database:create --env=test --if-not-exists
+                  php bin/console doctrine:schema:create --env=test
+            - name: Execute tests
+              env:
+                  DATABASE_URL: mysql://root:password@127.0.0.1:3306/blogSymfony_test?serverVersion=8.0&charset=utf8mb4
+              run: vendor/bin/phpunit --display-notices
