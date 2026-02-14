@@ -73,6 +73,7 @@ Pour garantir l'intégrité des données et prévenir les erreurs fatales (ex: S
 
 3.  **Niveau Test (Vérification)** :
     *   Écrivez des tests unitaires pour le Domaine qui vérifient que les contraintes sont respectées et que les exceptions attendues sont bien levées en cas de données invalides.
+    *   **Données de Test (XML)** : Préférer l'utilisation de fichiers XML (`tests/Fixtures/*.xml`) pour définir les jeux de données complexes. Utilisez le trait `XmlTestDataTrait` pour charger ces données dans vos tests unitaires. Cela permet de séparer la structure des données du code de test et de faciliter la maintenance des scénarios de test. Les fichiers XML sont organisés par domaine : `posts.xml`, `tags.xml`, `users.xml`.
 
 ---
 

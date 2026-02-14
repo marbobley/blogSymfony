@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<posts>
+    <post id="1">
+        <title>Découvrir l'Architecture Hexagonale</title>
+        <subtitle>Une approche propre pour vos applications Symfony</subtitle>
+        <content>Le contenu de l'article sur l'architecture hexagonale...</content>
+        <slug>decouvrir-l-architecture-hexagonale</slug>
+        <published>true</published>
+        <createdAt>2026-02-14T10:00:00+00:00</createdAt>
+        <tags>
+            <tag id="1">
+                <name>Architecture</name>
+                <slug>architecture</slug>
+            </tag>
+            <tag id="2">
+                <name>PHP</name>
+                <slug>php</slug>
+            </tag>
+        </tags>
+    </post>
+    <post id="2">
+        <title>Les nouveautés de Symfony 7.4</title>
+        <subtitle>Quoi de neuf dans la dernière version ?</subtitle>
+        <content>Les nouveautés de Symfony sont nombreuses...</content>
+        <slug>nouveautes-symfony-7-4</slug>
+        <published>true</published>
+        <createdAt>2026-02-14T11:00:00+00:00</createdAt>
+        <tags>
+            <tag id="3">
+                <name>Symfony</name>
+                <slug>symfony</slug>
+            </tag>
+        </tags>
+    </post>
+    <post id="3">
+        <title>Brouillon d'article</title>
+        <subtitle>Un article en cours de rédaction</subtitle>
+        <content>En cours...</content>
+        <slug>brouillon-d-article</slug>
+        <published>false</published>
+        <createdAt>2026-02-14T12:00:00+00:00</createdAt>
+        <tags/>
+    </post>
+</posts>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+    <user id="1">
+        <email>admin@example.com</email>
+        <password>hashed_admin_password</password>
+        <roles>
+            <role>ROLE_ADMIN</role>
+            <role>ROLE_USER</role>
+        </roles>
+    </user>
+    <user id="2">
+        <email>user@example.com</email>
+        <password>hashed_user_password</password>
+        <roles>
+            <role>ROLE_USER</role>
+        </roles>
+    </user>
+</users>

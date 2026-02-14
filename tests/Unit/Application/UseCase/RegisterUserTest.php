@@ -8,14 +8,18 @@ use App\Domain\Model\UserRegistrationModel;
 use App\Domain\UseCase\RegisterUser;
 use App\Infrastructure\Entity\User;
 use App\Infrastructure\Repository\UserRepositoryInterface;
+use App\Tests\Unit\Helper\XmlTestDataTrait;
 use PHPUnit\Framework\TestCase;
 
 class RegisterUserTest extends TestCase
 {
+    use XmlTestDataTrait;
+
     public function testExecuteSavesAndReturnsUser(): void
     {
         // Arrange
-        $dto = new UserRegistrationModel('test@example.com', 'hashed_password');
+        $users = $this->loadUserRegistrationModelsFromXml(__DIR__ . '/../../../Fixtures/users.xml');
+        $dto = $users[1]; // user@example.com
 
         $repository = $this->createMock(UserRepositoryInterface::class);
         $repository->expects($this->once())
@@ -32,8 +36,8 @@ class RegisterUserTest extends TestCase
 
         // Assert
         $this->assertInstanceOf(User::class, $result);
-        $this->assertEquals('test@example.com', $result->getEmail());
-        $this->assertEquals('hashed_password', $result->getPassword());
+        $this->assertEquals($dto->email, $result->getEmail());
+        $this->assertEquals($dto->plainPassword, $result->getPassword());
     }
 
     public function testExecuteThrowsExceptionForInvalidEmail(): void
