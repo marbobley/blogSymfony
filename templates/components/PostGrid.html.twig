@@ -1,0 +1,19 @@
+<div class="row g-4">
+    {% for post in posts %}
+        <div class="col-12 col-md-6 col-lg-4">
+            <twig:PostCard :post="post" :showActions="showActions|default(false)" />
+        </div>
+    {% else %}
+        <div class="col-12 text-center py-5">
+            <div class="p-5 bg-white rounded shadow-sm">
+                <i class="bi bi-journal-x display-1 text-muted mb-3"></i>
+                <p class="h4 text-muted">{{ emptyMessage|default('Aucun article trouvé pour le moment.') }}</p>
+                {% if showCreateButton|default and is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <a href="{{ path('app_post_new') }}" class="btn btn-primary mt-3 transition-base">
+                        Créer le premier article
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>

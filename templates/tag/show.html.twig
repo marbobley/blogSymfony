@@ -3,32 +3,18 @@
 {% block title %}Articles taggués : {{ tag.name }}{% endblock %}
 
 {% block body %}
-    <div class="row mb-4 align-items-center">
-        <div class="col">
-            <h1 class="h2 fw-bold text-dark mb-0">
-                Articles pour le tag <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 ms-2"><i class="bi bi-tag me-1"></i> {{ tag.name }}</span>
-            </h1>
-            <p class="text-muted small mt-2">Découvrez tous les articles associés à ce tag</p>
-        </div>
-        <div class="col-auto">
-            <a href="{{ path('app_tag_index') }}" class="btn btn-link text-decoration-none transition-base">
-                <i class="bi bi-arrow-left me-1"></i> Tous les tags
-            </a>
-        </div>
-    </div>
+    <twig:PageHeader
+        title="Articles pour"
+        :badge="tag.name"
+        subtitle="Découvrez tous les articles associés à ce tag"
+        :searchTerm="app.request.query.get('q')"
+        :clearSearchPath="path('app_tag_show', {slug: tag.slug})"
+        :backPath="path('app_tag_index')"
+        backLabel="Tous les tags"
+    />
 
-    <div class="row g-4">
-        {% for post in posts %}
-            <div class="col-12 col-md-6 col-lg-4">
-                <twig:PostCard :post="post" />
-            </div>
-        {% else %}
-            <div class="col-12 text-center py-5">
-                <div class="p-5 bg-white rounded shadow-sm">
-                    <i class="bi bi-journal-x display-1 text-muted mb-3"></i>
-                    <p class="h4 text-muted">Aucun article trouvé pour ce tag.</p>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+    <twig:PostGrid
+        :posts="posts"
+        emptyMessage="Aucun article trouvé pour ce tag."
+    />
 {% endblock %}

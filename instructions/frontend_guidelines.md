@@ -33,15 +33,22 @@ Ce document définit les standards pour le développement frontend de l'applicat
 *   **SEO de base** : Chaque page doit avoir un titre explicite et une meta description.
 *   **Viewport** : Toujours inclure la balise viewport pour le responsive.
 
+### 6. Composants Twig (Symfony UX Twig Component)
+*   **Réutilisation** : Extraire tout élément HTML répétitif dans un composant (ex: `PostCard`, `TagBadge`).
+*   **Composants de Structure** : Utiliser des composants pour les structures récurrentes comme les en-têtes de page (`PageHeader`) ou les tableaux d'administration (`AdminTable`).
+*   **Encapsulation** : Un composant doit être autonome. Utiliser des paramètres (props) pour passer les données.
+*   **Robustesse** : Toujours prévoir des valeurs par défaut (`|default`) pour les paramètres facultatifs afin d'éviter les erreurs de variable inexistante.
+*   **Contenu Flexible** : Utiliser des blocs Twig (`{% block content %}{% endblock %}`) plutôt que des variables simples pour passer du HTML complexe à un composant (ex: contenu d'un tableau).
+
 ---
 
 ## Architecture de la Page
 
 ### Layout Global
 Chaque page doit suivre cette structure sémantique dans `base.html.twig` :
-1.  **Header** : Contenant la navigation principale (`<nav>`).
+1.  **Header** : Contenant le composant `<twig:Navbar />`.
 2.  **Main** : Contenant le contenu spécifique à la page (`{% block body %}`).
-3.  **Footer** : Contenant les liens secondaires et les informations de copyright.
+3.  **Footer** : Contenant le composant `<twig:Footer />`.
 
 ---
 

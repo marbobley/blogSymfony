@@ -1,0 +1,48 @@
+<div class="row mb-4 align-items-center">
+    <div class="col">
+        {% if title %}
+            <h1 class="{{ titleClass|default('h2 fw-bold text-dark mb-0') }}">
+                {{ title }}
+                {% if badge|default %}
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 ms-2">
+                        <i class="bi bi-tag me-1"></i> {{ badge }}
+                    </span>
+                {% endif %}
+            </h1>
+        {% endif %}
+
+        {% if subtitle|default %}
+            <p class="text-muted small {{ subtitle ? 'mt-2' : '' }}">{{ subtitle }}</p>
+        {% endif %}
+
+        {% if searchTerm|default %}
+            <div class="d-flex align-items-center gap-2 mt-2">
+                <span class="badge bg-light text-dark border p-2">
+                    Résultats pour : "<strong>{{ searchTerm }}</strong>"
+                </span>
+                <a href="{{ clearSearchPath|default('#') }}" class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-x-lg"></i> Effacer
+                </a>
+            </div>
+        {% endif %}
+    </div>
+    {% if showAllPath|default or backPath|default or createPath|default %}
+        <div class="col-auto">
+            {% if showAllPath|default %}
+                <a href="{{ showAllPath }}" class="btn btn-link text-decoration-none transition-base">
+                    Voir tout <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            {% endif %}
+            {% if backPath|default %}
+                <a href="{{ backPath }}" class="btn btn-link text-decoration-none transition-base text-nowrap">
+                    <i class="bi bi-arrow-left me-1"></i> {{ backLabel|default('Retour') }}
+                </a>
+            {% endif %}
+            {% if createPath|default %}
+                <a href="{{ createPath }}" class="btn btn-primary">
+                    <i class="bi bi-plus-lg me-2"></i>{{ createLabel|default('Nouveau') }}
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>

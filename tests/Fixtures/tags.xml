@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tags>
+    <tag id="1">
+        <name>Architecture</name>
+        <slug>architecture</slug>
+    </tag>
+    <tag id="2">
+        <name>PHP</name>
+        <slug>php</slug>
+    </tag>
+    <tag id="3">
+        <name>Symfony</name>
+        <slug>symfony</slug>
+    </tag>
+    <tag id="4">
+        <name>Tests</name>
+        <slug>tests</slug>
+    </tag>
+</tags>

@@ -20,9 +20,10 @@ use Symfony\Component\Routing\Attribute\Route;
 class PostController extends AbstractController
 {
     #[Route('/posts', name: 'app_post_index', methods: ['GET'])]
-    public function index(ListPostsInterface $listPosts): Response
+    public function index(Request $request, ListPostsInterface $listPosts): Response
     {
-        $lists = $listPosts->execute(onlyPublished: true);
+        $search = $request->query->get('q');
+        $lists = $listPosts->execute(onlyPublished: true, search: $search);
         return $this->render('post/index.html.twig', [
             'posts' => $lists,
         ]);

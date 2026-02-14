@@ -16,10 +16,10 @@ interface PostProviderInterface
     public function findBySlug(string $slug): PostModel;
 
     /** @return PostModel[] */
-    public function findByTag(?int $tagId) : array;
+    public function findByTag(?int $tagId, ?string $search = null) : array;
 
     /** @return PostModel[] */
-    public function findPublished(?int $tagId = null): array;
+    public function findPublished(?int $tagId = null, ?string $search = null): array;
 
     public function update(int $id, PostModel $postModel): PostModel;
 }

@@ -20,9 +20,7 @@
                             <i class="bi bi-calendar3 me-1"></i> {{ post.createdAt|date('d F Y') }}
                         </span>
                         {% for tag in post.tags %}
-                            <a href="{{ path('app_tag_show', {'slug': tag.slug}) }}" class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 text-decoration-none">
-                                <i class="bi bi-tag me-1"></i> {{ tag.name }}
-                            </a>
+                            <twig:TagBadge :tag="tag" class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 text-decoration-none" />
                         {% endfor %}
                         <span class="text-muted small">
                             <i class="bi bi-clock me-1"></i> {{ (post.content|length / 1000)|round(0, 'ceil') }} min de lecture

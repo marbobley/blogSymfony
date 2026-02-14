@@ -1,6 +1,11 @@
-# TODO - Liste des tâches techniques et fonctionnelles
+# TODO - Tâches Techniques
 
-Ce document liste les améliorations et les tâches restantes pour le projet de blog.
+Ce document liste les améliorations techniques et les tâches d'infrastructure restantes pour le projet de blog.
+
+## Clean code 
+- [ ] **Pas de valeur par défaut dans les paramètres** ; 
+- [ ] **Pas de boolean dans les paramètres sauf si c'est une valeur d'un objet** : si le boolean est utilisé pour un if préférer faire 2 méthodes distincts
+
 
 ## Architecture & Domaine
 - [x] **Factories** : Implémenter les factories réelles pour `PostModel` et `TagModel` dans `src/Domain/Factory/`. ✓
@@ -13,11 +18,6 @@ Ce document liste les améliorations et les tâches restantes pour le projet de 
 - [ ] **Sécurité** : Finaliser l'implémentation du hachage de mot de passe dans le Use Case `RegisterUser` via une interface de service.
 
 ## Tests
-- [ ] **Couverture Tests Unitaires** : Atteindre 100% de couverture sur le dossier `src/Domain/UseCase`.
+- [x] **Couverture Tests Unitaires** : Atteindre 100% de couverture sur le dossier `src/Domain/UseCase` et `src/Domain/Model`. ✓
 - [ ] **Tests d'Intégration** : Mettre en place des tests vérifiant le bon fonctionnement des Providers avec une base de données de test (SQLite/Docker).
-
-## Frontend
-- [x] **Page d'erreur** : Mise en place de pages d'erreur Twig propres (404, 500) et gestion dans le `ExceptionListener`. ✓
-- [ ] **Système de recherche** : Ajouter une barre de recherche simple pour les articles.
-- [ ] **Pagination** : Implémenter la pagination pour la liste des articles sur la page d'accueil.
-- [ ] **Commentaires** : (Optionnel) Étudier l'ajout d'un système de commentaires pour les articles.
+- [x] **Refactorisation XML** : Utilisation de données XML pour les tests unitaires via `XmlTestDataTrait`. ✓

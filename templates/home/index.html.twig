@@ -19,29 +19,10 @@
         </div>
     </div>
 
-    <div class="row mb-4 align-items-center">
-        <div class="col">
-            <h2 class="h3 fw-bold text-dark mb-0">Dernières Publications</h2>
-        </div>
-        <div class="col-auto">
-            <a href="{{ path('app_post_index') }}" class="btn btn-link text-decoration-none transition-base">
-                Voir tout <i class="bi bi-arrow-right ms-1"></i>
-            </a>
-        </div>
-    </div>
+    <twig:PageHeader
+        title="Dernières Publications"
+        :showAllPath="path('app_post_index')"
+    />
 
-    <div class="row g-4">
-        {% for post in posts|slice(0, 3) %}
-            <div class="col-12 col-md-6 col-lg-4">
-                <twig:PostCard :post="post" />
-            </div>
-        {% else %}
-            <div class="col-12 text-center py-5">
-                <div class="p-5 bg-white rounded shadow-sm">
-                    <i class="bi bi-journal-x display-1 text-muted mb-3"></i>
-                    <p class="h4 text-muted">Aucun article trouvé pour le moment.</p>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+    <twig:PostGrid :posts="posts|slice(0, 3)" />
 {% endblock %}
