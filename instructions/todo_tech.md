@@ -10,6 +10,7 @@ Ce document liste les améliorations techniques et les tâches d'infrastructure 
 ## Architecture & Domaine
 - [x] **Factories** : Implémenter les factories réelles pour `PostModel` et `TagModel` dans `src/Domain/Factory/`. ✓
 - [x] **Validation Domaine** : Renforcer la validation interne des modèles (ex: empêcher un titre vide directement dans le modèle en plus des assertions Symfony). ✓
+- [x] **Initialisation des Modèles** : Initialiser les propriétés typées pour éviter les notices PHPUnit. ✓
 - [ ] **UUID** : Réfléchir à l'utilisation d'UUID générés par le domaine pour éviter la dépendance aux IDs auto-incrémentés de la base de données.
 
 ## Infrastructure
@@ -19,5 +20,5 @@ Ce document liste les améliorations techniques et les tâches d'infrastructure 
 
 ## Tests
 - [x] **Couverture Tests Unitaires** : Atteindre 100% de couverture sur le dossier `src/Domain/UseCase` et `src/Domain/Model`. ✓
-- [ ] **Tests d'Intégration** : Mettre en place des tests vérifiant le bon fonctionnement des Providers avec une base de données de test (SQLite/Docker).
+- [x] **Tests d'Intégration** : Mettre en place des tests d'intégration pour tous les Use Cases du Domaine. ✓ Voir `tests/Integration/UseCase/`.
 - [x] **Refactorisation XML** : Utilisation de données XML pour les tests unitaires via `XmlTestDataTrait`. ✓

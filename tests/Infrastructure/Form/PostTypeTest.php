@@ -46,6 +46,7 @@ class PostTypeTest extends TypeTestCase
 
         $formData = [
             'title' => 'Test Post Title',
+            'sub_title' => 'Test Sub Title',
             'content' => 'Test Post Content',
             'tags' => ['1', '2'],
         ];

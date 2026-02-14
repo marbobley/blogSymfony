@@ -9,6 +9,7 @@ L'utilisation du mode strict est obligatoire dans tout le projet pour garantir l
 *   **Strict Types** : Chaque fichier PHP doit commencer par `declare(strict_types=1);` immédiatement après la balise d'ouverture `<?php`.
 *   **Analyse Statique** : PHPStan est utilisé au niveau 8 pour garantir la qualité du code. Toute erreur signalée par `vendor/bin/phpstan` doit être corrigée avant validation. Voir `instructions/phpstan_guidelines.md` pour plus de détails.
 *   **Tests Unitaires** : La couverture par des tests unitaires (PHPUnit) est obligatoire pour toute nouvelle fonctionnalité, en particulier pour les Use Cases et les modèles de Domaine. Tout test ajouté doit être "au vert".
+*   **Tests d'Intégration** : Pour tester l'interaction avec la base de données ou le rendu des pages (contrôleurs), référez-vous au [Guide des Tests d'Intégration](integration_tests_guidelines.md).
 *   **Intégration Continue (CI)** : Un workflow GitHub Action (`.github/workflows/ci.yml`) est en place. Il exécute automatiquement PHPStan et PHPUnit à chaque push. Aucun code ne doit être fusionné si la CI est "rouge".
 *   **Typage Explicite** : Utilisez le typage fort pour les paramètres de fonction, les types de retour et les propriétés de classe.
 *   **Conversion de Type** : Lors de la récupération de données depuis des sources non typées (comme `Request` de Symfony), effectuez une conversion explicite (casting) avant de les passer à des objets typés (ex: `(string) $request->request->get('title')`).
@@ -24,7 +25,7 @@ Le **Clean Code** consiste à écrire du code facile à lire, à comprendre et �
 *   **DRY (Don't Repeat Yourself)** : Évitez la duplication.
 *   **SOLID** :
     *   **S**ingle Responsibility.
-    *   **O**pen/Closed (ouvert à l'extension, fermé à la modification).
+    *   **O**pen/Closed (ouvert à l'extension, fermé à la modification). Voir le [Guide du Système de Partage](sharing_system_guidelines.md) pour un exemple concret d'extensibilité utilisant les [Tags Symfony](symfony_tags_guidelines.md).
     *   **L**iskov Substitution.
     *   **I**nterface Segregation.
     *   **D**ependency Inversion : Dépendre des abstractions (interfaces), pas des implémentations.

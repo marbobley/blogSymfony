@@ -45,5 +45,13 @@ services:
     App\Domain\UseCaseInterface\RegisterUserInterface:
         alias: App\Domain\UseCase\RegisterUser
 
+    App\Infrastructure\Twig\Component\ShareButtons:
+        arguments:
+            $sharingServices: !tagged_iterator app.sharing_service
+
+    _instanceof:
+        App\Domain\Service\Sharing\SharingServiceInterface:
+            tags: ['app.sharing_service']
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

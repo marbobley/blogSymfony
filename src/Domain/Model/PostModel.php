@@ -9,12 +9,12 @@ use Doctrine\Common\Collections\Collection;
 
 class PostModel
 {
-    private int $id;
+    private ?int $id = null;
 
     #[Assert\NotBlank]
     #[Assert\Length(min: 10, max: 255 , minMessage: "Le titre doit faire au moins 10 caractères")]
-    private string $title;
-    private string $subTitle;
+    private string $title = '';
+    private string $subTitle = '';
 
     public function getSubTitle(): string
     {
@@ -27,9 +27,9 @@ class PostModel
     }
 
     #[Assert\NotBlank]
-    private string $content;
-    private string $slug;
-    private DateTimeImmutable $createdAt;
+    private string $content = '';
+    private string $slug = '';
+    private ?DateTimeImmutable $createdAt = null;
     private bool $published = false;
 
     public function isPublished(): bool
@@ -42,12 +42,12 @@ class PostModel
         $this->published = $published;
     }
 
-    public function getCreatedAt(): DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(DateTimeImmutable $createdAt): void
+    public function setCreatedAt(?DateTimeImmutable $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
@@ -125,12 +125,12 @@ class PostModel
         }
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId(int $id): void
+    public function setId(?int $id): void
     {
         $this->id = $id;
     }
