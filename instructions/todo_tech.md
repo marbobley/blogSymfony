@@ -19,5 +19,5 @@ Ce document liste les améliorations techniques et les tâches d'infrastructure 
 
 ## Tests
 - [x] **Couverture Tests Unitaires** : Atteindre 100% de couverture sur le dossier `src/Domain/UseCase` et `src/Domain/Model`. ✓
-- [ ] **Tests d'Intégration** : Mettre en place des tests vérifiant le bon fonctionnement des Providers avec une base de données de test (SQLite/Docker).
+- [x] **Tests d'Intégration** : Mettre en place des tests d'intégration pour tous les Use Cases du Domaine. ✓ Voir `tests/Integration/UseCase/`.
 - [x] **Refactorisation XML** : Utilisation de données XML pour les tests unitaires via `XmlTestDataTrait`. ✓

@@ -7,4 +7,5 @@ Ce document liste les fonctionnalités à implémenter et les améliorations de 
 - [x] **Système de recherche** : Ajouter une barre de recherche globale dans la barre de navigation. ✓
 - [x] **Composants Twig** : Refactorisation du HTML pour utiliser des Twig Components (`PageHeader`, `PostGrid`, `AdminTable`, etc.). ✓
 - [ ] **Pagination** : Implémenter la pagination pour la liste des articles sur la page d'accueil.
+- [ ] **Boutons de partage** : Mise en place des boutons de partage (Facebook, Instagram, LinkedIn, etc.) sur la page de détail d'un article.
 - [ ] **Commentaires** : (Optionnel) Étudier l'ajout d'un système de commentaires pour les articles.
