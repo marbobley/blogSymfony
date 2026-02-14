@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class TagController extends AbstractController
 {
@@ -28,6 +29,7 @@ class TagController extends AbstractController
     }
 
     #[Route('/tag/new', name: 'app_tag_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request, CreateTagInterface $createTag): Response
     {
         $form = $this->createForm(TagType::class);
@@ -58,6 +60,7 @@ class TagController extends AbstractController
     }
 
     #[Route('/tag/edit/{id}', name: 'app_tag_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(int $id, Request $request, GetTag $getTagUseCase, UpdateTagInterface $updateTag): Response
     {
         $tagModel = $getTagUseCase->execute($id);
@@ -80,6 +83,7 @@ class TagController extends AbstractController
     }
 
     #[Route('/tag/delete/{id}', name: 'app_tag_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(int $id, Request $request, DeleteTagInterface $deleteTag): Response
     {
         if ($this->isCsrfTokenValid('delete'.$id, (string) $request->request->get('_token'))) {

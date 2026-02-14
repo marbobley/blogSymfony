@@ -26,16 +26,39 @@ La sécurité est traitée comme un détail d'infrastructure. Le cœur de l'appl
 
 ---
 
-## 3. Autorisations (Voters)
+## 3. Autorisations et Accès
 
+### A. Protection des Routes d'Administration
+Toutes les routes d'administration (commençant par `/admin/` ou permettant la modification de données) doivent être protégées par le rôle `ROLE_ADMIN`.
+
+*   Utilisez l'attribut `#[IsGranted('ROLE_ADMIN')]` au niveau du contrôleur ou de la méthode.
+*   Exemple : `adminIndex`, `create`, `edit`, `delete` dans `PostController`.
+
+### B. Protection des Contenus Sensibles (Brouillons)
+L'accès aux ressources non publiées (ex: brouillons d'articles) doit être restreint aux utilisateurs autorisés.
+
+*   Dans l'action `show`, vérifiez le statut de publication de la ressource.
+*   Si la ressource n'est pas publiée, utilisez `$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Message explicatif')`.
+
+### C. Utilisation des Voters
 Pour la gestion fine des droits (ex: "Seul l'auteur peut modifier son post"), utilisez les **Voters** de Symfony dans `src/Infrastructure/Security/Voter`.
 
-*   Ne mettez pas de logique de permission complexe dans les contrôleurs.
-*   Utilisez l'attribut `#[IsGranted()]` ou `$this->denyAccessUnlessGranted()`.
+*   Ne mettez pas de logique de permission complexe directement dans les contrôleurs.
 
 ---
 
-## 4. Sécurité et Types Stricts
+## 4. Tests de Sécurité
+
+Chaque règle d'accès critique doit être couverte par un test d'intégration (voir `tests/Integration/Security/DraftAccessTest.php`).
+
+Les tests doivent valider :
+1.  L'accès public aux ressources publiées.
+2.  La redirection vers le login (ou erreur 403) pour les utilisateurs non authentifiés tentant d'accéder à un brouillon ou une route d'admin.
+3.  L'accès autorisé pour les utilisateurs possédant le rôle `ROLE_ADMIN`.
+
+---
+
+## 5. Sécurité et Types Stricts
 
 *   Toutes les classes de sécurité doivent inclure `declare(strict_types=1);`.
 *   PHPStan doit être capable de valider le type de l'utilisateur retourné par `$this->getUser()`. Utilisez des annotations PHPDoc si nécessaire pour aider l'analyse statique.
