@@ -1,0 +1,61 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Tests\Integration\Controller;
+
+use App\Infrastructure\Entity\Post;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Doctrine\ORM\EntityManagerInterface;
+
+class PostShareIntegrationTest extends WebTestCase
+{
+    private EntityManagerInterface $entityManager;
+
+    public function testShareButtonsAreDisplayedOnPostPage(): void
+    {
+        $client = static::createClient();
+        $this->entityManager = static::getContainer()->get(EntityManagerInterface::class);
+
+        // Nettoyage de la base de données
+        $this->entityManager->createQuery('DELETE FROM App\Infrastructure\Entity\Post')->execute();
+
+        // 1. Arrange : Créer un article en base de données
+        $title = 'Article de test pour le partage';
+        $slug = 'article-de-test-partage';
+        $post = new Post($title, 'Contenu de l\'article de test pour vérifier les boutons de partage.');
+        $post->setSubTitle('Sous-titre de test');
+        $post->setSlug($slug);
+        $post->setPublished(true);
+
+        $this->entityManager->persist($post);
+        $this->entityManager->flush();
+
+        // 2. Act : Accéder à la page de l'article
+        $crawler = $client->request('GET', '/post/' . $slug);
+
+        // 3. Assert
+        $this->assertResponseIsSuccessful();
+
+        // Vérifier la présence du composant de partage (on cherche le texte ou l'icône)
+        // Le lien Facebook doit être présent
+        $this->assertSelectorExists('a[title="Partager sur Facebook"]');
+
+        // Vérifier que l'URL de partage contient bien l'URL de l'article
+        $facebookLink = $crawler->filter('a[title="Partager sur Facebook"]')->attr('href');
+        $this->assertNotNull($facebookLink);
+        $this->assertStringContainsString('https://www.facebook.com/sharer/sharer.php', (string) $facebookLink);
+
+        // L'URL de l'article devrait être encodée dans le lien
+        $currentUrl = $client->getRequest()->getUri();
+        $this->assertStringContainsString(urlencode($currentUrl), (string) $facebookLink);
+    }
+
+    protected function tearDown(): void
+    {
+        if (isset($this->entityManager)) {
+            $this->entityManager->close();
+        }
+        parent::tearDown();
+    }
+}
