@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
 class PostController extends AbstractController
 {
     #[Route('/posts', name: 'app_post_index', methods: ['GET'])]
@@ -30,6 +32,7 @@ class PostController extends AbstractController
     }
 
     #[Route('/admin/posts', name: 'app_post_admin_index', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function adminIndex(ListPostsInterface $listPosts): Response
     {
         $lists = $listPosts->execute(onlyPublished: false);
@@ -39,6 +42,7 @@ class PostController extends AbstractController
     }
 
     #[Route('/post/new', name: 'app_post_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request, CreatePostInterface $createPost): Response
     {
         $form = $this->createForm(PostType::class);
@@ -59,12 +63,19 @@ class PostController extends AbstractController
     #[Route('/post/{slug}', name: 'app_post_show', methods: ['GET'])]
     public function show(string $slug, GetPostBySlugInterface $getPostBySlug): Response
     {
+        $post = $getPostBySlug->execute($slug);
+
+        if (!$post->isPublished()) {
+            $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Cet article est un brouillon.');
+        }
+
         return $this->render('post/show.html.twig', [
-            'post' => $getPostBySlug->execute($slug),
+            'post' => $post,
         ]);
     }
 
     #[Route('/post/edit/{id}', name: 'app_post_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(int $id, Request $request, GetPost $getPostUseCase, UpdatePostInterface $updatePost): Response
     {
         $postModel = $getPostUseCase->execute($id);
@@ -94,6 +105,7 @@ class PostController extends AbstractController
     }
 
     #[Route('/post/delete/{id}', name: 'app_post_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(int $id, Request $request, DeletePostInterface $deletePost): Response
     {
         if ($this->isCsrfTokenValid('delete'.$id, (string) $request->request->get('_token'))) {
