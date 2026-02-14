@@ -2,6 +2,11 @@
 
 Ce document liste les améliorations techniques et les tâches d'infrastructure restantes pour le projet de blog.
 
+## Clean code 
+- [ ] **Pas de valeur par défaut dans les paramètres** ; 
+- [ ] **Pas de boolean dans les paramètres sauf si c'est une valeur d'un objet** : si le boolean est utilisé pour un if préférer faire 2 méthodes distincts
+
+
 ## Architecture & Domaine
 - [x] **Factories** : Implémenter les factories réelles pour `PostModel` et `TagModel` dans `src/Domain/Factory/`. ✓
 - [x] **Validation Domaine** : Renforcer la validation interne des modèles (ex: empêcher un titre vide directement dans le modèle en plus des assertions Symfony). ✓
