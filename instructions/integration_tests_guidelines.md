@@ -32,6 +32,10 @@ La variable `KERNEL_CLASS` est définie dans `phpunit.dist.xml` pour permettre �
 
 ### Outils
 - **PHPUnit** : Le moteur de test.
+- **ImportMap** : Utilisé pour gérer les assets JS/CSS. Pour les tests d'intégration (`WebTestCase`), les assets doivent être installés pour éviter des erreurs de rendu des templates Twig :
+  ```bash
+  php bin/console importmap:install
+  ```
 - **DAMA/DoctrineTestBundle** (Recommandé) : Pour isoler chaque test dans une transaction et éviter de polluer la base de données. *Note : Vérifier s'il est installé via `composer.json`.*
 
 ## 3. Classes de base
