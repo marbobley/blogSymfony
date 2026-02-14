@@ -10,6 +10,7 @@ Ce document liste les améliorations techniques et les tâches d'infrastructure 
 ## Architecture & Domaine
 - [x] **Factories** : Implémenter les factories réelles pour `PostModel` et `TagModel` dans `src/Domain/Factory/`. ✓
 - [x] **Validation Domaine** : Renforcer la validation interne des modèles (ex: empêcher un titre vide directement dans le modèle en plus des assertions Symfony). ✓
+- [x] **Initialisation des Modèles** : Initialiser les propriétés typées pour éviter les notices PHPUnit. ✓
 - [ ] **UUID** : Réfléchir à l'utilisation d'UUID générés par le domaine pour éviter la dépendance aux IDs auto-incrémentés de la base de données.
 
 ## Infrastructure

@@ -8,13 +8,26 @@ Les tests d'intégration vérifient que les différents composants de l'applicat
 
 ## 2. Configuration de l'environnement
 
-### Base de données de test
-Pour les tests d'intégration, nous utilisons une base de données séparée. Elle est configurée via le fichier `.env.test` ou des variables d'environnement.
+### Base de données de test (Docker)
+Pour les tests d'intégration, nous utilisons une base de données MySQL via Docker sur le port 3307 (pour éviter les conflits avec une instance locale).
 
-Assurez-vous que la base de données de test est créée et à jour :
+**Lancer la base de données :**
 ```bash
-symfony --env=test doctrine:database:create
-symfony --env=test doctrine:migrations:migrate
+docker compose up -d database
+```
+
+**Initialiser la base de données de test :**
+```bash
+symfony console --env=test doctrine:database:create --if-not-exists
+symfony console --env=test doctrine:schema:create
+```
+
+*Note : En CI (GitHub Actions), la base de données est automatiquement provisionnée par le workflow.*
+
+### Configuration PHPUnit
+La variable `KERNEL_CLASS` est définie dans `phpunit.dist.xml` pour permettre à PHPUnit de localiser le noyau Symfony sans configuration supplémentaire :
+```xml
+<server name="KERNEL_CLASS" value="App\Kernel" />
 ```
 
 ### Outils
