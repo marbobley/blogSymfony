@@ -3,38 +3,16 @@
 {% block title %}Liste des posts{% endblock %}
 
 {% block body %}
-    <div class="row mb-4 align-items-center">
-        <div class="col-12">
-            <h1 class="h2 fw-bold text-dark mb-0">Derniers Articles</h1>
-            <p class="text-muted small">Découvrez nos dernières publications</p>
-            {% if app.request.query.get('q') %}
-                <div class="d-flex align-items-center gap-2 mt-2">
-                    <span class="badge bg-light text-dark border p-2">
-                        Résultats pour : "<strong>{{ app.request.query.get('q') }}</strong>"
-                    </span>
-                    <a href="{{ path('app_post_index') }}" class="btn btn-sm btn-outline-secondary">
-                        <i class="bi bi-x-lg"></i> Effacer
-                    </a>
-                </div>
-            {% endif %}
-        </div>
-    </div>
+    <twig:PageHeader
+        title="Derniers Articles"
+        subtitle="Découvrez nos dernières publications"
+        :searchTerm="app.request.query.get('q')"
+        :clearSearchPath="path('app_post_index')"
+    />
 
-    <div class="row g-4">
-        {% for post in posts %}
-            <div class="col-12 col-md-6 col-lg-4">
-                <twig:PostCard :post="post" :showActions="true" />
-            </div>
-        {% else %}
-            <div class="col-12 text-center py-5">
-                <div class="p-5 bg-white rounded shadow-sm">
-                    <i class="bi bi-journal-x display-1 text-muted mb-3"></i>
-                    <p class="h4 text-muted">Aucun article trouvé pour le moment.</p>
-                    <a href="{{ path('app_post_new') }}" class="btn btn-primary mt-3 transition-base">
-                        Créer le premier article
-                    </a>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+    <twig:PostGrid
+        :posts="posts"
+        :showActions="true"
+        :showCreateButton="true"
+    />
 {% endblock %}

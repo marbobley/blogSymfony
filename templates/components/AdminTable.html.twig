@@ -1,0 +1,16 @@
+<div class="card shadow-sm border-0 overflow-hidden">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="bg-light">
+                <tr>
+                    {% for header in headers %}
+                        <th class="{{ loop.first ? 'ps-4' : (loop.last ? 'text-end pe-4' : '') }}">{{ header }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% block content %}{% endblock %}
+            </tbody>
+        </table>
+    </div>
+</div>

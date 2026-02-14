@@ -52,6 +52,7 @@ Les détails techniques et les implémentations.
 *   **Service** : Services d'infrastructure transverses (ex: `PostTagSynchronizer`).
 *   **Controller** : Contrôleurs Symfony (Input HTTP).
 *   **Form** : Formulaires Symfony.
+*   **Twig / Components** : Composants Twig (`templates/components/`) pour modulariser le frontend.
 *   **Migrations** : Fichiers de migration Doctrine.
 
 ---
