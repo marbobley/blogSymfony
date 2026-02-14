@@ -8,11 +8,11 @@ use App\Infrastructure\Entity\Post;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Doctrine\ORM\EntityManagerInterface;
 
-class PostShareIntegrationTest extends WebTestCase
+class RedditShareIntegrationTest extends WebTestCase
 {
     private EntityManagerInterface $entityManager;
 
-    public function testShareButtonsAreDisplayedOnPostPage(): void
+    public function testRedditShareButtonIsDisplayedOnPostPage(): void
     {
         $client = static::createClient();
         $this->entityManager = static::getContainer()->get(EntityManagerInterface::class);
@@ -21,9 +21,9 @@ class PostShareIntegrationTest extends WebTestCase
         $this->entityManager->createQuery('DELETE FROM App\Infrastructure\Entity\Post')->execute();
 
         // 1. Arrange : Créer un article en base de données
-        $title = 'Article de test pour le partage';
-        $slug = 'article-de-test-partage';
-        $post = new Post($title, 'Contenu de l\'article de test pour vérifier les boutons de partage.');
+        $title = 'Article de test pour le partage Reddit';
+        $slug = 'article-de-test-partage-reddit';
+        $post = new Post($title, 'Contenu de l\'article de test pour vérifier le bouton Reddit.');
         $post->setSubTitle('Sous-titre de test');
         $post->setSlug($slug);
         $post->setPublished(true);
@@ -37,18 +37,17 @@ class PostShareIntegrationTest extends WebTestCase
         // 3. Assert
         $this->assertResponseIsSuccessful();
 
-        // Vérifier la présence du composant de partage (on cherche le texte ou l'icône)
-        // Le lien Facebook doit être présent
-        $this->assertSelectorExists('a[title="Partager sur Facebook"]');
+        // Le lien Reddit doit être présent
+        $this->assertSelectorExists('a[title="Partager sur Reddit"]');
 
-        // Vérifier que l'URL de partage contient bien l'URL de l'article
-        $facebookLink = $crawler->filter('a[title="Partager sur Facebook"]')->attr('href');
-        $this->assertNotNull($facebookLink);
-        $this->assertStringContainsString('https://www.facebook.com/sharer/sharer.php', (string) $facebookLink);
+        // Vérifier que l'URL de partage contient bien l'URL de l'article et le titre
+        $redditLink = $crawler->filter('a[title="Partager sur Reddit"]')->attr('href');
+        $this->assertNotNull($redditLink);
+        $this->assertStringContainsString('https://reddit.com/submit', (string) $redditLink);
 
-        // L'URL de l'article devrait être encodée dans le lien
         $currentUrl = $client->getRequest()->getUri();
-        $this->assertStringContainsString(urlencode($currentUrl), (string) $facebookLink);
+        $this->assertStringContainsString('url=' . urlencode($currentUrl), (string) $redditLink);
+        $this->assertStringContainsString('title=' . urlencode($title), (string) $redditLink);
     }
 
     protected function tearDown(): void

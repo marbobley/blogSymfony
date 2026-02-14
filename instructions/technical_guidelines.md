@@ -25,7 +25,7 @@ Le **Clean Code** consiste à écrire du code facile à lire, à comprendre et �
 *   **DRY (Don't Repeat Yourself)** : Évitez la duplication.
 *   **SOLID** :
     *   **S**ingle Responsibility.
-    *   **O**pen/Closed (ouvert à l'extension, fermé à la modification). Voir l'utilisation des [Tags Symfony](symfony_tags_guidelines.md) pour un exemple concret d'extensibilité.
+    *   **O**pen/Closed (ouvert à l'extension, fermé à la modification). Voir le [Guide du Système de Partage](sharing_system_guidelines.md) pour un exemple concret d'extensibilité utilisant les [Tags Symfony](symfony_tags_guidelines.md).
     *   **L**iskov Substitution.
     *   **I**nterface Segregation.
     *   **D**ependency Inversion : Dépendre des abstractions (interfaces), pas des implémentations.
