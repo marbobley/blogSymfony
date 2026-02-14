@@ -4,31 +4,28 @@
 
 {% block body %}
     <div class="row mb-4 align-items-center">
-        <div class="col-12 col-md-6">
-            <h1 class="h2 fw-bold text-dark mb-0">
-                Articles pour <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 ms-2"><i class="bi bi-tag me-1"></i> {{ tag.name }}</span>
-            </h1>
-            <p class="text-muted small mt-2">Découvrez tous les articles associés à ce tag</p>
-        </div>
-        <div class="col-12 col-md-6">
-            <div class="d-flex gap-2">
-                <form action="{{ path('app_tag_show', {slug: tag.slug}) }}" method="get" class="flex-grow-1">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Rechercher dans ce tag..." value="{{ app.request.query.get('q') }}">
-                        <button class="btn btn-outline-primary" type="submit">
-                            <i class="bi bi-search"></i>
-                        </button>
-                        {% if app.request.query.get('q') %}
-                            <a href="{{ path('app_tag_show', {slug: tag.slug}) }}" class="btn btn-outline-secondary">
-                                <i class="bi bi-x-lg"></i>
-                            </a>
-                        {% endif %}
-                    </div>
-                </form>
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="h2 fw-bold text-dark mb-0">
+                        Articles pour <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 ms-2"><i class="bi bi-tag me-1"></i> {{ tag.name }}</span>
+                    </h1>
+                    <p class="text-muted small mt-2">Découvrez tous les articles associés à ce tag</p>
+                </div>
                 <a href="{{ path('app_tag_index') }}" class="btn btn-link text-decoration-none transition-base text-nowrap">
                     <i class="bi bi-arrow-left me-1"></i> Tous les tags
                 </a>
             </div>
+            {% if app.request.query.get('q') %}
+                <div class="d-flex align-items-center gap-2 mt-2">
+                    <span class="badge bg-light text-dark border p-2">
+                        Résultats pour : "<strong>{{ app.request.query.get('q') }}</strong>"
+                    </span>
+                    <a href="{{ path('app_tag_show', {slug: tag.slug}) }}" class="btn btn-sm btn-outline-secondary">
+                        <i class="bi bi-x-lg"></i> Effacer
+                    </a>
+                </div>
+            {% endif %}
         </div>
     </div>
 

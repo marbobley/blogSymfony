@@ -18,6 +18,6 @@ Ce document liste les améliorations et les tâches restantes pour le projet de 
 
 ## Frontend
 - [x] **Page d'erreur** : Mise en place de pages d'erreur Twig propres (404, 500) et gestion dans le `ExceptionListener`. ✓
-- [x] **Système de recherche** : Ajouter une barre de recherche simple pour les articles. ✓
+- [x] **Système de recherche** : Ajouter une barre de recherche globale dans la barre de navigation. ✓
 - [ ] **Pagination** : Implémenter la pagination pour la liste des articles sur la page d'accueil.
 - [ ] **Commentaires** : (Optionnel) Étudier l'ajout d'un système de commentaires pour les articles.
