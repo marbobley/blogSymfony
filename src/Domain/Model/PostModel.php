@@ -30,6 +30,7 @@ class PostModel
     private string $content = '';
     private string $slug = '';
     private ?DateTimeImmutable $createdAt = null;
+    private ?DateTimeImmutable $updatedAt = null;
     private bool $published = false;
 
     public function isPublished(): bool
@@ -50,6 +51,16 @@ class PostModel
     public function setCreatedAt(?DateTimeImmutable $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt(): ?DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?DateTimeImmutable $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 
     public function setSlug(string $slug): void

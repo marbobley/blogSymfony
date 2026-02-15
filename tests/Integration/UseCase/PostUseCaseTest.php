@@ -88,6 +88,11 @@ class PostUseCaseTest extends KernelTestCase
         $this->entityManager->persist($post);
         $this->entityManager->flush();
 
+        $initialUpdatedAt = $post->getUpdatedAt();
+
+        // On attend un peu pour être sûr que le timestamp change si la résolution est à la seconde
+        sleep(1);
+
         $updateModel = new PostModel();
         $updateModel->setTitle('Nouveau titre mis à jour');
         $updateModel->setSubTitle('Nouveau sub');
@@ -96,10 +101,16 @@ class PostUseCaseTest extends KernelTestCase
         $result = $this->updatePost->execute($post->getId(), $updateModel);
 
         $this->assertEquals('Nouveau titre mis à jour', $result->getTitle());
+        $this->assertNotNull($result->getUpdatedAt());
+
+        if ($initialUpdatedAt !== null) {
+            $this->assertGreaterThan($initialUpdatedAt->getTimestamp(), $result->getUpdatedAt()->getTimestamp());
+        }
 
         $this->entityManager->clear();
         $dbPost = $this->entityManager->find(Post::class, $post->getId());
         $this->assertEquals('Nouveau titre mis à jour', $dbPost->getTitle());
+        $this->assertNotNull($dbPost->getUpdatedAt());
     }
 
     public function testGetPost(): void
