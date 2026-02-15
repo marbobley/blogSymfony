@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Infrastructure\Security;
 
 use App\Infrastructure\Entity\User;
+use App\Infrastructure\MapperInterface\UserMapperInterface;
 use App\Infrastructure\Repository\UserRepositoryInterface;
 use App\Infrastructure\Security\UserAdapter;
 use App\Infrastructure\Security\UserProvider;
@@ -16,28 +17,36 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class UserProviderTest extends TestCase
 {
     private UserRepositoryInterface $userRepository;
+    private UserMapperInterface $userMapper;
     private UserProvider $provider;
 
     protected function setUp(): void
     {
         $this->userRepository = $this->createMock(UserRepositoryInterface::class);
-        $this->provider = new UserProvider($this->userRepository);
+        $this->userMapper = $this->createMock(UserMapperInterface::class);
+        $this->provider = new UserProvider($this->userRepository, $this->userMapper);
     }
 
     public function testLoadUserByIdentifierReturnsUserAdapter(): void
     {
         $email = 'test@example.com';
         $user = $this->createMock(User::class);
+        $adapter = new UserAdapter($user);
 
         $this->userRepository->expects($this->once())
             ->method('findByEmail')
             ->with($email)
             ->willReturn($user);
 
+        $this->userMapper->expects($this->once())
+            ->method('toAdapter')
+            ->with($user)
+            ->willReturn($adapter);
+
         $result = $this->provider->loadUserByIdentifier($email);
 
         $this->assertInstanceOf(UserAdapter::class, $result);
-        $this->assertSame($user, $result->getDomainUser());
+        $this->assertSame($adapter, $result);
     }
 
     public function testLoadUserByIdentifierThrowsExceptionIfNotFound(): void
@@ -61,10 +70,15 @@ class UserProviderTest extends TestCase
             ->with($email)
             ->willReturn($user);
 
+        $this->userMapper->expects($this->once())
+            ->method('toAdapter')
+            ->with($user)
+            ->willReturn($adapter);
+
         $result = $this->provider->refreshUser($adapter);
 
         $this->assertInstanceOf(UserAdapter::class, $result);
-        $this->assertSame($user, $result->getDomainUser());
+        $this->assertSame($adapter, $result);
     }
 
     public function testRefreshUserThrowsUnsupportedUserException(): void
