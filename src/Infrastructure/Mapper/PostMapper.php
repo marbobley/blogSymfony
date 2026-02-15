@@ -34,6 +34,7 @@ class PostMapper implements PostMapperInterface
         $postModel->setSlug((string)$post->getSlug());
         $postModel->setSubTitle($post->getSubTitle());
         $postModel->setCreatedAt($post->getCreatedAt());
+        $postModel->setUpdatedAt($post->getUpdatedAt());
         $postModel->setPublished($post->isPublished());
 
         $tagModels = $this->tagMapper->toModels($post->getTags());

@@ -33,9 +33,19 @@ class AppFixtures extends Fixture
         for ($i = 1; $i <= 10; $i++) {
             $post = new Post(
                 "Article numéro $i",
-                "Ceci est le contenu de l'article numéro $i. Il contient des informations très intéressantes sur le développement Symfony."
+                "Ceci est le contenu de l'article numéro $i. Il contient des informations très intéressantes sur le développement Symfony. " . str_repeat("Lorem ipsum dolor sit amet. ", 5)
             );
             $post->setSubTitle("Ceci est le soutitre $i");
+            $post->setPublished(true);
+
+            // Définition manuelle des dates pour avoir des données variées
+            $createdAt = new \DateTimeImmutable("-" . (11 - $i) . " days");
+            $post->setCreatedAt($createdAt);
+
+            // Un article sur deux est marqué comme "modifié"
+            if ($i % 2 === 0) {
+                $post->setUpdatedAt($createdAt->modify("+" . rand(1, 10) . " hours"));
+            }
 
             // Ajout de quelques tags aléatoires
             $randomTags = (array) array_rand($tags, 2);

@@ -82,8 +82,13 @@ class Post
         $this->published = $published;
     }
 
+    #[Gedmo\Timestampable(on: "create")]
     #[ORM\Column]
     private \DateTimeImmutable $createdAt;
+
+    #[Gedmo\Timestampable(on: "update")]
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     /**
      * @var Collection<int, Tag>
@@ -96,7 +101,6 @@ class Post
     {
         $this->title = $title;
         $this->content = $content;
-        $this->createdAt = new \DateTimeImmutable();
         $this->tags = new ArrayCollection();
     }
 
@@ -123,6 +127,21 @@ class Post
     public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 
     /**
