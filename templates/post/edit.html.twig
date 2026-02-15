@@ -47,6 +47,13 @@
                                     <div class="d-grid gap-2">
                                         {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
                                         {{ form_widget(form.saveAndContinue, {'attr': {'class': 'btn btn-outline-primary'}}) }}
+                                        <button type="button"
+                                                class="btn btn-outline-info"
+                                                data-controller="post-preview"
+                                                data-post-preview-url-value="{{ path('app_post_preview') }}"
+                                                data-action="click->post-preview#preview">
+                                            <i class="bi bi-eye me-1"></i> Prévisualiser
+                                        </button>
                                         <a href="{{ path('app_post_admin_index') }}" class="btn btn-outline-secondary btn-sm">Annuler</a>
                                     </div>
                                 </div>
@@ -64,6 +71,7 @@
                         </div>
                     </div>
                     {{ form_end(form) }}
+
 
                     <hr class="my-5">
 

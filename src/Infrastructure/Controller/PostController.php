@@ -16,11 +16,30 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class PostController extends AbstractController
 {
+    #[Route('/post/preview', name: 'app_post_preview', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
+    public function preview(Request $request): Response
+    {
+        $form = $this->createForm(PostType::class);
+        $form->handleRequest($request);
+
+        /** @var PostModel $post */
+        $post = $form->getData();
+
+        if (null === $post->getCreatedAt()) {
+            $post->setCreatedAt(new \DateTimeImmutable());
+        }
+
+        return $this->render('post/show.html.twig', [
+            'post' => $post,
+            'preview' => true,
+        ]);
+    }
+
     #[Route('/posts', name: 'app_post_index', methods: ['GET'])]
     public function index(Request $request, ListPostsInterface $listPosts): Response
     {
