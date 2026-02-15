@@ -32,7 +32,7 @@ class RegisterUserTest extends KernelTestCase
 
     public function testRegisterUser(): void
     {
-        $dto = new UserRegistrationModel('test@example.com', 'hashed_password');
+        $dto = new UserRegistrationModel('test@example.com', 'plain_password');
 
         $result = $this->registerUser->execute($dto);
 
@@ -41,7 +41,7 @@ class RegisterUserTest extends KernelTestCase
 
         $dbUser = $this->entityManager->getRepository(User::class)->findOneBy(['email' => 'test@example.com']);
         $this->assertNotNull($dbUser);
-        $this->assertEquals('hashed_password', $dbUser->getPassword());
+        $this->assertNotEquals('plain_password', $dbUser->getPassword());
     }
 
     protected function tearDown(): void

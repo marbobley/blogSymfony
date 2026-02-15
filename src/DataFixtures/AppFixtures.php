@@ -5,11 +5,16 @@ namespace App\DataFixtures;
 use App\Infrastructure\Entity\Post;
 use App\Infrastructure\Entity\Tag;
 use App\Infrastructure\Entity\User;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Exception;
 
 class AppFixtures extends Fixture
 {
+    /**
+     * @throws Exception
+     */
     public function load(ObjectManager $manager): void
     {
         // --- USERS ---
@@ -21,6 +26,20 @@ class AppFixtures extends Fixture
         $manager->persist($user);
 
         // --- TAGS ---
+        $tags = $this->generateTags($manager);
+
+        // --- POSTS ---
+        $this->generatePosts($tags, $manager);
+
+        $manager->flush();
+    }
+
+    /**
+     * @param ObjectManager $manager
+     * @return array
+     */
+    public function generateTags(ObjectManager $manager): array
+    {
         $tags = [];
         $tagNames = ['Symfony', 'PHP', 'Web Development', 'Doctrine', 'Tutorial'];
         foreach ($tagNames as $name) {
@@ -28,8 +47,17 @@ class AppFixtures extends Fixture
             $manager->persist($tag);
             $tags[] = $tag;
         }
+        return $tags;
+    }
 
-        // --- POSTS ---
+    /**
+     * @param array $tags
+     * @param ObjectManager $manager
+     * @return void
+     * @throws Exception
+     */
+    public function generatePosts(array $tags, ObjectManager $manager): void
+    {
         for ($i = 1; $i <= 10; $i++) {
             $post = new Post(
                 "Article numéro $i",
@@ -38,17 +66,14 @@ class AppFixtures extends Fixture
             $post->setSubTitle("Ceci est le soutitre $i");
             $post->setPublished(true);
 
-            // Définition manuelle des dates pour avoir des données variées
-            $createdAt = new \DateTimeImmutable("-" . (11 - $i) . " days");
+            $createdAt = new DateTimeImmutable("-" . (11 - $i) . " days");
             $post->setCreatedAt($createdAt);
 
-            // Un article sur deux est marqué comme "modifié"
             if ($i % 2 === 0) {
                 $post->setUpdatedAt($createdAt->modify("+" . rand(1, 10) . " hours"));
             }
 
-            // Ajout de quelques tags aléatoires
-            $randomTags = (array) array_rand($tags, 2);
+            $randomTags = (array)array_rand($tags, 2);
             foreach ($randomTags as $index) {
                 $post->addTag($tags[$index]);
             }
@@ -56,7 +81,5 @@ class AppFixtures extends Fixture
             $manager->persist($post);
 
         }
-
-        $manager->flush();
     }
 }

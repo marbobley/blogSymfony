@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
-use App\Domain\Factory\UserRegistrationDTOFactory;
 use App\Domain\Model\UserRegistrationModel;
 use App\Domain\UseCaseInterface\RegisterUserInterface;
 use App\Infrastructure\Form\RegistrationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -44,8 +42,7 @@ class SecurityController extends AbstractController
     #[Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
     public function register(
         Request $request,
-        RegisterUserInterface $registerUser,
-        UserPasswordHasherInterface $passwordHasher
+        RegisterUserInterface $registerUser
     ): Response {
         if ($this->getUser()) {
             return $this->redirectToRoute('app_post_index');
@@ -58,16 +55,7 @@ class SecurityController extends AbstractController
             /** @var UserRegistrationModel $dto */
             $dto = $form->getData();
 
-            // Hachage du mot de passe dans l'infrastructure
-            $hashedPassword = $passwordHasher->hashPassword(
-                new \App\Infrastructure\Security\UserAdapter(new \App\Infrastructure\Entity\User($dto->email, '')),
-                $dto->plainPassword
-            );
-
-            // Mise à jour du DTO avec le mot de passe haché (ou création d'un nouveau DTO)
-            $secureDto = UserRegistrationDTOFactory::create($dto->email, $hashedPassword);
-
-            $registerUser->execute($secureDto);
+            $registerUser->execute($dto);
 
             $this->addFlash('success', 'Votre compte a été créé avec succès ! Vous pouvez maintenant vous connecter.');
 

@@ -16,7 +16,7 @@ Ce document liste les améliorations techniques et les tâches d'infrastructure 
 ## Infrastructure
 - [x] **Gestion des Exceptions** : Créer un `ExceptionListener` pour transformer les exceptions du Domaine en réponses HTTP propres (ex: `EntityNotFoundException` -> 404). ✓
 - [ ] **Optimisation SQL** : Vérifier les plans d'exécution pour la récupération des posts avec leurs tags (éviter le problème N+1).
-- [ ] **Sécurité : Hachage des mots de passe** : Déplacer le hachage du mot de passe hors du contrôleur. Utiliser une interface de service injectée dans le Use Case `RegisterUser` pour respecter l'architecture hexagonale.
+- [x] **Sécurité : Hachage des mots de passe** : Déplacer le hachage du mot de passe hors du contrôleur. Utiliser une interface de service injectée dans le Use Case `RegisterUser` pour respecter l'architecture hexagonale. ✓
 
 ## Tests
 - [x] **Couverture Tests Unitaires** : Atteindre 100% de couverture sur le dossier `src/Domain/UseCase` et `src/Domain/Model`. ✓

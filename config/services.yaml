@@ -45,6 +45,9 @@ services:
     App\Domain\UseCaseInterface\RegisterUserInterface:
         alias: App\Domain\UseCase\RegisterUser
 
+    App\Domain\Service\PasswordHasherInterface:
+        alias: App\Infrastructure\Security\SymfonyPasswordHasher
+
     App\Infrastructure\Twig\Component\ShareButtons:
         arguments:
             $sharingServices: !tagged_iterator app.sharing_service
