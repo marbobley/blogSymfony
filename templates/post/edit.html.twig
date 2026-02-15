@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
+{% block container_class %}container-fluid{% endblock %}
 
 {% block title %}Modifier l'article{% endblock %}
 
 {% block body %}
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-8 col-lg-6">
+    <div class="row">
+        <div class="col-12">
             <div class="card shadow-sm border-0 animate-fade-in">
                 <div class="card-body p-4 p-md-5">
                     <div class="mb-4 text-center">
@@ -14,11 +15,54 @@
                     </div>
 
                     {{ form_start(form) }}
-                    {{ form_row(form.title) }}
-                    {{ form_row(form.content) }}
-                    {{ form_row(form.sub_title) }}
-                    {{ form_row(form.tags) }}
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="mb-3">
+                                {{ form_label(form.title, 'Titre de l\'article', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                {{ form_widget(form.title, {'attr': {'class': 'form-control form-control-lg', 'placeholder': 'Entrez le titre...'}}) }}
+                                {{ form_errors(form.title) }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(form.sub_title, 'Sous-titre / Chapô', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                {{ form_widget(form.sub_title, {'attr': {'class': 'form-control', 'rows': 3, 'placeholder': 'Un bref résumé...'}}) }}
+                                {{ form_errors(form.sub_title) }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(form.content, 'Contenu', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                {{ form_widget(form.content, {'attr': {'class': 'form-control', 'rows': 20, 'placeholder': 'Rédigez votre article ici...'}}) }}
+                                {{ form_errors(form.content) }}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="card bg-light border-0 mb-4">
+                                <div class="card-body">
+                                    <h5 class="card-title h6 fw-bold mb-3">Publication</h5>
+                                    <div class="form-check form-switch mb-3">
+                                        {{ form_widget(form.published, {'attr': {'class': 'form-check-input'}}) }}
+                                        {{ form_label(form.published, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+                                        {{ form_widget(form.saveAndContinue, {'attr': {'class': 'btn btn-outline-primary'}}) }}
+                                        <a href="{{ path('app_post_admin_index') }}" class="btn btn-outline-secondary btn-sm">Annuler</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-light border-0">
+                                <div class="card-body">
+                                    <h5 class="card-title h6 fw-bold mb-3">Tags</h5>
+                                    <div class="post-tags-selector">
+                                        {{ form_widget(form.tags) }}
+                                    </div>
+                                    {{ form_errors(form.tags) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {{ form_end(form) }}
 
                     <hr class="my-5">

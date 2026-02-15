@@ -52,6 +52,11 @@ class PostController extends AbstractController
             $post = $form->getData();
             $createPost->execute($post);
             $this->addFlash('success', 'Votre article a été enregistré avec succès !');
+
+            if ($form->get('saveAndContinue')->isClicked()) {
+                return $this->redirectToRoute('app_post_edit', ['id' => $post->getId()]);
+            }
+
             return $this->redirectToRoute('app_post_admin_index');
         }
 
@@ -91,6 +96,10 @@ class PostController extends AbstractController
                 $updatePost->execute($id, $dto);
 
                 $this->addFlash('success', 'Votre article a été mis à jour avec succès !');
+
+                if ($form->get('saveAndContinue')->isClicked()) {
+                    return $this->redirectToRoute('app_post_edit', ['id' => $id]);
+                }
 
                 return $this->redirectToRoute('app_post_admin_index');
             }
