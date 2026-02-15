@@ -82,6 +82,7 @@ class Post
         $this->published = $published;
     }
 
+    #[Gedmo\Timestampable(on: "create")]
     #[ORM\Column]
     private \DateTimeImmutable $createdAt;
 
@@ -96,7 +97,6 @@ class Post
     {
         $this->title = $title;
         $this->content = $content;
-        $this->createdAt = new \DateTimeImmutable();
         $this->tags = new ArrayCollection();
     }
 
