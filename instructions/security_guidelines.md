@@ -45,6 +45,11 @@ Pour la gestion fine des droits (ex: "Seul l'auteur peut modifier son post"), ut
 
 *   Ne mettez pas de logique de permission complexe directement dans les contrôleurs.
 
+### D. Hachage des Mots de Passe
+Le hachage des mots de passe ne doit pas être effectué directement dans le contrôleur. 
+*   **Approche recommandée** : Injecter une interface de hachage (définie dans le domaine ou une abstraction d'infrastructure) dans le Use Case d'inscription.
+*   **Actuellement** : Le hachage est réalisé dans `SecurityController` avant l'appel au Use Case, ce qui est une solution temporaire à améliorer.
+
 ---
 
 ## 4. Tests de Sécurité

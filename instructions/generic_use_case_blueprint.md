@@ -25,7 +25,7 @@ On commence toujours par le cœur (Domaine) pour finir par les détails techniqu
 *Lieu : `src/Infrastructure` & `templates/`*
 
 1.  **Entité (`Entity/`)** : Créer ou mettre à jour l'entité Doctrine.
-2.  **Persistance / Provider (`Persistence/` ou `Provider/`)** : Implémenter le provider concret (ex: `DoctrinePostProvider`). Il gère la conversion Modèle <-> Entité.
+2.  **Persistance / Repository (`Persistence/` ou `Repository/`)** : Implémenter le provider concret (ex: `DoctrinePostProvider`). Il gère la conversion Modèle <-> Entité.
 3.  **Contrôleur (`Controller/`)** :
     *   Injecter l'interface du Use Case.
     *   Appeler le Use Case avec le Modèle de domaine.
