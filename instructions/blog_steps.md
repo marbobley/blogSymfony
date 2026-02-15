@@ -17,7 +17,7 @@ Contrairement à l'approche standard, on ne commence pas par la base de données
 C'est seulement ici que l'on connecte les outils (Symfony & Doctrine).
 
 1.  **Entité Doctrine** : Créer `Post` dans `src/Infrastructure/Entity`. C'est ici qu'on utilise les annotations `#[ORM]` et `#[Gedmo\Slug]`.
-2.  **Persistence / Provider** : Créer `DoctrinePostProvider` dans `src/Infrastructure/Persistence` (ou `src/Infrastructure/Provider`). Il implémente `PostProviderInterface` et fait le pont entre `PostModel` et l'entité `Post`.
+2.  **Persistence / Provider** : Créer `DoctrinePostProvider` dans `src/Infrastructure/Persistence` (ou `src/Infrastructure/Repository`). Il implémente `PostProviderInterface` et fait le pont entre `PostModel` et l'entité `Post`.
 3.  **Formulaire & Validation** : Créer un `PostType` dans `src/Infrastructure/Form`.
 4.  **Contrôleur Symfony** : Créer un contrôleur dans `src/Infrastructure/Controller` qui :
     *   Traite le formulaire avec le `PostModel`.

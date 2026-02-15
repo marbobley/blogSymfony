@@ -8,10 +8,10 @@ use App\Infrastructure\Entity\User as DomainUser;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class UserAdapter implements UserInterface, PasswordAuthenticatedUserInterface
+readonly class UserAdapter implements UserInterface, PasswordAuthenticatedUserInterface
 {
     public function __construct(
-        private readonly DomainUser $domainUser
+        private DomainUser $domainUser
     ) {
     }
 

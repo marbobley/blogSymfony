@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Security;
 
+use App\Infrastructure\MapperInterface\UserMapperInterface;
 use App\Infrastructure\Repository\UserRepositoryInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
@@ -18,7 +19,8 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 {
     public function __construct(
-        private readonly UserRepositoryInterface $userRepository
+        private readonly UserRepositoryInterface $userRepository,
+        private readonly UserMapperInterface $userMapper
     ) {
     }
 
@@ -32,7 +34,7 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
             throw $e;
         }
 
-        return new UserAdapter($user);
+        return $this->userMapper->toAdapter($user);
     }
 
     public function refreshUser(UserInterface $user): UserInterface

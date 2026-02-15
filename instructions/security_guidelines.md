@@ -45,6 +45,12 @@ Pour la gestion fine des droits (ex: "Seul l'auteur peut modifier son post"), ut
 
 *   Ne mettez pas de logique de permission complexe directement dans les contrôleurs.
 
+### D. Hachage des Mots de Passe
+Le hachage des mots de passe est effectué au sein du domaine via une interface de service.
+*   **Approche** : L'interface `App\Domain\Service\PasswordHasherInterface` est injectée dans le Use Case `RegisterUser`.
+*   **Implémentation** : `App\Infrastructure\Security\SymfonyPasswordHasher` utilise le hacheur natif de Symfony.
+*   **Contrôleur** : Le `SecurityController` ne manipule que des mots de passe en clair (via le DTO) et délègue le hachage au Use Case.
+
 ---
 
 ## 4. Tests de Sécurité
@@ -67,5 +73,5 @@ Les tests doivent valider :
 
 ## 5. Checklist d'Implémentation
 
-- [ ] Le mot de passe est haché avant d'entrer dans le Domaine (via un service d'infrastructure).
+- [x] Le mot de passe est haché au sein du Domaine (via une interface de service implémentée par l'infrastructure).
 - [ ] La CI passe au vert (PHPUnit & PHPStan niveau 8).
