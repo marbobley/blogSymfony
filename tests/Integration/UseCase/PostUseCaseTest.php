@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration\UseCase;
 
+use App\Domain\Criteria\PostCriteria;
 use App\Domain\Model\PostModel;
 use App\Domain\UseCaseInterface\CreatePostInterface;
 use App\Domain\UseCaseInterface\DeletePostInterface;
@@ -77,10 +78,10 @@ class PostUseCaseTest extends KernelTestCase
 
         $this->entityManager->flush();
 
-        $allPublished = $this->listPublishedPosts->execute();
+        $allPublished = $this->listPublishedPosts->execute(new PostCriteria());
         $this->assertCount(1, $allPublished);
 
-        $all = $this->listAllPosts->execute();
+        $all = $this->listAllPosts->execute(new PostCriteria());
         $this->assertCount(2, $all);
     }
 

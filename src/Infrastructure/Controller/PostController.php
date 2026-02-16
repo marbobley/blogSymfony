@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
+use App\Domain\Criteria\PostCriteria;
 use App\Domain\Model\PostModel;
 use App\Domain\UseCase\GetPost;
 use App\Domain\UseCaseInterface\CreatePostInterface;
@@ -45,7 +46,7 @@ class PostController extends AbstractController
     public function index(Request $request, ListPublishedPostsInterface $listPosts): Response
     {
         $search = $request->query->get('q');
-        $lists = $listPosts->execute(search: $search);
+        $lists = $listPosts->execute(new PostCriteria(search: (string) $search));
         return $this->render('post/index.html.twig', [
             'posts' => $lists,
         ]);
@@ -55,7 +56,7 @@ class PostController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function adminIndex(ListAllPostsInterface $listPosts): Response
     {
-        $lists = $listPosts->execute();
+        $lists = $listPosts->execute(new PostCriteria());
         return $this->render('post/admin_index.html.twig', [
             'posts' => $lists,
         ]);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\UseCase;
 
+use App\Domain\Criteria\PostCriteria;
 use App\Domain\Provider\PostProviderInterface;
 use App\Domain\UseCaseInterface\ListAllPostsInterface;
 
@@ -14,8 +15,8 @@ readonly class ListAllPosts implements ListAllPostsInterface
     ) {
     }
 
-    public function execute(?int $tagId = null, ?string $search = null): array
+    public function execute(?PostCriteria $criteria = null): array
     {
-        return $this->postProvider->findByTag($tagId, $search);
+        return $this->postProvider->findByCriteria($criteria ?? new PostCriteria());
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
+use App\Domain\Criteria\PostCriteria;
 use App\Domain\Model\PostModel;
 use App\Domain\Provider\PostProviderInterface;
 use App\Domain\UseCase\ListPublishedPosts;
@@ -22,8 +23,8 @@ class ListPublishedPostsTest extends TestCase
 
         $postProvider = $this->createMock(PostProviderInterface::class);
         $postProvider->expects($this->once())
-            ->method('findPublished')
-            ->with(null, null)
+            ->method('findPublishedByCriteria')
+            ->with($this->isInstanceOf(PostCriteria::class))
             ->willReturn($publishedPosts);
 
         $useCase = new ListPublishedPosts($postProvider);

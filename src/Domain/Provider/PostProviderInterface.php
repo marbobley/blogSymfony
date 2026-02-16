@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace App\Domain\Provider;
 
+use App\Domain\Criteria\PostCriteria;
 use App\Domain\Model\PostModel;
 
 interface PostProviderInterface
@@ -16,10 +17,10 @@ interface PostProviderInterface
     public function findBySlug(string $slug): PostModel;
 
     /** @return PostModel[] */
-    public function findByTag(?int $tagId, ?string $search = null) : array;
+    public function findByCriteria(PostCriteria $criteria): array;
 
     /** @return PostModel[] */
-    public function findPublished(?int $tagId = null, ?string $search = null): array;
+    public function findPublishedByCriteria(PostCriteria $criteria): array;
 
     public function update(int $id, PostModel $postModel): PostModel;
 }

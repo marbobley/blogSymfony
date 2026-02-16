@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Adapter;
 
+use App\Domain\Criteria\PostCriteria;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\PostModel;
 use App\Domain\Provider\PostProviderInterface;
@@ -75,8 +76,11 @@ readonly class PostAdapter implements PostProviderInterface
     /**
      * @return PostModel[]
      */
-    public function findByTag(?int $tagId, ?string $search = null): array
+    public function findByCriteria(PostCriteria $criteria): array
     {
+        $tagId = $criteria->getTagId();
+        $search = $criteria->getSearch();
+
         if ($tagId !== null) {
             $tag = $this->tagRepository->findById($tagId);
             if (!$tag) {
@@ -95,8 +99,11 @@ readonly class PostAdapter implements PostProviderInterface
     /**
      * @return PostModel[]
      */
-    public function findPublished(?int $tagId = null, ?string $search = null): array
+    public function findPublishedByCriteria(PostCriteria $criteria): array
     {
+        $tagId = $criteria->getTagId();
+        $search = $criteria->getSearch();
+
         $tag = null;
         if ($tagId !== null) {
             $tag = $this->tagRepository->findById($tagId);

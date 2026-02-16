@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
+use App\Domain\Criteria\PostCriteria;
 use App\Domain\Model\TagModel;
 use App\Domain\UseCase\GetTag;
 use App\Domain\UseCaseInterface\CreateTagInterface;
@@ -56,7 +57,7 @@ class TagController extends AbstractController
         $search = $request->query->get('q');
         return $this->render('tag/show.html.twig', [
             'tag' => $tag,
-            'posts' => $listPosts->execute($tag->getId(), search: $search),
+            'posts' => $listPosts->execute(new PostCriteria(tagId: $tag->getId(), search: (string) $search)),
         ]);
     }
 
