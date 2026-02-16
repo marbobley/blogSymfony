@@ -14,6 +14,7 @@ use App\Domain\UseCaseInterface\ListAllPostsInterface;
 use App\Domain\UseCaseInterface\ListPublishedPostsInterface;
 use App\Domain\UseCaseInterface\UpdatePostInterface;
 use App\Infrastructure\Form\PostType;
+use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +34,7 @@ class PostController extends AbstractController
         $post = $form->getData();
 
         if (null === $post->getCreatedAt()) {
-            $post->setCreatedAt(new \DateTimeImmutable());
+            $post->setCreatedAt(new DateTimeImmutable());
         }
 
         return $this->render('post/show.html.twig', [
