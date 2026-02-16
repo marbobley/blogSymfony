@@ -9,7 +9,8 @@ use App\Domain\UseCase\GetPost;
 use App\Domain\UseCaseInterface\CreatePostInterface;
 use App\Domain\UseCaseInterface\DeletePostInterface;
 use App\Domain\UseCaseInterface\GetPostBySlugInterface;
-use App\Domain\UseCaseInterface\ListPostsInterface;
+use App\Domain\UseCaseInterface\ListAllPostsInterface;
+use App\Domain\UseCaseInterface\ListPublishedPostsInterface;
 use App\Domain\UseCaseInterface\UpdatePostInterface;
 use App\Infrastructure\Form\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,10 +42,10 @@ class PostController extends AbstractController
     }
 
     #[Route('/posts', name: 'app_post_index', methods: ['GET'])]
-    public function index(Request $request, ListPostsInterface $listPosts): Response
+    public function index(Request $request, ListPublishedPostsInterface $listPosts): Response
     {
         $search = $request->query->get('q');
-        $lists = $listPosts->execute(onlyPublished: true, search: $search);
+        $lists = $listPosts->execute(search: $search);
         return $this->render('post/index.html.twig', [
             'posts' => $lists,
         ]);
@@ -52,9 +53,9 @@ class PostController extends AbstractController
 
     #[Route('/admin/posts', name: 'app_post_admin_index', methods: ['GET'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function adminIndex(ListPostsInterface $listPosts): Response
+    public function adminIndex(ListAllPostsInterface $listPosts): Response
     {
-        $lists = $listPosts->execute(onlyPublished: false);
+        $lists = $listPosts->execute();
         return $this->render('post/admin_index.html.twig', [
             'posts' => $lists,
         ]);

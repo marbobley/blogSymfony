@@ -2,6 +2,8 @@
 
 Ce document sert de guide de référence pour implémenter n'importe quel nouveau cas d'utilisation (Use Case) dans ce projet en respectant l'Architecture Hexagonale et le Clean Code.
 
+**Note importante :** Avant toute implémentation, consultez les [Bonnes Pratiques Clean Code](clean_code_best_practices.md) pour éviter les erreurs de conception communes (Flag arguments, violation du SRP, etc.).
+
 ## 🛠 Cycle de Développement (Inside-Out)
 
 **Règle d'or :** Chaque nouveau fichier PHP créé doit impérativement commencer par `declare(strict_types=1);`.

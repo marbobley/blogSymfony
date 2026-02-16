@@ -6,10 +6,10 @@ namespace App\Domain\UseCaseInterface;
 
 use App\Domain\Model\PostModel;
 
-interface ListPostsInterface
+interface ListAllPostsInterface
 {
     /**
      * @return PostModel[]
      */
-    public function execute(?int $tagId = null, bool $onlyPublished = true, ?string $search = null): array;
+    public function execute(?int $tagId = null, ?string $search = null): array;
 }

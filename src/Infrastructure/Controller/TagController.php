@@ -10,6 +10,7 @@ use App\Domain\UseCaseInterface\CreateTagInterface;
 use App\Domain\UseCaseInterface\DeleteTagInterface;
 use App\Domain\UseCaseInterface\GetTagBySlugInterface;
 use App\Domain\UseCaseInterface\ListTagsInterface;
+use App\Domain\UseCaseInterface\ListPublishedPostsInterface;
 use App\Domain\UseCaseInterface\UpdateTagInterface;
 use App\Infrastructure\Form\TagType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,7 +50,7 @@ class TagController extends AbstractController
     }
 
     #[Route('/tag/{slug}', name: 'app_tag_show', methods: ['GET'])]
-    public function show(string $slug, Request $request, GetTagBySlugInterface $getTagBySlug, \App\Domain\UseCaseInterface\ListPostsInterface $listPosts): Response
+    public function show(string $slug, Request $request, GetTagBySlugInterface $getTagBySlug, ListPublishedPostsInterface $listPosts): Response
     {
         $tag = $getTagBySlug->execute($slug);
         $search = $request->query->get('q');
