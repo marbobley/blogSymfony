@@ -21,16 +21,24 @@ public function execute(bool $onlyPublished = true): array
 - Séparer en deux méthodes distinctes.
 - Créer deux Use Cases différents (ex: `ListPublishedPosts` et `ListAllPosts`).
 
-### ❌ Éviter les Signatures Télescopiques
-Une méthode avec trop de paramètres optionnels devient difficile à appeler et à lire.
+### ✅ Utilisation d'un Objet Criteria / Filter
+Pour éviter les signatures complexes et instables, regroupez les paramètres de recherche dans un objet dédié.
 
-**Exemple problématique :**
+**Exemple recommandé :**
 ```php
-public function execute(?int $tagId = null, bool $onlyPublished = true, ?string $search = null): array
+final class PostCriteria
+{
+    public function __construct(
+        private readonly ?int $tagId = null,
+        private readonly ?string $search = null,
+        private readonly bool $onlyPublished = false,
+    ) {}
+    // Getters...
+}
+
+public function execute(PostCriteria $criteria): array
 ```
-**Solutions :**
-- Utiliser un **Objet Criteria / Filter** (Data Transfer Object) pour regrouper les paramètres de recherche.
-- Utiliser des arguments nommés (PHP 8+) pour la clarté, mais cela ne règle pas la complexité de la méthode.
+Cet objet peut ensuite être passé de couche en couche (Use Case -> Provider -> Repository) sans modifier les signatures.
 
 ### ✅ Principe de Responsabilité Unique (SRP)
 Chaque Use Case doit avoir une et une seule raison de changer. S'il contient des `if/else` majeurs sur son comportement principal, c'est probablement qu'il doit être divisé.

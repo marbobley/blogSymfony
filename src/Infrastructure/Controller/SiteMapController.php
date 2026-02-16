@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,7 +17,7 @@ class SiteMapController extends AbstractController
     public function index(): Response
     {
         $urls = [];
-        $lastmod = (new \DateTime())->format('Y-m-d');
+        $lastmod = (new DateTime())->format('Y-m-d');
 
         $urls[] = [
             'loc' => $this->generateUrl('app_home', [], UrlGeneratorInterface::ABSOLUTE_URL),
