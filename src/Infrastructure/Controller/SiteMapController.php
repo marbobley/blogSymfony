@@ -8,10 +8,9 @@ use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class SiteMapController extends AbstractController
+final class SiteMapController extends AbstractController
 {
     #[Route('sitemap.xml', name: 'sitemap', format: 'xml')]
     public function index(): Response

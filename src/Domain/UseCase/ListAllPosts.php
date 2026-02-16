@@ -11,9 +11,8 @@ use App\Domain\UseCaseInterface\ListAllPostsInterface;
 readonly class ListAllPosts implements ListAllPostsInterface
 {
     public function __construct(
-        private PostProviderInterface $postProvider
-    ) {
-    }
+        private PostProviderInterface $postProvider,
+    ) {}
 
     public function execute(?PostCriteria $criteria = null): array
     {

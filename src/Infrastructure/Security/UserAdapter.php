@@ -11,9 +11,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 readonly class UserAdapter implements UserInterface, PasswordAuthenticatedUserInterface
 {
     public function __construct(
-        private DomainUser $domainUser
-    ) {
-    }
+        private DomainUser $domainUser,
+    ) {}
 
     public function getEmail(): string
     {

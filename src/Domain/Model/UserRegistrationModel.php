@@ -9,10 +9,8 @@ class UserRegistrationModel
     public string $email = '';
     public string $plainPassword = '';
 
-    public function __construct(
-        string $email = '',
-        string $plainPassword = '',
-    ) {
+    public function __construct(string $email = '', #[\SensitiveParameter] string $plainPassword = '')
+    {
         $this->email = $email;
         $this->plainPassword = $plainPassword;
     }

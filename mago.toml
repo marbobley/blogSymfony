@@ -19,9 +19,12 @@ use-tabs = false
 integrations = ["phpunit", "symfony"]
 
 [linter.rules]
-ambiguous-function-call = { enabled = false }
-literal-named-argument = { enabled = false }
+ambiguous-function-call = { enabled = true }
+literal-named-argument = { enabled = true }
 halstead = { effort-threshold = 7000 }
+too-many-methods = { enabled = true }
+no-boolean-flag-parameter = { enabled = true }
+no-else-clause = { enabled = true }
 
 [analyzer]
 find-unused-definitions = true

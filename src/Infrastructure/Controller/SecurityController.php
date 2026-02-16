@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends AbstractController
+final class SecurityController extends AbstractController
 {
     #[Route('/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
@@ -37,14 +37,14 @@ class SecurityController extends AbstractController
     #[Route('/logout', name: 'app_logout')]
     public function logout(): void
     {
-        throw new LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        throw new LogicException(
+            'This method can be blank - it will be intercepted by the logout key on your firewall.',
+        );
     }
 
     #[Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
-    public function register(
-        Request $request,
-        RegisterUserInterface $registerUser
-    ): Response {
+    public function register(Request $request, RegisterUserInterface $registerUser): Response
+    {
         if ($this->getUser()) {
             return $this->redirectToRoute('app_post_index');
         }

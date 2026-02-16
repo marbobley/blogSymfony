@@ -20,9 +20,8 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 {
     public function __construct(
         private readonly UserRepositoryInterface $userRepository,
-        private readonly UserMapperInterface $userMapper
-    ) {
-    }
+        private readonly UserMapperInterface $userMapper,
+    ) {}
 
     public function loadUserByIdentifier(string $identifier): UserInterface
     {
@@ -51,8 +50,10 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
         return UserAdapter::class === $class || is_subclass_of($class, UserAdapter::class);
     }
 
-    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
-    {
+    public function upgradePassword(
+        PasswordAuthenticatedUserInterface $user,
+        #[\SensitiveParameter] string $newHashedPassword,
+    ): void {
         if (!$user instanceof UserAdapter) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));
         }

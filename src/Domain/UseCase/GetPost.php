@@ -11,9 +11,8 @@ use App\Domain\UseCaseInterface\GetPostInterface;
 readonly class GetPost implements GetPostInterface
 {
     public function __construct(
-        private PostProviderInterface $postProvider
-    ) {
-    }
+        private PostProviderInterface $postProvider,
+    ) {}
 
     public function execute(int $id): PostModel
     {

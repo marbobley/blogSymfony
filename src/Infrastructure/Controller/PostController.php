@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-class PostController extends AbstractController
+final class PostController extends AbstractController
 {
     #[Route('/post/preview', name: 'app_post_preview', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
@@ -139,7 +139,7 @@ class PostController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function delete(int $id, Request $request, DeletePostInterface $deletePost): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$id, (string) $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $id, (string) $request->request->get('_token'))) {
             $deletePost->execute($id);
             $this->addFlash('success', 'L\'article a été supprimé.');
         }

@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class RobotTxtController extends AbstractController
+final class RobotTxtController extends AbstractController
 {
     #[Route('robots.txt', name: 'robots', format: 'txt')]
     public function robotsAction(): Response

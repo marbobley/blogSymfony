@@ -11,5 +11,5 @@ interface PasswordHasherInterface
      * @param string $email L'email (peut être utilisé comme sel ou pour identifier le type d'utilisateur)
      * @return string Le mot de passe haché
      */
-    public function hash(string $plainPassword, string $email): string;
+    public function hash(#[\SensitiveParameter] string $plainPassword, string $email): string;
 }

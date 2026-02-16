@@ -10,8 +10,8 @@ use App\Domain\UseCase\GetTag;
 use App\Domain\UseCaseInterface\CreateTagInterface;
 use App\Domain\UseCaseInterface\DeleteTagInterface;
 use App\Domain\UseCaseInterface\GetTagBySlugInterface;
-use App\Domain\UseCaseInterface\ListTagsInterface;
 use App\Domain\UseCaseInterface\ListPublishedPostsInterface;
+use App\Domain\UseCaseInterface\ListTagsInterface;
 use App\Domain\UseCaseInterface\UpdateTagInterface;
 use App\Infrastructure\Form\TagType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-class TagController extends AbstractController
+final class TagController extends AbstractController
 {
     #[Route('/tags', name: 'app_tag_index', methods: ['GET'])]
     public function index(ListTagsInterface $listTags): Response
@@ -51,8 +51,12 @@ class TagController extends AbstractController
     }
 
     #[Route('/tag/{slug}', name: 'app_tag_show', methods: ['GET'])]
-    public function show(string $slug, Request $request, GetTagBySlugInterface $getTagBySlug, ListPublishedPostsInterface $listPosts): Response
-    {
+    public function show(
+        string $slug,
+        Request $request,
+        GetTagBySlugInterface $getTagBySlug,
+        ListPublishedPostsInterface $listPosts,
+    ): Response {
         $tag = $getTagBySlug->execute($slug);
         $search = $request->query->get('q');
         return $this->render('tag/show.html.twig', [
@@ -88,7 +92,7 @@ class TagController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function delete(int $id, Request $request, DeleteTagInterface $deleteTag): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$id, (string) $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $id, (string) $request->request->get('_token'))) {
             $deleteTag->execute($id);
             $this->addFlash('success', 'Le tag a été supprimé.');
         }

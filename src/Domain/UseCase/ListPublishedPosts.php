@@ -11,17 +11,16 @@ use App\Domain\UseCaseInterface\ListPublishedPostsInterface;
 readonly class ListPublishedPosts implements ListPublishedPostsInterface
 {
     public function __construct(
-        private PostProviderInterface $postProvider
-    ) {
-    }
+        private PostProviderInterface $postProvider,
+    ) {}
 
     public function execute(?PostCriteria $criteria = null): array
     {
-        $criteria = $criteria ?? new PostCriteria();
+        $criteria ??= new PostCriteria();
         $publishedCriteria = new PostCriteria(
             tagId: $criteria->getTagId(),
             search: $criteria->getSearch(),
-            onlyPublished: true
+            onlyPublished: true,
         );
         return $this->postProvider->findByCriteria($publishedCriteria);
     }

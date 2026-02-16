@@ -6,7 +6,6 @@ namespace App\Infrastructure\Persistence;
 
 use App\Infrastructure\Entity\Tag;
 use App\Infrastructure\Repository\TagRepositoryInterface;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**

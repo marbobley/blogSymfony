@@ -7,7 +7,7 @@ namespace App\Infrastructure\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-#[ORM\Table(name: "user")]
+#[ORM\Table(name: 'user')]
 class User
 {
     #[ORM\Id]
@@ -30,7 +30,7 @@ class User
     /**
      * @param string[] $roles
      */
-    public function __construct(string $email, string $password, array $roles = ['ROLE_USER'])
+    public function __construct(string $email, #[\SensitiveParameter] string $password, array $roles = ['ROLE_USER'])
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new \InvalidArgumentException('L\'adresse email est invalide.');
@@ -52,8 +52,7 @@ class User
     public function getEmail(): string
     {
         /** @var non-empty-string $email */
-        $email = $this->email;
-        return $email;
+        return $this->email;
     }
 
     /**
@@ -82,7 +81,7 @@ class User
         $this->email = $email;
     }
 
-    public function updatePassword(string $password): void
+    public function updatePassword(#[\SensitiveParameter] string $password): void
     {
         $this->password = $password;
     }

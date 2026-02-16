@@ -11,9 +11,8 @@ use App\Domain\UseCaseInterface\CreateTagInterface;
 readonly class CreateTag implements CreateTagInterface
 {
     public function __construct(
-        private TagProviderInterface $tagProvider
-    ) {
-    }
+        private TagProviderInterface $tagProvider,
+    ) {}
 
     public function execute(TagModel $tagDTO): TagModel
     {

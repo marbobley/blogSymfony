@@ -11,9 +11,8 @@ use App\Domain\UseCaseInterface\GetTagBySlugInterface;
 readonly class GetTagBySlug implements GetTagBySlugInterface
 {
     public function __construct(
-        private TagProviderInterface   $tagProvider
-    ) {
-    }
+        private TagProviderInterface $tagProvider,
+    ) {}
 
     public function execute(string $slug): TagModel
     {

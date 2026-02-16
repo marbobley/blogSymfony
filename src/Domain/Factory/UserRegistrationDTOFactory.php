@@ -8,7 +8,7 @@ use App\Domain\Model\UserRegistrationModel;
 
 class UserRegistrationDTOFactory
 {
-    public static function create(string $email, string $plainPassword): UserRegistrationModel
+    public static function create(string $email, #[\SensitiveParameter] string $plainPassword): UserRegistrationModel
     {
         return new UserRegistrationModel($email, $plainPassword);
     }

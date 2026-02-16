@@ -10,9 +10,8 @@ use App\Domain\UseCaseInterface\DeleteTagInterface;
 readonly class DeleteTag implements DeleteTagInterface
 {
     public function __construct(
-        private TagProviderInterface $tagProvider
-    ) {
-    }
+        private TagProviderInterface $tagProvider,
+    ) {}
 
     public function execute(int $id): void
     {

@@ -11,9 +11,8 @@ use App\Domain\UseCaseInterface\CreatePostInterface;
 readonly class CreatePost implements CreatePostInterface
 {
     public function __construct(
-        private PostProviderInterface $postProvider
-    ) {
-    }
+        private PostProviderInterface $postProvider,
+    ) {}
 
     public function execute(PostModel $postModel): PostModel
     {

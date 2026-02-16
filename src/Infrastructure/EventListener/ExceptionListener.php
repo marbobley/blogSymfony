@@ -17,9 +17,8 @@ use Twig\Environment;
 class ExceptionListener
 {
     public function __construct(
-        private readonly Environment $twig
-    ) {
-    }
+        private readonly Environment $twig,
+    ) {}
 
     public function onKernelException(ExceptionEvent $event): void
     {
@@ -54,14 +53,11 @@ class ExceptionListener
                 default => '@Twig/Exception/error.html.twig',
             };
 
-            $response = new Response(
-                $this->twig->render($template, [
-                    'status_code' => $statusCode,
-                    'status_text' => Response::$statusTexts[$statusCode] ?? 'Unknown Error',
-                    'exception' => $exception,
-                ]),
-                $statusCode
-            );
+            $response = new Response($this->twig->render($template, [
+                'status_code' => $statusCode,
+                'status_text' => Response::$statusTexts[$statusCode] ?? 'Unknown Error',
+                'exception' => $exception,
+            ]), $statusCode);
         }
 
         $event->setResponse($response);

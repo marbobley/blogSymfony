@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\DataFixtures;
 
 use App\Infrastructure\Entity\Post;
@@ -60,26 +62,26 @@ class AppFixtures extends Fixture
     {
         for ($i = 1; $i <= 10; $i++) {
             $post = new Post(
-                "Article numéro $i",
-                "Ceci est le contenu de l'article numéro $i. Il contient des informations très intéressantes sur le développement Symfony. " . str_repeat("Lorem ipsum dolor sit amet. ", 5)
+                "Article numéro {$i}",
+                "Ceci est le contenu de l'article numéro {$i}. Il contient des informations très intéressantes sur le développement Symfony. "
+                    . str_repeat('Lorem ipsum dolor sit amet. ', 5),
             );
-            $post->setSubTitle("Ceci est le soutitre $i");
+            $post->setSubTitle("Ceci est le soutitre {$i}");
             $post->setPublished(true);
 
-            $createdAt = new DateTimeImmutable("-" . (11 - $i) . " days");
+            $createdAt = new DateTimeImmutable('-' . (11 - $i) . ' days');
             $post->setCreatedAt($createdAt);
 
-            if ($i % 2 === 0) {
-                $post->setUpdatedAt($createdAt->modify("+" . rand(1, 10) . " hours"));
+            if (($i % 2) === 0) {
+                $post->setUpdatedAt($createdAt->modify('+' . rand(1, 10) . ' hours'));
             }
 
-            $randomTags = (array)array_rand($tags, 2);
+            $randomTags = (array) array_rand($tags, 2);
             foreach ($randomTags as $index) {
                 $post->addTag($tags[$index]);
             }
 
             $manager->persist($post);
-
         }
     }
 }

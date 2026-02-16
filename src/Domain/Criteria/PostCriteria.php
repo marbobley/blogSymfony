@@ -10,8 +10,7 @@ final class PostCriteria
         private readonly ?int $tagId = null,
         private readonly ?string $search = null,
         private readonly bool $onlyPublished = false,
-    ) {
-    }
+    ) {}
 
     public function getTagId(): ?int
     {
