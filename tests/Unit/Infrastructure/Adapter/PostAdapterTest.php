@@ -150,19 +150,13 @@ class PostAdapterTest extends TestCase
     public function testFindByCriteria(): void
     {
         $tagId = 1;
-        $tag = $this->createTagEntity(name: 'Test', id: $tagId);
         $post = $this->createPostEntity();
         $postModel = $this->createPostModel();
         $criteria = new PostCriteria(tagId: $tagId);
 
-        $this->tagRepository->expects($this->once())
-            ->method('findById')
-            ->with($tagId)
-            ->willReturn($tag);
-
         $this->postRepository->expects($this->once())
-            ->method('findByTag')
-            ->with($tag)
+            ->method('findByCriteria')
+            ->with($criteria)
             ->willReturn([$post]);
 
         $this->postMapper->expects($this->once())
@@ -176,14 +170,15 @@ class PostAdapterTest extends TestCase
         $this->assertSame($postModel, $result[0]);
     }
 
-    public function testFindAllIfTagIdIsNullByCriteria(): void
+    public function testFindAllByCriteria(): void
     {
         $post = $this->createPostEntity();
         $postModel = $this->createPostModel();
         $criteria = new PostCriteria();
 
         $this->postRepository->expects($this->once())
-            ->method('findAll')
+            ->method('findByCriteria')
+            ->with($criteria)
             ->willReturn([$post]);
 
         $this->postMapper->expects($this->once())

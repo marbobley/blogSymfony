@@ -19,8 +19,5 @@ interface PostProviderInterface
     /** @return PostModel[] */
     public function findByCriteria(PostCriteria $criteria): array;
 
-    /** @return PostModel[] */
-    public function findPublishedByCriteria(PostCriteria $criteria): array;
-
     public function update(int $id, PostModel $postModel): PostModel;
 }

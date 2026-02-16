@@ -9,6 +9,7 @@ final class PostCriteria
     public function __construct(
         private readonly ?int $tagId = null,
         private readonly ?string $search = null,
+        private readonly bool $onlyPublished = false,
     ) {
     }
 
@@ -20,5 +21,10 @@ final class PostCriteria
     public function getSearch(): ?string
     {
         return $this->search;
+    }
+
+    public function isOnlyPublished(): bool
+    {
+        return $this->onlyPublished;
     }
 }

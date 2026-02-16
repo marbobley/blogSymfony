@@ -17,6 +17,12 @@ readonly class ListPublishedPosts implements ListPublishedPostsInterface
 
     public function execute(?PostCriteria $criteria = null): array
     {
-        return $this->postProvider->findPublishedByCriteria($criteria ?? new PostCriteria());
+        $criteria = $criteria ?? new PostCriteria();
+        $publishedCriteria = new PostCriteria(
+            tagId: $criteria->getTagId(),
+            search: $criteria->getSearch(),
+            onlyPublished: true
+        );
+        return $this->postProvider->findByCriteria($publishedCriteria);
     }
 }

@@ -78,41 +78,7 @@ readonly class PostAdapter implements PostProviderInterface
      */
     public function findByCriteria(PostCriteria $criteria): array
     {
-        $tagId = $criteria->getTagId();
-        $search = $criteria->getSearch();
-
-        if ($tagId !== null) {
-            $tag = $this->tagRepository->findById($tagId);
-            if (!$tag) {
-                throw EntityNotFoundException::forEntity('Tag', $tagId);
-            }
-            $posts = $this->postRepository->findByTag($tag, $search);
-        } else {
-            $posts = $this->postRepository->findAll($search);
-        }
-
-        return array_map(function ($post) {
-            return $this->postMapper->toModel($post);
-        }, $posts);
-    }
-
-    /**
-     * @return PostModel[]
-     */
-    public function findPublishedByCriteria(PostCriteria $criteria): array
-    {
-        $tagId = $criteria->getTagId();
-        $search = $criteria->getSearch();
-
-        $tag = null;
-        if ($tagId !== null) {
-            $tag = $this->tagRepository->findById($tagId);
-            if (!$tag) {
-                throw EntityNotFoundException::forEntity('Tag', $tagId);
-            }
-        }
-
-        $posts = $this->postRepository->findPublished($tag, $search);
+        $posts = $this->postRepository->findByCriteria($criteria);
 
         return array_map(function ($post) {
             return $this->postMapper->toModel($post);

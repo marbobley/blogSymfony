@@ -23,8 +23,8 @@ class ListPublishedPostsTest extends TestCase
 
         $postProvider = $this->createMock(PostProviderInterface::class);
         $postProvider->expects($this->once())
-            ->method('findPublishedByCriteria')
-            ->with($this->isInstanceOf(PostCriteria::class))
+            ->method('findByCriteria')
+            ->with($this->callback(fn(PostCriteria $c) => $c->isOnlyPublished() === true))
             ->willReturn($publishedPosts);
 
         $useCase = new ListPublishedPosts($postProvider);
