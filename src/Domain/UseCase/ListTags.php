@@ -10,9 +10,8 @@ use App\Domain\UseCaseInterface\ListTagsInterface;
 readonly class ListTags implements ListTagsInterface
 {
     public function __construct(
-        private TagProviderInterface $tagProvider
-    ) {
-    }
+        private TagProviderInterface $tagProvider,
+    ) {}
 
     public function execute(): array
     {

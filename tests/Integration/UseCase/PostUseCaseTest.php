@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration\UseCase;
 
+use App\Domain\Criteria\PostCriteria;
 use App\Domain\Model\PostModel;
 use App\Domain\UseCaseInterface\CreatePostInterface;
 use App\Domain\UseCaseInterface\DeletePostInterface;
 use App\Domain\UseCaseInterface\GetPostInterface;
-use App\Domain\UseCaseInterface\ListPostsInterface;
+use App\Domain\UseCaseInterface\ListAllPostsInterface;
+use App\Domain\UseCaseInterface\ListPublishedPostsInterface;
 use App\Domain\UseCaseInterface\UpdatePostInterface;
 use App\Infrastructure\Entity\Post;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,7 +20,8 @@ class PostUseCaseTest extends KernelTestCase
 {
     private EntityManagerInterface $entityManager;
     private CreatePostInterface $createPost;
-    private ListPostsInterface $listPosts;
+    private ListAllPostsInterface $listAllPosts;
+    private ListPublishedPostsInterface $listPublishedPosts;
     private UpdatePostInterface $updatePost;
     private DeletePostInterface $deletePost;
     private GetPostInterface $getPost;
@@ -29,7 +32,8 @@ class PostUseCaseTest extends KernelTestCase
         $container = static::getContainer();
         $this->entityManager = $container->get(EntityManagerInterface::class);
         $this->createPost = $container->get(CreatePostInterface::class);
-        $this->listPosts = $container->get(ListPostsInterface::class);
+        $this->listAllPosts = $container->get(ListAllPostsInterface::class);
+        $this->listPublishedPosts = $container->get(ListPublishedPostsInterface::class);
         $this->updatePost = $container->get(UpdatePostInterface::class);
         $this->deletePost = $container->get(DeletePostInterface::class);
         $this->getPost = $container->get(GetPostInterface::class);
@@ -74,10 +78,10 @@ class PostUseCaseTest extends KernelTestCase
 
         $this->entityManager->flush();
 
-        $allPublished = $this->listPosts->execute(null, true);
+        $allPublished = $this->listPublishedPosts->execute(new PostCriteria());
         $this->assertCount(1, $allPublished);
 
-        $all = $this->listPosts->execute(null, false);
+        $all = $this->listAllPosts->execute(new PostCriteria());
         $this->assertCount(2, $all);
     }
 

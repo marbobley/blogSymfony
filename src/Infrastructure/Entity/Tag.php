@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity]
-#[ORM\Table(name: "tag")]
+#[ORM\Table(name: 'tag')]
 class Tag
 {
     #[ORM\Id]
@@ -38,7 +38,7 @@ class Tag
     /**
      * @var Collection<int, Post>
      */
-    #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: "tags")]
+    #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'tags')]
     private Collection $posts;
 
     public function __construct(string $name)

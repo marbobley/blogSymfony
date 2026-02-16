@@ -11,9 +11,8 @@ use App\Domain\UseCaseInterface\GetPostBySlugInterface;
 readonly class GetPostBySlug implements GetPostBySlugInterface
 {
     public function __construct(
-        private PostProviderInterface $postProvider
-    ) {
-    }
+        private PostProviderInterface $postProvider,
+    ) {}
 
     public function execute(string $slug): PostModel
     {

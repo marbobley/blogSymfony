@@ -11,11 +11,6 @@ interface PostRepositoryInterface
     /** @param Post $post */
     public function save(object $post): void;
 
-    /**
-     * @return Post[]
-     */
-    public function findAll(?string $search = null): array;
-
     /** @return Post|null */
     public function findById(int $id): ?object;
 
@@ -25,12 +20,7 @@ interface PostRepositoryInterface
     /**
      * @return Post[]
      */
-    public function findByTag(\App\Infrastructure\Entity\Tag $tag, ?string $search = null): array;
-
-    /**
-     * @return Post[]
-     */
-    public function findPublished(?\App\Infrastructure\Entity\Tag $tag = null, ?string $search = null): array;
+    public function findByCriteria(\App\Domain\Criteria\PostCriteria $criteria): array;
 
     /** @param Post $post */
     public function delete(object $post): void;

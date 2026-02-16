@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Infrastructure\Twig\Component;
 
 use App\Domain\Service\Sharing\SharingServiceInterface;
-use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent('ShareButtons')]
 final class ShareButtons
@@ -16,9 +16,8 @@ final class ShareButtons
      */
     public function __construct(
         private readonly iterable $sharingServices,
-        private readonly RequestStack $requestStack
-    ) {
-    }
+        private readonly RequestStack $requestStack,
+    ) {}
 
     public string $url = '';
     public string $title = '';
@@ -29,7 +28,7 @@ final class ShareButtons
     public function getLinks(): array
     {
         $links = [];
-        $currentUrl = $this->url ?: $this->requestStack->getCurrentRequest()?->getUri() ?: '';
+        $currentUrl = $this->url !== '' ? $this->url : $this->requestStack->getCurrentRequest()?->getUri() ?? '';
 
         foreach ($this->sharingServices as $service) {
             $links[] = [

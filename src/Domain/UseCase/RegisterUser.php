@@ -14,9 +14,8 @@ readonly class RegisterUser implements RegisterUserInterface
 {
     public function __construct(
         private UserRepositoryInterface $userRepository,
-        private PasswordHasherInterface $passwordHasher
-    ) {
-    }
+        private PasswordHasherInterface $passwordHasher,
+    ) {}
 
     public function execute(UserRegistrationModel $dto): User
     {

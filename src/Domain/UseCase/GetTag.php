@@ -11,9 +11,8 @@ use App\Domain\UseCaseInterface\GetTagInterface;
 readonly class GetTag implements GetTagInterface
 {
     public function __construct(
-        private TagProviderInterface $tagProvider
-    ) {
-    }
+        private TagProviderInterface $tagProvider,
+    ) {}
 
     public function execute(int $id): TagModel
     {

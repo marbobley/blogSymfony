@@ -4,21 +4,24 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
+use App\Domain\Criteria\PostCriteria;
 use App\Domain\Model\PostModel;
 use App\Domain\UseCase\GetPost;
 use App\Domain\UseCaseInterface\CreatePostInterface;
 use App\Domain\UseCaseInterface\DeletePostInterface;
 use App\Domain\UseCaseInterface\GetPostBySlugInterface;
-use App\Domain\UseCaseInterface\ListPostsInterface;
+use App\Domain\UseCaseInterface\ListAllPostsInterface;
+use App\Domain\UseCaseInterface\ListPublishedPostsInterface;
 use App\Domain\UseCaseInterface\UpdatePostInterface;
 use App\Infrastructure\Form\PostType;
+use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-class PostController extends AbstractController
+final class PostController extends AbstractController
 {
     #[Route('/post/preview', name: 'app_post_preview', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
@@ -31,7 +34,7 @@ class PostController extends AbstractController
         $post = $form->getData();
 
         if (null === $post->getCreatedAt()) {
-            $post->setCreatedAt(new \DateTimeImmutable());
+            $post->setCreatedAt(new DateTimeImmutable());
         }
 
         return $this->render('post/show.html.twig', [
@@ -41,10 +44,10 @@ class PostController extends AbstractController
     }
 
     #[Route('/posts', name: 'app_post_index', methods: ['GET'])]
-    public function index(Request $request, ListPostsInterface $listPosts): Response
+    public function index(Request $request, ListPublishedPostsInterface $listPosts): Response
     {
         $search = $request->query->get('q');
-        $lists = $listPosts->execute(onlyPublished: true, search: $search);
+        $lists = $listPosts->execute(new PostCriteria(search: (string) $search));
         return $this->render('post/index.html.twig', [
             'posts' => $lists,
         ]);
@@ -52,9 +55,9 @@ class PostController extends AbstractController
 
     #[Route('/admin/posts', name: 'app_post_admin_index', methods: ['GET'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function adminIndex(ListPostsInterface $listPosts): Response
+    public function adminIndex(ListAllPostsInterface $listPosts): Response
     {
-        $lists = $listPosts->execute(onlyPublished: false);
+        $lists = $listPosts->execute(new PostCriteria());
         return $this->render('post/admin_index.html.twig', [
             'posts' => $lists,
         ]);
@@ -136,7 +139,7 @@ class PostController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function delete(int $id, Request $request, DeletePostInterface $deletePost): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$id, (string) $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $id, (string) $request->request->get('_token'))) {
             $deletePost->execute($id);
             $this->addFlash('success', 'L\'article a été supprimé.');
         }

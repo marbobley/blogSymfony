@@ -1,8 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Infrastructure\Adapter;
 
+use App\Domain\Criteria\PostCriteria;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Model\PostModel;
 use App\Domain\Provider\PostProviderInterface;
@@ -16,10 +18,9 @@ readonly class PostAdapter implements PostProviderInterface
     public function __construct(
         private PostRepositoryInterface $postRepository,
         private TagRepositoryInterface $tagRepository,
-        private PostMapperInterface     $postMapper,
-        private PostTagSynchronizer     $postTagSynchronizer
-    ) {
-    }
+        private PostMapperInterface $postMapper,
+        private PostTagSynchronizer $postTagSynchronizer,
+    ) {}
 
     public function save(PostModel $postModel): PostModel
     {
@@ -38,9 +39,8 @@ readonly class PostAdapter implements PostProviderInterface
         return $this->postMapper->toModel($postCreated);
     }
 
-    public function delete(int $id) : void
+    public function delete(int $id): void
     {
-
         $post = $this->postRepository->findById($id);
 
         if (!$post) {
@@ -75,41 +75,11 @@ readonly class PostAdapter implements PostProviderInterface
     /**
      * @return PostModel[]
      */
-    public function findByTag(?int $tagId, ?string $search = null): array
+    public function findByCriteria(PostCriteria $criteria): array
     {
-        if ($tagId !== null) {
-            $tag = $this->tagRepository->findById($tagId);
-            if (!$tag) {
-                throw EntityNotFoundException::forEntity('Tag', $tagId);
-            }
-            $posts = $this->postRepository->findByTag($tag, $search);
-        } else {
-            $posts = $this->postRepository->findAll($search);
-        }
+        $posts = $this->postRepository->findByCriteria($criteria);
 
-        return array_map(function ($post) {
-            return $this->postMapper->toModel($post);
-        }, $posts);
-    }
-
-    /**
-     * @return PostModel[]
-     */
-    public function findPublished(?int $tagId = null, ?string $search = null): array
-    {
-        $tag = null;
-        if ($tagId !== null) {
-            $tag = $this->tagRepository->findById($tagId);
-            if (!$tag) {
-                throw EntityNotFoundException::forEntity('Tag', $tagId);
-            }
-        }
-
-        $posts = $this->postRepository->findPublished($tag, $search);
-
-        return array_map(function ($post) {
-            return $this->postMapper->toModel($post);
-        }, $posts);
+        return array_map(fn($post) => $this->postMapper->toModel($post), $posts);
     }
 
     public function update(int $id, PostModel $postModel): PostModel

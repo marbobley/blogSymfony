@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Domain\UseCaseInterface;
 
+use App\Domain\Criteria\PostCriteria;
 use App\Domain\Model\PostModel;
 
-interface ListPostsInterface
+interface ListPublishedPostsInterface
 {
     /**
      * @return PostModel[]
      */
-    public function execute(?int $tagId = null, bool $onlyPublished = true, ?string $search = null): array;
+    public function execute(?PostCriteria $criteria = null): array;
 }

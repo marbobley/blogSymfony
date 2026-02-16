@@ -23,31 +23,27 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class PostType extends AbstractType
 {
-    public function __construct(private readonly ListTagsInterface $tags)
-    {
-    }
+    public function __construct(
+        private readonly ListTagsInterface $tags,
+    ) {}
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $tags = $this->tags->execute();
         $builder
-        ->add('title', TextType::class)
-        ->add('sub_title', TextareaType::class)
-        ->add('content', TextareaType::class, [
-            'attr' => ['rows' => 15]
-        ])
-        ->add('published', CheckboxType::class, [
-            'label' => 'Publier immédiatement',
-            'required' => false,
-        ])
+            ->add('title', TextType::class)
+            ->add('sub_title', TextareaType::class)
+            ->add('content', TextareaType::class, [
+                'attr' => ['rows' => 15],
+            ])
+            ->add('published', CheckboxType::class, [
+                'label' => 'Publier immédiatement',
+                'required' => false,
+            ])
             ->add('tags', ChoiceType::class, [
                 'choices' => $tags,
-                'choice_label' => function (?TagModel $tag): string {
-                    return $tag ? strtoupper($tag->getName()) : '';
-                },
-                'choice_value' => function (?TagModel $tag): string {
-                    return (string)$tag?->getId();
-                },
+                'choice_label' => static fn(?TagModel $tag): string => $tag ? strtoupper($tag->getName()) : '',
+                'choice_value' => static fn(?TagModel $tag): string => (string) $tag?->getId(),
                 'expanded' => true,
                 'multiple' => true,
             ])
@@ -58,23 +54,23 @@ class PostType extends AbstractType
                 'label' => 'Enregistrer et continuer l\'édition',
             ]);
 
-        $builder->get('tags')->addModelTransformer(new CallbackTransformer(
-            function ($tagsAsCollection) {
-                if (null === $tagsAsCollection) {
-                    return [];
-                }
-                return $tagsAsCollection->toArray();
-            },
-            function ($tagsAsArray) {
-                return new ArrayCollection($tagsAsArray);
-            }
-        ));
+        $builder->get('tags')->addModelTransformer(
+            new CallbackTransformer(
+                static function ($tagsAsCollection) {
+                    if (null === $tagsAsCollection) {
+                        return [];
+                    }
+                    return $tagsAsCollection->toArray();
+                },
+                static fn($tagsAsArray) => new ArrayCollection($tagsAsArray),
+            ),
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => PostModel::class
+            'data_class' => PostModel::class,
         ]);
     }
 }

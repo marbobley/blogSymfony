@@ -10,9 +10,8 @@ use App\Domain\UseCaseInterface\DeletePostInterface;
 readonly class DeletePost implements DeletePostInterface
 {
     public function __construct(
-        private PostProviderInterface $postProvider
-    ) {
-    }
+        private PostProviderInterface $postProvider,
+    ) {}
 
     public function execute(int $id): void
     {

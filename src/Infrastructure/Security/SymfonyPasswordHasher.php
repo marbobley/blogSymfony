@@ -13,11 +13,10 @@ readonly class SymfonyPasswordHasher implements PasswordHasherInterface
 {
     public function __construct(
         private UserPasswordHasherInterface $passwordHasher,
-        private UserMapperInterface $userMapper
-    ) {
-    }
+        private UserMapperInterface $userMapper,
+    ) {}
 
-    public function hash(string $plainPassword, string $email): string
+    public function hash(#[\SensitiveParameter] string $plainPassword, string $email): string
     {
         $user = new User($email, '');
         $adapter = $this->userMapper->toAdapter($user);

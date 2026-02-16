@@ -11,9 +11,8 @@ use App\Domain\UseCaseInterface\UpdatePostInterface;
 readonly class UpdatePost implements UpdatePostInterface
 {
     public function __construct(
-        private PostProviderInterface   $postProvider
-    ) {
-    }
+        private PostProviderInterface $postProvider,
+    ) {}
 
     public function execute(int $id, PostModel $postModel): PostModel
     {

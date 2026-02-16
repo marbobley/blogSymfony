@@ -49,7 +49,7 @@ class TagModel
     public function setName(string $name): void
     {
         if (mb_strlen($name) < 2) {
-            throw new \InvalidArgumentException("Le nom du tag doit faire au moins 2 caractères");
+            throw new \InvalidArgumentException('Le nom du tag doit faire au moins 2 caractères');
         }
         $this->name = $name;
     }

@@ -2,6 +2,8 @@
 
 Ce document sert de guide de référence pour implémenter n'importe quel nouveau cas d'utilisation (Use Case) dans ce projet en respectant l'Architecture Hexagonale et le Clean Code.
 
+**Note importante :** Avant toute implémentation, consultez les [Bonnes Pratiques Clean Code](clean_code_best_practices.md) pour éviter les erreurs de conception communes (Flag arguments, violation du SRP, etc.).
+
 ## 🛠 Cycle de Développement (Inside-Out)
 
 **Règle d'or :** Chaque nouveau fichier PHP créé doit impérativement commencer par `declare(strict_types=1);`.
@@ -45,18 +47,19 @@ On commence toujours par le cœur (Domaine) pour finir par les détails techniqu
 ## 📖 Exemple : Use Case "Afficher les posts"
 
 ### 1. Domaine
-- `PostProviderInterface` : Ajouter `public function findAll(): array;` (retourne des `PostModel[]`).
-- `ListPostsInterface` : `public function execute(): array;`
-- `ListPosts` : Implémentation qui appelle `$this->provider->findAll()`.
+- `PostCriteria` : Objet encapsulant les filtres (search, tag, etc.).
+- `PostProviderInterface` : Ajouter `public function findByCriteria(PostCriteria $criteria): array;`.
+- `ListPublishedPostsInterface` : `public function execute(?PostCriteria $criteria = null): array;`
+- `ListPublishedPosts` : Implémentation qui instancie un `PostCriteria` (si nul) forçant `onlyPublished: true` et appelle le provider.
 
 ### 2. Infrastructure
-- `DoctrinePostProvider` : Implémenter `findAll()` en convertissant les entités Doctrine en `PostModel`.
-- `PostController` : Méthode `index()` qui appelle `ListPostsInterface`.
+- `DoctrinePostRepository` (via `PostAdapter`) : Implémenter `findByCriteria()` en utilisant le `QueryBuilder` de Doctrine.
+- `PostController` : Méthode `index()` qui appelle `ListPublishedPostsInterface` avec un objet `PostCriteria`.
 - `templates/post/index.html.twig` : Boucle `for post in posts`.
 
 ### 3. Configuration
 - `services.yaml` :
   ```yaml
-  App\Domain\UseCaseInterface\ListPostsInterface:
-      alias: App\Domain\UseCase\ListPosts
+  App\Domain\UseCaseInterface\ListPublishedPostsInterface:
+      alias: App\Domain\UseCase\ListPublishedPosts
   ```

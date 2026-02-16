@@ -13,9 +13,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 class PostTagSynchronizer
 {
     public function __construct(
-        private readonly TagRepositoryInterface $tagRepository
-    ) {
-    }
+        private readonly TagRepositoryInterface $tagRepository,
+    ) {}
 
     public function synchronize(Post $post, PostModel $postDTO): void
     {
@@ -35,9 +34,11 @@ class PostTagSynchronizer
 
         // Remove tags not in DTO
         foreach ($post->getTags() as $existingTag) {
-            if (!$newTags->contains($existingTag)) {
-                $post->removeTag($existingTag);
+            if ($newTags->contains($existingTag)) {
+                continue;
             }
+
+            $post->removeTag($existingTag);
         }
 
         // Add new tags

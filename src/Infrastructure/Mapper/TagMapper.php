@@ -1,28 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Mapper;
 
 use App\Domain\Model\TagModel;
-use App\Infrastructure\MapperInterface\TagMapperInterface;
 use App\Infrastructure\Entity\Tag;
+use App\Infrastructure\MapperInterface\TagMapperInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 class TagMapper implements TagMapperInterface
 {
-
     public function toEntity(TagModel $model): Tag
     {
         return new Tag($model->getName());
     }
-
 
     public function toModel(Tag $entity): TagModel
     {
         $tag = new TagModel();
         $tag->setName($entity->getName());
         $tag->setSlug($entity->getSlug());
-        $tag->setId((int)$entity->getId());
+        $tag->setId((int) $entity->getId());
         return $tag;
     }
 
@@ -44,7 +44,7 @@ class TagMapper implements TagMapperInterface
      * @param Collection<int, Tag> $entities
      * @return Collection<int, TagModel>
      */
-    public function toModels(Collection $entities) : Collection
+    public function toModels(Collection $entities): Collection
     {
         $models = new ArrayCollection();
         foreach ($entities as $entity) {

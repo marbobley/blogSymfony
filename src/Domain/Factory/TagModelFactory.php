@@ -8,7 +8,7 @@ use App\Domain\Model\TagModel;
 
 class TagModelFactory
 {
-    public static function create(int $id, string $name , string $slug): TagModel
+    public static function create(int $id, string $name, string $slug): TagModel
     {
         $tag = new TagModel();
         $tag->setName($name);

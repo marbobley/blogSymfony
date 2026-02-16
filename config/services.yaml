@@ -27,8 +27,11 @@ services:
     App\Domain\UseCaseInterface\CreatePostInterface:
         alias: App\Domain\UseCase\CreatePost
 
-    App\Domain\UseCaseInterface\ListPostsInterface:
-        alias: App\Domain\UseCase\ListPosts
+    App\Domain\UseCaseInterface\ListAllPostsInterface:
+        alias: App\Domain\UseCase\ListAllPosts
+
+    App\Domain\UseCaseInterface\ListPublishedPostsInterface:
+        alias: App\Domain\UseCase\ListPublishedPosts
 
     App\Domain\UseCaseInterface\GetPostInterface:
         alias: App\Domain\UseCase\GetPost

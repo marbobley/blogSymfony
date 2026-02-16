@@ -1,18 +1,20 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Domain\Model;
 
 use DateTimeImmutable;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class PostModel
 {
     private ?int $id = null;
 
     #[Assert\NotBlank]
-    #[Assert\Length(min: 10, max: 255 , minMessage: "Le titre doit faire au moins 10 caractères")]
+    #[Assert\Length(min: 10, max: 255, minMessage: 'Le titre doit faire au moins 10 caractères')]
     private string $title = '';
     private string $subTitle = '';
 
@@ -101,7 +103,7 @@ class PostModel
     public function setTitle(string $title): void
     {
         if (mb_strlen($title) < 10) {
-            throw new \InvalidArgumentException("Le titre doit faire au moins 10 caractères");
+            throw new \InvalidArgumentException('Le titre doit faire au moins 10 caractères');
         }
         $this->title = $title;
     }

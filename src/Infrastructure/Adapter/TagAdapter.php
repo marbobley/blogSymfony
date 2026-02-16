@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Infrastructure\Adapter;
@@ -16,8 +17,7 @@ readonly class TagAdapter implements TagProviderInterface
     public function __construct(
         private TagRepositoryInterface $tagRepository,
         private TagMapperInterface $tagMapper,
-    ) {
-    }
+    ) {}
 
     public function save(string $getName): TagModel
     {
@@ -56,7 +56,6 @@ readonly class TagAdapter implements TagProviderInterface
 
     public function findBySlug(string $slug): TagModel
     {
-
         $tag = $this->tagRepository->findBySlug($slug);
 
         if (!$tag) {
@@ -70,10 +69,7 @@ readonly class TagAdapter implements TagProviderInterface
     {
         $tags = $this->tagRepository->findAll();
 
-        return array_map(
-            fn($tag) => $this->tagMapper->toModel($tag),
-            $tags
-        );
+        return array_map(fn($tag) => $this->tagMapper->toModel($tag), $tags);
     }
 
     public function update(int $id, TagModel $tagDTO): TagModel

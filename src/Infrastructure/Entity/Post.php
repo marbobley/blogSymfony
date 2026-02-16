@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity]
-#[ORM\Table(name: "post")]
+#[ORM\Table(name: 'post')]
 class Post
 {
     #[ORM\Id]
@@ -53,7 +53,7 @@ class Post
         $this->slug = $slug;
     }
 
-    #[ORM\Column(type: "text")]
+    #[ORM\Column(type: 'text')]
     private string $subTitle;
 
     public function getSubTitle(): string
@@ -66,10 +66,10 @@ class Post
         $this->subTitle = $subTitle;
     }
 
-    #[ORM\Column(type: "text")]
+    #[ORM\Column(type: 'text')]
     private string $content;
 
-    #[ORM\Column(type: "boolean")]
+    #[ORM\Column(type: 'boolean')]
     private bool $published = false;
 
     public function isPublished(): bool
@@ -82,19 +82,19 @@ class Post
         $this->published = $published;
     }
 
-    #[Gedmo\Timestampable(on: "create")]
+    #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column]
     private \DateTimeImmutable $createdAt;
 
-    #[Gedmo\Timestampable(on: "update")]
+    #[Gedmo\Timestampable(on: 'update')]
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     /**
      * @var Collection<int, Tag>
      */
-    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: "posts", cascade: ["persist"])]
-    #[ORM\JoinTable(name: "post_tag")]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'posts', cascade: ['persist'])]
+    #[ORM\JoinTable(name: 'post_tag')]
     private Collection $tags;
 
     public function __construct(string $title, string $content)

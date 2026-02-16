@@ -9,6 +9,4 @@ use Throwable;
 /**
  * Interface de base pour toutes les exceptions du domaine.
  */
-interface DomainExceptionInterface extends Throwable
-{
-}
+interface DomainExceptionInterface extends Throwable {}

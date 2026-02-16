@@ -11,9 +11,8 @@ use App\Domain\UseCaseInterface\UpdateTagInterface;
 readonly class UpdateTag implements UpdateTagInterface
 {
     public function __construct(
-        private TagProviderInterface   $tagProvider,
-    ) {
-    }
+        private TagProviderInterface $tagProvider,
+    ) {}
 
     public function execute(int $id, TagModel $tagDTO): TagModel
     {

@@ -18,54 +18,26 @@ class DoctrinePostRepository extends AbstractDoctrineRepository implements PostR
         parent::__construct($entityManager, Post::class);
     }
 
-    public function findAll(?string $search = null): array
+    public function findByCriteria(\App\Domain\Criteria\PostCriteria $criteria): array
     {
-        $qb = $this->entityManager->createQueryBuilder()
+        $qb = $this->entityManager
+            ->createQueryBuilder()
             ->select('p')
             ->from(Post::class, 'p');
 
-        if ($search) {
-            $qb->andWhere('p.title LIKE :search OR p.content LIKE :search OR p.subTitle LIKE :search')
-                ->setParameter('search', '%' . $search . '%');
+        if ($criteria->isOnlyPublished()) {
+            $qb->andWhere('p.published = :published')->setParameter('published', true);
         }
 
-        return $qb->getQuery()->getResult();
-    }
-
-    public function findByTag(\App\Infrastructure\Entity\Tag $tag, ?string $search = null): array
-    {
-        $qb = $this->entityManager->createQueryBuilder()
-            ->select('p')
-            ->from(Post::class, 'p')
-            ->join('p.tags', 't')
-            ->where('t.id = :tagId')
-            ->setParameter('tagId', $tag->getId());
-
-        if ($search) {
-            $qb->andWhere('p.title LIKE :search OR p.content LIKE :search OR p.subTitle LIKE :search')
-                ->setParameter('search', '%' . $search . '%');
+        if ($criteria->getTagId() !== null) {
+            $qb->join('p.tags', 't')->andWhere('t.id = :tagId')->setParameter('tagId', $criteria->getTagId());
         }
 
-        return $qb->getQuery()->getResult();
-    }
-
-    public function findPublished(?\App\Infrastructure\Entity\Tag $tag = null, ?string $search = null): array
-    {
-        $qb = $this->entityManager->createQueryBuilder()
-            ->select('p')
-            ->from(Post::class, 'p')
-            ->where('p.published = :published')
-            ->setParameter('published', true);
-
-        if ($tag) {
-            $qb->join('p.tags', 't')
-                ->andWhere('t.id = :tagId')
-                ->setParameter('tagId', $tag->getId());
-        }
-
-        if ($search) {
-            $qb->andWhere('p.title LIKE :search OR p.content LIKE :search OR p.subTitle LIKE :search')
-                ->setParameter('search', '%' . $search . '%');
+        if ($criteria->getSearch()) {
+            $qb->andWhere('p.title LIKE :search OR p.content LIKE :search OR p.subTitle LIKE :search')->setParameter(
+                'search',
+                '%' . $criteria->getSearch() . '%',
+            );
         }
 
         return $qb->getQuery()->getResult();
