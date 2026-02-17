@@ -17,6 +17,9 @@ readonly class RegisterUser implements RegisterUserInterface
         private PasswordHasherInterface $passwordHasher,
     ) {}
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function execute(UserRegistrationModel $dto): User
     {
         $hashedPassword = $this->passwordHasher->hash($dto->plainPassword, $dto->email);

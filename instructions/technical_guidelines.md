@@ -7,7 +7,15 @@ Ce document regroupe les standards de développement et les choix d'architecture
 L'utilisation du mode strict est obligatoire dans tout le projet pour garantir la robustesse du typage.
 
 *   **Strict Types** : Chaque fichier PHP doit commencer par `declare(strict_types=1);` immédiatement après la balise d'ouverture `<?php`.
-*   **Analyse Statique** : PHPStan est utilisé au niveau 8 pour garantir la qualité du code. Toute erreur signalée par `vendor/bin/phpstan` doit être corrigée avant validation. Voir `instructions/phpstan_guidelines.md` pour plus de détails.
+*   **Analyse Statique et Qualité** : 
+    *   **PHPStan** : Utilisé au niveau 8. Toute erreur signalée par `vendor/bin/phpstan` doit être corrigée. Voir `instructions/phpstan_guidelines.md`.
+    *   **Mago** : Utilisé pour le linting, le formatage et l'analyse statique complémentaire. Toute erreur signalée par `vendor/bin/mago lint` ou `vendor/bin/mago analyze` doit être corrigée.
+*   **Règles Mago Critiques** :
+    *   **Appels de fonctions globaux** : Toujours ajouter une instruction `use function` (ex: `use function sprintf;`) pour éviter les résolutions de nom ambiguës et améliorer les performances.
+    *   **Pas de paramètres booléens (flags)** : Ne pas utiliser de paramètres booléens pour changer le comportement d'une méthode (ex: `setPublished(bool $status)`). Préférer des méthodes explicites comme `publish()` et `unpublish()`.
+    *   **Pas de clauses `else`** : Éviter les clauses `else` en utilisant des retours hâtifs (guard clauses) ou des opérateurs ternaires. Cela réduit la complexité cyclomatique.
+    *   **Complexité de Halstead** : Maintenir une logique simple dans les méthodes. Si la complexité est trop élevée, extraire une partie du code dans des méthodes privées ou des services dédiés.
+*   **Formatage** : Le code doit être formaté selon les règles du projet via `vendor/bin/mago format`.
 *   **Tests Unitaires** : La couverture par des tests unitaires (PHPUnit) est obligatoire pour toute nouvelle fonctionnalité, en particulier pour les Use Cases et les modèles de Domaine. Tout test ajouté doit être "au vert".
 *   **Tests d'Intégration** : Pour tester l'interaction avec la base de données ou le rendu des pages (contrôleurs), référez-vous au [Guide des Tests d'Intégration](integration_tests_guidelines.md).
 *   **Intégration Continue (CI)** : Un workflow GitHub Action (`.github/workflows/ci.yml`) est en place. Il exécute automatiquement PHPStan et PHPUnit à chaque push. Aucun code ne doit être fusionné si la CI est "rouge".

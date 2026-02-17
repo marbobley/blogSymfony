@@ -13,6 +13,9 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
+use function is_subclass_of;
+use function sprintf;
+
 /**
  * @implements UserProviderInterface<UserAdapter>
  */
@@ -36,6 +39,11 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
         return $this->userMapper->toAdapter($user);
     }
 
+    /**
+     * @throws \LogicException
+     * @throws UnsupportedUserException
+     * @throws UserNotFoundException
+     */
     public function refreshUser(UserInterface $user): UserInterface
     {
         if (!$user instanceof UserAdapter) {

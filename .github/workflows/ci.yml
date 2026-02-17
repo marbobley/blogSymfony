@@ -36,6 +36,10 @@ jobs:
               run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
             - name: Format Check
               run: vendor/bin/mago format --check
+            - name: Lint Check
+              run: vendor/bin/mago lint
+            - name: Static Analysis
+              run: vendor/bin/mago analyze
             - name: Install Importmap
               run: php bin/console importmap:install
             - name: Wait for MySQL

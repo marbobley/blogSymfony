@@ -8,6 +8,9 @@ use App\Domain\Model\PostModel;
 
 class PostModelFactory
 {
+    /**
+     * @throws \InvalidArgumentException
+     */
     public static function create(string $title = 'Titre par défaut assez long', string $content = ''): PostModel
     {
         $dto = new PostModel();

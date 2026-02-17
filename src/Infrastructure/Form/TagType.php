@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * @extends AbstractType<TagModel>
+ * @extends AbstractType
  */
 class TagType extends AbstractType
 {
@@ -22,6 +22,9 @@ class TagType extends AbstractType
         ]);
     }
 
+    /**
+     * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

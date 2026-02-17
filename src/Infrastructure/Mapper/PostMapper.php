@@ -19,13 +19,16 @@ class PostMapper implements PostMapperInterface
     {
         $post = new Post($postDTO->getTitle(), $postDTO->getContent());
         $post->setSubTitle($postDTO->getSubTitle());
-        $post->setPublished($postDTO->isPublished());
+        $postDTO->isPublished() ? $post->publish() : $post->unpublish();
 
         $tags = $this->tagMapper->toEntities($postDTO->getTags());
         $post->setTags($tags);
         return $post;
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function toModel(Post $post): PostModel
     {
         $postModel = new PostModel();
@@ -36,7 +39,7 @@ class PostMapper implements PostMapperInterface
         $postModel->setSubTitle($post->getSubTitle());
         $postModel->setCreatedAt($post->getCreatedAt());
         $postModel->setUpdatedAt($post->getUpdatedAt());
-        $postModel->setPublished($post->isPublished());
+        $post->isPublished() ? $postModel->publish() : $postModel->unpublish();
 
         $tagModels = $this->tagMapper->toModels($post->getTags());
         $postModel->addTags($tagModels);

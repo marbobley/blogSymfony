@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
+use InvalidArgumentException;
 use Symfony\Component\Validator\Constraints as Assert;
+
+use function mb_strlen;
 
 class TagModel
 {
@@ -46,10 +49,13 @@ class TagModel
         return $this->name;
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function setName(string $name): void
     {
         if (mb_strlen($name) < 2) {
-            throw new \InvalidArgumentException('Le nom du tag doit faire au moins 2 caractères');
+            throw new InvalidArgumentException('Le nom du tag doit faire au moins 2 caractères');
         }
         $this->name = $name;
     }

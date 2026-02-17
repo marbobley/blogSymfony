@@ -10,18 +10,21 @@ use App\Domain\Model\PostModel;
 use App\Domain\Provider\PostProviderInterface;
 use App\Infrastructure\MapperInterface\PostMapperInterface;
 use App\Infrastructure\Repository\PostRepositoryInterface;
-use App\Infrastructure\Repository\TagRepositoryInterface;
 use App\Infrastructure\Service\PostTagSynchronizer;
+
+use function array_map;
 
 readonly class PostAdapter implements PostProviderInterface
 {
     public function __construct(
         private PostRepositoryInterface $postRepository,
-        private TagRepositoryInterface $tagRepository,
         private PostMapperInterface $postMapper,
         private PostTagSynchronizer $postTagSynchronizer,
     ) {}
 
+    /**
+     * @throws \RuntimeException
+     */
     public function save(PostModel $postModel): PostModel
     {
         $post = $this->postMapper->toEntity($postModel);
@@ -39,6 +42,9 @@ readonly class PostAdapter implements PostProviderInterface
         return $this->postMapper->toModel($postCreated);
     }
 
+    /**
+     * @throws EntityNotFoundException
+     */
     public function delete(int $id): void
     {
         $post = $this->postRepository->findById($id);
@@ -50,6 +56,9 @@ readonly class PostAdapter implements PostProviderInterface
         $this->postRepository->delete($post);
     }
 
+    /**
+     * @throws EntityNotFoundException
+     */
     public function findById(int $id): PostModel
     {
         $post = $this->postRepository->findById($id);
@@ -61,6 +70,9 @@ readonly class PostAdapter implements PostProviderInterface
         return $this->postMapper->toModel($post);
     }
 
+    /**
+     * @throws EntityNotFoundException
+     */
     public function findBySlug(string $slug): PostModel
     {
         $post = $this->postRepository->findBySlug($slug);
@@ -82,6 +94,9 @@ readonly class PostAdapter implements PostProviderInterface
         return array_map(fn($post) => $this->postMapper->toModel($post), $posts);
     }
 
+    /**
+     * @throws EntityNotFoundException
+     */
     public function update(int $id, PostModel $postModel): PostModel
     {
         $post = $this->postRepository->findById($id);
@@ -95,7 +110,8 @@ readonly class PostAdapter implements PostProviderInterface
         $post->setTitle($postModel->getTitle());
         $post->setContent($postModel->getContent());
         $post->setSubTitle($postModel->getSubTitle());
-        $post->setPublished($postModel->isPublished());
+
+        $postModel->isPublished() ? $post->publish() : $post->unpublish();
 
         $this->postTagSynchronizer->synchronize($post, $postModel);
 

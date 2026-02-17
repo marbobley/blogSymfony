@@ -6,6 +6,8 @@ namespace App\Infrastructure\Service\Sharing;
 
 use App\Domain\Service\Sharing\SharingServiceInterface;
 
+use function urlencode;
+
 class FacebookSharingService implements SharingServiceInterface
 {
     private const BASE_URL = 'https://www.facebook.com/sharer/sharer.php';

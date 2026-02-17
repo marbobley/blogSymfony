@@ -6,6 +6,8 @@ namespace App\Domain\Exception;
 
 use RuntimeException;
 
+use function sprintf;
+
 class TagAlreadyExistsException extends RuntimeException implements DomainExceptionInterface
 {
     public function __construct(string $tagName)

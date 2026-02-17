@@ -12,6 +12,8 @@ use App\Infrastructure\Entity\Tag;
 use App\Infrastructure\MapperInterface\TagMapperInterface;
 use App\Infrastructure\Repository\TagRepositoryInterface;
 
+use function array_map;
+
 readonly class TagAdapter implements TagProviderInterface
 {
     public function __construct(
@@ -19,6 +21,9 @@ readonly class TagAdapter implements TagProviderInterface
         private TagMapperInterface $tagMapper,
     ) {}
 
+    /**
+     * @throws TagAlreadyExistsException
+     */
     public function save(string $getName): TagModel
     {
         $existingTag = $this->tagRepository->findByName($getName);
@@ -32,6 +37,9 @@ readonly class TagAdapter implements TagProviderInterface
         return $this->tagMapper->toModel($tag);
     }
 
+    /**
+     * @throws EntityNotFoundException
+     */
     public function delete(int $id): void
     {
         $tag = $this->tagRepository->findById($id);
@@ -43,6 +51,9 @@ readonly class TagAdapter implements TagProviderInterface
         $this->tagRepository->delete($tag);
     }
 
+    /**
+     * @throws EntityNotFoundException
+     */
     public function findById(int $id): TagModel
     {
         $tag = $this->tagRepository->findById($id);
@@ -54,6 +65,9 @@ readonly class TagAdapter implements TagProviderInterface
         return $this->tagMapper->toModel($tag);
     }
 
+    /**
+     * @throws EntityNotFoundException
+     */
     public function findBySlug(string $slug): TagModel
     {
         $tag = $this->tagRepository->findBySlug($slug);
@@ -65,6 +79,9 @@ readonly class TagAdapter implements TagProviderInterface
         return $this->tagMapper->toModel($tag);
     }
 
+    /**
+     * @return TagModel[]
+     */
     public function findAll(): array
     {
         $tags = $this->tagRepository->findAll();
@@ -72,9 +89,12 @@ readonly class TagAdapter implements TagProviderInterface
         return array_map(fn($tag) => $this->tagMapper->toModel($tag), $tags);
     }
 
+    /**
+     * @throws EntityNotFoundException
+     * @throws TagAlreadyExistsException
+     */
     public function update(int $id, TagModel $tagDTO): TagModel
     {
-        /** @var Tag|null $tag */
         $tag = $this->tagRepository->findById($id);
 
         if (!$tag) {

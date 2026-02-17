@@ -27,7 +27,7 @@ class DraftAccessTest extends WebTestCase
         $post = new Post('Draft Post Title', 'Draft Post Content');
         $post->setSubTitle('Sub title');
         $post->setSlug('draft-post');
-        $post->setPublished(false);
+        $post->unpublish();
 
         $this->entityManager->persist($post);
         $this->entityManager->flush();
@@ -49,7 +49,7 @@ class DraftAccessTest extends WebTestCase
         $post = new Post('Published Post Title', 'Published Post Content');
         $post->setSubTitle('Sub title');
         $post->setSlug('published-post');
-        $post->setPublished(true);
+        $post->publish();
 
         $this->entityManager->persist($post);
         $this->entityManager->flush();

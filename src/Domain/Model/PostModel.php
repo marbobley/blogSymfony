@@ -9,6 +9,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 
+use function mb_strlen;
+
 class PostModel
 {
     private ?int $id = null;
@@ -40,9 +42,14 @@ class PostModel
         return $this->published;
     }
 
-    public function setPublished(bool $published): void
+    public function publish(): void
     {
-        $this->published = $published;
+        $this->published = true;
+    }
+
+    public function unpublish(): void
+    {
+        $this->published = false;
     }
 
     public function getCreatedAt(): ?DateTimeImmutable
@@ -100,6 +107,9 @@ class PostModel
         return $this->title;
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function setTitle(string $title): void
     {
         if (mb_strlen($title) < 10) {

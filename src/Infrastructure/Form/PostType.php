@@ -8,6 +8,7 @@ use App\Domain\Model\PostModel;
 use App\Domain\Model\TagModel;
 use App\Domain\UseCaseInterface\ListTagsInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -18,8 +19,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use function is_array;
+use function strtoupper;
+
 /**
- * @extends AbstractType<PostModel>
+ * @extends AbstractType
  */
 class PostType extends AbstractType
 {
@@ -27,6 +31,9 @@ class PostType extends AbstractType
         private readonly ListTagsInterface $tags,
     ) {}
 
+    /**
+     * @throws \Symfony\Component\Form\Exception\InvalidArgumentException
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $tags = $this->tags->execute();
@@ -57,16 +64,19 @@ class PostType extends AbstractType
         $builder->get('tags')->addModelTransformer(
             new CallbackTransformer(
                 static function ($tagsAsCollection) {
-                    if (null === $tagsAsCollection) {
+                    if (!$tagsAsCollection instanceof Collection) {
                         return [];
                     }
                     return $tagsAsCollection->toArray();
                 },
-                static fn($tagsAsArray) => new ArrayCollection($tagsAsArray),
+                static fn($tagsAsArray) => new ArrayCollection(is_array($tagsAsArray) ? $tagsAsArray : []),
             ),
         );
     }
 
+    /**
+     * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

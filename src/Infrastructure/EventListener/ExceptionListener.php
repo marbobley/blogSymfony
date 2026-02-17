@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Twig\Environment;
 
+use function str_contains;
+
 #[AsEventListener(event: 'kernel.exception')]
 class ExceptionListener
 {
@@ -20,6 +22,12 @@ class ExceptionListener
         private readonly Environment $twig,
     ) {}
 
+    /**
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     * @throws \InvalidArgumentException
+     */
     public function onKernelException(ExceptionEvent $event): void
     {
         $exception = $event->getThrowable();
@@ -37,7 +45,7 @@ class ExceptionListener
         };
 
         // Détection du format attendu
-        $acceptHeader = $request->headers->get('Accept', '');
+        $acceptHeader = (string) $request->headers->get('Accept', '');
         if (str_contains($acceptHeader, 'application/json') || $request->isXmlHttpRequest()) {
             $responseData = [
                 'error' => [
@@ -45,21 +53,21 @@ class ExceptionListener
                     'code' => $statusCode,
                 ],
             ];
-            $response = new JsonResponse($responseData, $statusCode);
-        } else {
-            // Rendu HTML via Twig
-            $template = match ($statusCode) {
-                Response::HTTP_NOT_FOUND => '@Twig/Exception/error404.html.twig',
-                default => '@Twig/Exception/error.html.twig',
-            };
+            $event->setResponse(new JsonResponse($responseData, $statusCode));
 
-            $response = new Response($this->twig->render($template, [
-                'status_code' => $statusCode,
-                'status_text' => Response::$statusTexts[$statusCode] ?? 'Unknown Error',
-                'exception' => $exception,
-            ]), $statusCode);
+            return;
         }
 
-        $event->setResponse($response);
+        // Rendu HTML via Twig
+        $template = match ($statusCode) {
+            Response::HTTP_NOT_FOUND => '@Twig/Exception/error404.html.twig',
+            default => '@Twig/Exception/error.html.twig',
+        };
+
+        $event->setResponse(new Response($this->twig->render($template, [
+            'status_code' => $statusCode,
+            'status_text' => Response::$statusTexts[$statusCode] ?? 'Unknown Error',
+            'exception' => $exception,
+        ]), $statusCode));
     }
 }

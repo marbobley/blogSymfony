@@ -12,6 +12,10 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Exception;
 
+use function array_rand;
+use function rand;
+use function str_repeat;
+
 class AppFixtures extends Fixture
 {
     /**
@@ -38,7 +42,7 @@ class AppFixtures extends Fixture
 
     /**
      * @param ObjectManager $manager
-     * @return array
+     * @return Tag[]
      */
     public function generateTags(ObjectManager $manager): array
     {
@@ -53,7 +57,7 @@ class AppFixtures extends Fixture
     }
 
     /**
-     * @param array $tags
+     * @param Tag[] $tags
      * @param ObjectManager $manager
      * @return void
      * @throws Exception
@@ -64,21 +68,22 @@ class AppFixtures extends Fixture
             $post = new Post(
                 "Article numéro {$i}",
                 "Ceci est le contenu de l'article numéro {$i}. Il contient des informations très intéressantes sur le développement Symfony. "
-                    . str_repeat('Lorem ipsum dolor sit amet. ', 5),
+                    . str_repeat(string: 'Lorem ipsum dolor sit amet. ', times: 5),
             );
             $post->setSubTitle("Ceci est le soutitre {$i}");
-            $post->setPublished(true);
+            $post->publish();
 
             $createdAt = new DateTimeImmutable('-' . (11 - $i) . ' days');
             $post->setCreatedAt($createdAt);
 
             if (($i % 2) === 0) {
-                $post->setUpdatedAt($createdAt->modify('+' . rand(1, 10) . ' hours'));
+                $post->setUpdatedAt($createdAt->modify('+' . rand(min: 1, max: 10) . ' hours'));
             }
 
-            $randomTags = (array) array_rand($tags, 2);
+            $randomTags = array_rand(array: $tags, num: 2);
             foreach ($randomTags as $index) {
-                $post->addTag($tags[$index]);
+                $tag = $tags[$index];
+                $post->addTag($tag);
             }
 
             $manager->persist($post);

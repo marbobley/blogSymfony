@@ -8,8 +8,8 @@ use App\Infrastructure\Entity\Tag;
 
 interface TagRepositoryInterface
 {
-    /** @param Tag $tag */
-    public function save(object $tag): void;
+    /** @param Tag $entity */
+    public function save(object $entity): void;
 
     /**
      * @return Tag[]
@@ -25,6 +25,6 @@ interface TagRepositoryInterface
     /** @return Tag|null */
     public function findByName(string $name): ?object;
 
-    /** @param Tag $tag */
-    public function delete(object $tag): void;
+    /** @param Tag $entity */
+    public function delete(object $entity): void;
 }

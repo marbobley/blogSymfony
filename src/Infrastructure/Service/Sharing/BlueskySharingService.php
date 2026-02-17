@@ -6,6 +6,8 @@ namespace App\Infrastructure\Service\Sharing;
 
 use App\Domain\Service\Sharing\SharingServiceInterface;
 
+use function urlencode;
+
 class BlueskySharingService implements SharingServiceInterface
 {
     private const BASE_URL = 'https://bsky.app/intent/compose';
