@@ -3,8 +3,15 @@
         <p class="mb-2 fw-bold">Les Chroniques du Code &copy; {{ "now"|date("Y") }}</p>
         <p class="text-muted small mb-0">Développé avec passion pour le web inclusif et responsive.</p>
         <div class="mt-3">
-            <a href="#" class="text-white-50 me-3 transition-base" aria-label="Lien vers Twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="text-white-50 transition-base" aria-label="Lien vers GitHub"><i class="bi bi-github"></i></a>
+            {% for link in this.socialLinks %}
+                <a href="{{ link.url }}"
+                   class="text-white-50 me-3 transition-base"
+                   aria-label="Lien vers {{ link.platformName }}"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    <i class="bi {{ link.iconClass }}"></i>
+                </a>
+            {% endfor %}
         </div>
     </div>
 </footer>
