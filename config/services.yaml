@@ -55,9 +55,15 @@ services:
         arguments:
             $sharingServices: !tagged_iterator app.sharing_service
 
+    App\Infrastructure\Twig\Component\Footer:
+        arguments:
+            $socialLinks: !tagged_iterator app.social_link
+
     _instanceof:
         App\Domain\Service\Sharing\SharingServiceInterface:
             tags: ['app.sharing_service']
+        App\Domain\Service\Social\SocialLinkInterface:
+            tags: ['app.social_link']
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
