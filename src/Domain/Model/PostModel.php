@@ -35,7 +35,7 @@ class PostModel
     private string $slug = '';
     private ?DateTimeImmutable $createdAt = null;
     private ?DateTimeImmutable $updatedAt = null;
-    private bool $published = false;
+    public bool $published = false;
 
     public function isPublished(): bool
     {
