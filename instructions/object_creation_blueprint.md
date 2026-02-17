@@ -66,7 +66,8 @@ class PostModelFactory
 ## ✅ Checklist d'implémentation
 
 1. [ ] Le fichier commence par `declare(strict_types=1);`.
-2. [ ] La factory est située dans le bon dossier (`Domain/Factory` ou `Infrastructure/Factory`).
-3. [ ] Elle contient au moins une méthode `create()`.
-4. [ ] Elle contient une méthode `createSample()` si l'objet est utilisé dans les tests.
-5. [ ] Le code client (Controller, Use Case, Test) n'utilise plus `new {Object}` mais passe par la Factory.
+2. [ ] La factory respecte les règles Mago (ex: pas de flags booléens dans `create()`, `use function` pour les fonctions globales).
+3. [ ] La factory est située dans le bon dossier (`Domain/Factory` ou `Infrastructure/Factory`).
+4. [ ] Elle contient au moins une méthode `create()`.
+5. [ ] Elle contient une méthode `createSample()` si l'objet est utilisé dans les tests.
+6. [ ] Le code client (Controller, Use Case, Test) n'utilise plus `new {Object}` mais passe par la Factory.

@@ -5,21 +5,40 @@ Ce document répertorie les principes de conception à respecter scrupuleusement
 ## 1. Conception des Méthodes (Clean Code)
 
 ### ❌ Éviter les "Flag Arguments" (Arguments Booléens)
-L'utilisation d'un paramètre booléen pour changer radicalement le comportement d'une méthode est une mauvaise pratique. Cela nuit à la lisibilité et viole souvent le principe de responsabilité unique (SRP).
+L'utilisation d'un paramètre booléen pour changer radicalement le comportement d'une méthode est une mauvaise pratique (règle Mago `no-boolean-flag-parameter`). Cela nuit à la lisibilité et viole souvent le principe de responsabilité unique (SRP).
 
 **Exemple à bannir :**
 ```php
-public function execute(bool $onlyPublished = true): array 
+// Mauvais : Utilisation d'un flag booléen
+public function setPublished(bool $status): void 
 {
-    if ($onlyPublished) {
-        return $this->provider->findPublished();
-    }
-    return $this->provider->findAll();
+    $this->published = $status;
 }
 ```
 **Solutions :**
-- Séparer en deux méthodes distinctes.
-- Créer deux Use Cases différents (ex: `ListPublishedPosts` et `ListAllPosts`).
+- Séparer en deux méthodes explicites (ex: `publish()` et `unpublish()`).
+- Utiliser des objets de type `Criteria` pour les recherches complexes.
+
+### ❌ Éviter les clauses `else`
+L'utilisation de clauses `else` augmente la complexité cognitive du code (règle Mago `no-else-clause`).
+
+**Solutions :**
+- Utiliser des **clauses de garde** (guard clauses) avec des retours hâtifs.
+- Utiliser l'opérateur ternaire pour les assignations simples.
+- Utiliser `match` ou `switch` pour les logiques multiples.
+
+**Exemple recommandé (Guard Clause) :**
+```php
+public function process(User $user): void
+{
+    if (!$user->isActive()) {
+        return;
+    }
+    
+    // Logique principale ici, sans indentation supplémentaire due à un else
+    $user->doSomething();
+}
+```
 
 ### ✅ Utilisation d'un Objet Criteria / Filter
 Pour éviter les signatures complexes et instables, regroupez les paramètres de recherche dans un objet dédié.

@@ -6,7 +6,7 @@ Ce document sert de guide de référence pour implémenter n'importe quel nouvea
 
 ## 🛠 Cycle de Développement (Inside-Out)
 
-**Règle d'or :** Chaque nouveau fichier PHP créé doit impérativement commencer par `declare(strict_types=1);`.
+**Règle d'or :** Chaque nouveau fichier PHP créé doit impérativement commencer par `declare(strict_types=1);` et respecter les règles de linting Mago (ex: `use function` pour les fonctions globales).
 
 On commence toujours par le cœur (Domaine) pour finir par les détails techniques (Infrastructure).
 
