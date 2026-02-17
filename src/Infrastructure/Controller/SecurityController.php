@@ -16,6 +16,9 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 final class SecurityController extends AbstractController
 {
+    /**
+     * @throws LogicException
+     */
     #[Route('/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -34,6 +37,9 @@ final class SecurityController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws LogicException
+     */
     #[Route('/logout', name: 'app_logout')]
     public function logout(): void
     {
@@ -42,6 +48,10 @@ final class SecurityController extends AbstractController
         );
     }
 
+    /**
+     * @throws LogicException
+     * @throws \Symfony\Component\Form\Exception\RuntimeException
+     */
     #[Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
     public function register(Request $request, RegisterUserInterface $registerUser): Response
     {

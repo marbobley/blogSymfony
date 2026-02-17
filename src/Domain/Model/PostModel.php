@@ -100,6 +100,9 @@ class PostModel
         return $this->title;
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function setTitle(string $title): void
     {
         if (mb_strlen($title) < 10) {

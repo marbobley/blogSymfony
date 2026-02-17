@@ -29,6 +29,7 @@ class User
 
     /**
      * @param string[] $roles
+     * @throws \InvalidArgumentException
      */
     public function __construct(string $email, #[\SensitiveParameter] string $password, array $roles = ['ROLE_USER'])
     {
@@ -48,11 +49,15 @@ class User
 
     /**
      * @return non-empty-string
+     * @throws \LogicException
      */
     public function getEmail(): string
     {
-        /** @var non-empty-string $email */
-        return $this->email;
+        $email = $this->email;
+        if ($email === '') {
+            throw new \LogicException('Email cannot be empty.');
+        }
+        return $email;
     }
 
     /**
@@ -72,6 +77,9 @@ class User
         return $this->password;
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function updateEmail(string $email): void
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

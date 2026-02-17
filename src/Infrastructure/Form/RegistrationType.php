@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
- * @extends AbstractType<UserRegistrationModel>
+ * @extends AbstractType
  */
 class RegistrationType extends AbstractType
 {
@@ -61,14 +61,23 @@ class RegistrationType extends AbstractType
         ]);
     }
 
+    /**
+     * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => UserRegistrationModel::class,
-            'empty_data' => static fn($form) => UserRegistrationDTOFactory::create(
-                (string) $form->get('email')->getData(),
-                (string) $form->get('plainPassword')->getData(),
-            ),
+            'empty_data' => static function (\Symfony\Component\Form\FormInterface $form) {
+                /** @var string|null $email */
+                $email = $form->get('email')->getData();
+                /** @var string|null $password */
+                $password = $form->get('plainPassword')->getData();
+                return UserRegistrationDTOFactory::create(
+                    (string) $email,
+                    (string) $password,
+                );
+            },
         ]);
     }
 }

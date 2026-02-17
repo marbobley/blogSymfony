@@ -17,11 +17,13 @@ readonly class PostAdapter implements PostProviderInterface
 {
     public function __construct(
         private PostRepositoryInterface $postRepository,
-        private TagRepositoryInterface $tagRepository,
         private PostMapperInterface $postMapper,
         private PostTagSynchronizer $postTagSynchronizer,
     ) {}
 
+    /**
+     * @throws \RuntimeException
+     */
     public function save(PostModel $postModel): PostModel
     {
         $post = $this->postMapper->toEntity($postModel);
@@ -39,6 +41,9 @@ readonly class PostAdapter implements PostProviderInterface
         return $this->postMapper->toModel($postCreated);
     }
 
+    /**
+     * @throws EntityNotFoundException
+     */
     public function delete(int $id): void
     {
         $post = $this->postRepository->findById($id);
@@ -50,6 +55,9 @@ readonly class PostAdapter implements PostProviderInterface
         $this->postRepository->delete($post);
     }
 
+    /**
+     * @throws EntityNotFoundException
+     */
     public function findById(int $id): PostModel
     {
         $post = $this->postRepository->findById($id);
@@ -61,6 +69,9 @@ readonly class PostAdapter implements PostProviderInterface
         return $this->postMapper->toModel($post);
     }
 
+    /**
+     * @throws EntityNotFoundException
+     */
     public function findBySlug(string $slug): PostModel
     {
         $post = $this->postRepository->findBySlug($slug);
@@ -82,6 +93,9 @@ readonly class PostAdapter implements PostProviderInterface
         return array_map(fn($post) => $this->postMapper->toModel($post), $posts);
     }
 
+    /**
+     * @throws EntityNotFoundException
+     */
     public function update(int $id, PostModel $postModel): PostModel
     {
         $post = $this->postRepository->findById($id);

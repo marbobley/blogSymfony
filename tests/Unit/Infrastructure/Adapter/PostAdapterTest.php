@@ -22,7 +22,6 @@ class PostAdapterTest extends TestCase
     use TestDataGeneratorTrait;
 
     private PostRepositoryInterface $postRepository;
-    private TagRepositoryInterface $tagRepository;
     private PostMapperInterface $postMapper;
     private PostTagSynchronizer $postTagSynchronizer;
     private PostAdapter $adapter;
@@ -30,13 +29,11 @@ class PostAdapterTest extends TestCase
     protected function setUp(): void
     {
         $this->postRepository = $this->createMock(PostRepositoryInterface::class);
-        $this->tagRepository = $this->createMock(TagRepositoryInterface::class);
         $this->postMapper = $this->createMock(PostMapperInterface::class);
         $this->postTagSynchronizer = $this->createMock(PostTagSynchronizer::class);
 
         $this->adapter = new PostAdapter(
             $this->postRepository,
-            $this->tagRepository,
             $this->postMapper,
             $this->postTagSynchronizer
         );

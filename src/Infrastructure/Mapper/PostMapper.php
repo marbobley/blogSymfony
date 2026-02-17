@@ -26,6 +26,9 @@ class PostMapper implements PostMapperInterface
         return $post;
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function toModel(Post $post): PostModel
     {
         $postModel = new PostModel();

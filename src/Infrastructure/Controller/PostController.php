@@ -23,6 +23,12 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class PostController extends AbstractController
 {
+    /**
+     * @throws \Symfony\Component\Form\Exception\RuntimeException
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     #[Route('/post/preview', name: 'app_post_preview', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function preview(Request $request): Response
@@ -43,6 +49,12 @@ final class PostController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws \Symfony\Component\HttpFoundation\Exception\BadRequestException
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     #[Route('/posts', name: 'app_post_index', methods: ['GET'])]
     public function index(Request $request, ListPublishedPostsInterface $listPosts): Response
     {
@@ -53,6 +65,11 @@ final class PostController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     #[Route('/admin/posts', name: 'app_post_admin_index', methods: ['GET'])]
     #[IsGranted('ROLE_ADMIN')]
     public function adminIndex(ListAllPostsInterface $listPosts): Response
@@ -63,6 +80,14 @@ final class PostController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws \LogicException
+     * @throws \Symfony\Component\Form\Exception\OutOfBoundsException
+     * @throws \Symfony\Component\Form\Exception\RuntimeException
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     #[Route('/post/new', name: 'app_post_new', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request, CreatePostInterface $createPost): Response
@@ -75,7 +100,8 @@ final class PostController extends AbstractController
             $createPost->execute($post);
             $this->addFlash('success', 'Votre article a été enregistré avec succès !');
 
-            if ($form->get('saveAndContinue')->isClicked()) {
+            $saveAndContinue = $form->get('saveAndContinue');
+            if ($saveAndContinue instanceof \Symfony\Component\Form\ClickableInterface && $saveAndContinue->isClicked()) {
                 return $this->redirectToRoute('app_post_edit', ['id' => $post->getId()]);
             }
 
@@ -87,6 +113,12 @@ final class PostController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     #[Route('/post/{slug}', name: 'app_post_show', methods: ['GET'])]
     public function show(string $slug, GetPostBySlugInterface $getPostBySlug): Response
     {
@@ -101,6 +133,15 @@ final class PostController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws \LogicException
+     * @throws \Symfony\Component\Form\Exception\LogicException
+     * @throws \Symfony\Component\Form\Exception\OutOfBoundsException
+     * @throws \Symfony\Component\Form\Exception\RuntimeException
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     #[Route('/post/edit/{id}', name: 'app_post_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function edit(int $id, Request $request, GetPost $getPostUseCase, UpdatePostInterface $updatePost): Response
@@ -119,7 +160,8 @@ final class PostController extends AbstractController
 
                 $this->addFlash('success', 'Votre article a été mis à jour avec succès !');
 
-                if ($form->get('saveAndContinue')->isClicked()) {
+                $saveAndContinue = $form->get('saveAndContinue');
+                if ($saveAndContinue instanceof \Symfony\Component\Form\ClickableInterface && $saveAndContinue->isClicked()) {
                     return $this->redirectToRoute('app_post_edit', ['id' => $id]);
                 }
 
@@ -135,6 +177,10 @@ final class PostController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws \LogicException
+     * @throws \Symfony\Component\HttpFoundation\Exception\BadRequestException
+     */
     #[Route('/post/delete/{id}', name: 'app_post_delete', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function delete(int $id, Request $request, DeletePostInterface $deletePost): Response

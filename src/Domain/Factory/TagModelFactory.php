@@ -8,6 +8,9 @@ use App\Domain\Model\TagModel;
 
 class TagModelFactory
 {
+    /**
+     * @throws \InvalidArgumentException
+     */
     public static function create(int $id, string $name, string $slug): TagModel
     {
         $tag = new TagModel();

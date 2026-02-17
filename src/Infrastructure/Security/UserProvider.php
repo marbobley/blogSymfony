@@ -36,6 +36,11 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
         return $this->userMapper->toAdapter($user);
     }
 
+    /**
+     * @throws \LogicException
+     * @throws UnsupportedUserException
+     * @throws UserNotFoundException
+     */
     public function refreshUser(UserInterface $user): UserInterface
     {
         if (!$user instanceof UserAdapter) {

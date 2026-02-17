@@ -18,6 +18,9 @@ class DoctrinePostRepository extends AbstractDoctrineRepository implements PostR
         parent::__construct($entityManager, Post::class);
     }
 
+    /**
+     * @return Post[]
+     */
     public function findByCriteria(\App\Domain\Criteria\PostCriteria $criteria): array
     {
         $qb = $this->entityManager
@@ -26,20 +29,23 @@ class DoctrinePostRepository extends AbstractDoctrineRepository implements PostR
             ->from(Post::class, 'p');
 
         if ($criteria->isOnlyPublished()) {
-            $qb->andWhere('p.published = :published')->setParameter('published', true);
+            $qb->andWhere('p.published = :published')->setParameter(key: 'published', value: true);
         }
 
         if ($criteria->getTagId() !== null) {
-            $qb->join('p.tags', 't')->andWhere('t.id = :tagId')->setParameter('tagId', $criteria->getTagId());
+            $qb->join(join: 'p.tags', alias: 't')->andWhere('t.id = :tagId')->setParameter(key: 'tagId', value: $criteria->getTagId());
         }
 
-        if ($criteria->getSearch()) {
+        $search = $criteria->getSearch();
+        if ($search !== null && $search !== '') {
             $qb->andWhere('p.title LIKE :search OR p.content LIKE :search OR p.subTitle LIKE :search')->setParameter(
-                'search',
-                '%' . $criteria->getSearch() . '%',
+                key: 'search',
+                value: '%' . $search . '%',
             );
         }
 
-        return $qb->getQuery()->getResult();
+        /** @var Post[] $result */
+        $result = $qb->getQuery()->getResult();
+        return $result;
     }
 }

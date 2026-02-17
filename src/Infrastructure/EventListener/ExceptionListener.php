@@ -20,6 +20,12 @@ class ExceptionListener
         private readonly Environment $twig,
     ) {}
 
+    /**
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     * @throws \InvalidArgumentException
+     */
     public function onKernelException(ExceptionEvent $event): void
     {
         $exception = $event->getThrowable();
@@ -37,7 +43,7 @@ class ExceptionListener
         };
 
         // Détection du format attendu
-        $acceptHeader = $request->headers->get('Accept', '');
+        $acceptHeader = (string) $request->headers->get('Accept', '');
         if (str_contains($acceptHeader, 'application/json') || $request->isXmlHttpRequest()) {
             $responseData = [
                 'error' => [

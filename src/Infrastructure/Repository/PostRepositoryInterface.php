@@ -8,8 +8,8 @@ use App\Infrastructure\Entity\Post;
 
 interface PostRepositoryInterface
 {
-    /** @param Post $post */
-    public function save(object $post): void;
+    /** @param Post $entity */
+    public function save(object $entity): void;
 
     /** @return Post|null */
     public function findById(int $id): ?object;
@@ -22,6 +22,6 @@ interface PostRepositoryInterface
      */
     public function findByCriteria(\App\Domain\Criteria\PostCriteria $criteria): array;
 
-    /** @param Post $post */
-    public function delete(object $post): void;
+    /** @param Post $entity */
+    public function delete(object $entity): void;
 }

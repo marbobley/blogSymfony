@@ -16,6 +16,9 @@ readonly class SymfonyPasswordHasher implements PasswordHasherInterface
         private UserMapperInterface $userMapper,
     ) {}
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function hash(#[\SensitiveParameter] string $plainPassword, string $email): string
     {
         $user = new User($email, '');

@@ -14,6 +14,9 @@ readonly class UserAdapter implements UserInterface, PasswordAuthenticatedUserIn
         private DomainUser $domainUser,
     ) {}
 
+    /**
+     * @throws \LogicException
+     */
     public function getEmail(): string
     {
         return $this->domainUser->getEmail();
@@ -21,6 +24,7 @@ readonly class UserAdapter implements UserInterface, PasswordAuthenticatedUserIn
 
     /**
      * @return non-empty-string
+     * @throws \LogicException
      */
     public function getUserIdentifier(): string
     {

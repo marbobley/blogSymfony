@@ -30,6 +30,10 @@ final class TagController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws \Symfony\Component\Form\Exception\RuntimeException
+     * @throws \LogicException
+     */
     #[Route('/tag/new', name: 'app_tag_new', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request, CreateTagInterface $createTag): Response
@@ -50,6 +54,9 @@ final class TagController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws \Symfony\Component\HttpFoundation\Exception\BadRequestException
+     */
     #[Route('/tag/{slug}', name: 'app_tag_show', methods: ['GET'])]
     public function show(
         string $slug,
@@ -65,6 +72,10 @@ final class TagController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws \Symfony\Component\Form\Exception\RuntimeException
+     * @throws \LogicException
+     */
     #[Route('/tag/edit/{id}', name: 'app_tag_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function edit(int $id, Request $request, GetTag $getTagUseCase, UpdateTagInterface $updateTag): Response
@@ -88,6 +99,10 @@ final class TagController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws \Symfony\Component\HttpFoundation\Exception\BadRequestException
+     * @throws \LogicException
+     */
     #[Route('/tag/delete/{id}', name: 'app_tag_delete', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function delete(int $id, Request $request, DeleteTagInterface $deleteTag): Response
