@@ -63,7 +63,6 @@ class PostType extends AbstractType
                 'label' => 'Enregistrer et continuer l\'édition',
             ]);
 
-
         $builder->get('tags')->addModelTransformer(
             new CallbackTransformer(
                 static function ($tagsAsCollection) {
