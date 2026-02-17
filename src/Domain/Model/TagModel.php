@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Domain\Model;
 
 use InvalidArgumentException;
-use function mb_strlen;
 use Symfony\Component\Validator\Constraints as Assert;
+
+use function mb_strlen;
 
 class TagModel
 {

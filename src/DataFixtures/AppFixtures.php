@@ -11,6 +11,7 @@ use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Exception;
+
 use function array_rand;
 use function rand;
 use function str_repeat;
@@ -79,7 +80,7 @@ class AppFixtures extends Fixture
                 $post->setUpdatedAt($createdAt->modify('+' . rand(min: 1, max: 10) . ' hours'));
             }
 
-            $randomTags =  array_rand(array: $tags, num: 2);
+            $randomTags = array_rand(array: $tags, num: 2);
             foreach ($randomTags as $index) {
                 $tag = $tags[$index];
                 $post->addTag($tag);

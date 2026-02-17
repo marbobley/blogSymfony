@@ -11,6 +11,7 @@ use App\Domain\Provider\PostProviderInterface;
 use App\Infrastructure\MapperInterface\PostMapperInterface;
 use App\Infrastructure\Repository\PostRepositoryInterface;
 use App\Infrastructure\Service\PostTagSynchronizer;
+
 use function array_map;
 
 readonly class PostAdapter implements PostProviderInterface

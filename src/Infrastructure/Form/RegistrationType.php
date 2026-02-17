@@ -73,10 +73,7 @@ class RegistrationType extends AbstractType
                 $email = $form->get('email')->getData();
                 /** @var string|null $password */
                 $password = $form->get('plainPassword')->getData();
-                return UserRegistrationDTOFactory::create(
-                    (string) $email,
-                    (string) $password,
-                );
+                return UserRegistrationDTOFactory::create((string) $email, (string) $password);
             },
         ]);
     }

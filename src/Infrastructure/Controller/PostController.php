@@ -101,7 +101,10 @@ final class PostController extends AbstractController
             $this->addFlash('success', 'Votre article a été enregistré avec succès !');
 
             $saveAndContinue = $form->get('saveAndContinue');
-            if ($saveAndContinue instanceof \Symfony\Component\Form\ClickableInterface && $saveAndContinue->isClicked()) {
+            if (
+                $saveAndContinue instanceof \Symfony\Component\Form\ClickableInterface
+                && $saveAndContinue->isClicked()
+            ) {
                 return $this->redirectToRoute('app_post_edit', ['id' => $post->getId()]);
             }
 
@@ -161,7 +164,10 @@ final class PostController extends AbstractController
                 $this->addFlash('success', 'Votre article a été mis à jour avec succès !');
 
                 $saveAndContinue = $form->get('saveAndContinue');
-                if ($saveAndContinue instanceof \Symfony\Component\Form\ClickableInterface && $saveAndContinue->isClicked()) {
+                if (
+                    $saveAndContinue instanceof \Symfony\Component\Form\ClickableInterface
+                    && $saveAndContinue->isClicked()
+                ) {
                     return $this->redirectToRoute('app_post_edit', ['id' => $id]);
                 }
 

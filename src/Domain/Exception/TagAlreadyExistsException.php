@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Exception;
 
 use RuntimeException;
+
 use function sprintf;
 
 class TagAlreadyExistsException extends RuntimeException implements DomainExceptionInterface

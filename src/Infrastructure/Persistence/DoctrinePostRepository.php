@@ -33,7 +33,10 @@ class DoctrinePostRepository extends AbstractDoctrineRepository implements PostR
         }
 
         if ($criteria->getTagId() !== null) {
-            $qb->join(join: 'p.tags', alias: 't')->andWhere('t.id = :tagId')->setParameter(key: 'tagId', value: $criteria->getTagId());
+            $qb
+                ->join(join: 'p.tags', alias: 't')
+                ->andWhere('t.id = :tagId')
+                ->setParameter(key: 'tagId', value: $criteria->getTagId());
         }
 
         $search = $criteria->getSearch();
