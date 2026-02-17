@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Infrastructure\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use function array_unique;
+use function filter_var;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'user')]

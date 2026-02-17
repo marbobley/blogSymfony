@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Service\Sharing;
 
 use App\Domain\Service\Sharing\SharingServiceInterface;
+use function urlencode;
 
 class BlueskySharingService implements SharingServiceInterface
 {

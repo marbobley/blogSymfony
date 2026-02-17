@@ -77,9 +77,14 @@ class Post
         return $this->published;
     }
 
-    public function setPublished(bool $published): void
+    public function publish(): void
     {
-        $this->published = $published;
+        $this->published = true;
+    }
+
+    public function unpublish(): void
+    {
+        $this->published = false;
     }
 
     #[Gedmo\Timestampable(on: 'create')]

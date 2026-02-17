@@ -70,7 +70,7 @@ class AppFixtures extends Fixture
                     . str_repeat(string: 'Lorem ipsum dolor sit amet. ', times: 5),
             );
             $post->setSubTitle("Ceci est le soutitre {$i}");
-            $post->setPublished(true);
+            $post->publish();
 
             $createdAt = new DateTimeImmutable('-' . (11 - $i) . ' days');
             $post->setCreatedAt($createdAt);

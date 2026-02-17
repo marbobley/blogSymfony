@@ -15,6 +15,7 @@ trait XmlTestDataTrait
 {
     /**
      * @return PostModel[]
+     * @throws \Exception
      */
     private function loadPostModelsFromXml(string $filePath): array
     {
@@ -28,7 +29,7 @@ trait XmlTestDataTrait
             $post->setSubTitle((string) $postData->subtitle);
             $post->setContent((string) $postData->content);
             $post->setSlug((string) $postData->slug);
-            $post->setPublished(((string) $postData->published) === 'true');
+            (string) $postData->published === 'true' ? $post->publish() : $post->unpublish();
             $post->setCreatedAt(new DateTimeImmutable((string) $postData->createdAt));
 
             if (isset($postData->tags)) {

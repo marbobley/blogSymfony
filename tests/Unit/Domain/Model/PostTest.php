@@ -31,10 +31,10 @@ class PostTest extends TestCase
 
         $this->assertFalse($post->isPublished());
 
-        $post->setPublished(true);
+        $post->publish();
         $this->assertTrue($post->isPublished());
 
-        $post->setPublished(false);
+        $post->unpublish();
         $this->assertFalse($post->isPublished());
     }
 }

@@ -26,7 +26,7 @@ class BlueskyShareIntegrationTest extends WebTestCase
         $post = new Post($title, 'Contenu de l\'article de test pour vérifier le bouton Bluesky.');
         $post->setSubTitle('Sous-titre de test');
         $post->setSlug($slug);
-        $post->setPublished(true);
+        $post->publish();
 
         $this->entityManager->persist($post);
         $this->entityManager->flush();

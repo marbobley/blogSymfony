@@ -8,6 +8,7 @@ use App\Domain\Model\PostModel;
 use App\Infrastructure\Entity\Post;
 use App\Infrastructure\Mapper\PostMapper;
 use App\Infrastructure\MapperInterface\TagMapperInterface;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Tests\Unit\Helper\TestDataGeneratorTrait;
 use PHPUnit\Framework\TestCase;
@@ -29,7 +30,7 @@ class PostMapperTest extends TestCase
     {
         $postModel = $this->createPostModel(title: 'Test Title', content: 'Test Content');
         $postModel->setSubTitle('subtitle');
-        $postModel->setPublished(true);
+        $postModel->publish();
         $tagEntities = new ArrayCollection();
         $this->tagMapper->expects($this->once())
             ->method('toEntities')
@@ -37,7 +38,6 @@ class PostMapperTest extends TestCase
 
         $entity = $this->mapper->toEntity($postModel);
 
-        $this->assertInstanceOf(Post::class, $entity);
         $this->assertSame('Test Title', $entity->getTitle());
         $this->assertSame('Test Content', $entity->getContent());
         $this->assertSame('subtitle', $entity->getSubTitle());
@@ -47,7 +47,7 @@ class PostMapperTest extends TestCase
 
     public function testToModel(): void
     {
-        $createdAt = new \DateTimeImmutable();
+        $createdAt = new DateTimeImmutable();
         $post = $this->createMock(Post::class);
         $post->method('getTitle')->willReturn('Test Title');
         $post->method('getContent')->willReturn('Test Content');

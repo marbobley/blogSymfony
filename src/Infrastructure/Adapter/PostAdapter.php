@@ -10,8 +10,8 @@ use App\Domain\Model\PostModel;
 use App\Domain\Provider\PostProviderInterface;
 use App\Infrastructure\MapperInterface\PostMapperInterface;
 use App\Infrastructure\Repository\PostRepositoryInterface;
-use App\Infrastructure\Repository\TagRepositoryInterface;
 use App\Infrastructure\Service\PostTagSynchronizer;
+use function array_map;
 
 readonly class PostAdapter implements PostProviderInterface
 {
@@ -109,7 +109,8 @@ readonly class PostAdapter implements PostProviderInterface
         $post->setTitle($postModel->getTitle());
         $post->setContent($postModel->getContent());
         $post->setSubTitle($postModel->getSubTitle());
-        $post->setPublished($postModel->isPublished());
+
+        $postModel->isPublished() ? $post->publish() : $post->unpublish();
 
         $this->postTagSynchronizer->synchronize($post, $postModel);
 

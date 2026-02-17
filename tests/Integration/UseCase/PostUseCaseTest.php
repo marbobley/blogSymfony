@@ -68,12 +68,12 @@ class PostUseCaseTest extends KernelTestCase
     {
         $post1 = new Post('Titre article 1', 'Contenu 1');
         $post1->setSubTitle('Sub 1');
-        $post1->setPublished(true);
+        $post1->publish();
         $this->entityManager->persist($post1);
 
         $post2 = new Post('Titre article 2', 'Contenu 2');
         $post2->setSubTitle('Sub 2');
-        $post2->setPublished(false);
+        $post2->unpublish();
         $this->entityManager->persist($post2);
 
         $this->entityManager->flush();

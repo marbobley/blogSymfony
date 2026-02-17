@@ -11,6 +11,7 @@ use App\Domain\Provider\TagProviderInterface;
 use App\Infrastructure\Entity\Tag;
 use App\Infrastructure\MapperInterface\TagMapperInterface;
 use App\Infrastructure\Repository\TagRepositoryInterface;
+use function array_map;
 
 readonly class TagAdapter implements TagProviderInterface
 {

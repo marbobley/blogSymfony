@@ -44,8 +44,7 @@ class DoctrinePostRepository extends AbstractDoctrineRepository implements PostR
             );
         }
 
-        /** @var Post[] $result */
-        $result = $qb->getQuery()->getResult();
-        return $result;
+        /** @var Post[] */
+        return $qb->getQuery()->getResult();
     }
 }

@@ -6,6 +6,8 @@ namespace App\Tests\Unit\Domain\Model;
 
 use App\Domain\Model\PostModel;
 use App\Domain\Model\TagModel;
+use Doctrine\Common\Collections\ArrayCollection;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use DateTimeImmutable;
 
@@ -34,14 +36,14 @@ class PostModelTest extends TestCase
         $post->setCreatedAt($now);
         $this->assertEquals($now, $post->getCreatedAt());
 
-        $post->setPublished(true);
+        $post->publish();
         $this->assertTrue($post->isPublished());
     }
 
     public function testSetTitleThrowsExceptionWhenTooShort(): void
     {
         $post = new PostModel();
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $post->setTitle('Short');
     }
 
@@ -73,7 +75,7 @@ class PostModelTest extends TestCase
         $tag2 = new TagModel();
         $tag2->setName('Tag 2');
 
-        $tags = new \Doctrine\Common\Collections\ArrayCollection([$tag1, $tag2]);
+        $tags = new ArrayCollection([$tag1, $tag2]);
         $post->addTags($tags);
 
         $this->assertCount(2, $post->getTags());

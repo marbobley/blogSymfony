@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\Domain\Exception;
 
 use RuntimeException;
+use function get_debug_type;
+use function is_scalar;
+use function sprintf;
 
 class EntityNotFoundException extends RuntimeException implements DomainExceptionInterface
 {
