@@ -14,7 +14,7 @@ class GalleryItem extends BaseGalleryItem
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    protected int $id;
+    protected ?int $id = null;
 
     public function getId(): ?int
     {
