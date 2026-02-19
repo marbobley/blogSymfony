@@ -1,0 +1,26 @@
+sonata_block:
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+
+sonata_admin:
+    title: 'Blog Admin'
+    title_logo: /assets/images/logo.png
+    dashboard:
+        groups:
+            blog:
+                label: Blog
+                items:
+                    - App\Infrastructure\Admin\PostAdmin
+                    - App\Infrastructure\Admin\TagAdmin
+        blocks:
+            - { position: left, type: sonata.admin.block.admin_list, settings: { groups: [blog] } }
+
+    options:
+        html5_validate: true
+        confirm_exit: true
+        use_select2: true
+        use_icheck: false
+
+    templates:
+        layout: '@SonataAdmin/standard_layout.html.twig'

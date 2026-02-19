@@ -67,3 +67,11 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Infrastructure\Admin\PostAdmin:
+        tags:
+            - { name: sonata.admin, model_class: App\Infrastructure\Entity\Post, manager_type: orm, group: blog, label: Posts }
+
+    App\Infrastructure\Admin\TagAdmin:
+        tags:
+            - { name: sonata.admin, model_class: App\Infrastructure\Entity\Tag, manager_type: orm, group: blog, label: Tags }
