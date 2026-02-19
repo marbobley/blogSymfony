@@ -14,7 +14,7 @@ class Media extends BaseMedia
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    protected $id;
+    protected int $id;
 
     public function getId(): ?int
     {
