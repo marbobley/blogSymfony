@@ -54,7 +54,7 @@ class Post
     }
 
     #[ORM\Column(type: 'text')]
-    private string $subTitle;
+    private string $subTitle = '';
 
     public function getSubTitle(): string
     {
@@ -70,7 +70,7 @@ class Post
     private string $content;
 
     #[ORM\Column(type: 'boolean')]
-    private bool $published = false;
+    public bool $published = false;
 
     public function isPublished(): bool
     {
@@ -167,5 +167,10 @@ class Post
     public function removeTag(Tag $tag): void
     {
         $this->tags->removeElement($tag);
+    }
+
+    public function __toString(): string
+    {
+        return $this->title;
     }
 }

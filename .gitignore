@@ -72,3 +72,4 @@ phpstan.neon
 ###< phpstan/phpstan ###
 
 .env.test
+/public/bundles/*
