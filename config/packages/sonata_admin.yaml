@@ -13,8 +13,13 @@ sonata_admin:
                 items:
                     - App\Infrastructure\Admin\PostAdmin
                     - App\Infrastructure\Admin\TagAdmin
+            media:
+                label: Médias
+                items:
+                    - sonata.media.admin.media
+                    - sonata.media.admin.gallery
         blocks:
-            - { position: left, type: sonata.admin.block.admin_list, settings: { groups: [blog] } }
+            - { position: left, type: sonata.admin.block.admin_list, settings: { groups: [blog, media] } }
 
     options:
         html5_validate: true
