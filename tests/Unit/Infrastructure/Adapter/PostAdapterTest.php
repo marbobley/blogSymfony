@@ -57,11 +57,6 @@ class PostAdapterTest extends TestCase
             ->method('save')
             ->with($post);
 
-        $this->postRepository->expects($this->once())
-            ->method('findBySlug')
-            ->with('test-slug')
-            ->willReturn($post);
-
         $this->postMapper->expects($this->once())
             ->method('toModel')
             ->with($post)
@@ -86,19 +81,6 @@ class PostAdapterTest extends TestCase
             ->method('delete')
             ->with($post);
 
-        $this->adapter->delete($id);
-    }
-
-    public function testDeleteThrowsExceptionIfNotFound(): void
-    {
-        $id = 1;
-
-        $this->postRepository->expects($this->once())
-            ->method('findById')
-            ->with($id)
-            ->willReturn(null);
-
-        $this->expectException(EntityNotFoundException::class);
         $this->adapter->delete($id);
     }
 

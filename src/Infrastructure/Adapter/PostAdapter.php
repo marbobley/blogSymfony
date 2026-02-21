@@ -11,6 +11,7 @@ use App\Domain\Provider\PostProviderInterface;
 use App\Infrastructure\MapperInterface\PostMapperInterface;
 use App\Infrastructure\Repository\PostRepositoryInterface;
 use App\Infrastructure\Service\PostTagSynchronizer;
+use RuntimeException;
 
 use function array_map;
 
@@ -23,7 +24,7 @@ readonly class PostAdapter implements PostProviderInterface
     ) {}
 
     /**
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function save(PostModel $postModel): PostModel
     {
@@ -31,15 +32,7 @@ readonly class PostAdapter implements PostProviderInterface
         $this->postTagSynchronizer->synchronize($post, $postModel);
 
         $this->postRepository->save($post);
-        $slug = $post->getSlug();
-        if (null === $slug) {
-            throw new \RuntimeException('Slug was not generated for the post.');
-        }
-        $postCreated = $this->postRepository->findBySlug($slug);
-        if (null === $postCreated) {
-            throw new \RuntimeException('Post was not found after saving.');
-        }
-        return $this->postMapper->toModel($postCreated);
+        return $this->postMapper->toModel($post);
     }
 
     /**
@@ -48,12 +41,9 @@ readonly class PostAdapter implements PostProviderInterface
     public function delete(int $id): void
     {
         $post = $this->postRepository->findById($id);
-
-        if (!$post) {
-            throw EntityNotFoundException::forEntity('Post', $id);
+        if ($post) {
+            $this->postRepository->delete($post);
         }
-
-        $this->postRepository->delete($post);
     }
 
     /**
@@ -105,12 +95,9 @@ readonly class PostAdapter implements PostProviderInterface
             throw EntityNotFoundException::forEntity('Post', $id);
         }
 
-        $postEntity = $this->postMapper->toEntity($postModel);
-
         $post->setTitle($postModel->getTitle());
         $post->setContent($postModel->getContent());
         $post->setSubTitle($postModel->getSubTitle());
-
         $postModel->isPublished() ? $post->publish() : $post->unpublish();
 
         $this->postTagSynchronizer->synchronize($post, $postModel);

@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\Infrastructure\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
+use LogicException;
+use SensitiveParameter;
 
 use function array_unique;
 use function filter_var;
@@ -32,12 +35,12 @@ class User
 
     /**
      * @param string[] $roles
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function __construct(string $email, #[\SensitiveParameter] string $password, array $roles = ['ROLE_USER'])
+    public function __construct(string $email, #[SensitiveParameter] string $password, array $roles = ['ROLE_USER'])
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new \InvalidArgumentException('L\'adresse email est invalide.');
+            throw new InvalidArgumentException('L\'adresse email est invalide.');
         }
 
         $this->email = $email;
@@ -52,13 +55,13 @@ class User
 
     /**
      * @return non-empty-string
-     * @throws \LogicException
+     * @throws LogicException
      */
     public function getEmail(): string
     {
         $email = $this->email;
         if ($email === '') {
-            throw new \LogicException('Email cannot be empty.');
+            throw new LogicException('Email cannot be empty.');
         }
         return $email;
     }
@@ -81,18 +84,18 @@ class User
     }
 
     /**
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function updateEmail(string $email): void
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new \InvalidArgumentException('L\'adresse email est invalide.');
+            throw new InvalidArgumentException('L\'adresse email est invalide.');
         }
 
         $this->email = $email;
     }
 
-    public function updatePassword(#[\SensitiveParameter] string $password): void
+    public function updatePassword(#[SensitiveParameter] string $password): void
     {
         $this->password = $password;
     }

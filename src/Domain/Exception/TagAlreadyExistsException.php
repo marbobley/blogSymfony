@@ -8,7 +8,7 @@ use RuntimeException;
 
 use function sprintf;
 
-class TagAlreadyExistsException extends RuntimeException implements DomainExceptionInterface
+class TagAlreadyExistsException extends RuntimeException implements BlogExceptionInterface
 {
     public function __construct(string $tagName)
     {

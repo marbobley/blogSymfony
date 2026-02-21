@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\EventListener;
 
-use App\Domain\Exception\DomainExceptionInterface;
+use App\Domain\Exception\BlogExceptionInterface;
 use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Exception\TagAlreadyExistsException;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
@@ -34,7 +34,7 @@ class ExceptionListener
         $request = $event->getRequest();
 
         // Si ce n'est pas une exception de notre Domaine, on laisse Symfony gérer
-        if (!$exception instanceof DomainExceptionInterface) {
+        if (!$exception instanceof BlogExceptionInterface) {
             return;
         }
 
