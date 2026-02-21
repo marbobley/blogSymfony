@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use InvalidArgumentException;
 use Symfony\Component\Validator\Constraints as Assert;
+
 use function mb_strlen;
 
 class PostModel extends BaseModelAbstract

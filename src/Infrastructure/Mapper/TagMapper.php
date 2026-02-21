@@ -25,11 +25,7 @@ class TagMapper implements TagMapperInterface
     {
         $tagBuilder = new TagModelFactory();
 
-        return $tagBuilder
-            ->setId($entity->getId())
-            ->setName($entity->getName())
-            ->setSlug($entity->getSlug())
-            ->build();
+        return $tagBuilder->setId($entity->getId())->setName($entity->getName())->setSlug($entity->getSlug())->build();
     }
 
     /**

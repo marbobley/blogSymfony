@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Model;
 
 abstract class BaseModelAbstract
 {
     private ?int $id = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -14,5 +17,4 @@ abstract class BaseModelAbstract
     {
         $this->id = $id;
     }
-
 }

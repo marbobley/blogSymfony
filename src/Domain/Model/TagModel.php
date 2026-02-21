@@ -6,6 +6,7 @@ namespace App\Domain\Model;
 
 use InvalidArgumentException;
 use Symfony\Component\Validator\Constraints as Assert;
+
 use function mb_strlen;
 
 class TagModel extends BaseModelAbstract
@@ -15,9 +16,7 @@ class TagModel extends BaseModelAbstract
     private string $name = '';
     private string $slug = '';
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public function setSlug(string $slug): void
     {
