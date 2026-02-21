@@ -4,33 +4,30 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Application\UseCase;
 
-use App\Domain\Factory\PostModelFactory;
+use App\Domain\Factory\PostModelBuilder;
 use App\Domain\Factory\TagModelFactory;
 use App\Domain\Provider\PostProviderInterface;
 use App\Domain\UseCase\UpdatePost;
+use App\Tests\Unit\Helper\XmlTestDataTrait;
 use PHPUnit\Framework\TestCase;
 
 class UpdatePostTest extends TestCase
 {
     public function testExecuteUpdatesAndSavesPost(): void
     {
-        // TODO WFO TEST A REVOIR
+        $postBuilder = new PostModelBuilder();
+
+        $postModel = $postBuilder
+            ->setId(1)
+            ->build();
         // Arrange
         $postProvider = $this->createMock(PostProviderInterface::class);
         $useCase = new UpdatePost($postProvider);
 
-        $post = PostModelFactory::create('Ancien Titre', 'Ancien Contenu');
-        $oldTag = TagModelFactory::create(1,  'Old', 'Old');
-        $post->addTag($oldTag);
-
         $postProvider->expects($this->once())
             ->method('update');
 
-        $dto = PostModelFactory::create('Nouveau Titre', 'Nouveau Contenu');
-        $newTagDTO = TagModelFactory::create(1,'New', 'sllu');
-        $dto->addTag($newTagDTO);
-
         // Act
-        $updatedPost = $useCase->execute(1, $dto);
+        $useCase->execute($postModel->getId(), $postModel);
     }
 }

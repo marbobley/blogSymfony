@@ -31,6 +31,7 @@ trait XmlTestDataTrait
             $post->setSlug((string) $postData->slug);
             (string) $postData->published === 'true' ? $post->publish() : $post->unpublish();
             $post->setCreatedAt(new DateTimeImmutable((string) $postData->createdAt));
+            $post->setUpdatedAt(new DateTimeImmutable((string) $postData->updatedAt));
 
             if (isset($postData->tags)) {
                 foreach ($postData->tags->tag as $tagData) {

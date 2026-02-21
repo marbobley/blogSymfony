@@ -7,6 +7,7 @@
         <slug>decouvrir-l-architecture-hexagonale</slug>
         <published>true</published>
         <createdAt>2026-02-14T10:00:00+00:00</createdAt>
+        <updatedAt>2026-03-14T10:00:00+00:00</updatedAt>
         <tags>
             <tag id="1">
                 <name>Architecture</name>
@@ -25,6 +26,7 @@
         <slug>nouveautes-symfony-7-4</slug>
         <published>true</published>
         <createdAt>2026-02-14T11:00:00+00:00</createdAt>
+        <updatedAt>2026-04-14T10:00:00+00:00</updatedAt>
         <tags>
             <tag id="3">
                 <name>Symfony</name>
