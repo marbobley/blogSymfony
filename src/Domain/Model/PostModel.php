@@ -9,13 +9,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use InvalidArgumentException;
 use Symfony\Component\Validator\Constraints as Assert;
-
 use function mb_strlen;
 
-class PostModel
+class PostModel extends BaseModelAbstract
 {
-    private ?int $id = null;
-
     #[Assert\NotBlank]
     #[Assert\Length(min: 10, max: 255, minMessage: 'Le titre doit faire au moins 10 caractères')]
     private string $title = '';
@@ -146,15 +143,5 @@ class PostModel
         foreach ($tags as $tag) {
             $this->addTag($tag);
         }
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function setId(?int $id): void
-    {
-        $this->id = $id;
     }
 }

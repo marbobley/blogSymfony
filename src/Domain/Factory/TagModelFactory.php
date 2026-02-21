@@ -9,6 +9,10 @@ use InvalidArgumentException;
 
 class TagModelFactory
 {
+    private TagModel $model ;
+    public function __construct(){
+        $this->model = new TagModel();
+    }
     /**
      * @throws InvalidArgumentException
      */

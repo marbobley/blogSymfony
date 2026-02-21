@@ -6,26 +6,19 @@ namespace App\Domain\Model;
 
 use InvalidArgumentException;
 use Symfony\Component\Validator\Constraints as Assert;
-
 use function mb_strlen;
 
-class TagModel
+class TagModel extends BaseModelAbstract
 {
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 255)]
     private string $name = '';
     private string $slug = '';
-    private ?int $id = null;
 
     public function __construct(string $name = '', string $slug = '', ?int $id = null)
     {
         $this->name = $name;
         $this->slug = $slug;
-        $this->id = $id;
-    }
-
-    public function setId(?int $id): void
-    {
         $this->id = $id;
     }
 
@@ -37,11 +30,6 @@ class TagModel
     public function getSlug(): string
     {
         return $this->slug;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getName(): string
