@@ -4,14 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Infrastructure\Service;
 
-use App\Domain\Model\PostModel;
-use App\Domain\Model\TagModel;
-use App\Infrastructure\Entity\Post;
-use App\Infrastructure\Entity\Tag;
 use App\Infrastructure\Repository\TagRepositoryInterface;
 use App\Infrastructure\Service\PostTagSynchronizer;
-use Doctrine\Common\Collections\ArrayCollection;
-use App\Tests\Unit\Helper\TestDataGeneratorTrait;
+use App\Tests\Helper\TestDataGeneratorTrait;
 use PHPUnit\Framework\TestCase;
 
 class PostTagSynchronizerTest extends TestCase

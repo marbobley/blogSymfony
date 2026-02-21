@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Tests\Integration\UseCase;
 
 use App\Domain\Model\TagModel;
-use App\Domain\UseCaseInterface\CreateTagInterface;
-use App\Domain\UseCaseInterface\DeleteTagInterface;
-use App\Domain\UseCaseInterface\GetTagBySlugInterface;
-use App\Domain\UseCaseInterface\GetTagInterface;
-use App\Domain\UseCaseInterface\ListTagsInterface;
-use App\Domain\UseCaseInterface\UpdateTagInterface;
+use App\Domain\UseCaseInterface\Tag\CreateTagInterface;
+use App\Domain\UseCaseInterface\Tag\DeleteTagInterface;
+use App\Domain\UseCaseInterface\Tag\GetTagBySlugInterface;
+use App\Domain\UseCaseInterface\Tag\GetTagInterface;
+use App\Domain\UseCaseInterface\Tag\ListTagsInterface;
+use App\Domain\UseCaseInterface\Tag\UpdateTagInterface;
 use App\Infrastructure\Entity\Tag;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;

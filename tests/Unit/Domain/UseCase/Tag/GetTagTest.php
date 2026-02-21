@@ -1,0 +1,34 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Tests\Unit\Domain\UseCase\Tag;
+
+use App\Domain\Provider\TagProviderInterface;
+use App\Domain\UseCase\Tag\GetTag;
+use App\Tests\Helper\XmlTestDataTrait;
+use PHPUnit\Framework\TestCase;
+
+class GetTagTest extends TestCase
+{
+    use XmlTestDataTrait;
+
+    public function testExecuteReturnsTagModel(): void
+    {
+        $tags = $this->loadTagModelsFromXml();
+        $tag = $tags[2]; // Symfony
+
+        $tagProvider = $this->createMock(TagProviderInterface::class);
+        $useCase = new GetTag($tagProvider);
+
+        $tagProvider->expects($this->once())
+            ->method('findById')
+            ->with(3)
+            ->willReturn($tag);
+
+        $responseDTO = $useCase->execute(3);
+
+        $this->assertEquals('Symfony', $responseDTO->getName());
+        $this->assertEquals('symfony', $responseDTO->getSlug());
+    }
+}

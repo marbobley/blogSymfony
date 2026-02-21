@@ -8,9 +8,9 @@ use App\Domain\Model\PostModel;
 use App\Infrastructure\Entity\Post;
 use App\Infrastructure\Mapper\PostMapper;
 use App\Infrastructure\MapperInterface\TagMapperInterface;
+use App\Tests\Helper\TestDataGeneratorTrait;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
-use App\Tests\Unit\Helper\TestDataGeneratorTrait;
 use PHPUnit\Framework\TestCase;
 
 class PostMapperTest extends TestCase
@@ -48,12 +48,14 @@ class PostMapperTest extends TestCase
     public function testToModel(): void
     {
         $createdAt = new DateTimeImmutable();
+        $updateAt = new DateTimeImmutable();
         $post = $this->createMock(Post::class);
         $post->method('getTitle')->willReturn('Test Title');
         $post->method('getContent')->willReturn('Test Content');
         $post->method('getId')->willReturn(1);
         $post->method('getSlug')->willReturn('test-title');
         $post->method('getCreatedAt')->willReturn($createdAt);
+        $post->method('getUpdatedAt')->willReturn($updateAt);
         $post->method('isPublished')->willReturn(true);
         $tagEntities = new ArrayCollection();
         $post->method('getTags')->willReturn($tagEntities);

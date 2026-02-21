@@ -6,7 +6,7 @@ namespace App\Infrastructure\Form;
 
 use App\Domain\Model\PostModel;
 use App\Domain\Model\TagModel;
-use App\Domain\UseCaseInterface\ListTagsInterface;
+use App\Domain\UseCaseInterface\Tag\ListTagsInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\AbstractType;

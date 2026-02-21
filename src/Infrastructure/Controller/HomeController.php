@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Controller;
 
 use App\Domain\Criteria\PostCriteria;
-use App\Domain\UseCaseInterface\ListPublishedPostsInterface;
+use App\Domain\UseCaseInterface\Post\ListPublishedPostsInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;

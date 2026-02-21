@@ -4,30 +4,40 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Domain\Factory;
 
-use App\Domain\Factory\PostModelFactory;
-use App\Domain\Model\PostModel;
+use App\Domain\Factory\PostModelBuilder;
+use App\Domain\Model\StatutArticle;
+use App\Tests\Helper\AssertPostTrait;
+use App\Tests\Helper\XmlPostDataTrait;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 class PostModelFactoryTest extends TestCase
 {
+    use XmlPostDataTrait;
+    use AssertPostTrait;
+
+    /**
+     * @throws Exception
+     */
     public function testCreate(): void
     {
-        $title = 'Test Title assez long';
-        $content = 'Test Content';
+        $postXml = $this->loadPostModelsFromXml()[0];
+        $postBuilder = new PostModelBuilder();
 
-        $postModel = PostModelFactory::create($title, $content);
+        $statut = $postXml->isPublished() ? StatutArticle::PUBLISHED : StatutArticle::DRAFT ;
 
-        $this->assertInstanceOf(PostModel::class, $postModel);
-        $this->assertSame($title, $postModel->getTitle());
-        $this->assertSame($content, $postModel->getContent());
-    }
+        $postModel = $postBuilder
+            ->setId($postXml->getId())
+            ->setTitle($postXml->getTitle())
+            ->setContent($postXml->getContent())
+            ->setSlug($postXml->getSlug())
+            ->setSubTitle($postXml->getSubTitle())
+            ->setCreatedAt($postXml->getCreatedAt())
+            ->setUpdatedAt($postXml->getUpdatedAt())
+            ->setTags($postXml->getTags())
+            ->setPublished($statut)
+            ->build();
 
-    public function testCreateWithDefaultValues(): void
-    {
-        $postModel = PostModelFactory::create();
-
-        $this->assertInstanceOf(PostModel::class, $postModel);
-        $this->assertSame('Titre par défaut assez long', $postModel->getTitle());
-        $this->assertSame('', $postModel->getContent());
+        $this->assertPostModelExpectedEqualsPostModelResult($this, $postXml, $postModel);
     }
 }

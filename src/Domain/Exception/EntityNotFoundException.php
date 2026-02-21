@@ -10,7 +10,7 @@ use function get_debug_type;
 use function is_scalar;
 use function sprintf;
 
-class EntityNotFoundException extends RuntimeException implements DomainExceptionInterface
+class EntityNotFoundException extends RuntimeException implements BlogExceptionInterface
 {
     public function __construct(string $entityName, mixed $identifier)
     {
