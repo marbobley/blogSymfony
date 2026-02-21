@@ -104,4 +104,9 @@ class User
     {
         $this->roles = $roles;
     }
+
+    public function __toString(): string
+    {
+        return $this->email;
+    }
 }

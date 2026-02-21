@@ -75,3 +75,7 @@ services:
     App\Infrastructure\Admin\TagAdmin:
         tags:
             - { name: sonata.admin, model_class: App\Infrastructure\Entity\Tag, manager_type: orm, group: blog, label: Tags }
+
+    App\Infrastructure\Admin\UserAdmin:
+        tags:
+            - { name: sonata.admin, model_class: App\Infrastructure\Entity\User, manager_type: orm, group: blog, label: Users }
