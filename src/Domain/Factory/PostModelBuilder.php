@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Domain\Factory;
 
 use App\Domain\Model\PostModel;
+use App\Domain\Model\TagModel;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
+use InvalidArgumentException;
 
 class PostModelBuilder
 {
@@ -17,12 +19,15 @@ class PostModelBuilder
         $this->model = new PostModel();
     }
 
-    public function setId(int $id) : PostModelBuilder
+    public function setId(int $id): PostModelBuilder
     {
         $this->model->setId($id);
         return $this;
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function setTitle(string $title): PostModelBuilder
     {
         $this->model->setTitle($title);
@@ -65,6 +70,9 @@ class PostModelBuilder
         return $this;
     }
 
+    /**
+     * @param Collection<int, TagModel> $tags
+     */
     public function setTags(Collection $tags): PostModelBuilder
     {
         $this->model->addTags($tags);
