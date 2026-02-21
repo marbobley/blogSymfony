@@ -5,22 +5,24 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Domain\Factory;
 
 use App\Domain\Factory\TagModelFactory;
-use App\Domain\Model\TagModel;
+use App\Tests\Helper\XmlTestDataTrait;
 use PHPUnit\Framework\TestCase;
 
 class TagModelFactoryTest extends TestCase
 {
+    use XmlTestDataTrait;
     public function testCreate(): void
     {
-        $id = 1;
-        $name = 'Test Tag';
-        $slug = 'test-tag';
+        $tagXml = $this->loadTagModelsFromXml()[0];
+        $tagBuilder = new TagModelFactory();
+        $tagModel = $tagBuilder
+            ->setId($tagXml->getId())
+            ->setSlug($tagXml->getSlug())
+            ->setName($tagXml->getName())
+            ->build();
 
-        $tagModel = TagModelFactory::create($id, $name, $slug);
-
-        $this->assertInstanceOf(TagModel::class, $tagModel);
-        $this->assertSame($id, $tagModel->getId());
-        $this->assertSame($name, $tagModel->getName());
-        $this->assertSame($slug, $tagModel->getSlug());
+        $this->assertSame($tagXml->getId(), $tagModel->getId());
+        $this->assertSame($tagXml->getName(), $tagModel->getName());
+        $this->assertSame($tagXml->getSlug(), $tagModel->getSlug());
     }
 }

@@ -15,11 +15,8 @@ class TagModel extends BaseModelAbstract
     private string $name = '';
     private string $slug = '';
 
-    public function __construct(string $name = '', string $slug = '', ?int $id = null)
+    public function __construct()
     {
-        $this->name = $name;
-        $this->slug = $slug;
-        $this->id = $id;
     }
 
     public function setSlug(string $slug): void

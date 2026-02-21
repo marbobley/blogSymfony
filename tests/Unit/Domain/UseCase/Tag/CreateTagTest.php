@@ -15,6 +15,8 @@ class CreateTagTest extends TestCase
     {
         $tagProvider = $this->createMock(TagProviderInterface::class);
         $useCase = new CreateTag($tagProvider);
+
+        
         $dto = TagModelFactory::create(1, 'Symfony' , 'slu1');
 
         $tagProvider->expects($this->once())

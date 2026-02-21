@@ -26,6 +26,11 @@ class PostModelBuilder
         return $this;
     }
 
+    public function build(): PostModel
+    {
+        return $this->model;
+    }
+
     /**
      * @throws InvalidArgumentException
      */
@@ -78,10 +83,5 @@ class PostModelBuilder
     {
         $this->model->addTags($tags);
         return $this;
-    }
-
-    public function build(): PostModel
-    {
-        return $this->model;
     }
 }

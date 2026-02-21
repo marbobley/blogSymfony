@@ -46,8 +46,6 @@ readonly class PostMapper implements PostMapperInterface
             ->setPublished($post->isPublished() ? StatutArticle::PUBLISHED : StatutArticle::DRAFT)
             ->build();
 
-        $post->isPublished() ? $postModel->publish() : $postModel->unpublish();
-
         $tagModels = $this->tagMapper->toModels($post->getTags());
         $postModel->addTags($tagModels);
 
