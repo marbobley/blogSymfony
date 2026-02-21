@@ -6,13 +6,15 @@ namespace App\Tests\Unit\Domain\Factory;
 
 use App\Domain\Factory\PostModelBuilder;
 use App\Domain\Model\StatutArticle;
-use App\Tests\Helper\XmlTestDataTrait;
+use App\Tests\Helper\AssertPostTrait;
+use App\Tests\Helper\XmlPostDataTrait;
 use Exception;
 use PHPUnit\Framework\TestCase;
 
 class PostModelFactoryTest extends TestCase
 {
-    use XmlTestDataTrait;
+    use XmlPostDataTrait;
+    use AssertPostTrait;
 
     /**
      * @throws Exception
@@ -36,14 +38,6 @@ class PostModelFactoryTest extends TestCase
             ->setPublished($statut)
             ->build();
 
-        $this->assertSame($postXml->getId(), $postModel->getId());
-        $this->assertSame($postXml->getTitle(), $postModel->getTitle());
-        $this->assertSame($postXml->getContent(), $postModel->getContent());
-        $this->assertSame($postXml->getSlug(), $postModel->getSlug());
-        $this->assertSame($postXml->getSubTitle(), $postModel->getSubTitle());
-        $this->assertSame($postXml->getCreatedAt(), $postModel->getCreatedAt());
-        $this->assertSame($postXml->getUpdatedAt(), $postModel->getUpdatedAt());
-        $this->assertSame($postXml->isPublished(), $postModel->isPublished());
-        $this->assertSame($postXml->getTags()[0], $postModel->getTags()[0]);
+        $this->assertPostModelExpectedEqualsPostModelResult($this, $postXml, $postModel);
     }
 }
