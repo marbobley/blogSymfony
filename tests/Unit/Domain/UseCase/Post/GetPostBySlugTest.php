@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Domain\UseCase;
+namespace App\Tests\Unit\Domain\UseCase\Post;
 
 use App\Domain\Provider\PostProviderInterface;
 use App\Domain\UseCase\Post\GetPostBySlug;
@@ -20,7 +20,7 @@ class GetPostBySlugTest extends TestCase
     public function testExecuteReturnsPostResponseDTO(): void
     {
         // Arrange
-        $post = $this->loadPostModelsFromXml(__DIR__ . '/../../../Fixtures/posts.xml')[0];
+        $post = $this->loadPostModelsFromXml()[0];
 
         $postProvider = $this->createMock(PostProviderInterface::class);
         $postProvider->expects($this->once())

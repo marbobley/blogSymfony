@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Domain\UseCase;
+namespace App\Tests\Unit\Domain\UseCase\Post;
 
 use App\Domain\Factory\PostModelBuilder;
 use App\Domain\Provider\PostProviderInterface;

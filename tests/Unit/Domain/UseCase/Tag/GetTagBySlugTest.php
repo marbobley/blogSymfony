@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Domain\UseCase;
+namespace App\Tests\Unit\Domain\UseCase\Tag;
 
 use App\Domain\Model\TagModel;
 use App\Domain\Provider\TagProviderInterface;
@@ -16,7 +16,7 @@ class GetTagBySlugTest extends TestCase
 
     public function testExecuteReturnsTagModel(): void
     {
-        $tags = $this->loadTagModelsFromXml(__DIR__ . '/../../../Fixtures/tags.xml');
+        $tags = $this->loadTagModelsFromXml(__DIR__ . '/Fixtures/tags.xml');
         $tag = $tags[2]; // Symfony
 
         $tagProvider = $this->createMock(TagProviderInterface::class);

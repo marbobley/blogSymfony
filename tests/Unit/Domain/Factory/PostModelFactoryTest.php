@@ -21,7 +21,7 @@ class PostModelFactoryTest extends TestCase
      */
     public function testCreate(): void
     {
-        $postXml = $this->loadPostModelsFromXml(__DIR__ . '/../../../Fixtures/posts.xml')[0];
+        $postXml = $this->loadPostModelsFromXml()[0];
         $postBuilder = new PostModelBuilder();
 
         $statut = $postXml->isPublished() ? StatutArticle::PUBLISHED : StatutArticle::DRAFT ;

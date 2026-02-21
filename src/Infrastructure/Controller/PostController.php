@@ -15,19 +15,22 @@ use App\Domain\UseCaseInterface\Post\ListPublishedPostsInterface;
 use App\Domain\UseCaseInterface\Post\UpdatePostInterface;
 use App\Infrastructure\Form\PostType;
 use DateTimeImmutable;
+use LogicException;
+use OutOfBoundsException;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\ClickableInterface;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class PostController extends AbstractController
 {
     /**
-     * @throws \Symfony\Component\Form\Exception\RuntimeException
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws RuntimeException
      */
     #[Route('/post/preview', name: 'app_post_preview', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
@@ -50,10 +53,7 @@ final class PostController extends AbstractController
     }
 
     /**
-     * @throws \Symfony\Component\HttpFoundation\Exception\BadRequestException
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws BadRequestException
      */
     #[Route('/posts', name: 'app_post_index', methods: ['GET'])]
     public function index(Request $request, ListPublishedPostsInterface $listPosts): Response
@@ -65,11 +65,6 @@ final class PostController extends AbstractController
         ]);
     }
 
-    /**
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     */
     #[Route('/admin/posts', name: 'app_post_admin_index', methods: ['GET'])]
     #[IsGranted('ROLE_ADMIN')]
     public function adminIndex(ListAllPostsInterface $listPosts): Response
@@ -81,12 +76,8 @@ final class PostController extends AbstractController
     }
 
     /**
-     * @throws \LogicException
-     * @throws \Symfony\Component\Form\Exception\OutOfBoundsException
-     * @throws \Symfony\Component\Form\Exception\RuntimeException
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws LogicException
+     * @throws RuntimeException
      */
     #[Route('/post/new', name: 'app_post_new', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
@@ -102,7 +93,7 @@ final class PostController extends AbstractController
 
             $saveAndContinue = $form->get('saveAndContinue');
             if (
-                $saveAndContinue instanceof \Symfony\Component\Form\ClickableInterface
+                $saveAndContinue instanceof ClickableInterface
                 && $saveAndContinue->isClicked()
             ) {
                 return $this->redirectToRoute('app_post_edit', ['id' => $post->getId()]);
@@ -117,10 +108,10 @@ final class PostController extends AbstractController
     }
 
     /**
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @param string $slug
+     * @param GetPostBySlugInterface $getPostBySlug
+     * @return Response
+     * @throws AccessDeniedException
      */
     #[Route('/post/{slug}', name: 'app_post_show', methods: ['GET'])]
     public function show(string $slug, GetPostBySlugInterface $getPostBySlug): Response
@@ -137,13 +128,9 @@ final class PostController extends AbstractController
     }
 
     /**
-     * @throws \LogicException
-     * @throws \Symfony\Component\Form\Exception\LogicException
-     * @throws \Symfony\Component\Form\Exception\OutOfBoundsException
-     * @throws \Symfony\Component\Form\Exception\RuntimeException
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws LogicException
+     * @throws OutOfBoundsException
+     * @throws RuntimeException
      */
     #[Route('/post/edit/{id}', name: 'app_post_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
@@ -165,7 +152,7 @@ final class PostController extends AbstractController
 
                 $saveAndContinue = $form->get('saveAndContinue');
                 if (
-                    $saveAndContinue instanceof \Symfony\Component\Form\ClickableInterface
+                    $saveAndContinue instanceof ClickableInterface
                     && $saveAndContinue->isClicked()
                 ) {
                     return $this->redirectToRoute('app_post_edit', ['id' => $id]);
@@ -184,8 +171,8 @@ final class PostController extends AbstractController
     }
 
     /**
-     * @throws \LogicException
-     * @throws \Symfony\Component\HttpFoundation\Exception\BadRequestException
+     * @throws LogicException
+     * @throws BadRequestException
      */
     #[Route('/post/delete/{id}', name: 'app_post_delete', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]

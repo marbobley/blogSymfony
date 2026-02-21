@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Domain\UseCase;
+namespace App\Tests\Unit\Domain\UseCase\Post;
 
 use App\Domain\Provider\PostProviderInterface;
 use App\Domain\UseCase\Post\DeletePost;
@@ -12,7 +12,6 @@ class DeletePostTest extends TestCase
 {
     public function testExecuteDeletesPost(): void
     {
-        // Arrange
         $postProvider = $this->createMock(PostProviderInterface::class);
 
         $postProvider->expects($this->once())
@@ -21,7 +20,6 @@ class DeletePostTest extends TestCase
 
         $useCase = new DeletePost($postProvider);
 
-        // Act
         $useCase->execute(1);
     }
 }

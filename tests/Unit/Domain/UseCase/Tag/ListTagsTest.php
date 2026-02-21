@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Domain\UseCase;
+namespace App\Tests\Unit\Domain\UseCase\Tag;
 
 use App\Domain\Factory\TagModelFactory;
 use App\Domain\Model\TagModel;

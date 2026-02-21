@@ -15,8 +15,9 @@ trait XmlPostDataTrait
      * @return PostModel[]
      * @throws Exception
      */
-    public function loadPostModelsFromXml(string $filePath): array
+    public function loadPostModelsFromXml(): array
     {
+        $filePath = __DIR__ . '/Fixtures/posts.xml';
         $xml = simplexml_load_file($filePath);
         $posts = [];
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Domain\UseCase;
+namespace App\Tests\Unit\Domain\UseCase\Post;
 
 use App\Domain\Criteria\PostCriteria;
 use App\Domain\Provider\PostProviderInterface;
@@ -21,7 +21,7 @@ class ListAllPostsTest extends TestCase
     public function testExecuteReturnsAllPosts(): void
     {
         // Arrange
-        $posts = $this->loadPostModelsFromXml(__DIR__ . '/../../../Fixtures/posts.xml');
+        $posts = $this->loadPostModelsFromXml();
         $postProvider = $this->createMock(PostProviderInterface::class);
         $postProvider->expects($this->once())
             ->method('findByCriteria')

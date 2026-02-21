@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Domain\UseCase;
+namespace App\Tests\Unit\Domain\UseCase\Post;
 
 use App\Domain\Criteria\PostCriteria;
 use App\Domain\Model\PostModel;
@@ -22,7 +22,7 @@ class ListPublishedPostsTest extends TestCase
     public function testExecuteReturnsPublishedPosts(): void
     {
         // Arrange
-        $posts = $this->loadPostModelsFromXml(__DIR__ . '/../../../Fixtures/posts.xml');
+        $posts = $this->loadPostModelsFromXml();
         $publishedPosts = array_filter($posts, fn($p) => $p->isPublished());
 
         $postProvider = $this->createMock(PostProviderInterface::class);

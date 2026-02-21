@@ -14,8 +14,9 @@ trait XmlTestDataTrait
     /**
      * @return TagModel[]
      */
-    private function loadTagModelsFromXml(string $filePath): array
+    private function loadTagModelsFromXml(): array
     {
+        $filePath = __DIR__ . '/Fixtures/tags.xml';
         $xml = simplexml_load_file($filePath);
         $tags = [];
 
@@ -33,8 +34,9 @@ trait XmlTestDataTrait
     /**
      * @return UserRegistrationModel[]
      */
-    private function loadUserRegistrationModelsFromXml(string $filePath): array
+    private function loadUserRegistrationModelsFromXml(): array
     {
+        $filePath = __DIR__ . '/Fixtures/users.xml';
         $xml = simplexml_load_file($filePath);
         $users = [];
 
