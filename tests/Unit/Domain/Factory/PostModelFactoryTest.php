@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Domain\Factory;
 
 use App\Domain\Factory\PostModelBuilder;
-use App\Domain\Model\PostModel;
 use App\Tests\Unit\Helper\XmlTestDataTrait;
 use Exception;
 use PHPUnit\Framework\TestCase;

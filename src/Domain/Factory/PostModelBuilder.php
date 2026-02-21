@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Domain\Factory;
 
 use App\Domain\Model\PostModel;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
-use InvalidArgumentException;
 
 class PostModelBuilder
 {
@@ -47,13 +47,13 @@ class PostModelBuilder
         return $this;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): PostModelBuilder
+    public function setCreatedAt(DateTimeImmutable $createdAt): PostModelBuilder
     {
         $this->model->setCreatedAt($createdAt);
         return $this;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): PostModelBuilder
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): PostModelBuilder
     {
         $this->model->setUpdatedAt($updatedAt);
         return $this;
@@ -62,12 +62,6 @@ class PostModelBuilder
     public function setPublished(): PostModelBuilder
     {
         $this->model->publish();
-        return $this;
-    }
-
-    public function setUnpublished(): PostModelBuilder
-    {
-        $this->model->unpublish();
         return $this;
     }
 

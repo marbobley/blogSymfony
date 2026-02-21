@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Application\UseCase;
 
 use App\Domain\Factory\PostModelBuilder;
-use App\Domain\Model\PostModel;
 use App\Domain\Provider\PostProviderInterface;
 use App\Domain\UseCase\GetPost;
 use PHPUnit\Framework\TestCase;
@@ -25,10 +24,9 @@ class GetPostTest extends TestCase
             ->with(self::ID_POST)
             ->willReturn($postModel);
 
-
         $useCase = new GetPost($provider);
 
         // Act
-        $result = $useCase->execute(self::ID_POST);
+        $useCase->execute(self::ID_POST);
     }
 }
