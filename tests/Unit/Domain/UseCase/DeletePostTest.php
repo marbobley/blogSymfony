@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Domain\UseCase;
 
 use App\Domain\Provider\PostProviderInterface;
-use App\Domain\UseCase\DeletePost;
+use App\Domain\UseCase\Post\DeletePost;
 use PHPUnit\Framework\TestCase;
 
 class DeletePostTest extends TestCase

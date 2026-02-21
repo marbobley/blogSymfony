@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\UseCase;
+namespace App\Domain\UseCase\Post;
 
 use App\Domain\Criteria\PostCriteria;
 use App\Domain\Provider\PostProviderInterface;
-use App\Domain\UseCaseInterface\ListPublishedPostsInterface;
+use App\Domain\UseCaseInterface\Post\ListPublishedPostsInterface;
 
 readonly class ListPublishedPosts implements ListPublishedPostsInterface
 {

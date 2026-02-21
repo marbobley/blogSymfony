@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Domain\UseCase;
 
 use App\Domain\Provider\TagProviderInterface;
-use App\Domain\UseCase\GetTag;
+use App\Domain\UseCase\Tag\GetTag;
 use App\Tests\Helper\XmlTestDataTrait;
 use PHPUnit\Framework\TestCase;
 

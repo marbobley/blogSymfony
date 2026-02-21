@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Domain\UseCase;
 
 use App\Domain\Provider\PostProviderInterface;
-use App\Domain\UseCase\GetPostBySlug;
+use App\Domain\UseCase\Post\GetPostBySlug;
 use App\Tests\Helper\XmlPostDataTrait;
 use Exception;
 use PHPUnit\Framework\TestCase;

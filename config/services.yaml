@@ -24,23 +24,23 @@ services:
     App\Infrastructure\Repository\PostRepositoryInterface:
         alias: App\Infrastructure\Persistence\DoctrinePostRepository
 
-    App\Domain\UseCaseInterface\CreatePostInterface:
-        alias: App\Domain\UseCase\CreatePost
+    App\Domain\UseCaseInterface\Post\CreatePostInterface:
+        alias: App\Domain\UseCase\Post\CreatePost
 
-    App\Domain\UseCaseInterface\ListAllPostsInterface:
-        alias: App\Domain\UseCase\ListAllPosts
+    App\Domain\UseCaseInterface\Post\ListAllPostsInterface:
+        alias: App\Domain\UseCase\Post\ListAllPosts
 
-    App\Domain\UseCaseInterface\ListPublishedPostsInterface:
-        alias: App\Domain\UseCase\ListPublishedPosts
+    App\Domain\UseCaseInterface\Post\ListPublishedPostsInterface:
+        alias: App\Domain\UseCase\Post\ListPublishedPosts
 
-    App\Domain\UseCaseInterface\GetPostInterface:
-        alias: App\Domain\UseCase\GetPost
+    App\Domain\UseCaseInterface\Post\GetPostInterface:
+        alias: App\Domain\UseCase\Post\GetPost
 
-    App\Domain\UseCaseInterface\UpdatePostInterface:
-        alias: App\Domain\UseCase\UpdatePost
+    App\Domain\UseCaseInterface\Post\UpdatePostInterface:
+        alias: App\Domain\UseCase\Post\UpdatePost
 
-    App\Domain\UseCaseInterface\DeletePostInterface:
-        alias: App\Domain\UseCase\DeletePost
+    App\Domain\UseCaseInterface\Post\DeletePostInterface:
+        alias: App\Domain\UseCase\Post\DeletePost
 
     App\Infrastructure\Repository\UserRepositoryInterface:
         alias: App\Infrastructure\Persistence\DoctrineUserRepository

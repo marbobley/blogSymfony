@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Domain\UseCase;
 
 use App\Domain\Factory\TagModelFactory;
 use App\Domain\Provider\TagProviderInterface;
-use App\Domain\UseCase\CreateTag;
+use App\Domain\UseCase\Tag\CreateTag;
 use PHPUnit\Framework\TestCase;
 
 class CreateTagTest extends TestCase

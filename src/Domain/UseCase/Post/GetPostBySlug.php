@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\UseCase;
+namespace App\Domain\UseCase\Post;
 
 use App\Domain\Model\PostModel;
 use App\Domain\Provider\PostProviderInterface;
-use App\Domain\UseCaseInterface\GetPostBySlugInterface;
+use App\Domain\UseCaseInterface\Post\GetPostBySlugInterface;
 
 readonly class GetPostBySlug implements GetPostBySlugInterface
 {

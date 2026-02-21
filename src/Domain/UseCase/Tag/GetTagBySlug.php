@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\UseCase;
+namespace App\Domain\UseCase\Tag;
 
 use App\Domain\Model\TagModel;
 use App\Domain\Provider\TagProviderInterface;
-use App\Domain\UseCaseInterface\GetTagBySlugInterface;
+use App\Domain\UseCaseInterface\Tag\GetTagBySlugInterface;
 
 readonly class GetTagBySlug implements GetTagBySlugInterface
 {

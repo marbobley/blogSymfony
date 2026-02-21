@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration\UseCase;
 
-use App\Domain\UseCaseInterface\GetPostBySlugInterface;
+use App\Domain\UseCaseInterface\Post\GetPostBySlugInterface;
 use App\Infrastructure\Entity\Post;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class GetPostBySlugTest extends KernelTestCase
 {

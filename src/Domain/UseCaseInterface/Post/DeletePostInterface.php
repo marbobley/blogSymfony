@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\UseCaseInterface;
+namespace App\Domain\UseCaseInterface\Post;
 
-interface DeleteTagInterface
+interface DeletePostInterface
 {
     public function execute(int $id): void;
 }

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\UseCase;
+namespace App\Domain\UseCase\Tag;
 
 use App\Domain\Model\TagModel;
 use App\Domain\Provider\TagProviderInterface;
-use App\Domain\UseCaseInterface\UpdateTagInterface;
+use App\Domain\UseCaseInterface\Tag\UpdateTagInterface;
 
 readonly class UpdateTag implements UpdateTagInterface
 {

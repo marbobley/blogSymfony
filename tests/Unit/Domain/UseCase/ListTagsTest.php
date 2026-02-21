@@ -7,7 +7,7 @@ namespace App\Tests\Unit\Domain\UseCase;
 use App\Domain\Factory\TagModelFactory;
 use App\Domain\Model\TagModel;
 use App\Domain\Provider\TagProviderInterface;
-use App\Domain\UseCase\ListTags;
+use App\Domain\UseCase\Tag\ListTags;
 use PHPUnit\Framework\TestCase;
 
 class ListTagsTest extends TestCase

@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Domain\UseCase;
 
 use App\Domain\Factory\PostModelBuilder;
 use App\Domain\Provider\PostProviderInterface;
-use App\Domain\UseCase\UpdatePost;
+use App\Domain\UseCase\Post\UpdatePost;
 use PHPUnit\Framework\TestCase;
 
 class UpdatePostTest extends TestCase

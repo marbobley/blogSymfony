@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\UseCase;
+namespace App\Domain\UseCase\Post;
 
 use App\Domain\Provider\PostProviderInterface;
-use App\Domain\UseCaseInterface\DeletePostInterface;
+use App\Domain\UseCaseInterface\Post\DeletePostInterface;
 
 readonly class DeletePost implements DeletePostInterface
 {

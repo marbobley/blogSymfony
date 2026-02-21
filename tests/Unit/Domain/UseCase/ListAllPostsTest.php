@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Domain\UseCase;
 
 use App\Domain\Criteria\PostCriteria;
 use App\Domain\Provider\PostProviderInterface;
-use App\Domain\UseCase\ListAllPosts;
+use App\Domain\UseCase\Post\ListAllPosts;
 use App\Tests\Helper\XmlPostDataTrait;
 use Exception;
 use PHPUnit\Framework\TestCase;

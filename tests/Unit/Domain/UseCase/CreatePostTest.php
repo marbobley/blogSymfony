@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Domain\UseCase;
 
-use App\Domain\Factory\PostModelBuilder;
 use App\Domain\Provider\PostProviderInterface;
-use App\Domain\UseCase\CreatePost;
+use App\Domain\UseCase\Post\CreatePost;
 use App\Tests\Helper\BuilderPostTrait;
 use PHPUnit\Framework\TestCase;
 

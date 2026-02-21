@@ -6,12 +6,12 @@ namespace App\Tests\Integration\UseCase;
 
 use App\Domain\Criteria\PostCriteria;
 use App\Domain\Model\PostModel;
-use App\Domain\UseCaseInterface\CreatePostInterface;
-use App\Domain\UseCaseInterface\DeletePostInterface;
-use App\Domain\UseCaseInterface\GetPostInterface;
-use App\Domain\UseCaseInterface\ListAllPostsInterface;
-use App\Domain\UseCaseInterface\ListPublishedPostsInterface;
-use App\Domain\UseCaseInterface\UpdatePostInterface;
+use App\Domain\UseCaseInterface\Post\CreatePostInterface;
+use App\Domain\UseCaseInterface\Post\DeletePostInterface;
+use App\Domain\UseCaseInterface\Post\GetPostInterface;
+use App\Domain\UseCaseInterface\Post\ListAllPostsInterface;
+use App\Domain\UseCaseInterface\Post\ListPublishedPostsInterface;
+use App\Domain\UseCaseInterface\Post\UpdatePostInterface;
 use App\Infrastructure\Entity\Post;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;

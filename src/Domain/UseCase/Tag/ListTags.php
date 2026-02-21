@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\UseCase;
+namespace App\Domain\UseCase\Tag;
 
 use App\Domain\Provider\TagProviderInterface;
-use App\Domain\UseCaseInterface\ListTagsInterface;
+use App\Domain\UseCaseInterface\Tag\ListTagsInterface;
 
 readonly class ListTags implements ListTagsInterface
 {

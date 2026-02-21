@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Domain\UseCase;
 
 use App\Domain\Factory\TagModelFactory;
 use App\Domain\Provider\TagProviderInterface;
-use App\Domain\UseCase\UpdateTag;
+use App\Domain\UseCase\Tag\UpdateTag;
 use PHPUnit\Framework\TestCase;
 
 class UpdateTagTest extends TestCase

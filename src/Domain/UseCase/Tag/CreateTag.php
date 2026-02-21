@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\UseCase;
+namespace App\Domain\UseCase\Tag;
 
 use App\Domain\Model\TagModel;
 use App\Domain\Provider\TagProviderInterface;
-use App\Domain\UseCaseInterface\CreateTagInterface;
+use App\Domain\UseCaseInterface\Tag\CreateTagInterface;
 
 readonly class CreateTag implements CreateTagInterface
 {

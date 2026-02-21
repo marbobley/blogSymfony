@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Domain\UseCase;
 
 use App\Domain\Model\TagModel;
 use App\Domain\Provider\TagProviderInterface;
-use App\Domain\UseCase\GetTagBySlug;
+use App\Domain\UseCase\Tag\GetTagBySlug;
 use App\Tests\Helper\XmlTestDataTrait;
 use PHPUnit\Framework\TestCase;
 
