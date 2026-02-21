@@ -48,12 +48,14 @@ class PostMapperTest extends TestCase
     public function testToModel(): void
     {
         $createdAt = new DateTimeImmutable();
+        $updateAt = new DateTimeImmutable();
         $post = $this->createMock(Post::class);
         $post->method('getTitle')->willReturn('Test Title');
         $post->method('getContent')->willReturn('Test Content');
         $post->method('getId')->willReturn(1);
         $post->method('getSlug')->willReturn('test-title');
         $post->method('getCreatedAt')->willReturn($createdAt);
+        $post->method('getUpdatedAt')->willReturn($updateAt);
         $post->method('isPublished')->willReturn(true);
         $tagEntities = new ArrayCollection();
         $post->method('getTags')->willReturn($tagEntities);

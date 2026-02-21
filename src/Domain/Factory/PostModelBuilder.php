@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Factory;
 
 use App\Domain\Model\PostModel;
+use App\Domain\Model\StatutArticle;
 use App\Domain\Model\TagModel;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
@@ -64,9 +65,8 @@ class PostModelBuilder
         return $this;
     }
 
-    public function setPublished(): PostModelBuilder
-    {
-        $this->model->publish();
+    public function setPublished(StatutArticle $statutArticle): PostModelBuilder{
+        StatutArticle::PUBLISHED == $statutArticle ? $this->model->publish() : $this->model->unpublish();
         return $this;
     }
 

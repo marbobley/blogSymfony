@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Domain\Factory;
 
 use App\Domain\Factory\PostModelBuilder;
+use App\Domain\Model\StatutArticle;
 use App\Tests\Unit\Helper\XmlTestDataTrait;
 use Exception;
 use PHPUnit\Framework\TestCase;
@@ -21,6 +22,8 @@ class PostModelFactoryTest extends TestCase
         $postXml = $this->loadPostModelsFromXml(__DIR__ . '/../../../Fixtures/posts.xml')[0];
         $postBuilder = new PostModelBuilder();
 
+        $statut = $postXml->isPublished() ? StatutArticle::PUBLISHED : StatutArticle::DRAFT ;
+
         $postModel = $postBuilder
             ->setId($postXml->getId())
             ->setTitle($postXml->getTitle())
@@ -30,7 +33,7 @@ class PostModelFactoryTest extends TestCase
             ->setCreatedAt($postXml->getCreatedAt())
             ->setUpdatedAt($postXml->getUpdatedAt())
             ->setTags($postXml->getTags())
-            ->setPublished()
+            ->setPublished($statut)
             ->build();
 
         $this->assertSame($postXml->getId(), $postModel->getId());

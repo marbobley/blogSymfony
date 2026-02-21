@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Domain\Factory;
 
 use App\Domain\Model\TagModel;
+use InvalidArgumentException;
 
 class TagModelFactory
 {
     /**
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public static function create(int $id, string $name, string $slug): TagModel
     {
@@ -19,5 +20,10 @@ class TagModelFactory
         $tag->setId($id);
 
         return $tag;
+    }
+
+    public function build(): TagModel
+    {
+        // TODO: Implement build() method.
     }
 }

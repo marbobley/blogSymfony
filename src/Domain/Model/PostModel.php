@@ -27,6 +27,17 @@ class PostModel
     private ?DateTimeImmutable $updatedAt = null;
     public bool $published = false;
 
+    /**
+     * @var Collection<int, TagModel>
+     */
+    private Collection $tags;
+
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
+
     public function getSubTitle(): string
     {
         return $this->subTitle;
@@ -80,16 +91,6 @@ class PostModel
     public function getSlug(): string
     {
         return $this->slug;
-    }
-
-    /**
-     * @var Collection<int, TagModel>
-     */
-    private Collection $tags;
-
-    public function __construct()
-    {
-        $this->tags = new ArrayCollection();
     }
 
     public function getContent(): string
