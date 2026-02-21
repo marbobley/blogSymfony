@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Application\UseCase;
+namespace App\Tests\Unit\Domain\UseCase;
 
 use App\Domain\Factory\PostModelBuilder;
-use App\Domain\Factory\TagModelFactory;
 use App\Domain\Provider\PostProviderInterface;
 use App\Domain\UseCase\CreatePost;
 use PHPUnit\Framework\TestCase;

@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Domain\Factory;
 
 use App\Domain\Factory\PostModelBuilder;
 use App\Domain\Model\StatutArticle;
-use App\Tests\Unit\Helper\XmlTestDataTrait;
+use App\Tests\Helper\XmlTestDataTrait;
 use Exception;
 use PHPUnit\Framework\TestCase;
 

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Application\UseCase;
+namespace App\Tests\Unit\Domain\UseCase;
 
 use App\Domain\Model\UserRegistrationModel;
 use App\Domain\Service\PasswordHasherInterface;
 use App\Domain\UseCase\RegisterUser;
 use App\Infrastructure\Entity\User;
 use App\Infrastructure\Repository\UserRepositoryInterface;
-use App\Tests\Unit\Helper\XmlTestDataTrait;
+use App\Tests\Helper\XmlTestDataTrait;
 use PHPUnit\Framework\TestCase;
 
 class RegisterUserTest extends TestCase

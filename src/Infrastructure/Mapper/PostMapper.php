@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Mapper;
 
-use App\Domain\Factory\ModelBuilderInterface;
 use App\Domain\Factory\PostModelBuilder;
 use App\Domain\Model\PostModel;
 use App\Domain\Model\StatutArticle;

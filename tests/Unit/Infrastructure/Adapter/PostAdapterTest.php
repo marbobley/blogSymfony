@@ -5,16 +5,12 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Infrastructure\Adapter;
 
 use App\Domain\Criteria\PostCriteria;
-use App\Domain\Exception\EntityNotFoundException;
-use App\Domain\Model\PostModel;
 use App\Infrastructure\Adapter\PostAdapter;
 use App\Infrastructure\Entity\Post;
-use App\Infrastructure\Entity\Tag;
 use App\Infrastructure\MapperInterface\PostMapperInterface;
 use App\Infrastructure\Repository\PostRepositoryInterface;
-use App\Infrastructure\Repository\TagRepositoryInterface;
 use App\Infrastructure\Service\PostTagSynchronizer;
-use App\Tests\Unit\Helper\TestDataGeneratorTrait;
+use App\Tests\Helper\TestDataGeneratorTrait;
 use PHPUnit\Framework\TestCase;
 
 class PostAdapterTest extends TestCase

@@ -21,9 +21,4 @@ class TagModelFactory
 
         return $tag;
     }
-
-    public function build(): TagModel
-    {
-        // TODO: Implement build() method.
-    }
 }

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Application\UseCase;
+namespace App\Tests\Unit\Domain\UseCase;
 
 use App\Domain\Criteria\PostCriteria;
 use App\Domain\Model\PostModel;
 use App\Domain\Provider\PostProviderInterface;
 use App\Domain\UseCase\ListPublishedPosts;
-use App\Tests\Unit\Helper\XmlTestDataTrait;
+use App\Tests\Helper\XmlTestDataTrait;
 use PHPUnit\Framework\TestCase;
 
 class ListPublishedPostsTest extends TestCase

@@ -2,16 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Infrastructure\Form;
+namespace App\Tests\Unit\Infrastructure\Form;
 
 use App\Domain\Model\PostModel;
 use App\Domain\Model\TagModel;
 use App\Domain\UseCaseInterface\ListTagsInterface;
 use App\Infrastructure\Form\PostType;
-use Symfony\Component\Form\Test\TypeTestCase;
-use Doctrine\Common\Collections\ArrayCollection;
-
 use Symfony\Component\Form\PreloadedExtension;
+use Symfony\Component\Form\Test\TypeTestCase;
 
 class PostTypeTest extends TypeTestCase
 {

@@ -47,7 +47,7 @@ class PostModelBuilder
         return $this;
     }
 
-    public function setSlug(string $slug): PostModelBuilder
+    public function setSlug(?string $slug): PostModelBuilder
     {
         $this->model->setSlug($slug);
         return $this;
@@ -59,14 +59,15 @@ class PostModelBuilder
         return $this;
     }
 
-    public function setUpdatedAt(DateTimeImmutable $updatedAt): PostModelBuilder
+    public function setUpdatedAt(?DateTimeImmutable $updatedAt): PostModelBuilder
     {
         $this->model->setUpdatedAt($updatedAt);
         return $this;
     }
 
-    public function setPublished(StatutArticle $statutArticle): PostModelBuilder{
-        StatutArticle::PUBLISHED == $statutArticle ? $this->model->publish() : $this->model->unpublish();
+    public function setPublished(StatutArticle $statutArticle): PostModelBuilder
+    {
+        StatutArticle::PUBLISHED === $statutArticle ? $this->model->publish() : $this->model->unpublish();
         return $this;
     }
 

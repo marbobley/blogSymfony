@@ -8,9 +8,9 @@ use App\Domain\Model\PostModel;
 use App\Infrastructure\Entity\Post;
 use App\Infrastructure\Mapper\PostMapper;
 use App\Infrastructure\MapperInterface\TagMapperInterface;
+use App\Tests\Helper\TestDataGeneratorTrait;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
-use App\Tests\Unit\Helper\TestDataGeneratorTrait;
 use PHPUnit\Framework\TestCase;
 
 class PostMapperTest extends TestCase

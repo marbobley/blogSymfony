@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Helper;
+namespace App\Tests\Helper;
 
 use App\Domain\Model\PostModel;
 use App\Domain\Model\TagModel;
 use App\Domain\Model\UserRegistrationModel;
 use App\Infrastructure\Entity\User;
 use DateTimeImmutable;
-use SimpleXMLElement;
+use Exception;
 
 trait XmlTestDataTrait
 {
     /**
      * @return PostModel[]
-     * @throws \Exception
+     * @throws Exception
      */
     private function loadPostModelsFromXml(string $filePath): array
     {

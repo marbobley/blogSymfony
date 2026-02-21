@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Infrastructure\Adapter;
 
-use App\Domain\Exception\EntityNotFoundException;
 use App\Domain\Exception\TagAlreadyExistsException;
-use App\Domain\Model\TagModel;
 use App\Infrastructure\Adapter\TagAdapter;
 use App\Infrastructure\Entity\Tag;
 use App\Infrastructure\MapperInterface\TagMapperInterface;
 use App\Infrastructure\Repository\TagRepositoryInterface;
-use App\Tests\Unit\Helper\TestDataGeneratorTrait;
+use App\Tests\Helper\TestDataGeneratorTrait;
 use PHPUnit\Framework\TestCase;
 
 class TagAdapterTest extends TestCase

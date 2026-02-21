@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Application\UseCase;
+namespace App\Tests\Unit\Domain\UseCase;
 
+use App\Domain\Model\TagModel;
 use App\Domain\Provider\TagProviderInterface;
-use App\Domain\UseCase\GetTag;
-use App\Tests\Unit\Helper\XmlTestDataTrait;
+use App\Domain\UseCase\GetTagBySlug;
+use App\Tests\Helper\XmlTestDataTrait;
 use PHPUnit\Framework\TestCase;
 
-class GetTagTest extends TestCase
+class GetTagBySlugTest extends TestCase
 {
     use XmlTestDataTrait;
 
@@ -19,15 +20,17 @@ class GetTagTest extends TestCase
         $tag = $tags[2]; // Symfony
 
         $tagProvider = $this->createMock(TagProviderInterface::class);
-        $useCase = new GetTag($tagProvider);
+
+        $useCase = new GetTagBySlug($tagProvider);
 
         $tagProvider->expects($this->once())
-            ->method('findById')
-            ->with(3)
+            ->method('findBySlug')
+            ->with('symfony')
             ->willReturn($tag);
 
-        $responseDTO = $useCase->execute(3);
+        $responseDTO = $useCase->execute('symfony');
 
+        $this->assertInstanceOf(TagModel::class, $responseDTO);
         $this->assertEquals('Symfony', $responseDTO->getName());
         $this->assertEquals('symfony', $responseDTO->getSlug());
     }

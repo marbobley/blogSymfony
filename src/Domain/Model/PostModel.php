@@ -32,7 +32,6 @@ class PostModel
      */
     private Collection $tags;
 
-
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -83,7 +82,7 @@ class PostModel
         $this->updatedAt = $updatedAt;
     }
 
-    public function setSlug(string $slug): void
+    public function setSlug(?string $slug): void
     {
         $this->slug = $slug;
     }

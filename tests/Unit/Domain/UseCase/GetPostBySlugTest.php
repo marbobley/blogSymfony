@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Application\UseCase;
+namespace App\Tests\Unit\Domain\UseCase;
 
 use App\Domain\Provider\PostProviderInterface;
 use App\Domain\UseCase\GetPostBySlug;
-use App\Tests\Unit\Helper\XmlTestDataTrait;
+use App\Tests\Helper\XmlTestDataTrait;
 use PHPUnit\Framework\TestCase;
 
 class GetPostBySlugTest extends TestCase
