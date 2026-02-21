@@ -6,7 +6,6 @@ namespace App\Tests\Unit\Domain\UseCase;
 
 use App\Domain\Provider\PostProviderInterface;
 use App\Domain\UseCase\DeletePost;
-use App\Infrastructure\Entity\Post;
 use PHPUnit\Framework\TestCase;
 
 class DeletePostTest extends TestCase
@@ -15,7 +14,6 @@ class DeletePostTest extends TestCase
     {
         // Arrange
         $postProvider = $this->createMock(PostProviderInterface::class);
-        $post = new Post('Titre', 'Contenu');
 
         $postProvider->expects($this->once())
             ->method('delete')

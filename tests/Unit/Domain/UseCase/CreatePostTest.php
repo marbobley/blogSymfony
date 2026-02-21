@@ -7,18 +7,18 @@ namespace App\Tests\Unit\Domain\UseCase;
 use App\Domain\Factory\PostModelBuilder;
 use App\Domain\Provider\PostProviderInterface;
 use App\Domain\UseCase\CreatePost;
+use App\Tests\Helper\BuilderPostTrait;
 use PHPUnit\Framework\TestCase;
 
 class CreatePostTest extends TestCase
 {
+    use BuilderPostTrait;
     public function testExecuteCreatesAndSavesPost(): void
     {
-        $postBuilder = new PostModelBuilder();
-        $postModel = $postBuilder->setId(1)->build();
-        // Arrange
         $postProvider = $this->createMock(PostProviderInterface::class);
         $useCase = new CreatePost($postProvider);
 
+        $postModel = $this->buildSimplePostModel();
 
         // Assert & Expect
         $postProvider->expects($this->once())

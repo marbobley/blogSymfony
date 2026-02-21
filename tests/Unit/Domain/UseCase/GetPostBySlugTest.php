@@ -6,19 +6,21 @@ namespace App\Tests\Unit\Domain\UseCase;
 
 use App\Domain\Provider\PostProviderInterface;
 use App\Domain\UseCase\GetPostBySlug;
-use App\Tests\Helper\XmlTestDataTrait;
+use App\Tests\Helper\XmlPostDataTrait;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 class GetPostBySlugTest extends TestCase
 {
-    use XmlTestDataTrait;
+    use XmlPostDataTrait;
 
+    /**
+     * @throws Exception
+     */
     public function testExecuteReturnsPostResponseDTO(): void
     {
         // Arrange
-        $posts = $this->loadPostModelsFromXml(__DIR__ . '/../../../Fixtures/posts.xml');
-        $post = $posts[0]; // Découvrir l'Architecture Hexagonale
-
+        $post = $this->loadPostModelsFromXml(__DIR__ . '/../../../Fixtures/posts.xml')[0];
 
         $postProvider = $this->createMock(PostProviderInterface::class);
         $postProvider->expects($this->once())

@@ -7,13 +7,17 @@ namespace App\Tests\Unit\Domain\UseCase;
 use App\Domain\Criteria\PostCriteria;
 use App\Domain\Provider\PostProviderInterface;
 use App\Domain\UseCase\ListAllPosts;
-use App\Tests\Helper\XmlTestDataTrait;
+use App\Tests\Helper\XmlPostDataTrait;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 class ListAllPostsTest extends TestCase
 {
-    use XmlTestDataTrait;
+    use XmlPostDataTrait;
 
+    /**
+     * @throws Exception
+     */
     public function testExecuteReturnsAllPosts(): void
     {
         // Arrange

@@ -6,8 +6,6 @@ namespace App\Tests\Helper;
 
 use App\Domain\Model\PostModel;
 use App\Domain\Model\TagModel;
-use App\Domain\Model\UserRegistrationModel;
-use App\Infrastructure\Entity\User;
 use DateTimeImmutable;
 use Exception;
 
@@ -17,7 +15,7 @@ trait XmlPostDataTrait
      * @return PostModel[]
      * @throws Exception
      */
-    private function loadPostModelsFromXml(string $filePath): array
+    public function loadPostModelsFromXml(string $filePath): array
     {
         $xml = simplexml_load_file($filePath);
         $posts = [];

@@ -8,13 +8,17 @@ use App\Domain\Criteria\PostCriteria;
 use App\Domain\Model\PostModel;
 use App\Domain\Provider\PostProviderInterface;
 use App\Domain\UseCase\ListPublishedPosts;
-use App\Tests\Helper\XmlTestDataTrait;
+use App\Tests\Helper\XmlPostDataTrait;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 class ListPublishedPostsTest extends TestCase
 {
-    use XmlTestDataTrait;
+    use XmlPostDataTrait;
 
+    /**
+     * @throws Exception
+     */
     public function testExecuteReturnsPublishedPosts(): void
     {
         // Arrange
