@@ -11,7 +11,7 @@
     />
 
     <twig:PostGrid
-        :posts="posts"
+        :posts="posts|sort((a, b) => b.createdAt <=> a.createdAt)"
         :showActions="true"
         :showCreateButton="true"
     />
