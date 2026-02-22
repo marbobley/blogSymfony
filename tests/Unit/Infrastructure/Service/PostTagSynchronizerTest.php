@@ -59,6 +59,7 @@ class PostTagSynchronizerTest extends TestCase
 
     public function testSynchronizeRemovesTagsNotInDTO(): void
     {
+        $this->expectNotToPerformAssertions();
         $oldTag = $this->createTagEntity(name: 'Old Tag');
         $post = $this->createPostEntity();
         $post->addTag($oldTag);

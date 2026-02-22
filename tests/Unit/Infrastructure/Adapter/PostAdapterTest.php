@@ -65,6 +65,7 @@ class PostAdapterTest extends TestCase
 
     public function testDelete(): void
     {
+        $this->expectNotToPerformAssertions();
         $id = 1;
         $post = $this->createPostEntity();
 
@@ -78,6 +79,7 @@ class PostAdapterTest extends TestCase
             ->with($post);
 
         $this->adapter->delete($id);
+
     }
 
     public function testFindById(): void

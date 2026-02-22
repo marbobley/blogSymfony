@@ -73,3 +73,5 @@ phpstan.neon
 
 .env.test
 /public/bundles/*
+
+.phpunit.result.cache

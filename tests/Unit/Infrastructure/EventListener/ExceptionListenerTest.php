@@ -56,7 +56,7 @@ class ExceptionListenerTest extends TestCase
 
         $this->twig->expects($this->once())
             ->method('render')
-            ->with('@Twig/Exception/error404.html.twig', $this->isType('array'))
+            ->with('@Twig/Exception/error404.html.twig', $this->isArray())
             ->willReturn('<html>Error</html>');
 
         $event = $this->createExceptionEvent($exception, $request);
