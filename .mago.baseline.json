@@ -1,0 +1,1759 @@
+variant = "loose"
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-extends"
+message = 'Illegal dependency on `Doctrine\Bundle\FixturesBundle\Fixture`'
+count = 1
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-function-call"
+message = "Illegal dependency on `array_rand`"
+count = 1
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-function-call"
+message = "Illegal dependency on `rand`"
+count = 1
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-function-call"
+message = "Illegal dependency on `str_repeat`"
+count = 1
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-instantiation"
+message = 'Illegal dependency on `App\Infrastructure\Entity\Post`'
+count = 1
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-instantiation"
+message = 'Illegal dependency on `App\Infrastructure\Entity\Tag`'
+count = 1
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-instantiation"
+message = 'Illegal dependency on `App\Infrastructure\Entity\User`'
+count = 2
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-instantiation"
+message = "Illegal dependency on `DateTimeImmutable`"
+count = 1
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Doctrine\Persistence\ObjectManager`'
+count = 3
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `App\Infrastructure\Entity\Post`'
+count = 1
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `App\Infrastructure\Entity\Tag`'
+count = 1
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `App\Infrastructure\Entity\User`'
+count = 1
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-use"
+message = "Illegal dependency on `DateTimeImmutable`"
+count = 1
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\Bundle\FixturesBundle\Fixture`'
+count = 1
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\Persistence\ObjectManager`'
+count = 1
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-use"
+message = "Illegal dependency on `Exception`"
+count = 1
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-use"
+message = "Illegal dependency on `array_rand`"
+count = 1
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-use"
+message = "Illegal dependency on `rand`"
+count = 1
+
+[[issues]]
+file = "src/DataFixtures/AppFixtures.php"
+code = "disallowed-use"
+message = "Illegal dependency on `str_repeat`"
+count = 1
+
+[[issues]]
+file = "src/Domain/Factory/PostModelBuilder.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 1
+
+[[issues]]
+file = "src/Domain/Factory/PostModelBuilder.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 1
+
+[[issues]]
+file = "src/Domain/Model/PostModel.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Symfony\Component\Validator\Constraints\Length`'
+count = 1
+
+[[issues]]
+file = "src/Domain/Model/PostModel.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Symfony\Component\Validator\Constraints\NotBlank`'
+count = 2
+
+[[issues]]
+file = "src/Domain/Model/PostModel.php"
+code = "disallowed-instantiation"
+message = 'Illegal dependency on `Doctrine\Common\Collections\ArrayCollection`'
+count = 1
+
+[[issues]]
+file = "src/Domain/Model/PostModel.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 1
+
+[[issues]]
+file = "src/Domain/Model/PostModel.php"
+code = "disallowed-property-type"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 1
+
+[[issues]]
+file = "src/Domain/Model/PostModel.php"
+code = "disallowed-return-type"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 1
+
+[[issues]]
+file = "src/Domain/Model/PostModel.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\Common\Collections\ArrayCollection`'
+count = 1
+
+[[issues]]
+file = "src/Domain/Model/PostModel.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 1
+
+[[issues]]
+file = "src/Domain/Model/PostModel.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Validator\Constraints`'
+count = 1
+
+[[issues]]
+file = "src/Domain/Model/TagModel.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Symfony\Component\Validator\Constraints\Length`'
+count = 1
+
+[[issues]]
+file = "src/Domain/Model/TagModel.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Symfony\Component\Validator\Constraints\NotBlank`'
+count = 1
+
+[[issues]]
+file = "src/Domain/Model/TagModel.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Validator\Constraints`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/PostAdmin.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Sonata\AdminBundle\Datagrid\ListMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/PostAdmin.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\CheckboxType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/PostAdmin.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\TextType`'
+count = 2
+
+[[issues]]
+file = "src/Infrastructure/Admin/PostAdmin.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\TextareaType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/PostAdmin.php"
+code = "disallowed-extends"
+message = 'Illegal dependency on `Sonata\AdminBundle\Admin\AbstractAdmin`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/PostAdmin.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Sonata\AdminBundle\Datagrid\DatagridMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/PostAdmin.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Sonata\AdminBundle\Datagrid\ListMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/PostAdmin.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Sonata\AdminBundle\Form\FormMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/PostAdmin.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Sonata\AdminBundle\Show\ShowMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/PostAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Sonata\AdminBundle\Admin\AbstractAdmin`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/PostAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Sonata\AdminBundle\Datagrid\DatagridMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/PostAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Sonata\AdminBundle\Datagrid\ListMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/PostAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Sonata\AdminBundle\Form\FormMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/PostAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Sonata\AdminBundle\Show\ShowMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/PostAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\CheckboxType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/PostAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\TextType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/PostAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\TextareaType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/TagAdmin.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Sonata\AdminBundle\Datagrid\ListMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/TagAdmin.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\TextType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/TagAdmin.php"
+code = "disallowed-extends"
+message = 'Illegal dependency on `Sonata\AdminBundle\Admin\AbstractAdmin`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/TagAdmin.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Sonata\AdminBundle\Datagrid\DatagridMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/TagAdmin.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Sonata\AdminBundle\Datagrid\ListMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/TagAdmin.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Sonata\AdminBundle\Form\FormMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/TagAdmin.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Sonata\AdminBundle\Show\ShowMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/TagAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Sonata\AdminBundle\Admin\AbstractAdmin`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/TagAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Sonata\AdminBundle\Datagrid\DatagridMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/TagAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Sonata\AdminBundle\Datagrid\ListMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/TagAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Sonata\AdminBundle\Form\FormMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/TagAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Sonata\AdminBundle\Show\ShowMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/TagAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\TextType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/UserAdmin.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Sonata\AdminBundle\Datagrid\ListMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/UserAdmin.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\EmailType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/UserAdmin.php"
+code = "disallowed-extends"
+message = 'Illegal dependency on `Sonata\AdminBundle\Admin\AbstractAdmin`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/UserAdmin.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Sonata\AdminBundle\Datagrid\DatagridMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/UserAdmin.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Sonata\AdminBundle\Datagrid\ListMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/UserAdmin.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Sonata\AdminBundle\Form\FormMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/UserAdmin.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Sonata\AdminBundle\Show\ShowMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/UserAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Sonata\AdminBundle\Admin\AbstractAdmin`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/UserAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Sonata\AdminBundle\Datagrid\DatagridMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/UserAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Sonata\AdminBundle\Datagrid\ListMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/UserAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Sonata\AdminBundle\Form\FormMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/UserAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Sonata\AdminBundle\Show\ShowMapper`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Admin/UserAdmin.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\EmailType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/HomeController.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Symfony\Component\Routing\Attribute\Route`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/HomeController.php"
+code = "disallowed-extends"
+message = 'Illegal dependency on `Symfony\Bundle\FrameworkBundle\Controller\AbstractController`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/HomeController.php"
+code = "disallowed-return-type"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Response`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/HomeController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Bundle\FrameworkBundle\Controller\AbstractController`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/HomeController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Response`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/HomeController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Routing\Attribute\Route`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/PostController.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Symfony\Component\Routing\Attribute\Route`'
+count = 7
+
+[[issues]]
+file = "src/Infrastructure/Controller/PostController.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Symfony\Component\Security\Http\Attribute\IsGranted`'
+count = 5
+
+[[issues]]
+file = "src/Infrastructure/Controller/PostController.php"
+code = "disallowed-extends"
+message = 'Illegal dependency on `Symfony\Bundle\FrameworkBundle\Controller\AbstractController`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/PostController.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Request`'
+count = 5
+
+[[issues]]
+file = "src/Infrastructure/Controller/PostController.php"
+code = "disallowed-return-type"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Response`'
+count = 7
+
+[[issues]]
+file = "src/Infrastructure/Controller/PostController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Bundle\FrameworkBundle\Controller\AbstractController`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/PostController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\ClickableInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/PostController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Exception\BadRequestException`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/PostController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Request`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/PostController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Response`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/PostController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Routing\Attribute\Route`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/PostController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Security\Core\Exception\AccessDeniedException`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/PostController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Security\Http\Attribute\IsGranted`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/RobotTxtController.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Symfony\Component\Routing\Attribute\Route`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/RobotTxtController.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Symfony\Component\Routing\Generator\UrlGeneratorInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/RobotTxtController.php"
+code = "disallowed-extends"
+message = 'Illegal dependency on `Symfony\Bundle\FrameworkBundle\Controller\AbstractController`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/RobotTxtController.php"
+code = "disallowed-return-type"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Response`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/RobotTxtController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Bundle\FrameworkBundle\Controller\AbstractController`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/RobotTxtController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Response`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/RobotTxtController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Routing\Attribute\Route`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/RobotTxtController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Routing\Generator\UrlGeneratorInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/SecurityController.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Symfony\Component\Routing\Attribute\Route`'
+count = 3
+
+[[issues]]
+file = "src/Infrastructure/Controller/SecurityController.php"
+code = "disallowed-extends"
+message = 'Illegal dependency on `Symfony\Bundle\FrameworkBundle\Controller\AbstractController`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/SecurityController.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Request`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/SecurityController.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Symfony\Component\Security\Http\Authentication\AuthenticationUtils`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/SecurityController.php"
+code = "disallowed-return-type"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Response`'
+count = 2
+
+[[issues]]
+file = "src/Infrastructure/Controller/SecurityController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Bundle\FrameworkBundle\Controller\AbstractController`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/SecurityController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\Exception\RuntimeException`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/SecurityController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Request`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/SecurityController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Response`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/SecurityController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Routing\Attribute\Route`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/SecurityController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Security\Http\Authentication\AuthenticationUtils`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/SiteMapController.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Symfony\Component\Routing\Attribute\Route`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/SiteMapController.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Symfony\Component\Routing\Generator\UrlGeneratorInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/SiteMapController.php"
+code = "disallowed-extends"
+message = 'Illegal dependency on `Symfony\Bundle\FrameworkBundle\Controller\AbstractController`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/SiteMapController.php"
+code = "disallowed-return-type"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Response`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/SiteMapController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Bundle\FrameworkBundle\Controller\AbstractController`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/SiteMapController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Response`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/SiteMapController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Routing\Attribute\Route`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/SiteMapController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Routing\Generator\UrlGeneratorInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/TagController.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Symfony\Component\Routing\Attribute\Route`'
+count = 5
+
+[[issues]]
+file = "src/Infrastructure/Controller/TagController.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Symfony\Component\Security\Http\Attribute\IsGranted`'
+count = 3
+
+[[issues]]
+file = "src/Infrastructure/Controller/TagController.php"
+code = "disallowed-extends"
+message = 'Illegal dependency on `Symfony\Bundle\FrameworkBundle\Controller\AbstractController`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/TagController.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Request`'
+count = 4
+
+[[issues]]
+file = "src/Infrastructure/Controller/TagController.php"
+code = "disallowed-return-type"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Response`'
+count = 5
+
+[[issues]]
+file = "src/Infrastructure/Controller/TagController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Bundle\FrameworkBundle\Controller\AbstractController`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/TagController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Request`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/TagController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Response`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/TagController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Routing\Attribute\Route`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Controller/TagController.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Security\Http\Attribute\IsGranted`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Post.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Column`'
+count = 8
+
+[[issues]]
+file = "src/Infrastructure/Entity/Post.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Entity`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Post.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\GeneratedValue`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Post.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Id`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Post.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\JoinTable`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Post.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\ManyToMany`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Post.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Table`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Post.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Gedmo\Mapping\Annotation\Slug`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Post.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Gedmo\Mapping\Annotation\Timestampable`'
+count = 2
+
+[[issues]]
+file = "src/Infrastructure/Entity/Post.php"
+code = "disallowed-instantiation"
+message = 'Illegal dependency on `Doctrine\Common\Collections\ArrayCollection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Post.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Post.php"
+code = "disallowed-property-type"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Post.php"
+code = "disallowed-return-type"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Post.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\Common\Collections\ArrayCollection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Post.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Post.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Post.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Gedmo\Mapping\Annotation`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/Gallery.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Column`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/Gallery.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Entity`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/Gallery.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\GeneratedValue`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/Gallery.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Id`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/Gallery.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Table`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/Gallery.php"
+code = "disallowed-extends"
+message = 'Illegal dependency on `Sonata\MediaBundle\Entity\BaseGallery`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/Gallery.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/Gallery.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Sonata\MediaBundle\Entity\BaseGallery`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/GalleryItem.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Column`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/GalleryItem.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Entity`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/GalleryItem.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\GeneratedValue`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/GalleryItem.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Id`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/GalleryItem.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Table`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/GalleryItem.php"
+code = "disallowed-extends"
+message = 'Illegal dependency on `Sonata\MediaBundle\Entity\BaseGalleryItem`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/GalleryItem.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/GalleryItem.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Sonata\MediaBundle\Entity\BaseGalleryItem`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/Media.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Column`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/Media.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Entity`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/Media.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\GeneratedValue`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/Media.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Id`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/Media.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Table`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/Media.php"
+code = "disallowed-extends"
+message = 'Illegal dependency on `Sonata\MediaBundle\Entity\BaseMedia`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/Media.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/SonataMedia/Media.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Sonata\MediaBundle\Entity\BaseMedia`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Tag.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Column`'
+count = 3
+
+[[issues]]
+file = "src/Infrastructure/Entity/Tag.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Entity`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Tag.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\GeneratedValue`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Tag.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Id`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Tag.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\ManyToMany`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Tag.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Table`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Tag.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Gedmo\Mapping\Annotation\Slug`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Tag.php"
+code = "disallowed-instantiation"
+message = 'Illegal dependency on `Doctrine\Common\Collections\ArrayCollection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Tag.php"
+code = "disallowed-property-type"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Tag.php"
+code = "disallowed-return-type"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Tag.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\Common\Collections\ArrayCollection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Tag.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Tag.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/Tag.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Gedmo\Mapping\Annotation`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/User.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Column`'
+count = 4
+
+[[issues]]
+file = "src/Infrastructure/Entity/User.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Entity`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/User.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\GeneratedValue`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/User.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Id`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/User.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping\Table`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/User.php"
+code = "disallowed-implements"
+message = 'Illegal dependency on `Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/User.php"
+code = "disallowed-implements"
+message = 'Illegal dependency on `Symfony\Component\Security\Core\User\UserInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/User.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\ORM\Mapping`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/User.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Entity/User.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Security\Core\User\UserInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/EventListener/ExceptionListener.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Symfony\Component\EventDispatcher\Attribute\AsEventListener`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/EventListener/ExceptionListener.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Response`'
+count = 4
+
+[[issues]]
+file = "src/Infrastructure/EventListener/ExceptionListener.php"
+code = "disallowed-instantiation"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\JsonResponse`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/EventListener/ExceptionListener.php"
+code = "disallowed-instantiation"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Response`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/EventListener/ExceptionListener.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Symfony\Component\HttpKernel\Event\ExceptionEvent`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/EventListener/ExceptionListener.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Twig\Environment`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/EventListener/ExceptionListener.php"
+code = "disallowed-static-property"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Response`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/EventListener/ExceptionListener.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\EventDispatcher\Attribute\AsEventListener`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/EventListener/ExceptionListener.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\JsonResponse`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/EventListener/ExceptionListener.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\Response`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/EventListener/ExceptionListener.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\HttpKernel\Event\ExceptionEvent`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/EventListener/ExceptionListener.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Twig\Environment`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\CheckboxType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\ChoiceType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\SubmitType`'
+count = 2
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\TextType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\TextareaType`'
+count = 2
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-extends"
+message = 'Illegal dependency on `Symfony\Component\Form\AbstractType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-instantiation"
+message = 'Illegal dependency on `Doctrine\Common\Collections\ArrayCollection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-instantiation"
+message = 'Illegal dependency on `Symfony\Component\Form\CallbackTransformer`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Symfony\Component\Form\FormBuilderInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Symfony\Component\OptionsResolver\OptionsResolver`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\Common\Collections\ArrayCollection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\AbstractType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\CallbackTransformer`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\Exception\InvalidArgumentException`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\CheckboxType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\ChoiceType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\SubmitType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\TextType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\TextareaType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\FormBuilderInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\OptionsResolver\Exception\AccessException`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/PostType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\OptionsResolver\OptionsResolver`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\EmailType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\PasswordType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\RepeatedType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-extends"
+message = 'Illegal dependency on `Symfony\Component\Form\AbstractType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-instantiation"
+message = 'Illegal dependency on `Symfony\Component\Validator\Constraints\Email`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-instantiation"
+message = 'Illegal dependency on `Symfony\Component\Validator\Constraints\Length`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-instantiation"
+message = 'Illegal dependency on `Symfony\Component\Validator\Constraints\NotBlank`'
+count = 2
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Symfony\Component\Form\FormBuilderInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Symfony\Component\Form\FormInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Symfony\Component\OptionsResolver\OptionsResolver`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\AbstractType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\EmailType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\PasswordType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\RepeatedType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\FormBuilderInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\FormInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\OptionsResolver\Exception\AccessException`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\OptionsResolver\OptionsResolver`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Validator\Constraints\Email`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Validator\Constraints\Length`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/RegistrationType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Validator\Constraints\NotBlank`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/TagType.php"
+code = "disallowed-class-constant"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\TextType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/TagType.php"
+code = "disallowed-extends"
+message = 'Illegal dependency on `Symfony\Component\Form\AbstractType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/TagType.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Symfony\Component\Form\FormBuilderInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/TagType.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Symfony\Component\OptionsResolver\OptionsResolver`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/TagType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\AbstractType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/TagType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\Extension\Core\Type\TextType`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/TagType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\Form\FormBuilderInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Form/TagType.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\OptionsResolver\OptionsResolver`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Mapper/TagMapper.php"
+code = "disallowed-instantiation"
+message = 'Illegal dependency on `Doctrine\Common\Collections\ArrayCollection`'
+count = 2
+
+[[issues]]
+file = "src/Infrastructure/Mapper/TagMapper.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 2
+
+[[issues]]
+file = "src/Infrastructure/Mapper/TagMapper.php"
+code = "disallowed-return-type"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 2
+
+[[issues]]
+file = "src/Infrastructure/Mapper/TagMapper.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\Common\Collections\ArrayCollection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Mapper/TagMapper.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/MapperInterface/TagMapperInterface.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 2
+
+[[issues]]
+file = "src/Infrastructure/MapperInterface/TagMapperInterface.php"
+code = "disallowed-return-type"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 2
+
+[[issues]]
+file = "src/Infrastructure/MapperInterface/TagMapperInterface.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\Common\Collections\Collection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Persistence/AbstractDoctrineRepository.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Doctrine\ORM\EntityManagerInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Persistence/AbstractDoctrineRepository.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\ORM\EntityManagerInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Persistence/DoctrinePostRepository.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Doctrine\ORM\EntityManagerInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Persistence/DoctrinePostRepository.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\ORM\EntityManagerInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Persistence/DoctrineTagRepository.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Doctrine\ORM\EntityManagerInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Persistence/DoctrineTagRepository.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\ORM\EntityManagerInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Persistence/DoctrineUserRepository.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Doctrine\ORM\EntityManagerInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Persistence/DoctrineUserRepository.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\ORM\EntityManagerInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Service/PasswordBlogHasher.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Service/PasswordBlogHasher.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Service/PostTagSynchronizer.php"
+code = "disallowed-instantiation"
+message = 'Illegal dependency on `Doctrine\Common\Collections\ArrayCollection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Service/PostTagSynchronizer.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Doctrine\Common\Collections\ArrayCollection`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Twig/Component/Footer.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Symfony\UX\TwigComponent\Attribute\AsTwigComponent`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Twig/Component/Footer.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\UX\TwigComponent\Attribute\AsTwigComponent`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Twig/Component/PostCard.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Symfony\UX\TwigComponent\Attribute\AsTwigComponent`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Twig/Component/PostCard.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\UX\TwigComponent\Attribute\AsTwigComponent`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Twig/Component/ShareButtons.php"
+code = "disallowed-attribute"
+message = 'Illegal dependency on `Symfony\UX\TwigComponent\Attribute\AsTwigComponent`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Twig/Component/ShareButtons.php"
+code = "disallowed-parameter-type"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\RequestStack`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Twig/Component/ShareButtons.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\HttpFoundation\RequestStack`'
+count = 1
+
+[[issues]]
+file = "src/Infrastructure/Twig/Component/ShareButtons.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\UX\TwigComponent\Attribute\AsTwigComponent`'
+count = 1
+
+[[issues]]
+file = "src/Kernel.php"
+code = "disallowed-extends"
+message = 'Illegal dependency on `Symfony\Component\HttpKernel\Kernel`'
+count = 1
+
+[[issues]]
+file = "src/Kernel.php"
+code = "disallowed-trait-use"
+message = 'Illegal dependency on `Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait`'
+count = 1
+
+[[issues]]
+file = "src/Kernel.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait`'
+count = 1
+
+[[issues]]
+file = "src/Kernel.php"
+code = "disallowed-use"
+message = 'Illegal dependency on `Symfony\Component\HttpKernel\Kernel`'
+count = 1

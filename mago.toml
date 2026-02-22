@@ -33,3 +33,22 @@ analyze-dead-code = false
 check-throws = true
 allow-possibly-undefined-array-keys = true
 perform-heuristic-checks = true
+
+[guard]
+mode = "perimeter"  # Only run structural checks
+
+[guard.perimeter]
+# Defines the architectural layers from core to infrastructure.
+layering = [
+    "App\\Domain",
+    "App\\Infrastructure"
+]
+
+[[guard.perimeter.rules]]
+namespace = "App\\Domain\\"
+permit = ["@self", "@native"]
+
+
+[[guard.perimeter.rules]]
+namespace = "App\\Infrastructure\\"
+permit = ["@self", "@native"]
