@@ -37,6 +37,10 @@
             <directory>src</directory>
             <directory>tests</directory>
         </include>
+        <exclude>
+            <directory>src/DataFixtures</directory>
+            <directory>src/Exception</directory>
+        </exclude>
 
         <deprecationTrigger>
             <method>Doctrine\Deprecations\Deprecation::trigger</method>
