@@ -22,7 +22,7 @@ readonly class RegisterUser implements RegisterUserInterface
      */
     public function execute(string $email, #[SensitiveParameter] string $password): void
     {
-        $hashedPassword = $this->passwordHasher->hash($password);
+        $hashedPassword = $this->passwordHasher->hash($email, $password);
         $this->userRegistrationProvider->register($email, $hashedPassword);
     }
 }
