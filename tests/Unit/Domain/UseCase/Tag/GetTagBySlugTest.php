@@ -7,12 +7,12 @@ namespace App\Tests\Unit\Domain\UseCase\Tag;
 use App\Domain\Model\TagModel;
 use App\Domain\Provider\TagProviderInterface;
 use App\Domain\UseCase\Tag\GetTagBySlug;
-use App\Tests\Helper\XmlTestDataTrait;
+use App\Tests\Helper\XmlTagDataTrait;
 use PHPUnit\Framework\TestCase;
 
 class GetTagBySlugTest extends TestCase
 {
-    use XmlTestDataTrait;
+    use XmlTagDataTrait;
 
     public function testExecuteReturnsTagModel(): void
     {

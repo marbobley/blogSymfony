@@ -6,7 +6,7 @@ namespace App\Tests\Helper;
 
 use App\Domain\Model\TagModel;
 
-trait XmlTestDataTrait
+trait XmlTagDataTrait
 {
     /**
      * @return TagModel[]

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Domain\Criteria;
 
-final class PostCriteria
+final readonly class PostCriteria
 {
     public function __construct(
-        private readonly ?int $tagId = null,
-        private readonly ?string $search = null,
-        private readonly bool $onlyPublished = false,
+        private ?int    $tagId = null,
+        private ?string $search = null,
+        private bool    $onlyPublished = false,
     ) {}
 
     public function getTagId(): ?int
