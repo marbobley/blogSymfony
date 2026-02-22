@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Helper;
 
 use App\Domain\Model\TagModel;
-use App\Infrastructure\Entity\User;
 
 trait XmlTestDataTrait
 {
@@ -27,24 +26,5 @@ trait XmlTestDataTrait
         }
 
         return $tags;
-    }
-
-    /**
-     * @return User[]
-     */
-    private function loadUserRegistrationModelsFromXml(): array
-    {
-        $filePath = __DIR__ . '/Fixtures/users.xml';
-        $xml = simplexml_load_file($filePath);
-        $users = [];
-
-        foreach ($xml->user as $userData) {
-            $users[] = new User(
-                (string) $userData->email,
-                (string) $userData->password
-            );
-        }
-
-        return $users;
     }
 }
