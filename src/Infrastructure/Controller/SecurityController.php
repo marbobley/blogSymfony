@@ -64,7 +64,7 @@ final class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var User $dto */
+            /** @var User $user */
             $user = $form->getData();
             $email = $user->getEmail();
             $plainPassword = $user->getPassword();
