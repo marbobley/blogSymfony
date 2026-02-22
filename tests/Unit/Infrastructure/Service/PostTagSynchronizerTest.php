@@ -7,8 +7,10 @@ namespace App\Tests\Unit\Infrastructure\Service;
 use App\Infrastructure\Repository\TagRepositoryInterface;
 use App\Infrastructure\Service\PostTagSynchronizer;
 use App\Tests\Helper\TestDataGeneratorTrait;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\TestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class PostTagSynchronizerTest extends TestCase
 {
     use TestDataGeneratorTrait;

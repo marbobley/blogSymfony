@@ -11,8 +11,10 @@ use App\Infrastructure\MapperInterface\PostMapperInterface;
 use App\Infrastructure\Repository\PostRepositoryInterface;
 use App\Infrastructure\Service\PostTagSynchronizer;
 use App\Tests\Helper\TestDataGeneratorTrait;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\TestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class PostAdapterTest extends TestCase
 {
     use TestDataGeneratorTrait;

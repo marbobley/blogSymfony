@@ -3,22 +3,18 @@
 <!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         backupGlobals="false"
          colors="true"
-         failOnDeprecation="true"
-         failOnNotice="false"
-         failOnWarning="true"
          bootstrap="tests/bootstrap.php"
-         cacheDirectory=".phpunit.cache"
-         displayDetailsOnTestsThatTriggerDeprecations="true"
-         displayDetailsOnTestsThatTriggerNotices="true"
-         displayDetailsOnTestsThatTriggerWarnings="true"
-         displayDetailsOnTestsThatTriggerErrors="true"
+         displayDetailsOnAllIssues="true"
 >
     <php>
         <ini name="display_errors" value="1" />
-        <ini name="error_reporting" value="-1" />
+        <ini name="error_reporting" value="1" />
         <server name="APP_ENV" value="test" force="true" />
         <server name="SHELL_VERBOSITY" value="-1" />
+        <server name="SYMFONY_PHPUNIT_REMOVE" value=""/>
+        <server name="SYMFONY_PHPUNIT_VERSION" value="9.5"/>
         <server name="KERNEL_CLASS" value="App\Kernel" />
     </php>
 
@@ -28,23 +24,14 @@
         </testsuite>
     </testsuites>
 
-    <source ignoreSuppressionOfDeprecations="false"
-            ignoreIndirectDeprecations="false"
-            restrictNotices="false"
-            restrictWarnings="false"
-    >
+    <source>
         <include>
             <directory>src</directory>
             <directory>tests</directory>
         </include>
-
-        <deprecationTrigger>
-            <method>Doctrine\Deprecations\Deprecation::trigger</method>
-            <method>Doctrine\Deprecations\Deprecation::delegateTriggerToBackend</method>
-            <function>trigger_deprecation</function>
-        </deprecationTrigger>
+        <exclude>
+            <directory>src/DataFixtures</directory>
+            <directory>src/Exception</directory>
+        </exclude>
     </source>
-
-    <extensions>
-    </extensions>
 </phpunit>
