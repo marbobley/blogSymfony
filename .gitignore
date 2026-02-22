@@ -66,11 +66,6 @@
 .idea/commandlinetools/
 
 .idea/
-
-###> phpstan/phpstan ###
-phpstan.neon
-###< phpstan/phpstan ###
-
 .env.test
 /public/bundles/*
 

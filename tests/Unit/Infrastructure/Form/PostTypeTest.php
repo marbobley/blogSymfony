@@ -8,9 +8,11 @@ use App\Domain\Model\PostModel;
 use App\Domain\Model\TagModel;
 use App\Domain\UseCaseInterface\Tag\ListTagsInterface;
 use App\Infrastructure\Form\PostType;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class PostTypeTest extends TypeTestCase
 {
     private $listTags;

@@ -11,8 +11,10 @@ use App\Infrastructure\MapperInterface\TagMapperInterface;
 use App\Tests\Helper\TestDataGeneratorTrait;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\TestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class PostMapperTest extends TestCase
 {
     use TestDataGeneratorTrait;

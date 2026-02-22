@@ -11,8 +11,10 @@ use App\Infrastructure\MapperInterface\PostMapperInterface;
 use App\Infrastructure\Repository\PostRepositoryInterface;
 use App\Infrastructure\Service\PostTagSynchronizer;
 use App\Tests\Helper\TestDataGeneratorTrait;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\TestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class PostAdapterTest extends TestCase
 {
     use TestDataGeneratorTrait;
@@ -65,7 +67,6 @@ class PostAdapterTest extends TestCase
 
     public function testDelete(): void
     {
-        $this->expectNotToPerformAssertions();
         $id = 1;
         $post = $this->createPostEntity();
 
@@ -79,7 +80,6 @@ class PostAdapterTest extends TestCase
             ->with($post);
 
         $this->adapter->delete($id);
-
     }
 
     public function testFindById(): void

@@ -6,6 +6,7 @@ namespace App\Tests\Unit\Infrastructure\EventListener;
 
 use App\Domain\Exception\EntityNotFoundException;
 use App\Infrastructure\EventListener\ExceptionListener;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +14,7 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Twig\Environment;
 
+#[AllowMockObjectsWithoutExpectations]
 class ExceptionListenerTest extends TestCase
 {
     private Environment $twig;

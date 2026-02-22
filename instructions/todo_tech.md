@@ -22,3 +22,4 @@ Ce document liste les améliorations techniques et les tâches d'infrastructure 
 - [x] **Couverture Tests Unitaires** : Atteindre 100% de couverture sur le dossier `src/Domain/UseCase` et `src/Domain/Model`. ✓
 - [x] **Tests d'Intégration** : Mettre en place des tests d'intégration pour tous les Use Cases du Domaine. ✓ Voir `tests/Integration/UseCase/`.
 - [x] **Refactorisation XML** : Utilisation de données XML pour les tests unitaires via `XmlTestDataTrait`. ✓
+- [x] **Correction Alertes PHPUnit** : Suppression des alertes "Risky" et des notices de dépréciation liées aux mocks via `#[AllowMockObjectsWithoutExpectations]`. ✓

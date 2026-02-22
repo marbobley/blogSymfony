@@ -10,8 +10,10 @@ use App\Infrastructure\Entity\Tag;
 use App\Infrastructure\MapperInterface\TagMapperInterface;
 use App\Infrastructure\Repository\TagRepositoryInterface;
 use App\Tests\Helper\TestDataGeneratorTrait;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\TestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class TagAdapterTest extends TestCase
 {
     use TestDataGeneratorTrait;

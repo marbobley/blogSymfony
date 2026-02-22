@@ -9,8 +9,10 @@ use App\Infrastructure\Entity\Tag;
 use App\Infrastructure\Mapper\TagMapper;
 use App\Tests\Helper\TestDataGeneratorTrait;
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\TestCase;
 
+#[AllowMockObjectsWithoutExpectations]
 class TagMapperTest extends TestCase
 {
     use TestDataGeneratorTrait;

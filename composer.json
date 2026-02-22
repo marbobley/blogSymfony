@@ -104,9 +104,6 @@
     "require-dev": {
         "carthage-software/mago": "^1.9.1",
         "doctrine/doctrine-fixtures-bundle": "^4.3.1",
-        "phpstan/phpstan": "^2.1.39",
-        "phpstan/phpstan-doctrine": "^2.0.17",
-        "phpstan/phpstan-symfony": "^2.0.14",
         "phpunit/phpunit": "^12.5.14",
         "symfony/browser-kit": "7.4.*",
         "symfony/css-selector": "7.4.*",
