@@ -7,9 +7,9 @@ namespace App\Domain\Criteria;
 final readonly class PostCriteria
 {
     public function __construct(
-        private ?int    $tagId = null,
+        private ?int $tagId = null,
         private ?string $search = null,
-        private bool    $onlyPublished = false,
+        private bool $onlyPublished = false,
     ) {}
 
     public function getTagId(): ?int
