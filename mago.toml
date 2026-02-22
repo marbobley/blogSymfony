@@ -35,7 +35,7 @@ allow-possibly-undefined-array-keys = true
 perform-heuristic-checks = true
 
 [guard]
-mode = "perimeter"  # Only run structural checks
+mode = "default"
 
 [guard.perimeter]
 # Defines the architectural layers from core to infrastructure.
@@ -68,3 +68,15 @@ permit = ["@all"]
 [[guard.perimeter.rules]]
 namespace = "App\\DataFixtures"
 permit = ["@all"]
+
+[[guard.structural.rules]]
+on               = "App\\Infrastructure\\Controller\\**"
+target           = "class"
+must-be-named    = "*Controller"
+must-be-final    = true
+reason           = "Controllers must be final and follow naming conventions."
+
+[[guard.structural.rules]]
+on          = "App\\Domain\\**\\Enum\\**"
+must-be     = ["enum"]
+reason      = "This namespace is designated for enums only."
