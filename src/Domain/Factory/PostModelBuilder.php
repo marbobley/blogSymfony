@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Factory;
 
+use App\Domain\Enum\StatutArticle;
 use App\Domain\Model\PostModel;
-use App\Domain\Model\StatutArticle;
 use App\Domain\Model\TagModel;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;

@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
-use App\Domain\Model\UserRegistrationModel;
 use App\Domain\UseCaseInterface\RegisterUserInterface;
+use App\Infrastructure\Entity\User;
 use App\Infrastructure\Form\RegistrationType;
 use LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Exception\RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -50,7 +51,7 @@ final class SecurityController extends AbstractController
 
     /**
      * @throws LogicException
-     * @throws \Symfony\Component\Form\Exception\RuntimeException
+     * @throws RuntimeException
      */
     #[Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
     public function register(Request $request, RegisterUserInterface $registerUser): Response
@@ -63,10 +64,12 @@ final class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UserRegistrationModel $dto */
-            $dto = $form->getData();
+            /** @var User $dto */
+            $user = $form->getData();
+            $email = $user->email;
+            $plainPassword = $user->password;
 
-            $registerUser->execute($dto);
+            $registerUser->execute($email, $plainPassword);
 
             $this->addFlash('success', 'Votre compte a été créé avec succès ! Vous pouvez maintenant vous connecter.');
 

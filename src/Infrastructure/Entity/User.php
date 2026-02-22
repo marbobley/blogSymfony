@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use LogicException;
 use SensitiveParameter;
-
 use function array_unique;
 use function filter_var;
 
@@ -95,7 +94,7 @@ class User
         $this->email = $email;
     }
 
-    public function updatePassword(#[SensitiveParameter] string $password): void
+    public function setPassword(#[SensitiveParameter] string $password): void
     {
         $this->password = $password;
     }

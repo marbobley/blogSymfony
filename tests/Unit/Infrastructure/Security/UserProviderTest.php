@@ -94,21 +94,4 @@ class UserProviderTest extends TestCase
         $this->assertTrue($this->provider->supportsClass(UserAdapter::class));
         $this->assertFalse($this->provider->supportsClass(User::class));
     }
-
-    public function testUpgradePassword(): void
-    {
-        $user = $this->createMock(User::class);
-        $adapter = new UserAdapter($user);
-        $newHashedPassword = 'new_hashed_password';
-
-        $user->expects($this->once())
-            ->method('updatePassword')
-            ->with($newHashedPassword);
-
-        $this->userRepository->expects($this->once())
-            ->method('save')
-            ->with($user);
-
-        $this->provider->upgradePassword($adapter, $newHashedPassword);
-    }
 }

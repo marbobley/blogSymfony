@@ -6,13 +6,13 @@ namespace App\Infrastructure\Security;
 
 use App\Infrastructure\MapperInterface\UserMapperInterface;
 use App\Infrastructure\Repository\UserRepositoryInterface;
+use SensitiveParameter;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-
 use function is_subclass_of;
 use function sprintf;
 
@@ -60,7 +60,7 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 
     public function upgradePassword(
         PasswordAuthenticatedUserInterface $user,
-        #[\SensitiveParameter] string $newHashedPassword,
+        #[SensitiveParameter] string       $newHashedPassword,
     ): void {
         if (!$user instanceof UserAdapter) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));

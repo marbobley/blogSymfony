@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Mapper;
 
+use App\Domain\Enum\StatutArticle;
 use App\Domain\Factory\PostModelBuilder;
 use App\Domain\Model\PostModel;
-use App\Domain\Model\StatutArticle;
 use App\Infrastructure\Entity\Post;
 use App\Infrastructure\MapperInterface\PostMapperInterface;
 use App\Infrastructure\MapperInterface\TagMapperInterface;

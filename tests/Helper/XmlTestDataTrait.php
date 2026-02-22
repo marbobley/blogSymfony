@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Helper;
 
 use App\Domain\Model\TagModel;
-use App\Domain\Model\UserRegistrationModel;
 use App\Infrastructure\Entity\User;
-use ReflectionClass;
 
 trait XmlTestDataTrait
 {
@@ -32,7 +30,7 @@ trait XmlTestDataTrait
     }
 
     /**
-     * @return UserRegistrationModel[]
+     * @return User[]
      */
     private function loadUserRegistrationModelsFromXml(): array
     {
@@ -41,44 +39,10 @@ trait XmlTestDataTrait
         $users = [];
 
         foreach ($xml->user as $userData) {
-            $users[] = new UserRegistrationModel(
+            $users[] = new User(
                 (string) $userData->email,
                 (string) $userData->password
             );
-        }
-
-        return $users;
-    }
-
-    /**
-     * @return User[]
-     */
-    private function loadUserEntitiesFromXml(string $filePath): array
-    {
-        $xml = simplexml_load_file($filePath);
-        $users = [];
-
-        foreach ($xml->user as $userData) {
-            $roles = [];
-            if (isset($userData->roles)) {
-                foreach ($userData->roles->role as $role) {
-                    $roles[] = (string) $role;
-                }
-            }
-
-            $user = new User(
-                (string) $userData->email,
-                (string) $userData->password,
-                $roles
-            );
-
-            if (isset($userData['id'])) {
-                $reflection = new ReflectionClass($user);
-                $property = $reflection->getProperty('id');
-                $property->setValue($user, (int) $userData['id']);
-            }
-
-            $users[] = $user;
         }
 
         return $users;

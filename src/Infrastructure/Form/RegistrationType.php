@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Form;
 
-use App\Domain\Model\UserRegistrationModel;
+use App\Infrastructure\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\OptionsResolver\Exception\AccessException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
@@ -33,7 +34,7 @@ class RegistrationType extends AbstractType
                 new NotBlank(message: 'L\'email est obligatoire.'),
                 new Email(message: 'L\'adresse email n\'est pas valide.'),
             ],
-        ])->add('plainPassword', RepeatedType::class, [
+        ])->add('password', RepeatedType::class, [
             'type' => PasswordType::class,
             'first_options' => [
                 'label' => 'Mot de passe',
@@ -62,18 +63,18 @@ class RegistrationType extends AbstractType
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
+     * @throws AccessException
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => UserRegistrationModel::class,
+            'data_class' => User::class,
             'empty_data' => static function (FormInterface $form) {
                 /** @var string|null $email */
                 $email = $form->get('email')->getData();
                 /** @var string|null $password */
-                $password = $form->get('plainPassword')->getData();
-                return new UserRegistrationModel((string) $email, (string) $password);
+                $password = $form->get('password')->getData();
+                return new User((string) $email, (string) $password);
             },
         ]);
     }
