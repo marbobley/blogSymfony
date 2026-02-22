@@ -8,7 +8,7 @@ paths = [
   # "migrations/",
 ]
 includes = ["vendor"]
-excludes = []
+excludes = ["src/Kernel.php", "src/DataFixtures"]
 
 [formatter]
 print-width = 120
@@ -41,14 +41,30 @@ mode = "perimeter"  # Only run structural checks
 # Defines the architectural layers from core to infrastructure.
 layering = [
     "App\\Domain",
-    "App\\Infrastructure"
+    "App\\Infrastructure",
+    "App\\DataFixtures",
+    "App\\Tests"
 ]
 
-[[guard.perimeter.rules]]
-namespace = "App\\Domain\\"
-permit = ["@self", "@native"]
+# Creates reusable aliases for groups of namespaces.
+[guard.perimeter.layers]
+core = ["@native", "Psl\\**"]
+framework = ["Symfony\\**"]
+doctrine = ["Doctrine\\**"]
+libs = ["Twig\\**", "Sonata\\**", "Gedmo\\**"]
 
+[[guard.perimeter.rules]]
+namespace = "App\\Domain"
+permit = [ "@layer:framework", "@layer:core","@layer:doctrine"]
 
 [[guard.perimeter.rules]]
-namespace = "App\\Infrastructure\\"
-permit = ["@self", "@native"]
+namespace = "App\\Infrastructure"
+permit = ["@native","@layer:framework","@layer:libs","@layer:doctrine"]
+
+[[guard.perimeter.rules]]
+namespace = "App\\Tests"
+permit = ["@all"]
+
+[[guard.perimeter.rules]]
+namespace = "App\\DataFixtures"
+permit = ["@all"]
