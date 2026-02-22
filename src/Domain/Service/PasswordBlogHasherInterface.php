@@ -12,5 +12,5 @@ interface PasswordBlogHasherInterface
      * @param string $plainPassword Le mot de passe en clair
      * @return string Le mot de passe haché
      */
-    public function hash(#[SensitiveParameter] string $plainPassword): string;
+    public function hash(string $email, #[SensitiveParameter] string $plainPassword): string;
 }

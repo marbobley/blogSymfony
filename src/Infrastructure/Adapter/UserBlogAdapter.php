@@ -12,7 +12,7 @@ use SensitiveParameter;
 
 readonly class UserBlogAdapter implements UserBlogProviderInterface
 {
-    function __construct(
+    public function __construct(
         private UserRepositoryInterface $userRepository,
     ) {}
 
@@ -22,7 +22,7 @@ readonly class UserBlogAdapter implements UserBlogProviderInterface
      * @return void
      * @throws InvalidArgumentException
      */
-    function register(string $email, #[SensitiveParameter] string $plainPassword): void
+    public function register(string $email, #[SensitiveParameter] string $plainPassword): void
     {
         $user = new User($email, $plainPassword);
         $this->userRepository->save($user);

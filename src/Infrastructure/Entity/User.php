@@ -8,13 +8,15 @@ use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use LogicException;
 use SensitiveParameter;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 use function array_unique;
 use function filter_var;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'user')]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -111,5 +113,19 @@ class User
     public function __toString(): string
     {
         return $this->email;
+    }
+
+    public function eraseCredentials(): void
+    {
+        //not used
+    }
+
+    /**
+     * @return string
+     * @throws LogicException
+     */
+    public function getUserIdentifier(): string
+    {
+        return $this->getEmail();
     }
 }
