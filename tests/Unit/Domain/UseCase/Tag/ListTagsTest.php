@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Domain\UseCase\Tag;
 
-use App\Domain\Factory\TagModelFactory;
+use App\Domain\Factory\TagModelBuilder;
 use App\Domain\Model\TagModel;
 use App\Domain\Provider\TagProviderInterface;
 use App\Domain\UseCase\Tag\ListTags;
@@ -16,8 +16,8 @@ class ListTagsTest extends TestCase
     {
         $tagProvider = $this->createMock(TagProviderInterface::class);
         $useCase = new ListTags($tagProvider);
-        $tag1 = TagModelFactory::create(1, 'Symfony' , 'slu1');
-        $tag2 = TagModelFactory::create(2, 'PHP' , 'slu2');
+        $tag1 = TagModelBuilder::create(1, 'Symfony' , 'slu1');
+        $tag2 = TagModelBuilder::create(2, 'PHP' , 'slu2');
 
         $tagProvider->expects($this->once())
             ->method('findAll')

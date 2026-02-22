@@ -4,30 +4,25 @@ declare(strict_types=1);
 
 namespace App\Domain\UseCase;
 
-use App\Domain\Model\UserRegistrationModel;
-use App\Domain\Service\PasswordHasherInterface;
+use App\Domain\Provider\UserBlogProviderInterface;
+use App\Domain\Service\PasswordBlogHasherInterface;
 use App\Domain\UseCaseInterface\RegisterUserInterface;
-use App\Infrastructure\Entity\User;
-use App\Infrastructure\Repository\UserRepositoryInterface;
+use InvalidArgumentException;
+use SensitiveParameter;
 
 readonly class RegisterUser implements RegisterUserInterface
 {
     public function __construct(
-        private UserRepositoryInterface $userRepository,
-        private PasswordHasherInterface $passwordHasher,
+        private UserBlogProviderInterface $userRegistrationProvider,
+        private PasswordBlogHasherInterface $passwordHasher,
     ) {}
 
     /**
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function execute(UserRegistrationModel $dto): User
+    public function execute(string $email, #[SensitiveParameter] string $password): void
     {
-        $hashedPassword = $this->passwordHasher->hash($dto->plainPassword, $dto->email);
-
-        $user = new User($dto->email, $hashedPassword);
-
-        $this->userRepository->save($user);
-
-        return $user;
+        $hashedPassword = $this->passwordHasher->hash($password);
+        $this->userRegistrationProvider->register($email, $hashedPassword);
     }
 }

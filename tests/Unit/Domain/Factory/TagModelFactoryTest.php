@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Domain\Factory;
 
-use App\Domain\Factory\TagModelFactory;
-use App\Tests\Helper\XmlTestDataTrait;
+use App\Domain\Factory\TagModelBuilder;
+use App\Tests\Helper\XmlTagDataTrait;
 use PHPUnit\Framework\TestCase;
 
 class TagModelFactoryTest extends TestCase
 {
-    use XmlTestDataTrait;
+    use XmlTagDataTrait;
     public function testCreate(): void
     {
         $tagXml = $this->loadTagModelsFromXml()[0];
-        $tagBuilder = new TagModelFactory();
+        $tagBuilder = new TagModelBuilder();
         $tagModel = $tagBuilder
             ->setId($tagXml->getId())
             ->setSlug($tagXml->getSlug())

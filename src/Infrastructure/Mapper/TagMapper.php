@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Mapper;
 
-use App\Domain\Factory\TagModelFactory;
+use App\Domain\Factory\TagModelBuilder;
 use App\Domain\Model\TagModel;
 use App\Infrastructure\Entity\Tag;
 use App\Infrastructure\MapperInterface\TagMapperInterface;
@@ -23,7 +23,7 @@ class TagMapper implements TagMapperInterface
      */
     public function toModel(Tag $entity): TagModel
     {
-        $tagBuilder = new TagModelFactory();
+        $tagBuilder = new TagModelBuilder();
 
         return $tagBuilder->setId($entity->getId())->setName($entity->getName())->setSlug($entity->getSlug())->build();
     }

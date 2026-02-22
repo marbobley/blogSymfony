@@ -95,7 +95,7 @@ class User
         $this->email = $email;
     }
 
-    public function updatePassword(#[SensitiveParameter] string $password): void
+    public function setPassword(#[SensitiveParameter] string $password): void
     {
         $this->password = $password;
     }

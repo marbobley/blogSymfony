@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Domain\Factory;
 
+use App\Domain\Enum\StatutArticle;
 use App\Domain\Factory\PostModelBuilder;
-use App\Domain\Model\StatutArticle;
 use App\Tests\Helper\AssertPostTrait;
 use App\Tests\Helper\XmlPostDataTrait;
 use Exception;

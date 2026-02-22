@@ -7,7 +7,7 @@ namespace App\Domain\Factory;
 use App\Domain\Model\TagModel;
 use InvalidArgumentException;
 
-class TagModelFactory
+class TagModelBuilder
 {
     private TagModel $model;
 
@@ -21,19 +21,19 @@ class TagModelFactory
      * @return $this
      * @throws InvalidArgumentException
      */
-    public function setName(string $name): TagModelFactory
+    public function setName(string $name): TagModelBuilder
     {
         $this->model->setName($name);
         return $this;
     }
 
-    public function setSlug(string $slug): TagModelFactory
+    public function setSlug(string $slug): TagModelBuilder
     {
         $this->model->setSlug($slug);
         return $this;
     }
 
-    public function setId(?int $id): TagModelFactory
+    public function setId(?int $id): TagModelBuilder
     {
         $this->model->setId($id);
         return $this;

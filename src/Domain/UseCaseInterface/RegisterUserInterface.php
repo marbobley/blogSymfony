@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Domain\UseCaseInterface;
 
-use App\Domain\Model\UserRegistrationModel;
-use App\Infrastructure\Entity\User;
+use SensitiveParameter;
 
 interface RegisterUserInterface
 {
-    public function execute(UserRegistrationModel $dto): User;
+    public function execute(string $email, #[SensitiveParameter] string $password): void;
 }
