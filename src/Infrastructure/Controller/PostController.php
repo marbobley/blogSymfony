@@ -6,6 +6,7 @@ namespace App\Infrastructure\Controller;
 
 use App\Domain\Criteria\PostCriteria;
 use App\Domain\Model\PostModel;
+use App\Domain\Provider\LikeProviderInterface;
 use App\Domain\UseCase\Post\GetPost;
 use App\Domain\UseCaseInterface\Post\CreatePostInterface;
 use App\Domain\UseCaseInterface\Post\DeletePostInterface;
@@ -13,6 +14,7 @@ use App\Domain\UseCaseInterface\Post\GetPostBySlugInterface;
 use App\Domain\UseCaseInterface\Post\ListAllPostsInterface;
 use App\Domain\UseCaseInterface\Post\ListPublishedPostsInterface;
 use App\Domain\UseCaseInterface\Post\UpdatePostInterface;
+use App\Infrastructure\Entity\User;
 use App\Infrastructure\Form\PostType;
 use DateTimeImmutable;
 use LogicException;
@@ -29,6 +31,10 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class PostController extends AbstractController
 {
+    public function __construct(
+        private readonly LikeProviderInterface $likeProvider,
+    ) {}
+
     /**
      * @throws RuntimeException
      */
@@ -109,6 +115,7 @@ final class PostController extends AbstractController
      * @param GetPostBySlugInterface $getPostBySlug
      * @return Response
      * @throws AccessDeniedException
+     * @throws LogicException
      */
     #[Route('/post/{slug}', name: 'app_post_show', methods: ['GET'])]
     public function show(string $slug, GetPostBySlugInterface $getPostBySlug): Response
@@ -119,8 +126,19 @@ final class PostController extends AbstractController
             $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Cet article est un brouillon.');
         }
 
+        $likesCount = $this->likeProvider->countByPost((int) $post->getId());
+        $isLiked = false;
+
+        /** @var User|null $user */
+        $user = $this->getUser();
+        if ($user) {
+            $isLiked = $this->likeProvider->findByPostAndUser((int) $post->getId(), (int) $user->getId()) !== null;
+        }
+
         return $this->render('post/show.html.twig', [
             'post' => $post,
+            'likesCount' => $likesCount,
+            'isLiked' => $isLiked,
         ]);
     }
 
