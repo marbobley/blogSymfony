@@ -57,7 +57,9 @@ Le cœur du métier. Ne dépend d'aucune bibliothèque externe (ni Symfony, ni D
 #### B. Infrastructure (`src/Infrastructure`)
 Les détails techniques et les implémentations.
 *   **Entity** : Entités Doctrine (mappage DB). Elles sont distinctes des modèles du domaine.
-*   **Persistence / Repository** : Implémentations concrètes des providers (ex: `DoctrinePostProvider`). Ils gèrent la conversion entre Modèles de Domaine et Entités Doctrine.
+*   **Persistence** : Implémentations concrètes des repositories (ex: `DoctrinePostRepository` dans `src/Infrastructure/Persistence`). Ils implémentent les interfaces de `src/Infrastructure/Repository`.
+*   **Mapper** : Classes de transformation entre Modèles de Domaine et Entités Doctrine (ex: `PostMapper` dans `src/Infrastructure/Mapper`).
+*   **Adapter** : Implémentations des `ProviderInterface` du Domaine (ex: `PostAdapter` dans `src/Infrastructure/Adapter`). Ils orchestrent le mapping et la persistance.
 *   **Service** : Services d'infrastructure transverses (ex: `PostTagSynchronizer`).
 *   **Controller** : Contrôleurs Symfony (Input HTTP).
 *   **Form** : Formulaires Symfony.

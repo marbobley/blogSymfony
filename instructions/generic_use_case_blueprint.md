@@ -15,24 +15,26 @@ On commence toujours par le cœur (Domaine) pour finir par les détails techniqu
 ### 🟢 Phase 1 : Domaine (Cœur Métier)
 *Lieu : `src/Domain`*
 
-1.  **Modèle (`Model/`)** : Utiliser ou créer un modèle avec le suffixe `Model` (ex: `PostModel`).
+1.  **Modèle (`Model/`)** : Utiliser ou créer un modèle avec le suffixe `Model` (ex: `PostModel`). Utiliser une `Factory` (`src/Domain/Factory`) si la création est complexe.
 2.  **Contrat de Provider (`Provider/`)** : Définir les méthodes nécessaires dans l'interface (ex: `PostProviderInterface`).
     *   *Règle :* On définit ce dont on a besoin fonctionnellement (save, find, delete).
-3.  **Interface de Use Case (`UseCaseInterface/`)** : Définir le contrat du service (ex: `ListPostsInterface`).
+3.  **Interface de Use Case (`UseCaseInterface/`)** : Définir le contrat du service (ex: `Post/ListPostsInterface.php`).
 4.  **Implémentation du Use Case (`UseCase/`)** :
     *   Injecter les interfaces de provider nécessaires en `readonly`.
-    *   Implémenter la logique d'orchestration.
+    *   Implémenter la logique d'orchestration (ex: `Post/ListPosts.php`).
 
 ### 🔴 Phase 2 : Infrastructure (Implémentation Technique)
 *Lieu : `src/Infrastructure` & `templates/`*
 
 1.  **Entité (`Entity/`)** : Créer ou mettre à jour l'entité Doctrine.
-2.  **Persistance / Repository (`Persistence/` ou `Repository/`)** : Implémenter le provider concret (ex: `DoctrinePostProvider`). Il gère la conversion Modèle <-> Entité.
-3.  **Contrôleur (`Controller/`)** :
+2.  **Persistance (`Persistence/`)** : Implémenter le repository concret (ex: `DoctrinePostRepository`). Il implémente une interface de `src/Infrastructure/Repository`.
+3.  **Mapper (`Mapper/`)** : Créer le mapper (ex: `PostMapper`) pour transformer `Model <-> Entity`.
+4.  **Adapter (`Adapter/`)** : Créer l'adapter (ex: `PostAdapter`) qui implémente le `ProviderInterface` du domaine en utilisant le Repository et le Mapper.
+5.  **Contrôleur (`Controller/`)** :
     *   Injecter l'interface du Use Case.
     *   Appeler le Use Case avec le Modèle de domaine.
     *   Retourner une réponse.
-4.  **Vues (`templates/`)** : Créer ou mettre à jour les fichiers Twig.
+6.  **Vues (`templates/`)** : Créer ou mettre à jour les fichiers Twig.
 
 ---
 

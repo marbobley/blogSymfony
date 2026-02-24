@@ -8,13 +8,14 @@ Ce document liste les améliorations techniques et les tâches d'infrastructure 
 
 
 ## Architecture & Domaine
-- [x] **Factories** : Implémenter les factories réelles pour `PostModel` et `TagModel` dans `src/Domain/Factory/`. ✓
+- [x] **Factories / Builders** : Implémenter les builders réels pour `PostModel` et `TagModel` dans `src/Domain/Factory/`. ✓
 - [x] **Validation Domaine** : Renforcer la validation interne des modèles (ex: empêcher un titre vide directement dans le modèle en plus des assertions Symfony). ✓
 - [x] **Initialisation des Modèles** : Initialiser les propriétés typées pour éviter les notices PHPUnit. ✓
 - [ ] **UUID** : Réfléchir à l'utilisation d'UUID générés par le domaine pour éviter la dépendance aux IDs auto-incrémentés de la base de données.
 
 ## Infrastructure
 - [x] **Gestion des Exceptions** : Créer un `ExceptionListener` pour transformer les exceptions du Domaine en réponses HTTP propres (ex: `EntityNotFoundException` -> 404). ✓
+- [x] **Adapters & Mappers** : Mise en place des Adapters (`src/Infrastructure/Adapter`) et Mappers (`src/Infrastructure/Mapper`) pour isoler proprement le Domaine de l'Infrastructure. ✓
 - [ ] **Optimisation SQL** : Vérifier les plans d'exécution pour la récupération des posts avec leurs tags (éviter le problème N+1).
 - [x] **Sécurité : Hachage des mots de passe** : Déplacer le hachage du mot de passe hors du contrôleur. Utiliser une interface de service injectée dans le Use Case `RegisterUser` pour respecter l'architecture hexagonale. ✓
 
