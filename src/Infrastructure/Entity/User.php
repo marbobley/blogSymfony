@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use LogicException;
 use SensitiveParameter;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -16,6 +17,7 @@ use function filter_var;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'user')]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -26,6 +28,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     private string $email;
 
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
     /**
      * @var string[]
      */
@@ -35,20 +42,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private string $password;
 
-    /**
-     * @param string[] $roles
-     * @throws InvalidArgumentException
-     */
-    public function __construct(string $email, #[SensitiveParameter] string $password, array $roles = ['ROLE_USER'])
-    {
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new InvalidArgumentException('L\'adresse email est invalide.');
-        }
-
-        $this->email = $email;
-        $this->password = $password;
-        $this->roles = $roles;
-    }
+    public function __construct() {}
 
     public function getId(): ?int
     {

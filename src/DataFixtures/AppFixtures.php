@@ -4,17 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use App\Infrastructure\Entity\Post;
-use App\Infrastructure\Entity\Tag;
-use App\Infrastructure\Entity\User;
-use DateTimeImmutable;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
-use Exception;
-
-use function array_rand;
-use function rand;
-use function str_repeat;
+use App\Infrastructure\Entity\Post;use App\Infrastructure\Entity\Tag;use App\Infrastructure\Entity\User;use DateTimeImmutable;use Doctrine\Bundle\FixturesBundle\Fixture;use Doctrine\Persistence\ObjectManager;use Exception;use function array_rand;use function rand;use function str_repeat;
 
 class AppFixtures extends Fixture
 {
@@ -23,12 +13,17 @@ class AppFixtures extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
+        $password = '$2y$13$D2lg.iFaKCmwbbbu3hKFhOeAyXgpL05Lp9TsDOSrH4XK57SS7x.z6';
         // --- USERS ---
-        $admin = new User('admin@blog.com', '$2y$13$D2lg.iFaKCmwbbbu3hKFhOeAyXgpL05Lp9TsDOSrH4XK57SS7x.z6'); // En prod, on encoderait le mot de passe
+        $admin = new User(); // En prod, on encoderait le mot de passe
+        $admin->setEmail('admin@blog.com');
+        $admin->setPassword($password);
         $admin->setRoles(['ROLE_ADMIN']);
         $manager->persist($admin);
 
-        $user = new User('user@blog.com', '$2y$13$D2lg.iFaKCmwbbbu3hKFhOeAyXgpL05Lp9TsDOSrH4XK57SS7x.z6');
+        $user = new User();
+        $user->setEmail('user@blog.com');
+        $user->setPassword($password);
         $manager->persist($user);
 
         // --- TAGS ---
