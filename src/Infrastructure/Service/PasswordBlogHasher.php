@@ -24,7 +24,7 @@ readonly class PasswordBlogHasher implements PasswordBlogHasherInterface
      */
     public function hash(string $email, #[SensitiveParameter] string $plainPassword): string
     {
-        $user = new User($email, $plainPassword);
+        $user = new User();
 
         return $this->passwordHasher->hashPassword($user, $plainPassword);
     }
