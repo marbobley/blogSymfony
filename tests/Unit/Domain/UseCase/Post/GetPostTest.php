@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Domain\UseCase\Post;
 
-use App\Domain\Factory\PostModelBuilder;
+use App\Domain\Builder\PostModelBuilder;
 use App\Domain\Provider\PostProviderInterface;
 use App\Domain\UseCase\Post\GetPost;
 use PHPUnit\Framework\TestCase;

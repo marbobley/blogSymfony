@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Domain\UseCase\Tag;
 
-use App\Domain\Factory\TagModelBuilder;
+use App\Domain\Builder\TagModelBuilder;
 use App\Domain\Provider\TagProviderInterface;
 use App\Domain\UseCase\Tag\CreateTag;
 use PHPUnit\Framework\TestCase;

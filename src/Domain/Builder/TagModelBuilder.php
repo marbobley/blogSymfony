@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Factory;
+namespace App\Domain\Builder;
 
 use App\Domain\Model\TagModel;
 use InvalidArgumentException;
