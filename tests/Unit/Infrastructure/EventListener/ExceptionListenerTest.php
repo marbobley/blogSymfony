@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 #[AllowMockObjectsWithoutExpectations]
 class ExceptionListenerTest extends TestCase
@@ -51,6 +54,11 @@ class ExceptionListenerTest extends TestCase
         $this->assertStringContainsString('application/json', $response->headers->get('Content-Type'));
     }
 
+    /**
+     * @throws SyntaxError
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
     public function testOnKernelExceptionReturnsHtmlResponse(): void
     {
         $exception = EntityNotFoundException::forEntity('Post', 1);

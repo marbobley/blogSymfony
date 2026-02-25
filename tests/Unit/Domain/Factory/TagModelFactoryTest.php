@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Domain\Factory;
 
-use App\Domain\Factory\TagModelBuilder;
+use App\Domain\Builder\TagModelBuilder;
 use App\Tests\Helper\XmlTagDataTrait;
 use PHPUnit\Framework\TestCase;
 

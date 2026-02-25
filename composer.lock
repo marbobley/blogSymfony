@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37510bced43a865b8140b0ec584627c8",
+    "content-hash": "31e0972333d12e47e6679aec03246768",
     "packages": [
         {
             "name": "composer/semver",
@@ -9856,39 +9856,33 @@
     "packages-dev": [
         {
             "name": "carthage-software/mago",
-            "version": "1.9.1",
+            "version": "1.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/carthage-software/mago.git",
-                "reference": "b50e6aa3e4e6abe144101720deddbf456cb7e0a1"
+                "reference": "6d58710c4b1d230fac1c645d51877d84df56c39b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/carthage-software/mago/zipball/b50e6aa3e4e6abe144101720deddbf456cb7e0a1",
-                "reference": "b50e6aa3e4e6abe144101720deddbf456cb7e0a1",
+                "url": "https://api.github.com/repos/carthage-software/mago/zipball/6d58710c4b1d230fac1c645d51877d84df56c39b",
+                "reference": "6d58710c4b1d230fac1c645d51877d84df56c39b",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^2.6",
                 "php": "~8.1 || ~8.2 || ~8.3 || ~8.4 || ~8.5 || ~8.6"
             },
-            "require-dev": {
-                "composer/composer": "^2.8"
+            "suggest": {
+                "ext-curl": "To show binary download progress"
             },
             "bin": [
                 "composer/bin/mago"
             ],
-            "type": "composer-plugin",
-            "extra": {
-                "class": "Mago\\MagoPlugin"
-            },
+            "type": "library",
             "autoload": {
                 "files": [
-                    "composer/functions.php"
-                ],
-                "psr-4": {
-                    "Mago\\": "composer/"
-                }
+                    "composer/functions.php",
+                    "composer/internal.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -9906,7 +9900,7 @@
             ],
             "support": {
                 "issues": "https://github.com/carthage-software/mago/issues",
-                "source": "https://github.com/carthage-software/mago/tree/1.9.1"
+                "source": "https://github.com/carthage-software/mago/tree/1.12.1"
             },
             "funding": [
                 {
@@ -9914,7 +9908,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-02-18T03:12:50+00:00"
+            "time": "2026-02-25T17:01:52+00:00"
         },
         {
             "name": "doctrine/data-fixtures",

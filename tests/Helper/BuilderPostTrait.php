@@ -2,7 +2,7 @@
 
 namespace App\Tests\Helper;
 
-use App\Domain\Factory\PostModelBuilder;
+use App\Domain\Builder\PostModelBuilder;
 use App\Domain\Model\PostModel;
 
 trait BuilderPostTrait

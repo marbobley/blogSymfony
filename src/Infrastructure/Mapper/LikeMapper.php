@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Mapper;
 
+use App\Domain\Builder\LikeModelBuilder;
 use App\Domain\Model\LikeModel;
 use App\Infrastructure\Entity\Post;
 use App\Infrastructure\Entity\PostLike;
@@ -49,12 +50,12 @@ readonly class LikeMapper implements LikeMapperInterface
 
     public function toModel(PostLike $entity): LikeModel
     {
-        $model = new LikeModel();
-        $model->setId($entity->getId());
-        $model->setPostId($entity->getPost()->getId());
-        $model->setUserId($entity->getUser()->getId());
-        $model->setCreatedAt($entity->getCreatedAt());
-
-        return $model;
+        $likeBuilder = new LikeModelBuilder();
+        return $likeBuilder
+            ->setId($entity->getId())
+            ->setIdPost($entity->getPost()->getId())
+            ->setUserId($entity->getUser()->getId())
+            ->setCreatedAt($entity->getCreatedAt())
+            ->build();
     }
 }

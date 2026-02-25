@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Mapper;
 
-use App\Domain\Factory\TagModelBuilder;
+use App\Domain\Builder\TagModelBuilder;
 use App\Domain\Model\TagModel;
 use App\Infrastructure\Entity\Tag;
 use App\Infrastructure\MapperInterface\TagMapperInterface;

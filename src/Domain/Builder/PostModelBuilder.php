@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Factory;
+namespace App\Domain\Builder;
 
 use App\Domain\Enum\StatutArticle;
 use App\Domain\Model\PostModel;
