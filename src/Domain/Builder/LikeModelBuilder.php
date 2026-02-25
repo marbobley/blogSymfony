@@ -22,20 +22,20 @@ class LikeModelBuilder
         return $this;
     }
 
-    public function setIdPost(?int $idPost) : LikeModelBuilder
+    public function setIdPost(?int $idPost): LikeModelBuilder
     {
         $this->model->setPostId($idPost);
         return $this;
     }
 
-    public function setUserId(?int $userId) : LikeModelBuilder
+    public function setUserId(?int $userId): LikeModelBuilder
     {
         $this->model->setUserId($userId);
         return $this;
     }
 
-    public function setCreatedAt(?DateTimeImmutable $createdAt) : LikeModelBuilder{
-
+    public function setCreatedAt(?DateTimeImmutable $createdAt): LikeModelBuilder
+    {
         $this->model->setCreatedAt($createdAt);
         return $this;
     }
