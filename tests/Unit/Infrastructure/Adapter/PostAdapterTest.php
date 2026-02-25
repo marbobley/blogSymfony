@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Infrastructure\Adapter;
 
 use App\Domain\Criteria\PostCriteria;
+use App\Domain\Exception\EntityNotFoundException;
 use App\Infrastructure\Adapter\PostAdapter;
 use App\Infrastructure\Entity\Post;
 use App\Infrastructure\MapperInterface\PostMapperInterface;
@@ -103,6 +104,20 @@ class PostAdapterTest extends TestCase
         $this->assertSame($postModel, $result);
     }
 
+    public function testFindByIdThrowsExceptionWhenNotFound(): void
+    {
+        $id = 1;
+        $this->postRepository->expects($this->once())
+            ->method('findById')
+            ->with($id)
+            ->willReturn(null);
+
+        $this->expectException(EntityNotFoundException::class);
+        $this->expectExceptionMessage('Post avec l\'identifiant "1" non trouvé(e).');
+
+        $this->adapter->findById($id);
+    }
+
     public function testFindBySlug(): void
     {
         $slug = 'test-slug';
@@ -122,6 +137,20 @@ class PostAdapterTest extends TestCase
         $result = $this->adapter->findBySlug($slug);
 
         $this->assertSame($postModel, $result);
+    }
+
+    public function testFindBySlugThrowsExceptionWhenNotFound(): void
+    {
+        $slug = 'test-slug';
+        $this->postRepository->expects($this->once())
+            ->method('findBySlug')
+            ->with($slug)
+            ->willReturn(null);
+
+        $this->expectException(EntityNotFoundException::class);
+        $this->expectExceptionMessage('Post avec l\'identifiant "test-slug" non trouvé(e).');
+
+        $this->adapter->findBySlug($slug);
     }
 
     public function testFindByCriteria(): void
@@ -205,5 +234,21 @@ class PostAdapterTest extends TestCase
         $result = $this->adapter->update($id, $postModel);
 
         $this->assertSame($postModel, $result);
+    }
+
+    public function testUpdateThrowsExceptionWhenNotFound(): void
+    {
+        $id = 1;
+        $postModel = $this->createPostModel();
+
+        $this->postRepository->expects($this->once())
+            ->method('findById')
+            ->with($id)
+            ->willReturn(null);
+
+        $this->expectException(EntityNotFoundException::class);
+        $this->expectExceptionMessage('Post avec l\'identifiant "1" non trouvé(e).');
+
+        $this->adapter->update($id, $postModel);
     }
 }
