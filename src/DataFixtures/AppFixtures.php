@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Domain\Service\PasswordBlogHasherInterface;
+use App\Factory\PostFactory;
+use App\Factory\TagFactory;
+use App\Factory\UserFactory;
 use App\Infrastructure\Entity\Post;
-use App\Infrastructure\Entity\PostLike;
 use App\Infrastructure\Entity\Tag;
 use App\Infrastructure\Entity\User;
 use DateTimeImmutable;
@@ -30,35 +32,18 @@ class AppFixtures extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
-        $admin = $this->generateUser('admin@blog.com', ['ROLE_ADMIN']);
+        UserFactory::new(['email' => 'admin@blog.com','roles' => ['ROLE_ADMIN']])->setPassword('password')->create();
 
-        $user1 = $this->generateUser('user1@blog.com', ['ROLE_USER']);
-        $user2 = $this->generateUser('user2@blog.com', ['ROLE_USER']);
-        $user3 = $this->generateUser('user3@blog.com', ['ROLE_USER']);
-        $user4 = $this->generateUser('user4@blog.com', ['ROLE_USER']);
-        $user5 = $this->generateUser('user5@blog.com', ['ROLE_USER']);
-        $user6 = $this->generateUser('user6@blog.com', ['ROLE_USER']);
-        $user7 = $this->generateUser('user7@blog.com', ['ROLE_USER']);
-        $manager->persist($admin);
-        $manager->persist($user1);
-        $manager->persist($user2);
-        $manager->persist($user3);
-        $manager->persist($user4);
-        $manager->persist($user5);
-        $manager->persist($user6);
-        $manager->persist($user7);
+        TagFactory::createMany(20);
 
-        // --- TAGS ---
-        $tags = $this->generateTags($manager);
+        PostFactory::new()
+            ->many(10) // create 5 posts
+            ->create(function() { // note the callback - this ensures that each of the 5 posts has a different random set
+                return ['tags' => TagFactory::randomSet(2)]; // each post uses 2 random tags from those already in the database
+            })
+        ;
 
-        // --- POSTS ---
-        $posts = $this->generatePosts($tags, $manager);
-
-        $like = new PostLike();
-        $like->setPost($posts[0]);
-        $like->setUser($user1);
-        $like->setCreatedAt(new DateTimeImmutable());
-        $manager->persist($like);
+        UserFactory::createMany(20);
 
         $manager->flush();
     }
