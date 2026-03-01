@@ -26,4 +26,5 @@ return [
     Sonata\Doctrine\Bridge\Symfony\SonataDoctrineBundle::class => ['all' => true],
     Sonata\MediaBundle\SonataMediaBundle::class => ['all' => true],
     SymfonyCasts\Bundle\VerifyEmail\SymfonyCastsVerifyEmailBundle::class => ['all' => true],
+    Zenstruck\Foundry\ZenstruckFoundryBundle::class => ['dev' => true, 'test' => true],
 ];
