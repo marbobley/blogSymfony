@@ -1,14 +1,14 @@
 <?php
+declare(strict_types=1);
+namespace App\Tests\Factory;
 
-namespace App\Factory;
-
-use App\Infrastructure\Entity\Tag;
+use App\Infrastructure\Entity\PostLike;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<Tag>
+ * @extends PersistentProxyObjectFactory<PostLike>
  */
-final class TagFactory extends PersistentProxyObjectFactory
+final class PostLikeFactory extends PersistentProxyObjectFactory
 {
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
@@ -22,7 +22,7 @@ final class TagFactory extends PersistentProxyObjectFactory
     #[\Override]
     public static function class(): string
     {
-        return Tag::class;
+        return PostLike::class;
     }
 
     /**
@@ -34,8 +34,9 @@ final class TagFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'name' => self::faker()->text(30),
-            'slug' => self::faker()->slug(3),
+            'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
+            'post' => PostFactory::new(),
+            'user' => UserFactory::new(),
         ];
     }
 
@@ -46,7 +47,7 @@ final class TagFactory extends PersistentProxyObjectFactory
     protected function initialize(): static
     {
         return $this
-            // ->afterInstantiate(function(Tag $tag): void {})
+            // ->afterInstantiate(function(PostLike $postLike): void {})
         ;
     }
 }

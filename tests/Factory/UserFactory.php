@@ -1,42 +1,41 @@
 <?php
+declare(strict_types=1);
+namespace App\Tests\Factory;
 
-namespace App\Factory;
-
-use App\Infrastructure\Entity\PostLike;
+use App\Domain\Service\PasswordBlogHasherInterface;
+use App\Infrastructure\Entity\User;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<PostLike>
+ * @extends PersistentProxyObjectFactory<User>
  */
-final class PostLikeFactory extends PersistentProxyObjectFactory
+final class UserFactory extends PersistentProxyObjectFactory
 {
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
      *
-     * @todo inject services if required
      */
-    public function __construct()
+    public function __construct(private readonly PasswordBlogHasherInterface $passwordBlogHasher)
     {
     }
 
     #[\Override]
     public static function class(): string
     {
-        return PostLike::class;
+        return User::class;
     }
 
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories
      *
-     * @todo add your default values here
      */
     #[\Override]
     protected function defaults(): array|callable
     {
         return [
-            'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
-            'post' => PostFactory::new(),
-            'user' => UserFactory::new(),
+            'email' => self::faker()->email(),
+            'password' => self::faker()->password(),
+            'roles' => [],
         ];
     }
 
@@ -47,7 +46,12 @@ final class PostLikeFactory extends PersistentProxyObjectFactory
     protected function initialize(): static
     {
         return $this
-            // ->afterInstantiate(function(PostLike $postLike): void {})
+            // ->afterInstantiate(function(User $user): void {})
         ;
     }
+
+    public function setPassword(string $plainPassword): self {
+        return $this->with(['password' => $this->passwordBlogHasher->hash('', $plainPassword)]);
+    }
+
 }

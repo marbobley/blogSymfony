@@ -1,14 +1,14 @@
 <?php
+declare(strict_types=1);
+namespace App\Tests\Factory\SonataMedia;
 
-namespace App\Factory\SonataMedia;
-
-use App\Infrastructure\Entity\SonataMedia\GalleryItem;
+use App\Infrastructure\Entity\SonataMedia\Media;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<GalleryItem>
+ * @extends PersistentProxyObjectFactory<Media>
  */
-final class GalleryItemFactory extends PersistentProxyObjectFactory
+final class MediaFactory extends PersistentProxyObjectFactory
 {
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
@@ -22,7 +22,7 @@ final class GalleryItemFactory extends PersistentProxyObjectFactory
     #[\Override]
     public static function class(): string
     {
-        return GalleryItem::class;
+        return Media::class;
     }
 
     /**
@@ -34,9 +34,13 @@ final class GalleryItemFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
+            'cdnIsFlushable' => self::faker()->boolean(),
             'createdAt' => self::faker()->dateTime(),
             'enabled' => self::faker()->boolean(),
-            'position' => self::faker()->randomNumber(),
+            'name' => self::faker()->text(255),
+            'providerName' => self::faker()->text(255),
+            'providerReference' => self::faker()->text(255),
+            'providerStatus' => self::faker()->randomNumber(),
             'updatedAt' => self::faker()->dateTime(),
         ];
     }
@@ -48,7 +52,7 @@ final class GalleryItemFactory extends PersistentProxyObjectFactory
     protected function initialize(): static
     {
         return $this
-            // ->afterInstantiate(function(GalleryItem $galleryItem): void {})
+            // ->afterInstantiate(function(Media $media): void {})
         ;
     }
 }

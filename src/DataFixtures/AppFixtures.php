@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Domain\Service\PasswordBlogHasherInterface;
-use App\Factory\PostFactory;
-use App\Factory\TagFactory;
-use App\Factory\UserFactory;
 use App\Infrastructure\Entity\Post;
 use App\Infrastructure\Entity\Tag;
 use App\Infrastructure\Entity\User;
+use App\Tests\Factory\PostFactory;
+use App\Tests\Factory\TagFactory;
+use App\Tests\Factory\UserFactory;
 use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;

@@ -1,6 +1,6 @@
 <?php
-
-namespace App\Factory;
+declare(strict_types=1);
+namespace App\Tests\Factory;
 
 use App\Infrastructure\Entity\Post;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;

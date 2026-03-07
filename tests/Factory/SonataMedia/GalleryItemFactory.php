@@ -1,41 +1,43 @@
 <?php
+declare(strict_types=1);
+namespace App\Tests\Factory\SonataMedia;
 
-namespace App\Factory;
-
-use App\Domain\Service\PasswordBlogHasherInterface;
-use App\Infrastructure\Entity\User;
+use App\Infrastructure\Entity\SonataMedia\GalleryItem;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<User>
+ * @extends PersistentProxyObjectFactory<GalleryItem>
  */
-final class UserFactory extends PersistentProxyObjectFactory
+final class GalleryItemFactory extends PersistentProxyObjectFactory
 {
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
      *
+     * @todo inject services if required
      */
-    public function __construct(private readonly PasswordBlogHasherInterface $passwordBlogHasher)
+    public function __construct()
     {
     }
 
     #[\Override]
     public static function class(): string
     {
-        return User::class;
+        return GalleryItem::class;
     }
 
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories
      *
+     * @todo add your default values here
      */
     #[\Override]
     protected function defaults(): array|callable
     {
         return [
-            'email' => self::faker()->email(),
-            'password' => self::faker()->password(),
-            'roles' => [],
+            'createdAt' => self::faker()->dateTime(),
+            'enabled' => self::faker()->boolean(),
+            'position' => self::faker()->randomNumber(),
+            'updatedAt' => self::faker()->dateTime(),
         ];
     }
 
@@ -46,12 +48,7 @@ final class UserFactory extends PersistentProxyObjectFactory
     protected function initialize(): static
     {
         return $this
-            // ->afterInstantiate(function(User $user): void {})
+            // ->afterInstantiate(function(GalleryItem $galleryItem): void {})
         ;
     }
-
-    public function setPassword(string $plainPassword): self {
-        return $this->with(['password' => $this->passwordBlogHasher->hash('', $plainPassword)]);
-    }
-
 }

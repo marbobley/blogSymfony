@@ -1,14 +1,14 @@
 <?php
+declare(strict_types=1);
+namespace App\Tests\Factory;
 
-namespace App\Factory\SonataMedia;
-
-use App\Infrastructure\Entity\SonataMedia\Gallery;
+use App\Infrastructure\Entity\Tag;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<Gallery>
+ * @extends PersistentProxyObjectFactory<Tag>
  */
-final class GalleryFactory extends PersistentProxyObjectFactory
+final class TagFactory extends PersistentProxyObjectFactory
 {
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
@@ -22,7 +22,7 @@ final class GalleryFactory extends PersistentProxyObjectFactory
     #[\Override]
     public static function class(): string
     {
-        return Gallery::class;
+        return Tag::class;
     }
 
     /**
@@ -34,12 +34,8 @@ final class GalleryFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'context' => self::faker()->text(64),
-            'createdAt' => self::faker()->dateTime(),
-            'defaultFormat' => self::faker()->text(255),
-            'enabled' => self::faker()->boolean(),
-            'name' => self::faker()->text(255),
-            'updatedAt' => self::faker()->dateTime(),
+            'name' => self::faker()->text(30),
+            'slug' => self::faker()->slug(3),
         ];
     }
 
@@ -50,7 +46,7 @@ final class GalleryFactory extends PersistentProxyObjectFactory
     protected function initialize(): static
     {
         return $this
-            // ->afterInstantiate(function(Gallery $gallery): void {})
+            // ->afterInstantiate(function(Tag $tag): void {})
         ;
     }
 }
