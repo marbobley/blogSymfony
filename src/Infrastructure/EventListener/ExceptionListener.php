@@ -64,10 +64,12 @@ class ExceptionListener
             default => '@Twig/Exception/error.html.twig',
         };
 
-        $event->setResponse(new Response($this->twig->render($template, [
-            'status_code' => $statusCode,
-            'status_text' => Response::$statusTexts[$statusCode] ?? 'Unknown Error',
-            'exception' => $exception,
-        ]), $statusCode));
+        $event->setResponse(
+            new Response($this->twig->render($template, [
+                'status_code' => $statusCode,
+                'status_text' => Response::$statusTexts[$statusCode] ?? 'Unknown Error',
+                'exception' => $exception,
+            ]), $statusCode),
+        );
     }
 }
