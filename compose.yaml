@@ -1,5 +1,24 @@
 version: '3.7'
 services:
+  php:
+   build:
+     context: .
+     dockerfile: Dockerfile
+   volumes:
+     - ./:/app
+     - caddy_data:/data
+     - caddy_config:/config
+   ports:
+     - "8080:80"
+     - "443:443"
+   environment:
+     - APP_ENV=dev
+     - DATABASE_URL=mysql://root:password@database:3306/blogSymfony?serverVersion=8.0.32&charset=utf8mb4
+     - APP_DEBUG=1
+     - SERVER_NAME=localhost:80
+   depends_on:
+     - database
+
   database:
     image: 'mysql:latest'
     environment:
@@ -9,3 +28,8 @@ services:
       - "3307:3306"
     expose:
       - "3306"
+
+
+volumes:
+  caddy_data:
+  caddy_config:
