@@ -89,7 +89,10 @@ final class PostController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request, CreatePostInterface $createPost): Response
     {
-        $form = $this->createForm(PostType::class);
+        $postModel = new PostModel();
+        $postModel->setContent(PostModel::DEFAULT_CONTENT);
+
+        $form = $this->createForm(PostType::class, $postModel);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var PostModel $post */

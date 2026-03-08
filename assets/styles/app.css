@@ -82,3 +82,79 @@ a:focus-visible, button:focus-visible {
 .post-tags-selector .form-check {
     margin-bottom: 0.5rem;
 }
+
+/* Post Form Custom Classes */
+.post-form-card {
+    border: 0 !important;
+    box-shadow: var(--bs-box-shadow-sm) !important;
+}
+
+.post-form-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.post-form-header i {
+    font-size: 3.5rem;
+    color: var(--bs-primary);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.post-form-header h1 {
+    font-weight: 700;
+    font-size: 1.75rem;
+}
+
+.post-form-label {
+    font-weight: 700;
+}
+
+.post-form-title-input {
+    font-size: 1.25rem;
+}
+
+.post-form-sidebar-card {
+    background-color: var(--bs-light) !important;
+    border: 0 !important;
+    margin-bottom: 1.5rem;
+}
+
+.post-form-sidebar-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* Post Content Styles */
+.post-content {
+    line-height: 1.6;
+}
+
+.post-content-header {
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--bs-primary);
+    padding-bottom: 1rem;
+}
+
+.post-content-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--bs-primary);
+}
+
+.post-content-section {
+    margin-bottom: 1.5rem;
+}
+
+.post-content-subtitle {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--bs-secondary);
+}
+
+.post-content-paragraph {
+    margin-bottom: 1rem;
+}
