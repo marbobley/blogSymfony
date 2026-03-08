@@ -147,3 +147,19 @@ a:focus-visible, button:focus-visible {
 .post-content-paragraph {
     margin-bottom: 1rem;
 }
+
+/* Styles pour les insertions HTML dans le contenu */
+.btn-group-sm > .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+}
+
+[data-bs-theme="dark"] .btn-outline-secondary {
+    color: #adb5bd;
+    border-color: #495057;
+}
+
+[data-bs-theme="dark"] .btn-outline-secondary:hover {
+    background-color: #495057;
+    color: #fff;
+}

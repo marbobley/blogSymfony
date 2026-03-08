@@ -29,9 +29,27 @@
                                 {{ form_errors(form.sub_title) }}
                             </div>
 
-                            <div class="mb-3">
-                                {{ form_label(form.content, 'Contenu', {'label_attr': {'class': 'form-label post-form-label'}}) }}
-                                {{ form_widget(form.content, {'attr': {'class': 'form-control', 'rows': 20, 'placeholder': 'Rédigez votre article ici...'}}) }}
+                            <div class="mb-3" data-controller="html-insert">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    {{ form_label(form.content, 'Contenu', {'label_attr': {'class': 'form-label post-form-label mb-0'}}) }}
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <button type="button" class="btn btn-outline-secondary" data-action="click->html-insert#insertImage" title="Insérer une image">
+                                            <i class="bi bi-image"></i> Image
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary" data-action="click->html-insert#insertVideo" title="Insérer une vidéo">
+                                            <i class="bi bi-play-btn"></i> Vidéo
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary" data-action="click->html-insert#insertBlockquote" title="Insérer une citation">
+                                            <i class="bi bi-quote"></i> Citation
+                                        </button>
+                                    </div>
+                                </div>
+                                {{ form_widget(form.content, {'attr': {
+                                    'class': 'form-control',
+                                    'rows': 20,
+                                    'placeholder': 'Rédigez votre article ici...',
+                                    'data-html-insert-target': 'textarea'
+                                }}) }}
                                 {{ form_errors(form.content) }}
                             </div>
                         </div>
