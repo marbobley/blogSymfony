@@ -9,3 +9,42 @@ services:
       - "3307:3306"
     expose:
       - "3306"
+  php:
+    depends_on:
+      - database
+    build:
+      target: server_base
+      context: .
+    volumes:
+      - ./:/app
+    environment:
+      DATABASE_URL: mysql://root:password@database:3306/blogSymfony?serverVersion=latest&charset=utf8mb4
+      SERVER_NAME: localhost:443
+      FRANKENPHP_WORKER_CONFIG: watch
+      # See https://xdebug.org/docs/all_settings#mode
+      XDEBUG_MODE: "${XDEBUG_MODE:-off}"
+      APP_ENV: dev
+
+    ports:
+      - name: http
+        target: 81
+        published: ${HTTP_PORT:-81}
+        protocol: tcp
+      - name: https
+        target: 443
+        published: ${HTTPS_PORT:-443}
+        protocol: tcp
+      - name: http3
+        target: 443
+        published: ${HTTP3_PORT:-443}
+        protocol: udp
+    extra_hosts:
+      # Ensure that host.docker.internal is correctly defined on Linux
+      - host.docker.internal:host-gateway
+    tty: true
+  ###> symfony/mercure-bundle ###
+
+
+volumes:
+  caddy_data:
+  caddy_config:
