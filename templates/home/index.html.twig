@@ -23,6 +23,5 @@
         title="Dernières Publications"
         :showAllPath="path('app_post_index')"
     />
-
     <twig:PostGrid :posts="posts|sort((a, b) => b.createdAt <=> a.createdAt)|slice(0, 3)" />
 {% endblock %}

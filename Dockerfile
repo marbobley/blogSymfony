@@ -12,15 +12,19 @@ RUN set -eux; \
 		file \
 		git \
 	; \
-	rm -rf /var/lib/apt/lists/*; \
+	\
+	mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"; \
+	\
 	install-php-extensions \
 		@composer \
 		apcu \
 		intl \
 		opcache \
 		zip \
-        mysql \
-	;
+        pdo_mysql \
+        mysqli \
+        gd \
+    	;
 
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
@@ -32,7 +36,13 @@ ENV FRANKENPHP_WORKER_CONFIG=watch
 RUN set -eux; \
 	install-php-extensions \
 		xdebug \
-	;
+	; \
+	\
+	{ \
+		echo 'opcache.validate_timestamps=1'; \
+		echo 'opcache.revalidate_freq=0'; \
+		echo 'memory_limit=512M'; \
+	} > "$PHP_INI_DIR/conf.d/dev.ini";
 
 
 CMD [ "frankenphp", "run", "--config", "/etc/frankenphp/Caddyfile", "--watch" ]
