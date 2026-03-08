@@ -20,6 +20,22 @@ class PostModel extends BaseModelAbstract
     private string $subTitle = '';
     #[Assert\NotBlank]
     private string $content = '';
+
+    public const DEFAULT_CONTENT = <<<HTML
+        <article class="post-content">
+            <header class="post-content-header">
+                <h1 class="post-content-title">Titre de l'article</h1>
+            </header>
+            <section class="post-content-section">
+                <p class="post-content-paragraph">Introduction ou premier paragraphe de l'article...</p>
+            </section>
+            <section class="post-content-section">
+                <h2 class="post-content-subtitle">Sous-titre de section</h2>
+                <p class="post-content-paragraph">Contenu de la section...</p>
+            </section>
+        </article>
+        HTML;
+
     private string $slug = '';
     private ?DateTimeImmutable $createdAt = null;
     private ?DateTimeImmutable $updatedAt = null;
