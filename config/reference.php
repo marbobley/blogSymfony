@@ -1917,7 +1917,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             port?: scalar|Param|null, // Default: 21
  *             passive?: scalar|Param|null, // Default: false
  *             create?: scalar|Param|null, // Default: false
- *             mode?: scalar|Param|null, // Default: 2
+ *             mode?: scalar|Param|null, // Default: false
  *         },
  *         s3?: array{
  *             directory?: scalar|Param|null, // Default: ""
